@@ -1,0 +1,11 @@
+import { Quiz } from "./quiz";
+
+export type Lesson = {
+  order: number;
+  content?: string;
+  quiz?: Quiz;
+  videoSource?: "Youtube";
+  title: string;
+  sectionId: number;
+  contentType: "Video" | "Text" | "File" | "Quiz";
+};
