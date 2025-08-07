@@ -1,5 +1,6 @@
 import { Quiz } from "@/types/quiz";
 import { Section } from "@/types/section";
+import { SectionGroup } from "@/types/sectionGroup";
 import { arrayMove } from "@dnd-kit/sortable";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
@@ -10,7 +11,7 @@ type CourseStates = {
   title: string;
   category: string;
   description: string;
-  sections: Section[];
+  sectionGroups: SectionGroup[];
 };
 
 const initialState: CourseStates = {
@@ -18,7 +19,7 @@ const initialState: CourseStates = {
   title: "",
   category: "",
   description: "",
-  sections: [],
+  sectionGroups: [],
 };
 
 export const CourseSlice = createSlice({
@@ -34,39 +35,108 @@ export const CourseSlice = createSlice({
     setCategory: (state, action: PayloadAction<string>) => {
       state.category = action.payload;
     },
-    loadFromLocalStorage: (state) => {
-      const sections = localStorage.getItem("sections");
-      const title = localStorage.getItem("title");
-      const category = localStorage.getItem("category");
-      const description = localStorage.getItem("description");
-      const steps = localStorage.getItem("steps");
-      if (sections) state.sections = JSON.parse(sections);
-      if (title) state.title = title;
-      if (description) state.description = description;
-      if (steps) state.steps = JSON.parse(steps);
-      if (category) state.category = category;
-    },
-    addSection: (state, action: PayloadAction<Omit<Section, "order">>) => {
+    createSectionGroup: (state) => {
       const maxOrder =
-        state.sections.length > 0
-          ? Math.max(...state.sections.map((section) => section.order))
+        state.sectionGroups.length > 0
+          ? Math.max(
+              ...state.sectionGroups.map((sectionGroup) => sectionGroup.order)
+            )
           : 0;
-      const section = { ...action.payload, order: maxOrder + 1 };
-      state.sections.push(section);
+      state.sectionGroups.push({
+        title: `SectionGroup ${maxOrder + 1}`,
+        sections: [],
+        order: maxOrder + 1,
+      });
     },
-    shiftSections: (
+    shiftSectionGroup: (
       state,
       action: PayloadAction<{ newIndex: number; oldIndex: number }>
     ) => {
-      state.sections = arrayMove(
-        state.sections,
+      state.sectionGroups = arrayMove(
+        state.sectionGroups,
         action.payload.oldIndex,
         action.payload.newIndex
       );
     },
-    deleteSection: (state, action: PayloadAction<number>) => {
-      state.sections = state.sections.filter(
-        (section) => section.order !== action.payload
+    deleteSectionGroup: (state, action: PayloadAction<number>) => {
+      state.sectionGroups = state.sectionGroups.filter(
+        (sectionGroup) => sectionGroup.order !== action.payload
+      );
+    },
+    loadFromLocalStorage: (state) => {
+      const sectionGroups = localStorage.getItem("sectionGroups");
+      const title = localStorage.getItem("title");
+      const category = localStorage.getItem("category");
+      const description = localStorage.getItem("description");
+      if (sectionGroups) {
+        state.sectionGroups = JSON.parse(sectionGroups);
+      }
+
+      if (title) {
+        state.title = title;
+      }
+
+      if (category) {
+        state.category = category;
+      }
+
+      if (description) {
+        state.description = description;
+      }
+    },
+    addSectionToSectionGroup: (
+      state,
+      action: PayloadAction<{
+        sectionGroupOrder: number;
+      }>
+    ) => {
+      const sectionGroup = state.sectionGroups.find(
+        (sectionGroup) =>
+          sectionGroup.order === action.payload.sectionGroupOrder
+      );
+      if (!sectionGroup) return;
+      const maxOrder =
+        sectionGroup.sections.length > 0
+          ? Math.max(...sectionGroup.sections.map((section) => section.order))
+          : 0;
+      const section: Section = {
+        title: `Section ${maxOrder + 1}`,
+        order: maxOrder + 1,
+        lessons: [],
+        sectionGroupId: action.payload.sectionGroupOrder,
+      };
+      sectionGroup.sections.push(section);
+    },
+    shiftSection: (
+      state,
+      action: PayloadAction<{
+        sectionGroupOrder: number;
+        newIndex: number;
+        oldIndex: number;
+      }>
+    ) => {
+      const sectionGroup = state.sectionGroups.find(
+        (sectionGroup) =>
+          sectionGroup.order === action.payload.sectionGroupOrder
+      );
+      if (!sectionGroup) return;
+      sectionGroup.sections = arrayMove(
+        sectionGroup.sections,
+        action.payload.oldIndex,
+        action.payload.newIndex
+      );
+    },
+    deleteSection: (
+      state,
+      action: PayloadAction<{ sectionGroupOrder: number; sectionOrder: number }>
+    ) => {
+      const sectionGroup = state.sectionGroups.find(
+        (sectionGroup) =>
+          sectionGroup.order === action.payload.sectionGroupOrder
+      );
+      if (!sectionGroup) return;
+      sectionGroup.sections = sectionGroup.sections.filter(
+        (section) => section.order !== action.payload.sectionOrder
       );
     },
     setSteps: (
@@ -77,23 +147,39 @@ export const CourseSlice = createSlice({
     },
     editSection: (
       state,
-      action: PayloadAction<{ order: number; title: string }>
+      action: PayloadAction<{
+        sectionGroupOrder: number;
+        order: number;
+        title: string;
+      }>
     ) => {
-      const section = state.sections.find(
+      const sectionGroup = state.sectionGroups.find(
+        (sectionGroup) =>
+          sectionGroup.order === action.payload.sectionGroupOrder
+      );
+      if (!sectionGroup) return;
+      const section = sectionGroup.sections.find(
         (section) => section.order === action.payload.order
       );
-      if (section) section.title = action.payload.title;
+      if (!section) return;
+      section.title = action.payload.title;
     },
     shiftLessons: (
       state,
       action: PayloadAction<{
+        sectionGroupOrder: number;
         sectionOrder: number;
         newIndex: number;
         oldIndex: number;
       }>
     ) => {
-      const section = state.sections.find(
-        (s) => s.order === action.payload.sectionOrder
+      const sectionGroup = state.sectionGroups.find(
+        (sectionGroup) =>
+          sectionGroup.order === action.payload.sectionGroupOrder
+      );
+      if (!sectionGroup) return;
+      const section = sectionGroup.sections.find(
+        (section) => section.order === action.payload.sectionOrder
       );
       if (section) {
         section.lessons = arrayMove(
@@ -106,13 +192,19 @@ export const CourseSlice = createSlice({
     editQuiz: (
       state,
       action: PayloadAction<{
+        sectionGroupOrder: number;
         sectionOrder: number;
         content: Quiz;
         lessonId: number;
         title: string;
       }>
     ) => {
-      const section = state.sections.find(
+      const sectionGroup = state.sectionGroups.find(
+        (sectionGroup) =>
+          sectionGroup.order === action.payload.sectionGroupOrder
+      );
+      if (!sectionGroup) return;
+      const section = sectionGroup.sections.find(
         (section) => section.order === action.payload.sectionOrder
       );
       if (section) {
@@ -129,12 +221,18 @@ export const CourseSlice = createSlice({
     addQuizToSection: (
       state,
       action: PayloadAction<{
+        sectionGroupOrder: number;
         sectionOrder: number;
         content: Quiz;
         title: string;
       }>
     ) => {
-      const section = state.sections.find(
+      const sectionGroup = state.sectionGroups.find(
+        (sectionGroup) =>
+          sectionGroup.order === action.payload.sectionGroupOrder
+      );
+      if (!sectionGroup) return;
+      const section = sectionGroup.sections.find(
         (section) => section.order === action.payload.sectionOrder
       );
       if (section) {
@@ -144,6 +242,7 @@ export const CourseSlice = createSlice({
             : 0;
 
         section.lessons.push({
+          sectionGroupId: action.payload.sectionGroupOrder,
           order: maxOrder + 1,
           sectionId: action.payload.sectionOrder,
           contentType: "Quiz",
@@ -154,9 +253,18 @@ export const CourseSlice = createSlice({
     },
     deleteLesson: (
       state,
-      action: PayloadAction<{ sectionOrder: number; lessonId: number }>
+      action: PayloadAction<{
+        sectionGroupOrder: number;
+        sectionOrder: number;
+        lessonId: number;
+      }>
     ) => {
-      const section = state.sections.find(
+      const sectionGroup = state.sectionGroups.find(
+        (sectionGroup) =>
+          sectionGroup.order === action.payload.sectionGroupOrder
+      );
+      if (!sectionGroup) return;
+      const section = sectionGroup.sections.find(
         (section) => section.order === action.payload.sectionOrder
       );
       if (section) {
@@ -168,6 +276,7 @@ export const CourseSlice = createSlice({
     editLesson: (
       state,
       action: PayloadAction<{
+        sectionGroupOrder: number;
         sectionOrder: number;
         lessonOrder: string;
         title: string;
@@ -176,7 +285,12 @@ export const CourseSlice = createSlice({
         videoSource?: "Youtube";
       }>
     ) => {
-      const section = state.sections.find(
+      const sectionGroup = state.sectionGroups.find(
+        (sectionGroup) =>
+          sectionGroup.order === action.payload.sectionGroupOrder
+      );
+      if (!sectionGroup) return;
+      const section = sectionGroup.sections.find(
         (section) => section.order === action.payload.sectionOrder
       );
       if (section) {
@@ -194,6 +308,7 @@ export const CourseSlice = createSlice({
     addLessonToSection: (
       state,
       action: PayloadAction<{
+        sectionGroupOrder: number;
         sectionOrder: number;
         content: string;
         contentType: ContentType;
@@ -201,7 +316,12 @@ export const CourseSlice = createSlice({
         title: string;
       }>
     ) => {
-      const section = state.sections.find(
+      const sectionGroup = state.sectionGroups.find(
+        (sectionGroup) =>
+          sectionGroup.order === action.payload.sectionGroupOrder
+      );
+      if (!sectionGroup) return;
+      const section = sectionGroup.sections.find(
         (section) => section.order === action.payload.sectionOrder
       );
       if (section) {
@@ -211,6 +331,7 @@ export const CourseSlice = createSlice({
             : 0;
 
         section.lessons.push({
+          sectionGroupId: action.payload.sectionGroupOrder,
           order: maxOrder + 1,
           videoSource: action.payload.videoSource,
           sectionId: action.payload.sectionOrder,
@@ -224,7 +345,7 @@ export const CourseSlice = createSlice({
 });
 
 export const {
-  addSection,
+  addSectionToSectionGroup,
   setTitle,
   setDescription,
   setCategory,
@@ -232,11 +353,14 @@ export const {
   editSection,
   addLessonToSection,
   deleteSection,
-  shiftSections,
+  shiftSection,
+  deleteSectionGroup,
   shiftLessons,
   loadFromLocalStorage,
   addQuizToSection,
   editQuiz,
+  shiftSectionGroup,
+  createSectionGroup,
   editLesson,
   deleteLesson,
 } = CourseSlice.actions;

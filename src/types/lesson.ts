@@ -7,5 +7,6 @@ export type Lesson = {
   videoSource?: "Youtube";
   title: string;
   sectionId: number;
+  sectionGroupId: number;
   contentType: "Video" | "Text" | "File" | "Quiz";
 };

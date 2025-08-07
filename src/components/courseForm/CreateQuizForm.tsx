@@ -3,7 +3,7 @@ import { Answer } from "@/types/answer";
 import { FormEvent, useEffect, useRef, useState } from "react";
 import InputField from "../common/InputField";
 import BlurBackground from "../common/BlurBackground";
-import { useAppDispatch } from "@/lib/hooks";
+import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { addQuizToSection, editQuiz } from "@/lib/slices/CreateCourseSlice";
 import { toast } from "sonner";
 import Answers from "./Answers";
@@ -11,10 +11,10 @@ import { Lesson } from "@/types/lesson";
 type Props = {
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  order: number;
+  sectionOrder: number;
   lesson?: Lesson;
 };
-const CreateQuizForm = ({ isOpen, order, setIsOpen, lesson }: Props) => {
+const CreateQuizForm = ({ isOpen, sectionOrder, setIsOpen, lesson }: Props) => {
   const formRef = useRef<HTMLFormElement>(null);
   const [question, setQuestion] = useState("");
   const [explanation, setExplanation] = useState("");
@@ -47,7 +47,8 @@ const CreateQuizForm = ({ isOpen, order, setIsOpen, lesson }: Props) => {
     if (!lesson?.quiz) {
       dispatch(
         addQuizToSection({
-          sectionOrder: order,
+          sectionGroupOrder: lesson?.sectionGroupId!,
+          sectionOrder,
           content: { question, answers, explanation },
           title,
         })
@@ -55,7 +56,8 @@ const CreateQuizForm = ({ isOpen, order, setIsOpen, lesson }: Props) => {
     } else {
       dispatch(
         editQuiz({
-          sectionOrder: order,
+          sectionGroupOrder: lesson?.sectionGroupId!,
+          sectionOrder,
           content: { question, answers, explanation },
           lessonId: lesson.order,
           title,

@@ -3,7 +3,6 @@ import React, { useEffect, useRef, useState } from "react";
 import InputField from "../common/InputField";
 import { useAppDispatch } from "@/lib/hooks";
 import { editSection } from "@/lib/slices/CreateCourseSlice";
-import { Lesson } from "@/types/lesson";
 import BlurBackground from "../common/BlurBackground";
 import { Section } from "@/types/section";
 
@@ -35,7 +34,13 @@ const RenameSectionForm = ({ isOpen, section, setIsOpen }: Props) => {
   }
   function onSubmit() {
     if (!title && title.length >= 30) return;
-    dispatch(editSection({ title, order: section.order }));
+    dispatch(
+      editSection({
+        sectionGroupOrder: section.sectionGroupId,
+        title,
+        order: section.order,
+      })
+    );
     setIsOpen(false);
   }
   return (

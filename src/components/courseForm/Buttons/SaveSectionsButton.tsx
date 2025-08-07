@@ -3,19 +3,18 @@ import { useAppSelector } from "@/lib/hooks";
 import { IoMdSave } from "react-icons/io";
 import { toast } from "sonner";
 const SaveSectionsButton = () => {
-  const { title, description, steps, sections, category } = useAppSelector(
+  const { title, description, steps, sectionGroups, category } = useAppSelector(
     (state) => state.CreateCourse
   );
 
   function handleSave() {
-    if (sections.length > 0)
-      localStorage.setItem("sections", JSON.stringify(sections));
+    if (sectionGroups.length > 0)
+      localStorage.setItem("sectionGroups", JSON.stringify(sectionGroups));
     if (title) localStorage.setItem("title", title);
     if (description) localStorage.setItem("description", description);
     if (category) localStorage.setItem("category", category);
     localStorage.setItem("steps", JSON.stringify(steps));
-
-    toast.success("All data was saved now, you can relax :)");
+    toast.success("All data was saved now, you can relax now :)");
   }
   return (
     <button

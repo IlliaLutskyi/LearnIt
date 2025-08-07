@@ -40,6 +40,7 @@ const Lessons = ({ lessons }: Props) => {
 
       dispatch(
         shiftLessons({
+          sectionGroupOrder: lessons[0].sectionGroupId,
           newIndex: newIndex,
           oldIndex: oldIndex,
           sectionOrder: lessons[0].sectionId,

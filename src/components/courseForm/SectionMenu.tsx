@@ -24,7 +24,12 @@ const SectionMenu = ({ section }: Props) => {
   const [isCreateQuizOpen, setIsCreateQuizOpen] = useState(false);
   const dispatch = useAppDispatch();
   function handleDeleteSection() {
-    dispatch(deleteSection(section.order));
+    dispatch(
+      deleteSection({
+        sectionGroupOrder: section.sectionGroupId,
+        sectionOrder: section.order,
+      })
+    );
   }
   function handleAddLesson() {
     setIsCreateLessonOpen(true);
@@ -61,7 +66,8 @@ const SectionMenu = ({ section }: Props) => {
       </Menubar>
       <CreateLessonForm
         isOpen={isCreateLessonOpen}
-        order={section.order}
+        sectionOrder={section.order}
+        sectionGroupOrder={section.sectionGroupId}
         setIsOpen={setIsCreateLessonOpen}
       />
       <RenameSectionForm
@@ -71,7 +77,7 @@ const SectionMenu = ({ section }: Props) => {
       />
       <CreateQuizForm
         isOpen={isCreateQuizOpen}
-        order={section.order}
+        sectionOrder={section.order}
         setIsOpen={setIsCreateQuizOpen}
       />
     </>

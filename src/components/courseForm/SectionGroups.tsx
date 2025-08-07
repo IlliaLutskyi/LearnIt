@@ -1,5 +1,6 @@
 "use client";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
+import { shiftSectionGroup } from "@/lib/slices/CreateCourseSlice";
 import {
   DndContext,
   closestCenter,
@@ -15,15 +16,13 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import React from "react";
-import { shiftSection } from "@/lib/slices/CreateCourseSlice";
-import type { Section } from "@/types/section";
-import SectionItem from "./Section";
+import SectionGroup from "./SectionGroup";
 
-type Props = {
-  sections: Section[];
-};
-const Sections = ({ sections }: Props) => {
+const SectionGroups = () => {
   const dispatch = useAppDispatch();
+  const sectionGroups = useAppSelector(
+    (state) => state.CreateCourse.sectionGroups
+  );
   const sensors = useSensors(
     useSensor(PointerSensor),
     useSensor(TouchSensor),
@@ -33,22 +32,13 @@ const Sections = ({ sections }: Props) => {
     const { over, active } = event;
 
     if (over?.id !== active?.id) {
-      const section = sections.find((section) => section.order === active.id);
-      if (!section) return;
-      const oldIndex = sections.findIndex(
+      const oldIndex = sectionGroups.findIndex(
         (section) => section.order === active.id
       );
-      const newIndex = sections.findIndex(
+      const newIndex = sectionGroups.findIndex(
         (section) => section.order === over.id
       );
-
-      dispatch(
-        shiftSection({
-          sectionGroupOrder: section.sectionGroupId,
-          newIndex: newIndex,
-          oldIndex: oldIndex,
-        })
-      );
+      dispatch(shiftSectionGroup({ newIndex, oldIndex }));
     }
   };
   return (
@@ -62,11 +52,17 @@ const Sections = ({ sections }: Props) => {
         id="scrollbar"
       >
         <SortableContext
-          items={sections.map((section) => section.order)}
+          items={sectionGroups.map((sectionGroup) => sectionGroup.order)}
+          key={"sectionGroups"}
           strategy={verticalListSortingStrategy}
         >
-          {sections.map((section) => {
-            return <SectionItem section={section} key={section.order} />;
+          {sectionGroups.map((sectionGroup) => {
+            return (
+              <SectionGroup
+                sectionGroup={sectionGroup}
+                key={sectionGroup.order}
+              />
+            );
           })}
         </SortableContext>
       </div>
@@ -74,4 +70,4 @@ const Sections = ({ sections }: Props) => {
   );
 };
 
-export default Sections;
+export default SectionGroups;

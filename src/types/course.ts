@@ -1,12 +1,10 @@
 import { Category } from "./category";
 import { Section } from "./section";
+import { SectionGroup } from "./sectionGroup";
 
 export type Course = {
-  id: number;
   title: string;
   category: Category;
   description: string;
-  createdAt: Date;
-  sections: Section[];
-  updatedAt: Date;
+  sectionGroups: SectionGroup[];
 };

@@ -1,12 +1,12 @@
 "use client";
 import { useAppDispatch } from "@/lib/hooks";
-import { addSection } from "@/lib/slices/CreateCourseSlice";
+import { createSectionGroup } from "@/lib/slices/CreateCourseSlice";
 import React from "react";
 import { FaPlus } from "react-icons/fa";
 const AddSectionButton = () => {
   const dispatch = useAppDispatch();
   function handleClick() {
-    dispatch(addSection({ lessons: [], title: "Section" }));
+    dispatch(createSectionGroup());
   }
   return (
     <button
@@ -14,7 +14,7 @@ const AddSectionButton = () => {
       onClick={handleClick}
     >
       <FaPlus />
-      <span>Add Section</span>
+      <span>Add SectionGroup</span>
     </button>
   );
 };

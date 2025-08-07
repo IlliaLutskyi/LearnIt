@@ -8,30 +8,41 @@ import {
   MenubarTrigger,
 } from "@/components/ui/menubar";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { HiDotsVertical } from "react-icons/hi";
 import CreateLessonForm from "./CreateLessonForm";
 import RenameSectionForm from "./RenameSectionForm";
 import { Lesson } from "@/types/lesson";
 import CreateQuizForm from "./CreateQuizForm";
 import { deleteLesson } from "@/lib/slices/CreateCourseSlice";
+import { Section } from "@/types/section";
 type Props = {
   lesson: Lesson;
 };
 const LessonMenu = ({ lesson }: Props) => {
   const [isEditLessonOpen, setIsEditLessonOpen] = useState(false);
   const [isRenameSectionOpen, setIsRenameSectionOpen] = useState(false);
-  const sections = useAppSelector((state) => state.CreateCourse.sections);
+  const sectionGroups = useAppSelector(
+    (state) => state.CreateCourse.sectionGroups
+  );
   const [isEditQuizOpen, setIsEditQuizOpen] = useState(false);
   const dispatch = useAppDispatch();
-  function findIdOfSection() {
-    return sections.find((section) => {
-      return section.lessons.find((lesson) => lesson.order === lesson.order);
-    })!.order;
-  }
+  const findSection = useCallback(() => {
+    const sectionGroup = sectionGroups.find(
+      (sectionGroup) => sectionGroup.order === lesson.sectionId
+    );
+    const section = sectionGroup?.sections.find(
+      (section) => section.order === lesson.sectionId
+    );
+    return section as Section;
+  }, [sectionGroups]);
   function handleDeleteLesson() {
     dispatch(
-      deleteLesson({ sectionOrder: lesson.sectionId, lessonId: lesson.order })
+      deleteLesson({
+        sectionGroupOrder: lesson.sectionGroupId,
+        sectionOrder: lesson.sectionId,
+        lessonId: lesson.order,
+      })
     );
   }
   function handleEditLesson() {
@@ -68,18 +79,19 @@ const LessonMenu = ({ lesson }: Props) => {
       </Menubar>
       <CreateLessonForm
         isOpen={isEditLessonOpen}
-        order={findIdOfSection()}
+        sectionOrder={lesson.sectionId}
+        sectionGroupOrder={lesson.sectionGroupId}
         setIsOpen={setIsEditLessonOpen}
         lesson={lesson}
       />
       <RenameSectionForm
         isOpen={isRenameSectionOpen}
-        section={sections.find((section) => section.order === lesson.order)!}
+        section={findSection()}
         setIsOpen={setIsRenameSectionOpen}
       />
       <CreateQuizForm
         isOpen={isEditQuizOpen}
-        order={findIdOfSection()}
+        sectionOrder={lesson.sectionId}
         setIsOpen={setIsEditQuizOpen}
         lesson={lesson}
       />

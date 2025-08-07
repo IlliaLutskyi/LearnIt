@@ -2,14 +2,13 @@
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import AddSectionButton from "./Buttons/AddSectionButton";
 import { setSteps } from "@/lib/slices/CreateCourseSlice";
-import Sections from "./Sections";
 import SaveSectionsButton from "./Buttons/SaveSectionsButton";
-
+import SectionGroups from "./SectionGroups";
 import { toggleConfirmationForm } from "@/lib/slices/ConfirmationFormSlice";
 import ConfirmationForm from "./ConfirmationForm";
 
 const Step2 = () => {
-  const { sections } = useAppSelector((state) => state.CreateCourse);
+  const { sectionGroups } = useAppSelector((state) => state.CreateCourse);
   const isLoading = useAppSelector((state) => state.ConfirmationForm.isLoading);
   const dispatch = useAppDispatch();
 
@@ -30,11 +29,11 @@ const Step2 = () => {
         <AddSectionButton />
       </section>
 
-      {sections.length === 0 && (
-        <h1 className="text-center text-sm">No sections</h1>
+      {sectionGroups.length === 0 && (
+        <h1 className="text-center text-sm">No section group</h1>
       )}
 
-      <Sections />
+      <SectionGroups />
 
       <div className="flex gap-4 justify-between items-center">
         <button

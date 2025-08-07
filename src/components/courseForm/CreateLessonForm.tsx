@@ -9,11 +9,18 @@ import { Lesson } from "@/types/lesson";
 type contentType = "Text" | "Video" | "File" | "Quiz";
 type Props = {
   isOpen: boolean;
-  order: number;
+  sectionOrder: number;
+  sectionGroupOrder: number;
   lesson?: Lesson;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
-const CreateLessonForm = ({ isOpen, order, setIsOpen, lesson }: Props) => {
+const CreateLessonForm = ({
+  isOpen,
+  sectionOrder,
+  sectionGroupOrder,
+  setIsOpen,
+  lesson,
+}: Props) => {
   const dispatch = useAppDispatch();
 
   const [formData, setFormData] = useState<{
@@ -67,7 +74,8 @@ const CreateLessonForm = ({ isOpen, order, setIsOpen, lesson }: Props) => {
     if (!lesson) {
       dispatch(
         addLessonToSection({
-          sectionOrder: order,
+          sectionGroupOrder,
+          sectionOrder,
           content: formData.content,
           contentType: formData.contentType,
           title: formData.title,
@@ -78,9 +86,10 @@ const CreateLessonForm = ({ isOpen, order, setIsOpen, lesson }: Props) => {
       dispatch(
         editLesson({
           content: formData.content,
+          sectionGroupOrder: lesson.sectionGroupId,
           contentType: formData.contentType,
           title: formData.title,
-          sectionOrder: order,
+          sectionOrder,
           lessonOrder: String(lesson.order),
           videoSource: formData.videoSource ? "Youtube" : undefined,
         })
