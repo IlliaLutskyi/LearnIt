@@ -63,6 +63,18 @@ export const CourseSlice = createSlice({
         (sectionGroup) => sectionGroup.order !== action.payload
       );
     },
+    renameSectionGroup: (
+      state,
+      action: PayloadAction<{ sectionGroupOrder: number; title: string }>
+    ) => {
+      const sectionGroup = state.sectionGroups.find(
+        (sectionGroup) =>
+          sectionGroup.order === action.payload.sectionGroupOrder
+      );
+      if (!sectionGroup) return;
+      sectionGroup.title = action.payload.title;
+    },
+
     loadFromLocalStorage: (state) => {
       const sectionGroups = localStorage.getItem("sectionGroups");
       const title = localStorage.getItem("title");
@@ -353,6 +365,7 @@ export const {
   editSection,
   addLessonToSection,
   deleteSection,
+  renameSectionGroup,
   shiftSection,
   deleteSectionGroup,
   shiftLessons,

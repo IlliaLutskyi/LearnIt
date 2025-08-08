@@ -1,21 +1,25 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import InputField from "../common/InputField";
 import { useAppDispatch } from "@/lib/hooks";
-import { editSection } from "@/lib/slices/CreateCourseSlice";
+import {
+  editSection,
+  renameSectionGroup,
+} from "@/lib/slices/CreateCourseSlice";
 import BlurBackground from "../common/BlurBackground";
 import { Section } from "@/types/section";
+import { SectionGroup } from "@/types/sectionGroup";
 
 type Props = {
   isOpen: boolean;
-  section: Section;
+  section?: Section;
+  sectionGroup?: SectionGroup;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
-const RenameSectionForm = ({ isOpen, section, setIsOpen }: Props) => {
+const RenameForm = ({ isOpen, section, sectionGroup, setIsOpen }: Props) => {
   const [title, setTitle] = useState("");
   const dispatch = useAppDispatch();
   const formRef = useRef<HTMLFormElement>(null);
-
   useEffect(() => {
     document.addEventListener("click", handleClickOutside);
     return () => {
@@ -34,13 +38,19 @@ const RenameSectionForm = ({ isOpen, section, setIsOpen }: Props) => {
   }
   function onSubmit() {
     if (!title && title.length >= 30) return;
-    dispatch(
-      editSection({
-        sectionGroupOrder: section.sectionGroupId,
-        title,
-        order: section.order,
-      })
-    );
+    if (section) {
+      dispatch(
+        editSection({
+          sectionGroupOrder: section.sectionGroupId,
+          title,
+          order: section.order,
+        })
+      );
+    } else if (sectionGroup) {
+      dispatch(
+        renameSectionGroup({ title, sectionGroupOrder: sectionGroup.order })
+      );
+    }
     setIsOpen(false);
   }
   return (
@@ -57,7 +67,9 @@ const RenameSectionForm = ({ isOpen, section, setIsOpen }: Props) => {
             <InputField
               label="title"
               onChange={(e) => setTitle(e.target.value)}
-              defaultValue={section.title}
+              defaultValue={
+                section ? section.title : sectionGroup ? sectionGroup.title : ""
+              }
               inputClassName="w-full text-sm focus:ring-1 focus:ring-purple-500 shadow-sm p-2 rounded-md "
             />
             <button
@@ -73,4 +85,4 @@ const RenameSectionForm = ({ isOpen, section, setIsOpen }: Props) => {
   );
 };
 
-export default RenameSectionForm;
+export default RenameForm;

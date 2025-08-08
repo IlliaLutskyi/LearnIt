@@ -9,12 +9,12 @@ import {
 } from "@/components/ui/menubar";
 import { useAppDispatch } from "@/lib/hooks";
 import { deleteSection } from "@/lib/slices/CreateCourseSlice";
-import { useState } from "react";
+import { lazy, memo, Suspense, useState } from "react";
 import { HiDotsVertical } from "react-icons/hi";
-import CreateLessonForm from "./CreateLessonForm";
-import RenameSectionForm from "./RenameSectionForm";
-import CreateQuizForm from "./CreateQuizForm";
 import { Section } from "@/types/section";
+const CreateLessonForm = lazy(() => import("./CreateLessonForm"));
+const CreateQuizForm = lazy(() => import("./CreateQuizForm"));
+const RenameForm = lazy(() => import("./RenameForm"));
 type Props = {
   section: Section;
 };
@@ -64,24 +64,26 @@ const SectionMenu = ({ section }: Props) => {
           </MenubarContent>
         </MenubarMenu>
       </Menubar>
-      <CreateLessonForm
-        isOpen={isCreateLessonOpen}
-        sectionOrder={section.order}
-        sectionGroupOrder={section.sectionGroupId}
-        setIsOpen={setIsCreateLessonOpen}
-      />
-      <RenameSectionForm
-        isOpen={isRenameSectionOpen}
-        section={section}
-        setIsOpen={setIsRenameSectionOpen}
-      />
-      <CreateQuizForm
-        isOpen={isCreateQuizOpen}
-        sectionOrder={section.order}
-        setIsOpen={setIsCreateQuizOpen}
-      />
+      <Suspense>
+        <CreateLessonForm
+          isOpen={isCreateLessonOpen}
+          sectionOrder={section.order}
+          sectionGroupOrder={section.sectionGroupId}
+          setIsOpen={setIsCreateLessonOpen}
+        />
+        <RenameForm
+          isOpen={isRenameSectionOpen}
+          section={section}
+          setIsOpen={setIsRenameSectionOpen}
+        />
+        <CreateQuizForm
+          isOpen={isCreateQuizOpen}
+          sectionOrder={section.order}
+          setIsOpen={setIsCreateQuizOpen}
+        />
+      </Suspense>
     </>
   );
 };
 
-export default SectionMenu;
+export default memo(SectionMenu);

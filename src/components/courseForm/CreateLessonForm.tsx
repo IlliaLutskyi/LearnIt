@@ -22,7 +22,7 @@ const CreateLessonForm = ({
   lesson,
 }: Props) => {
   const dispatch = useAppDispatch();
-
+  console.log("Re-render createLesson happened");
   const [formData, setFormData] = useState<{
     title: string;
     content: string;

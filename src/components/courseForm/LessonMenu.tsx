@@ -8,14 +8,15 @@ import {
   MenubarTrigger,
 } from "@/components/ui/menubar";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-import { useCallback, useState } from "react";
+import { lazy, memo, Suspense, useCallback, useState } from "react";
 import { HiDotsVertical } from "react-icons/hi";
-import CreateLessonForm from "./CreateLessonForm";
-import RenameSectionForm from "./RenameSectionForm";
 import { Lesson } from "@/types/lesson";
-import CreateQuizForm from "./CreateQuizForm";
 import { deleteLesson } from "@/lib/slices/CreateCourseSlice";
 import { Section } from "@/types/section";
+const CreateLessonForm = lazy(() => import("./CreateLessonForm"));
+const RenameForm = lazy(() => import("./RenameForm"));
+const CreateQuizForm = lazy(() => import("./CreateQuizForm"));
+
 type Props = {
   lesson: Lesson;
 };
@@ -77,26 +78,28 @@ const LessonMenu = ({ lesson }: Props) => {
           </MenubarContent>
         </MenubarMenu>
       </Menubar>
-      <CreateLessonForm
-        isOpen={isEditLessonOpen}
-        sectionOrder={lesson.sectionId}
-        sectionGroupOrder={lesson.sectionGroupId}
-        setIsOpen={setIsEditLessonOpen}
-        lesson={lesson}
-      />
-      <RenameSectionForm
-        isOpen={isRenameSectionOpen}
-        section={findSection()}
-        setIsOpen={setIsRenameSectionOpen}
-      />
-      <CreateQuizForm
-        isOpen={isEditQuizOpen}
-        sectionOrder={lesson.sectionId}
-        setIsOpen={setIsEditQuizOpen}
-        lesson={lesson}
-      />
+      <Suspense>
+        <CreateLessonForm
+          isOpen={isEditLessonOpen}
+          sectionOrder={lesson.sectionId}
+          sectionGroupOrder={lesson.sectionGroupId}
+          setIsOpen={setIsEditLessonOpen}
+          lesson={lesson}
+        />
+        <RenameForm
+          isOpen={isRenameSectionOpen}
+          section={findSection()}
+          setIsOpen={setIsRenameSectionOpen}
+        />
+        <CreateQuizForm
+          isOpen={isEditQuizOpen}
+          sectionOrder={lesson.sectionId}
+          setIsOpen={setIsEditQuizOpen}
+          lesson={lesson}
+        />
+      </Suspense>
     </>
   );
 };
 
-export default LessonMenu;
+export default memo(LessonMenu);

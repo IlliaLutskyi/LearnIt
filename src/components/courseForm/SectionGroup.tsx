@@ -10,6 +10,7 @@ import { FaSort } from "react-icons/fa";
 import { type SectionGroup } from "@/types/sectionGroup";
 import Sections from "./Sections";
 import SectionGroupMenu from "./SectionGroupMenu";
+import { memo } from "react";
 type Props = {
   sectionGroup: SectionGroup;
 };
@@ -49,4 +50,4 @@ const SectionGroup = ({ sectionGroup }: Props) => {
   );
 };
 
-export default SectionGroup;
+export default memo(SectionGroup);

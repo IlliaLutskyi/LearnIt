@@ -14,7 +14,7 @@ import {
   sortableKeyboardCoordinates,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
-import React from "react";
+import React, { memo } from "react";
 import { shiftSection } from "@/lib/slices/CreateCourseSlice";
 import type { Section } from "@/types/section";
 import SectionItem from "./Section";
@@ -74,4 +74,4 @@ const Sections = ({ sections }: Props) => {
   );
 };
 
-export default Sections;
+export default memo(Sections);

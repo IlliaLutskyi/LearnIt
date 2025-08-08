@@ -11,6 +11,7 @@ import SectionMenu from "./SectionMenu";
 import { FaSort } from "react-icons/fa";
 import Lessons from "./Lessons";
 import type { Section } from "@/types/section";
+import { memo } from "react";
 type Props = {
   section: Section;
 };
@@ -47,4 +48,4 @@ const Section = ({ section }: Props) => {
   );
 };
 
-export default Section;
+export default memo(Section);

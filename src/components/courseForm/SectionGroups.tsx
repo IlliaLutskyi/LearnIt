@@ -15,7 +15,7 @@ import {
   sortableKeyboardCoordinates,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
-import React from "react";
+import React, { memo } from "react";
 import SectionGroup from "./SectionGroup";
 
 const SectionGroups = () => {
@@ -70,4 +70,4 @@ const SectionGroups = () => {
   );
 };
 
-export default SectionGroups;
+export default memo(SectionGroups);

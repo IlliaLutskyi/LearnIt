@@ -3,7 +3,7 @@ import { Answer } from "@/types/answer";
 import { FormEvent, useEffect, useRef, useState } from "react";
 import InputField from "../common/InputField";
 import BlurBackground from "../common/BlurBackground";
-import { useAppDispatch, useAppSelector } from "@/lib/hooks";
+import { useAppDispatch } from "@/lib/hooks";
 import { addQuizToSection, editQuiz } from "@/lib/slices/CreateCourseSlice";
 import { toast } from "sonner";
 import Answers from "./Answers";
@@ -16,6 +16,7 @@ type Props = {
 };
 const CreateQuizForm = ({ isOpen, sectionOrder, setIsOpen, lesson }: Props) => {
   const formRef = useRef<HTMLFormElement>(null);
+  console.log("Re-render createQuiz happened");
   const [question, setQuestion] = useState("");
   const [explanation, setExplanation] = useState("");
   const [answers, setAnswers] = useState<Answer[]>([]);
