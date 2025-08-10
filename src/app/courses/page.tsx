@@ -3,11 +3,17 @@ import prisma from "@/lib/db";
 
 const Courses = async () => {
   const courses = await prisma.course.findMany({
-    include: { category: true, user: true, sections: false },
+    include: {
+      category: true,
+      user: true,
+    },
   });
   return (
     <div className="flex flex-col gap-4 mx-[3rem] my-[2rem]">
       <h1 className="text-2xl font-bold text-center">All Courses</h1>
+      {courses.length === 0 && (
+        <p className="text-center">No courses exist yet</p>
+      )}
       <section className="grid max-sm:grid-cols-1  max-md:grid-cols-2 grid-cols-3 gap-6">
         {courses.map((course) => (
           <Course course={course} key={course.id} />

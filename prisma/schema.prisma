@@ -21,7 +21,7 @@ model Course{
   id Int @id @default(autoincrement())
   title String @db.Char(100)
   description String @db.Char(500)
-  sections Section[]
+  sectionGroups SectionGroup[]
   categoryId Int
   userId Int
   user User @relation(fields: [userId],references: [id])
@@ -37,13 +37,22 @@ model Category{
   image String 
 }
 
-model Section{
+model SectionGroup{
   id Int @id @default(autoincrement())
-  lessons Lesson[]
-  title String @db.Char(300) 
+  title String @db.Char(100)
+  sections Section[]
   order Int 
   courseId Int
   course Course @relation(fields: [courseId],references: [id])
+}
+
+model Section{
+  id Int @id @default(autoincrement())
+  lessons Lesson[]
+  title String @db.Char(100) 
+  order Int 
+  sectionGroupId Int
+  sectionGroup SectionGroup @relation(fields: [sectionGroupId],references: [id])
 }
 
 model Lesson{

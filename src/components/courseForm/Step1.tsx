@@ -2,25 +2,13 @@
 import {
   setTitle,
   setDescription,
-  setCategory,
   setSteps,
 } from "@/lib/slices/CreateCourseSlice";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import InputField from "../common/InputField";
-import { useQuery } from "@tanstack/react-query";
-import api from "@/lib/axios";
-import { Category } from "@/types/category";
+import CategorySelect from "./CategorySelect";
 const Step1 = () => {
-  const { data: categories } = useQuery<Category[]>({
-    queryKey: ["categories"],
-    queryFn: async () => {
-      const res = await api("/categories");
-      return res.data?.categories;
-    },
-  });
-  const { title, description, category } = useAppSelector(
-    (state) => state.CreateCourse
-  );
+  const { title, description } = useAppSelector((state) => state.CreateCourse);
   const dispatch = useAppDispatch();
   function handleNext() {
     dispatch(setSteps({ step1: false, step2: true }));
@@ -36,25 +24,7 @@ const Step1 = () => {
           onChange={(e) => dispatch(setTitle(e.target.value))}
           inputClassName="shadow-inner text-sm w-full p-2 shadow-md rounded-md outline-none focus:ring-1 focus:ring-purple-500"
         />
-        <div className="flex flex-col gap-1 ">
-          <label htmlFor="categories" className="text-sm">
-            Category
-          </label>
-          <select
-            id="categories"
-            onChange={(e) => dispatch(setCategory(e.target.value))}
-            value={category}
-            className="outline-0 shadow-md text-sm w-full p-2  rounded-md"
-          >
-            {categories?.map((category) => {
-              return (
-                <option value={category.id} key={category.id}>
-                  {category.name}
-                </option>
-              );
-            })}
-          </select>
-        </div>
+        <CategorySelect />
       </section>
       <InputField
         label="description"

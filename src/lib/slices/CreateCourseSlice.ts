@@ -76,24 +76,14 @@ export const CourseSlice = createSlice({
     },
 
     loadFromLocalStorage: (state) => {
-      const sectionGroups = localStorage.getItem("sectionGroups");
-      const title = localStorage.getItem("title");
-      const category = localStorage.getItem("category");
-      const description = localStorage.getItem("description");
-      if (sectionGroups) {
-        state.sectionGroups = JSON.parse(sectionGroups);
-      }
-
-      if (title) {
-        state.title = title;
-      }
-
-      if (category) {
-        state.category = category;
-      }
-
-      if (description) {
-        state.description = description;
+      const course = localStorage.getItem("course")
+        ? JSON.parse(localStorage.getItem("course") as string)
+        : null;
+      if (course) {
+        state.title = course.title;
+        state.category = course.category;
+        state.description = course.description;
+        state.sectionGroups = course.sectionGroups;
       }
     },
     addSectionToSectionGroup: (

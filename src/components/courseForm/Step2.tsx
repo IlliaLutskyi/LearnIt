@@ -2,10 +2,12 @@
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import AddSectionButton from "./Buttons/AddSectionButton";
 import { setSteps } from "@/lib/slices/CreateCourseSlice";
-import SaveSectionsButton from "./Buttons/SaveSectionsButton";
 import SectionGroups from "./SectionGroups";
 import { toggleConfirmationForm } from "@/lib/slices/ConfirmationFormSlice";
-import ConfirmationForm from "./ConfirmationForm";
+import { lazy, Suspense } from "react";
+import Loader from "../common/Loader";
+import SaveOrClearCourseButton from "./Buttons/SaveOrClearCourseButton";
+const ConfirmationForm = lazy(() => import("./ConfirmationForm"));
 
 const Step2 = () => {
   const { sectionGroups } = useAppSelector((state) => state.CreateCourse);
@@ -25,7 +27,7 @@ const Step2 = () => {
     <div className="flex flex-col gap-2 p-4">
       <h1 className="text-lg font-bold self-center">Content creation</h1>
       <section className="flex gap-4 items-center justify-between">
-        <SaveSectionsButton />
+        <SaveOrClearCourseButton />
         <AddSectionButton />
       </section>
 
@@ -50,7 +52,10 @@ const Step2 = () => {
           {isLoading ? "Creating..." : "Create"}
         </button>
       </div>
-      <ConfirmationForm />
+
+      <Suspense>
+        <ConfirmationForm />
+      </Suspense>
     </div>
   );
 };

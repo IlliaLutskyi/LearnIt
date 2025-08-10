@@ -67,9 +67,7 @@ const RenameForm = ({ isOpen, section, sectionGroup, setIsOpen }: Props) => {
             <InputField
               label="title"
               onChange={(e) => setTitle(e.target.value)}
-              defaultValue={
-                section ? section.title : sectionGroup ? sectionGroup.title : ""
-              }
+              defaultValue={section ? section.title : sectionGroup?.title}
               inputClassName="w-full text-sm focus:ring-1 focus:ring-purple-500 shadow-sm p-2 rounded-md "
             />
             <button

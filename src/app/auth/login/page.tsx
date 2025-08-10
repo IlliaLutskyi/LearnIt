@@ -26,11 +26,12 @@ const Login = () => {
   async function onSubmit(data: User) {
     setLoading(true);
     try {
-      await signIn("credentials", {
+      const result = await signIn("credentials", {
         email: data.email,
         redirect: false,
         password: data.password,
       });
+      if (result?.error) return toast.error(result.error, { duration: 5000 });
       toast.success("Login successful", { duration: 5000 });
       router.refresh();
     } catch (err) {

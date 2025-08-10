@@ -144,11 +144,18 @@ exports.Prisma.CategoryScalarFieldEnum = {
   image: 'image'
 };
 
-exports.Prisma.SectionScalarFieldEnum = {
+exports.Prisma.SectionGroupScalarFieldEnum = {
   id: 'id',
   title: 'title',
   order: 'order',
   courseId: 'courseId'
+};
+
+exports.Prisma.SectionScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  order: 'order',
+  sectionGroupId: 'sectionGroupId'
 };
 
 exports.Prisma.LessonScalarFieldEnum = {
@@ -210,6 +217,7 @@ exports.Prisma.ModelName = {
   User: 'User',
   Course: 'Course',
   Category: 'Category',
+  SectionGroup: 'SectionGroup',
   Section: 'Section',
   Lesson: 'Lesson',
   Quiz: 'Quiz',
