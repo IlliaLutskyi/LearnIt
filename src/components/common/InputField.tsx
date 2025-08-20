@@ -16,6 +16,7 @@ type Props = {
   multiline?: boolean;
   defaultValue?: string;
   name?: string;
+  maxLength?: number;
   checked?: boolean;
 };
 const InputField = ({
@@ -28,6 +29,7 @@ const InputField = ({
   defaultValue,
   rootClassName,
   value,
+  maxLength,
   checked,
   multiline = false,
 }: Props) => {
@@ -43,6 +45,7 @@ const InputField = ({
           className={inputClassName}
           onChange={onChange}
           value={value}
+          maxLength={maxLength}
         />
       ) : (
         <input
@@ -53,6 +56,7 @@ const InputField = ({
           checked={checked}
           onChange={onChange}
           value={value}
+          maxLength={maxLength}
           className={inputClassName}
           placeholder={placeholder}
         />

@@ -1,5 +1,5 @@
 "use client";
-import MultiForm from "@/components/courseForm/MultiForm";
+import MultiForm from "@/components/createCourseForm/MultiForm";
 import { useAppDispatch } from "@/lib/hooks";
 import { loadFromLocalStorage } from "@/lib/slices/CreateCourseSlice";
 import { useEffect } from "react";

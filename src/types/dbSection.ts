@@ -1,9 +1,8 @@
-import { DBLesson } from "./dbLesson";
+import { DbLesson } from "./dbLesson";
 
-export type DBSection = {
+export type DbSection = {
   title: string;
   order: number;
   id: number;
-  courseId: number;
-  lessons: DBLesson[];
+  lessons?: DbLesson[];
 };

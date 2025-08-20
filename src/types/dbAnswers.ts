@@ -1,4 +1,4 @@
-export type DBAnswer = {
+export type DbAnswer = {
   id: number;
   content: string;
   quizId: number;

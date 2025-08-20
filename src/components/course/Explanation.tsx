@@ -20,7 +20,7 @@ const Explanation = ({ content }: Props) => {
       <div className="flex items-center justify-center">
         <CollapsibleTrigger>
           <h1 className="text-sm text-purple-500 hover:text-purple-700 ">
-            See explanation
+            {isOpen ? "Hide explanation" : "Show explanation"}
           </h1>
         </CollapsibleTrigger>
       </div>

@@ -33,9 +33,17 @@ const Course = ({ course }: Props) => {
           </AvatarFallback>
         </Avatar>
       </div>
-      <div className="text-center p-2 border-t-[1px] border-gray-200">
-        <h1 className="font-bold text-lg">{course.title}</h1>
-        <p className="text-sm">{course.description}</p>
+      <div className="grow text-center p-2 border-t-[1px] border-gray-200">
+        <h1 className="font-bold text-center text-lg text-pretty break-words">
+          {course.title}
+        </h1>
+        <p className="text-sm  text-pretty break-words">
+          {course.description.slice(
+            0,
+            course.description.length > 100 ? 100 : course.description.length
+          )}
+          ...
+        </p>
       </div>
       <div className="flex items-center justify-between">
         <p className="text-right text-xs text-purple-400">

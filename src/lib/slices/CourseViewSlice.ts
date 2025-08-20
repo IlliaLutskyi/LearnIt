@@ -1,32 +1,28 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { $Enums } from "../../../prisma/generated/prisma";
-import { DBLesson } from "@/types/dbLesson";
-import { DBSection } from "@/types/dbSection";
-type Section = DBSection;
-type Lesson = DBLesson;
-type States = {
-  currentSection: Section | null;
-  currentLesson: Lesson | null;
-};
 
+type States = {
+  currentSectionId: number | null;
+  currentLessonViewId: number | null;
+};
 const initialState: States = {
-  currentSection: null,
-  currentLesson: null,
+  currentSectionId: null,
+  currentLessonViewId: null,
 };
 
 export const CourseViewSlice = createSlice({
   name: "CourseView",
   initialState,
   reducers: {
-    setCurrentSection: (state, action: PayloadAction<Section>) => {
-      state.currentSection = action.payload;
+    setCurrentSectionId: (state, action: PayloadAction<number>) => {
+      state.currentSectionId = action.payload;
     },
-    setCurrentLesson: (state, action: PayloadAction<Lesson>) => {
-      state.currentLesson = action.payload;
+    setCurrentLessonViewId: (state, action: PayloadAction<number>) => {
+      state.currentLessonViewId = action.payload;
     },
   },
 });
 
-export const { setCurrentSection, setCurrentLesson } = CourseViewSlice.actions;
+export const { setCurrentSectionId, setCurrentLessonViewId } =
+  CourseViewSlice.actions;
 
 export default CourseViewSlice.reducer;

@@ -196,7 +196,7 @@ export const CourseSlice = createSlice({
       action: PayloadAction<{
         sectionGroupOrder: number;
         sectionOrder: number;
-        content: Quiz;
+        quiz: Quiz;
         lessonId: number;
         title: string;
       }>
@@ -214,7 +214,7 @@ export const CourseSlice = createSlice({
           (lesson) => lesson.order === action.payload.lessonId
         );
         if (lesson) {
-          lesson.quiz = action.payload.content;
+          lesson.quiz = action.payload.quiz;
           lesson.title = action.payload.title;
         }
       }
@@ -225,7 +225,7 @@ export const CourseSlice = createSlice({
       action: PayloadAction<{
         sectionGroupOrder: number;
         sectionOrder: number;
-        content: Quiz;
+        quiz: Quiz;
         title: string;
       }>
     ) => {
@@ -249,7 +249,7 @@ export const CourseSlice = createSlice({
           sectionId: action.payload.sectionOrder,
           contentType: "Quiz",
           title: action.payload.title,
-          quiz: action.payload.content,
+          quiz: action.payload.quiz,
         });
       }
     },

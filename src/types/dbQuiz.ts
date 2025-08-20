@@ -1,9 +1,9 @@
-import { DBAnswer } from "./dbAnswers";
+import { DbAnswer } from "./dbAnswers";
 
-export type DBQuiz = {
+export type DbQuiz = {
   id: number;
   lessonId: number;
   question: string;
   explanation: string | null;
-  answers: DBAnswer[];
+  answers: DbAnswer[];
 };

@@ -1,37 +1,30 @@
 import { useAppDispatch } from "@/lib/hooks";
-import { setCurrentLesson } from "@/lib/slices/CourseViewSlice";
-import { DBLesson } from "@/types/dbLesson";
-import React, { useEffect } from "react";
+import { setCurrentLessonViewId } from "@/lib/slices/CourseViewSlice";
+import { DbLesson } from "@/types/dbLesson";
+import StarterKit from "@tiptap/starter-kit";
+import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
+import { generateHTML } from "@tiptap/react";
 type Props = {
-  lesson: DBLesson;
+  lesson: DbLesson;
 };
 const Text = ({ lesson }: Props) => {
   const dispatch = useAppDispatch();
-  const [ref, inView] = useInView({
-    threshold: 0.55,
-    triggerOnce: false,
-  });
+  const [ref, inView] = useInView();
   useEffect(() => {
-    if (inView) dispatch(setCurrentLesson(lesson));
-  }, [inView, lesson]);
+    if (inView) dispatch(setCurrentLessonViewId(lesson.id));
+  }, [inView]);
   return (
-    <div>
+    <div id={`lesson-${lesson.id}`} ref={ref} className="">
       <h1 className="font-bold">{lesson.title}</h1>
-      <div className="flex flex-col gap-1 ">
-        {lesson.content?.split("\n").map((line, index) => {
-          return (
-            <p
-              id={`lesson-${lesson.id}`}
-              key={index}
-              ref={ref}
-              className="text-pretty whitespace-pre-wrap break-words"
-            >
-              {line}
-            </p>
-          );
-        })}
-      </div>
+      <div
+        className="prose prose-sm whitespace-pre-wrap break-words"
+        dangerouslySetInnerHTML={{
+          __html: generateHTML(JSON.parse(lesson.content!), [
+            StarterKit.configure({}),
+          ]),
+        }}
+      />
     </div>
   );
 };
