@@ -29,6 +29,11 @@ export type Course = $Result.DefaultSelection<Prisma.$CoursePayload>
  */
 export type Category = $Result.DefaultSelection<Prisma.$CategoryPayload>
 /**
+ * Model SectionGroup
+ * 
+ */
+export type SectionGroup = $Result.DefaultSelection<Prisma.$SectionGroupPayload>
+/**
  * Model Section
  * 
  */
@@ -140,13 +145,6 @@ export class PrismaClient<
    */
   $disconnect(): $Utils.JsPromise<void>;
 
-  /**
-   * Add a middleware
-   * @deprecated since 4.16.0. For new code, prefer client extensions instead.
-   * @see https://pris.ly/d/extensions
-   */
-  $use(cb: Prisma.Middleware): void
-
 /**
    * Executes a prepared raw query and returns the number of affected rows.
    * @example
@@ -247,6 +245,16 @@ export class PrismaClient<
   get category(): Prisma.CategoryDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.sectionGroup`: Exposes CRUD operations for the **SectionGroup** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SectionGroups
+    * const sectionGroups = await prisma.sectionGroup.findMany()
+    * ```
+    */
+  get sectionGroup(): Prisma.SectionGroupDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.section`: Exposes CRUD operations for the **Section** model.
     * Example usage:
     * ```ts
@@ -343,8 +351,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.13.0
-   * Query Engine version: 361e86d0ea4987e9f53a565309b3eed797a6bcbd
+   * Prisma Client JS version: 6.14.0
+   * Query Engine version: 717184b7b35ea05dfa71a3236b7af656013e1e49
    */
   export type PrismaVersion = {
     client: string
@@ -728,6 +736,7 @@ export namespace Prisma {
     User: 'User',
     Course: 'Course',
     Category: 'Category',
+    SectionGroup: 'SectionGroup',
     Section: 'Section',
     Lesson: 'Lesson',
     Quiz: 'Quiz',
@@ -750,7 +759,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "course" | "category" | "section" | "lesson" | "quiz" | "answer"
+      modelProps: "user" | "course" | "category" | "sectionGroup" | "section" | "lesson" | "quiz" | "answer"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -973,6 +982,80 @@ export namespace Prisma {
           count: {
             args: Prisma.CategoryCountArgs<ExtArgs>
             result: $Utils.Optional<CategoryCountAggregateOutputType> | number
+          }
+        }
+      }
+      SectionGroup: {
+        payload: Prisma.$SectionGroupPayload<ExtArgs>
+        fields: Prisma.SectionGroupFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SectionGroupFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SectionGroupPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SectionGroupFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SectionGroupPayload>
+          }
+          findFirst: {
+            args: Prisma.SectionGroupFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SectionGroupPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SectionGroupFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SectionGroupPayload>
+          }
+          findMany: {
+            args: Prisma.SectionGroupFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SectionGroupPayload>[]
+          }
+          create: {
+            args: Prisma.SectionGroupCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SectionGroupPayload>
+          }
+          createMany: {
+            args: Prisma.SectionGroupCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SectionGroupCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SectionGroupPayload>[]
+          }
+          delete: {
+            args: Prisma.SectionGroupDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SectionGroupPayload>
+          }
+          update: {
+            args: Prisma.SectionGroupUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SectionGroupPayload>
+          }
+          deleteMany: {
+            args: Prisma.SectionGroupDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SectionGroupUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.SectionGroupUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SectionGroupPayload>[]
+          }
+          upsert: {
+            args: Prisma.SectionGroupUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SectionGroupPayload>
+          }
+          aggregate: {
+            args: Prisma.SectionGroupAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSectionGroup>
+          }
+          groupBy: {
+            args: Prisma.SectionGroupGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SectionGroupGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SectionGroupCountArgs<ExtArgs>
+            result: $Utils.Optional<SectionGroupCountAggregateOutputType> | number
           }
         }
       }
@@ -1367,6 +1450,7 @@ export namespace Prisma {
     user?: UserOmit
     course?: CourseOmit
     category?: CategoryOmit
+    sectionGroup?: SectionGroupOmit
     section?: SectionOmit
     lesson?: LessonOmit
     quiz?: QuizOmit
@@ -1429,25 +1513,6 @@ export namespace Prisma {
     | 'findRaw'
     | 'groupBy'
 
-  /**
-   * These options are being passed into the middleware as "params"
-   */
-  export type MiddlewareParams = {
-    model?: ModelName
-    action: PrismaAction
-    args: any
-    dataPath: string[]
-    runInTransaction: boolean
-  }
-
-  /**
-   * The `T` type makes sure, that the `return proceed` is not forgotten in the middleware implementation
-   */
-  export type Middleware<T = any> = (
-    params: MiddlewareParams,
-    next: (params: MiddlewareParams) => $Utils.JsPromise<T>,
-  ) => $Utils.JsPromise<T>
-
   // tested in getLogLevel.test.ts
   export function getLogLevel(log: Array<LogLevel | LogDefinition>): LogLevel | undefined;
 
@@ -1501,11 +1566,11 @@ export namespace Prisma {
    */
 
   export type CourseCountOutputType = {
-    sections: number
+    sectionGroups: number
   }
 
   export type CourseCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    sections?: boolean | CourseCountOutputTypeCountSectionsArgs
+    sectionGroups?: boolean | CourseCountOutputTypeCountSectionGroupsArgs
   }
 
   // Custom InputTypes
@@ -1522,8 +1587,8 @@ export namespace Prisma {
   /**
    * CourseCountOutputType without action
    */
-  export type CourseCountOutputTypeCountSectionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: SectionWhereInput
+  export type CourseCountOutputTypeCountSectionGroupsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SectionGroupWhereInput
   }
 
 
@@ -1555,6 +1620,37 @@ export namespace Prisma {
    */
   export type CategoryCountOutputTypeCountCoursesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: CourseWhereInput
+  }
+
+
+  /**
+   * Count Type SectionGroupCountOutputType
+   */
+
+  export type SectionGroupCountOutputType = {
+    sections: number
+  }
+
+  export type SectionGroupCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    sections?: boolean | SectionGroupCountOutputTypeCountSectionsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * SectionGroupCountOutputType without action
+   */
+  export type SectionGroupCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SectionGroupCountOutputType
+     */
+    select?: SectionGroupCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * SectionGroupCountOutputType without action
+   */
+  export type SectionGroupCountOutputTypeCountSectionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SectionWhereInput
   }
 
 
@@ -2950,7 +3046,7 @@ export namespace Prisma {
     userId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    sections?: boolean | Course$sectionsArgs<ExtArgs>
+    sectionGroups?: boolean | Course$sectionGroupsArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
     category?: boolean | CategoryDefaultArgs<ExtArgs>
     _count?: boolean | CourseCountOutputTypeDefaultArgs<ExtArgs>
@@ -2992,7 +3088,7 @@ export namespace Prisma {
 
   export type CourseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "categoryId" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["course"]>
   export type CourseInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    sections?: boolean | Course$sectionsArgs<ExtArgs>
+    sectionGroups?: boolean | Course$sectionGroupsArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
     category?: boolean | CategoryDefaultArgs<ExtArgs>
     _count?: boolean | CourseCountOutputTypeDefaultArgs<ExtArgs>
@@ -3009,7 +3105,7 @@ export namespace Prisma {
   export type $CoursePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Course"
     objects: {
-      sections: Prisma.$SectionPayload<ExtArgs>[]
+      sectionGroups: Prisma.$SectionGroupPayload<ExtArgs>[]
       user: Prisma.$UserPayload<ExtArgs>
       category: Prisma.$CategoryPayload<ExtArgs>
     }
@@ -3415,7 +3511,7 @@ export namespace Prisma {
    */
   export interface Prisma__CourseClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    sections<T extends Course$sectionsArgs<ExtArgs> = {}>(args?: Subset<T, Course$sectionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SectionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    sectionGroups<T extends Course$sectionGroupsArgs<ExtArgs> = {}>(args?: Subset<T, Course$sectionGroupsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SectionGroupPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     category<T extends CategoryDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CategoryDefaultArgs<ExtArgs>>): Prisma__CategoryClient<$Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
@@ -3850,27 +3946,27 @@ export namespace Prisma {
   }
 
   /**
-   * Course.sections
+   * Course.sectionGroups
    */
-  export type Course$sectionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Course$sectionGroupsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Section
+     * Select specific fields to fetch from the SectionGroup
      */
-    select?: SectionSelect<ExtArgs> | null
+    select?: SectionGroupSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Section
+     * Omit specific fields from the SectionGroup
      */
-    omit?: SectionOmit<ExtArgs> | null
+    omit?: SectionGroupOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: SectionInclude<ExtArgs> | null
-    where?: SectionWhereInput
-    orderBy?: SectionOrderByWithRelationInput | SectionOrderByWithRelationInput[]
-    cursor?: SectionWhereUniqueInput
+    include?: SectionGroupInclude<ExtArgs> | null
+    where?: SectionGroupWhereInput
+    orderBy?: SectionGroupOrderByWithRelationInput | SectionGroupOrderByWithRelationInput[]
+    cursor?: SectionGroupWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: SectionScalarFieldEnum | SectionScalarFieldEnum[]
+    distinct?: SectionGroupScalarFieldEnum | SectionGroupScalarFieldEnum[]
   }
 
   /**
@@ -4971,6 +5067,1123 @@ export namespace Prisma {
 
 
   /**
+   * Model SectionGroup
+   */
+
+  export type AggregateSectionGroup = {
+    _count: SectionGroupCountAggregateOutputType | null
+    _avg: SectionGroupAvgAggregateOutputType | null
+    _sum: SectionGroupSumAggregateOutputType | null
+    _min: SectionGroupMinAggregateOutputType | null
+    _max: SectionGroupMaxAggregateOutputType | null
+  }
+
+  export type SectionGroupAvgAggregateOutputType = {
+    id: number | null
+    order: number | null
+    courseId: number | null
+  }
+
+  export type SectionGroupSumAggregateOutputType = {
+    id: number | null
+    order: number | null
+    courseId: number | null
+  }
+
+  export type SectionGroupMinAggregateOutputType = {
+    id: number | null
+    title: string | null
+    order: number | null
+    courseId: number | null
+  }
+
+  export type SectionGroupMaxAggregateOutputType = {
+    id: number | null
+    title: string | null
+    order: number | null
+    courseId: number | null
+  }
+
+  export type SectionGroupCountAggregateOutputType = {
+    id: number
+    title: number
+    order: number
+    courseId: number
+    _all: number
+  }
+
+
+  export type SectionGroupAvgAggregateInputType = {
+    id?: true
+    order?: true
+    courseId?: true
+  }
+
+  export type SectionGroupSumAggregateInputType = {
+    id?: true
+    order?: true
+    courseId?: true
+  }
+
+  export type SectionGroupMinAggregateInputType = {
+    id?: true
+    title?: true
+    order?: true
+    courseId?: true
+  }
+
+  export type SectionGroupMaxAggregateInputType = {
+    id?: true
+    title?: true
+    order?: true
+    courseId?: true
+  }
+
+  export type SectionGroupCountAggregateInputType = {
+    id?: true
+    title?: true
+    order?: true
+    courseId?: true
+    _all?: true
+  }
+
+  export type SectionGroupAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SectionGroup to aggregate.
+     */
+    where?: SectionGroupWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SectionGroups to fetch.
+     */
+    orderBy?: SectionGroupOrderByWithRelationInput | SectionGroupOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SectionGroupWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SectionGroups from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SectionGroups.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SectionGroups
+    **/
+    _count?: true | SectionGroupCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: SectionGroupAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: SectionGroupSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SectionGroupMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SectionGroupMaxAggregateInputType
+  }
+
+  export type GetSectionGroupAggregateType<T extends SectionGroupAggregateArgs> = {
+        [P in keyof T & keyof AggregateSectionGroup]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSectionGroup[P]>
+      : GetScalarType<T[P], AggregateSectionGroup[P]>
+  }
+
+
+
+
+  export type SectionGroupGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SectionGroupWhereInput
+    orderBy?: SectionGroupOrderByWithAggregationInput | SectionGroupOrderByWithAggregationInput[]
+    by: SectionGroupScalarFieldEnum[] | SectionGroupScalarFieldEnum
+    having?: SectionGroupScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SectionGroupCountAggregateInputType | true
+    _avg?: SectionGroupAvgAggregateInputType
+    _sum?: SectionGroupSumAggregateInputType
+    _min?: SectionGroupMinAggregateInputType
+    _max?: SectionGroupMaxAggregateInputType
+  }
+
+  export type SectionGroupGroupByOutputType = {
+    id: number
+    title: string
+    order: number
+    courseId: number
+    _count: SectionGroupCountAggregateOutputType | null
+    _avg: SectionGroupAvgAggregateOutputType | null
+    _sum: SectionGroupSumAggregateOutputType | null
+    _min: SectionGroupMinAggregateOutputType | null
+    _max: SectionGroupMaxAggregateOutputType | null
+  }
+
+  type GetSectionGroupGroupByPayload<T extends SectionGroupGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SectionGroupGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SectionGroupGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SectionGroupGroupByOutputType[P]>
+            : GetScalarType<T[P], SectionGroupGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SectionGroupSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    order?: boolean
+    courseId?: boolean
+    sections?: boolean | SectionGroup$sectionsArgs<ExtArgs>
+    course?: boolean | CourseDefaultArgs<ExtArgs>
+    _count?: boolean | SectionGroupCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["sectionGroup"]>
+
+  export type SectionGroupSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    order?: boolean
+    courseId?: boolean
+    course?: boolean | CourseDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["sectionGroup"]>
+
+  export type SectionGroupSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    order?: boolean
+    courseId?: boolean
+    course?: boolean | CourseDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["sectionGroup"]>
+
+  export type SectionGroupSelectScalar = {
+    id?: boolean
+    title?: boolean
+    order?: boolean
+    courseId?: boolean
+  }
+
+  export type SectionGroupOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "order" | "courseId", ExtArgs["result"]["sectionGroup"]>
+  export type SectionGroupInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    sections?: boolean | SectionGroup$sectionsArgs<ExtArgs>
+    course?: boolean | CourseDefaultArgs<ExtArgs>
+    _count?: boolean | SectionGroupCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type SectionGroupIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    course?: boolean | CourseDefaultArgs<ExtArgs>
+  }
+  export type SectionGroupIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    course?: boolean | CourseDefaultArgs<ExtArgs>
+  }
+
+  export type $SectionGroupPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SectionGroup"
+    objects: {
+      sections: Prisma.$SectionPayload<ExtArgs>[]
+      course: Prisma.$CoursePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      title: string
+      order: number
+      courseId: number
+    }, ExtArgs["result"]["sectionGroup"]>
+    composites: {}
+  }
+
+  type SectionGroupGetPayload<S extends boolean | null | undefined | SectionGroupDefaultArgs> = $Result.GetResult<Prisma.$SectionGroupPayload, S>
+
+  type SectionGroupCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SectionGroupFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SectionGroupCountAggregateInputType | true
+    }
+
+  export interface SectionGroupDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SectionGroup'], meta: { name: 'SectionGroup' } }
+    /**
+     * Find zero or one SectionGroup that matches the filter.
+     * @param {SectionGroupFindUniqueArgs} args - Arguments to find a SectionGroup
+     * @example
+     * // Get one SectionGroup
+     * const sectionGroup = await prisma.sectionGroup.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SectionGroupFindUniqueArgs>(args: SelectSubset<T, SectionGroupFindUniqueArgs<ExtArgs>>): Prisma__SectionGroupClient<$Result.GetResult<Prisma.$SectionGroupPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one SectionGroup that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {SectionGroupFindUniqueOrThrowArgs} args - Arguments to find a SectionGroup
+     * @example
+     * // Get one SectionGroup
+     * const sectionGroup = await prisma.sectionGroup.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SectionGroupFindUniqueOrThrowArgs>(args: SelectSubset<T, SectionGroupFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SectionGroupClient<$Result.GetResult<Prisma.$SectionGroupPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SectionGroup that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SectionGroupFindFirstArgs} args - Arguments to find a SectionGroup
+     * @example
+     * // Get one SectionGroup
+     * const sectionGroup = await prisma.sectionGroup.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SectionGroupFindFirstArgs>(args?: SelectSubset<T, SectionGroupFindFirstArgs<ExtArgs>>): Prisma__SectionGroupClient<$Result.GetResult<Prisma.$SectionGroupPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SectionGroup that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SectionGroupFindFirstOrThrowArgs} args - Arguments to find a SectionGroup
+     * @example
+     * // Get one SectionGroup
+     * const sectionGroup = await prisma.sectionGroup.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SectionGroupFindFirstOrThrowArgs>(args?: SelectSubset<T, SectionGroupFindFirstOrThrowArgs<ExtArgs>>): Prisma__SectionGroupClient<$Result.GetResult<Prisma.$SectionGroupPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more SectionGroups that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SectionGroupFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SectionGroups
+     * const sectionGroups = await prisma.sectionGroup.findMany()
+     * 
+     * // Get first 10 SectionGroups
+     * const sectionGroups = await prisma.sectionGroup.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const sectionGroupWithIdOnly = await prisma.sectionGroup.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SectionGroupFindManyArgs>(args?: SelectSubset<T, SectionGroupFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SectionGroupPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a SectionGroup.
+     * @param {SectionGroupCreateArgs} args - Arguments to create a SectionGroup.
+     * @example
+     * // Create one SectionGroup
+     * const SectionGroup = await prisma.sectionGroup.create({
+     *   data: {
+     *     // ... data to create a SectionGroup
+     *   }
+     * })
+     * 
+     */
+    create<T extends SectionGroupCreateArgs>(args: SelectSubset<T, SectionGroupCreateArgs<ExtArgs>>): Prisma__SectionGroupClient<$Result.GetResult<Prisma.$SectionGroupPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many SectionGroups.
+     * @param {SectionGroupCreateManyArgs} args - Arguments to create many SectionGroups.
+     * @example
+     * // Create many SectionGroups
+     * const sectionGroup = await prisma.sectionGroup.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SectionGroupCreateManyArgs>(args?: SelectSubset<T, SectionGroupCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many SectionGroups and returns the data saved in the database.
+     * @param {SectionGroupCreateManyAndReturnArgs} args - Arguments to create many SectionGroups.
+     * @example
+     * // Create many SectionGroups
+     * const sectionGroup = await prisma.sectionGroup.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many SectionGroups and only return the `id`
+     * const sectionGroupWithIdOnly = await prisma.sectionGroup.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SectionGroupCreateManyAndReturnArgs>(args?: SelectSubset<T, SectionGroupCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SectionGroupPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a SectionGroup.
+     * @param {SectionGroupDeleteArgs} args - Arguments to delete one SectionGroup.
+     * @example
+     * // Delete one SectionGroup
+     * const SectionGroup = await prisma.sectionGroup.delete({
+     *   where: {
+     *     // ... filter to delete one SectionGroup
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SectionGroupDeleteArgs>(args: SelectSubset<T, SectionGroupDeleteArgs<ExtArgs>>): Prisma__SectionGroupClient<$Result.GetResult<Prisma.$SectionGroupPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one SectionGroup.
+     * @param {SectionGroupUpdateArgs} args - Arguments to update one SectionGroup.
+     * @example
+     * // Update one SectionGroup
+     * const sectionGroup = await prisma.sectionGroup.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SectionGroupUpdateArgs>(args: SelectSubset<T, SectionGroupUpdateArgs<ExtArgs>>): Prisma__SectionGroupClient<$Result.GetResult<Prisma.$SectionGroupPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more SectionGroups.
+     * @param {SectionGroupDeleteManyArgs} args - Arguments to filter SectionGroups to delete.
+     * @example
+     * // Delete a few SectionGroups
+     * const { count } = await prisma.sectionGroup.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SectionGroupDeleteManyArgs>(args?: SelectSubset<T, SectionGroupDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SectionGroups.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SectionGroupUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SectionGroups
+     * const sectionGroup = await prisma.sectionGroup.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SectionGroupUpdateManyArgs>(args: SelectSubset<T, SectionGroupUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SectionGroups and returns the data updated in the database.
+     * @param {SectionGroupUpdateManyAndReturnArgs} args - Arguments to update many SectionGroups.
+     * @example
+     * // Update many SectionGroups
+     * const sectionGroup = await prisma.sectionGroup.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more SectionGroups and only return the `id`
+     * const sectionGroupWithIdOnly = await prisma.sectionGroup.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends SectionGroupUpdateManyAndReturnArgs>(args: SelectSubset<T, SectionGroupUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SectionGroupPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one SectionGroup.
+     * @param {SectionGroupUpsertArgs} args - Arguments to update or create a SectionGroup.
+     * @example
+     * // Update or create a SectionGroup
+     * const sectionGroup = await prisma.sectionGroup.upsert({
+     *   create: {
+     *     // ... data to create a SectionGroup
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SectionGroup we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SectionGroupUpsertArgs>(args: SelectSubset<T, SectionGroupUpsertArgs<ExtArgs>>): Prisma__SectionGroupClient<$Result.GetResult<Prisma.$SectionGroupPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of SectionGroups.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SectionGroupCountArgs} args - Arguments to filter SectionGroups to count.
+     * @example
+     * // Count the number of SectionGroups
+     * const count = await prisma.sectionGroup.count({
+     *   where: {
+     *     // ... the filter for the SectionGroups we want to count
+     *   }
+     * })
+    **/
+    count<T extends SectionGroupCountArgs>(
+      args?: Subset<T, SectionGroupCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SectionGroupCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SectionGroup.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SectionGroupAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SectionGroupAggregateArgs>(args: Subset<T, SectionGroupAggregateArgs>): Prisma.PrismaPromise<GetSectionGroupAggregateType<T>>
+
+    /**
+     * Group by SectionGroup.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SectionGroupGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SectionGroupGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SectionGroupGroupByArgs['orderBy'] }
+        : { orderBy?: SectionGroupGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SectionGroupGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSectionGroupGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the SectionGroup model
+   */
+  readonly fields: SectionGroupFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SectionGroup.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SectionGroupClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    sections<T extends SectionGroup$sectionsArgs<ExtArgs> = {}>(args?: Subset<T, SectionGroup$sectionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SectionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    course<T extends CourseDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CourseDefaultArgs<ExtArgs>>): Prisma__CourseClient<$Result.GetResult<Prisma.$CoursePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the SectionGroup model
+   */
+  interface SectionGroupFieldRefs {
+    readonly id: FieldRef<"SectionGroup", 'Int'>
+    readonly title: FieldRef<"SectionGroup", 'String'>
+    readonly order: FieldRef<"SectionGroup", 'Int'>
+    readonly courseId: FieldRef<"SectionGroup", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * SectionGroup findUnique
+   */
+  export type SectionGroupFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SectionGroup
+     */
+    select?: SectionGroupSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SectionGroup
+     */
+    omit?: SectionGroupOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SectionGroupInclude<ExtArgs> | null
+    /**
+     * Filter, which SectionGroup to fetch.
+     */
+    where: SectionGroupWhereUniqueInput
+  }
+
+  /**
+   * SectionGroup findUniqueOrThrow
+   */
+  export type SectionGroupFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SectionGroup
+     */
+    select?: SectionGroupSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SectionGroup
+     */
+    omit?: SectionGroupOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SectionGroupInclude<ExtArgs> | null
+    /**
+     * Filter, which SectionGroup to fetch.
+     */
+    where: SectionGroupWhereUniqueInput
+  }
+
+  /**
+   * SectionGroup findFirst
+   */
+  export type SectionGroupFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SectionGroup
+     */
+    select?: SectionGroupSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SectionGroup
+     */
+    omit?: SectionGroupOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SectionGroupInclude<ExtArgs> | null
+    /**
+     * Filter, which SectionGroup to fetch.
+     */
+    where?: SectionGroupWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SectionGroups to fetch.
+     */
+    orderBy?: SectionGroupOrderByWithRelationInput | SectionGroupOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SectionGroups.
+     */
+    cursor?: SectionGroupWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SectionGroups from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SectionGroups.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SectionGroups.
+     */
+    distinct?: SectionGroupScalarFieldEnum | SectionGroupScalarFieldEnum[]
+  }
+
+  /**
+   * SectionGroup findFirstOrThrow
+   */
+  export type SectionGroupFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SectionGroup
+     */
+    select?: SectionGroupSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SectionGroup
+     */
+    omit?: SectionGroupOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SectionGroupInclude<ExtArgs> | null
+    /**
+     * Filter, which SectionGroup to fetch.
+     */
+    where?: SectionGroupWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SectionGroups to fetch.
+     */
+    orderBy?: SectionGroupOrderByWithRelationInput | SectionGroupOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SectionGroups.
+     */
+    cursor?: SectionGroupWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SectionGroups from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SectionGroups.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SectionGroups.
+     */
+    distinct?: SectionGroupScalarFieldEnum | SectionGroupScalarFieldEnum[]
+  }
+
+  /**
+   * SectionGroup findMany
+   */
+  export type SectionGroupFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SectionGroup
+     */
+    select?: SectionGroupSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SectionGroup
+     */
+    omit?: SectionGroupOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SectionGroupInclude<ExtArgs> | null
+    /**
+     * Filter, which SectionGroups to fetch.
+     */
+    where?: SectionGroupWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SectionGroups to fetch.
+     */
+    orderBy?: SectionGroupOrderByWithRelationInput | SectionGroupOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SectionGroups.
+     */
+    cursor?: SectionGroupWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SectionGroups from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SectionGroups.
+     */
+    skip?: number
+    distinct?: SectionGroupScalarFieldEnum | SectionGroupScalarFieldEnum[]
+  }
+
+  /**
+   * SectionGroup create
+   */
+  export type SectionGroupCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SectionGroup
+     */
+    select?: SectionGroupSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SectionGroup
+     */
+    omit?: SectionGroupOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SectionGroupInclude<ExtArgs> | null
+    /**
+     * The data needed to create a SectionGroup.
+     */
+    data: XOR<SectionGroupCreateInput, SectionGroupUncheckedCreateInput>
+  }
+
+  /**
+   * SectionGroup createMany
+   */
+  export type SectionGroupCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many SectionGroups.
+     */
+    data: SectionGroupCreateManyInput | SectionGroupCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SectionGroup createManyAndReturn
+   */
+  export type SectionGroupCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SectionGroup
+     */
+    select?: SectionGroupSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SectionGroup
+     */
+    omit?: SectionGroupOmit<ExtArgs> | null
+    /**
+     * The data used to create many SectionGroups.
+     */
+    data: SectionGroupCreateManyInput | SectionGroupCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SectionGroupIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SectionGroup update
+   */
+  export type SectionGroupUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SectionGroup
+     */
+    select?: SectionGroupSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SectionGroup
+     */
+    omit?: SectionGroupOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SectionGroupInclude<ExtArgs> | null
+    /**
+     * The data needed to update a SectionGroup.
+     */
+    data: XOR<SectionGroupUpdateInput, SectionGroupUncheckedUpdateInput>
+    /**
+     * Choose, which SectionGroup to update.
+     */
+    where: SectionGroupWhereUniqueInput
+  }
+
+  /**
+   * SectionGroup updateMany
+   */
+  export type SectionGroupUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update SectionGroups.
+     */
+    data: XOR<SectionGroupUpdateManyMutationInput, SectionGroupUncheckedUpdateManyInput>
+    /**
+     * Filter which SectionGroups to update
+     */
+    where?: SectionGroupWhereInput
+    /**
+     * Limit how many SectionGroups to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * SectionGroup updateManyAndReturn
+   */
+  export type SectionGroupUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SectionGroup
+     */
+    select?: SectionGroupSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SectionGroup
+     */
+    omit?: SectionGroupOmit<ExtArgs> | null
+    /**
+     * The data used to update SectionGroups.
+     */
+    data: XOR<SectionGroupUpdateManyMutationInput, SectionGroupUncheckedUpdateManyInput>
+    /**
+     * Filter which SectionGroups to update
+     */
+    where?: SectionGroupWhereInput
+    /**
+     * Limit how many SectionGroups to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SectionGroupIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SectionGroup upsert
+   */
+  export type SectionGroupUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SectionGroup
+     */
+    select?: SectionGroupSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SectionGroup
+     */
+    omit?: SectionGroupOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SectionGroupInclude<ExtArgs> | null
+    /**
+     * The filter to search for the SectionGroup to update in case it exists.
+     */
+    where: SectionGroupWhereUniqueInput
+    /**
+     * In case the SectionGroup found by the `where` argument doesn't exist, create a new SectionGroup with this data.
+     */
+    create: XOR<SectionGroupCreateInput, SectionGroupUncheckedCreateInput>
+    /**
+     * In case the SectionGroup was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SectionGroupUpdateInput, SectionGroupUncheckedUpdateInput>
+  }
+
+  /**
+   * SectionGroup delete
+   */
+  export type SectionGroupDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SectionGroup
+     */
+    select?: SectionGroupSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SectionGroup
+     */
+    omit?: SectionGroupOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SectionGroupInclude<ExtArgs> | null
+    /**
+     * Filter which SectionGroup to delete.
+     */
+    where: SectionGroupWhereUniqueInput
+  }
+
+  /**
+   * SectionGroup deleteMany
+   */
+  export type SectionGroupDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SectionGroups to delete
+     */
+    where?: SectionGroupWhereInput
+    /**
+     * Limit how many SectionGroups to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * SectionGroup.sections
+   */
+  export type SectionGroup$sectionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Section
+     */
+    select?: SectionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Section
+     */
+    omit?: SectionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SectionInclude<ExtArgs> | null
+    where?: SectionWhereInput
+    orderBy?: SectionOrderByWithRelationInput | SectionOrderByWithRelationInput[]
+    cursor?: SectionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SectionScalarFieldEnum | SectionScalarFieldEnum[]
+  }
+
+  /**
+   * SectionGroup without action
+   */
+  export type SectionGroupDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SectionGroup
+     */
+    select?: SectionGroupSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SectionGroup
+     */
+    omit?: SectionGroupOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SectionGroupInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model Section
    */
 
@@ -4985,34 +6198,34 @@ export namespace Prisma {
   export type SectionAvgAggregateOutputType = {
     id: number | null
     order: number | null
-    courseId: number | null
+    sectionGroupId: number | null
   }
 
   export type SectionSumAggregateOutputType = {
     id: number | null
     order: number | null
-    courseId: number | null
+    sectionGroupId: number | null
   }
 
   export type SectionMinAggregateOutputType = {
     id: number | null
     title: string | null
     order: number | null
-    courseId: number | null
+    sectionGroupId: number | null
   }
 
   export type SectionMaxAggregateOutputType = {
     id: number | null
     title: string | null
     order: number | null
-    courseId: number | null
+    sectionGroupId: number | null
   }
 
   export type SectionCountAggregateOutputType = {
     id: number
     title: number
     order: number
-    courseId: number
+    sectionGroupId: number
     _all: number
   }
 
@@ -5020,34 +6233,34 @@ export namespace Prisma {
   export type SectionAvgAggregateInputType = {
     id?: true
     order?: true
-    courseId?: true
+    sectionGroupId?: true
   }
 
   export type SectionSumAggregateInputType = {
     id?: true
     order?: true
-    courseId?: true
+    sectionGroupId?: true
   }
 
   export type SectionMinAggregateInputType = {
     id?: true
     title?: true
     order?: true
-    courseId?: true
+    sectionGroupId?: true
   }
 
   export type SectionMaxAggregateInputType = {
     id?: true
     title?: true
     order?: true
-    courseId?: true
+    sectionGroupId?: true
   }
 
   export type SectionCountAggregateInputType = {
     id?: true
     title?: true
     order?: true
-    courseId?: true
+    sectionGroupId?: true
     _all?: true
   }
 
@@ -5141,7 +6354,7 @@ export namespace Prisma {
     id: number
     title: string
     order: number
-    courseId: number
+    sectionGroupId: number
     _count: SectionCountAggregateOutputType | null
     _avg: SectionAvgAggregateOutputType | null
     _sum: SectionSumAggregateOutputType | null
@@ -5167,9 +6380,9 @@ export namespace Prisma {
     id?: boolean
     title?: boolean
     order?: boolean
-    courseId?: boolean
+    sectionGroupId?: boolean
     lessons?: boolean | Section$lessonsArgs<ExtArgs>
-    course?: boolean | CourseDefaultArgs<ExtArgs>
+    sectionGroup?: boolean | SectionGroupDefaultArgs<ExtArgs>
     _count?: boolean | SectionCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["section"]>
 
@@ -5177,49 +6390,49 @@ export namespace Prisma {
     id?: boolean
     title?: boolean
     order?: boolean
-    courseId?: boolean
-    course?: boolean | CourseDefaultArgs<ExtArgs>
+    sectionGroupId?: boolean
+    sectionGroup?: boolean | SectionGroupDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["section"]>
 
   export type SectionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     title?: boolean
     order?: boolean
-    courseId?: boolean
-    course?: boolean | CourseDefaultArgs<ExtArgs>
+    sectionGroupId?: boolean
+    sectionGroup?: boolean | SectionGroupDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["section"]>
 
   export type SectionSelectScalar = {
     id?: boolean
     title?: boolean
     order?: boolean
-    courseId?: boolean
+    sectionGroupId?: boolean
   }
 
-  export type SectionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "order" | "courseId", ExtArgs["result"]["section"]>
+  export type SectionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "order" | "sectionGroupId", ExtArgs["result"]["section"]>
   export type SectionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     lessons?: boolean | Section$lessonsArgs<ExtArgs>
-    course?: boolean | CourseDefaultArgs<ExtArgs>
+    sectionGroup?: boolean | SectionGroupDefaultArgs<ExtArgs>
     _count?: boolean | SectionCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type SectionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    course?: boolean | CourseDefaultArgs<ExtArgs>
+    sectionGroup?: boolean | SectionGroupDefaultArgs<ExtArgs>
   }
   export type SectionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    course?: boolean | CourseDefaultArgs<ExtArgs>
+    sectionGroup?: boolean | SectionGroupDefaultArgs<ExtArgs>
   }
 
   export type $SectionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Section"
     objects: {
       lessons: Prisma.$LessonPayload<ExtArgs>[]
-      course: Prisma.$CoursePayload<ExtArgs>
+      sectionGroup: Prisma.$SectionGroupPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       title: string
       order: number
-      courseId: number
+      sectionGroupId: number
     }, ExtArgs["result"]["section"]>
     composites: {}
   }
@@ -5615,7 +6828,7 @@ export namespace Prisma {
   export interface Prisma__SectionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     lessons<T extends Section$lessonsArgs<ExtArgs> = {}>(args?: Subset<T, Section$lessonsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LessonPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    course<T extends CourseDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CourseDefaultArgs<ExtArgs>>): Prisma__CourseClient<$Result.GetResult<Prisma.$CoursePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    sectionGroup<T extends SectionGroupDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SectionGroupDefaultArgs<ExtArgs>>): Prisma__SectionGroupClient<$Result.GetResult<Prisma.$SectionGroupPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5648,7 +6861,7 @@ export namespace Prisma {
     readonly id: FieldRef<"Section", 'Int'>
     readonly title: FieldRef<"Section", 'String'>
     readonly order: FieldRef<"Section", 'Int'>
-    readonly courseId: FieldRef<"Section", 'Int'>
+    readonly sectionGroupId: FieldRef<"Section", 'Int'>
   }
     
 
@@ -9496,11 +10709,21 @@ export namespace Prisma {
   export type CategoryScalarFieldEnum = (typeof CategoryScalarFieldEnum)[keyof typeof CategoryScalarFieldEnum]
 
 
-  export const SectionScalarFieldEnum: {
+  export const SectionGroupScalarFieldEnum: {
     id: 'id',
     title: 'title',
     order: 'order',
     courseId: 'courseId'
+  };
+
+  export type SectionGroupScalarFieldEnum = (typeof SectionGroupScalarFieldEnum)[keyof typeof SectionGroupScalarFieldEnum]
+
+
+  export const SectionScalarFieldEnum: {
+    id: 'id',
+    title: 'title',
+    order: 'order',
+    sectionGroupId: 'sectionGroupId'
   };
 
   export type SectionScalarFieldEnum = (typeof SectionScalarFieldEnum)[keyof typeof SectionScalarFieldEnum]
@@ -9745,7 +10968,7 @@ export namespace Prisma {
     userId?: IntFilter<"Course"> | number
     createdAt?: DateTimeFilter<"Course"> | Date | string
     updatedAt?: DateTimeFilter<"Course"> | Date | string
-    sections?: SectionListRelationFilter
+    sectionGroups?: SectionGroupListRelationFilter
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     category?: XOR<CategoryScalarRelationFilter, CategoryWhereInput>
   }
@@ -9758,7 +10981,7 @@ export namespace Prisma {
     userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    sections?: SectionOrderByRelationAggregateInput
+    sectionGroups?: SectionGroupOrderByRelationAggregateInput
     user?: UserOrderByWithRelationInput
     category?: CategoryOrderByWithRelationInput
   }
@@ -9774,7 +10997,7 @@ export namespace Prisma {
     userId?: IntFilter<"Course"> | number
     createdAt?: DateTimeFilter<"Course"> | Date | string
     updatedAt?: DateTimeFilter<"Course"> | Date | string
-    sections?: SectionListRelationFilter
+    sectionGroups?: SectionGroupListRelationFilter
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     category?: XOR<CategoryScalarRelationFilter, CategoryWhereInput>
   }, "id">
@@ -9854,6 +11077,61 @@ export namespace Prisma {
     image?: StringWithAggregatesFilter<"Category"> | string
   }
 
+  export type SectionGroupWhereInput = {
+    AND?: SectionGroupWhereInput | SectionGroupWhereInput[]
+    OR?: SectionGroupWhereInput[]
+    NOT?: SectionGroupWhereInput | SectionGroupWhereInput[]
+    id?: IntFilter<"SectionGroup"> | number
+    title?: StringFilter<"SectionGroup"> | string
+    order?: IntFilter<"SectionGroup"> | number
+    courseId?: IntFilter<"SectionGroup"> | number
+    sections?: SectionListRelationFilter
+    course?: XOR<CourseScalarRelationFilter, CourseWhereInput>
+  }
+
+  export type SectionGroupOrderByWithRelationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    order?: SortOrder
+    courseId?: SortOrder
+    sections?: SectionOrderByRelationAggregateInput
+    course?: CourseOrderByWithRelationInput
+  }
+
+  export type SectionGroupWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: SectionGroupWhereInput | SectionGroupWhereInput[]
+    OR?: SectionGroupWhereInput[]
+    NOT?: SectionGroupWhereInput | SectionGroupWhereInput[]
+    title?: StringFilter<"SectionGroup"> | string
+    order?: IntFilter<"SectionGroup"> | number
+    courseId?: IntFilter<"SectionGroup"> | number
+    sections?: SectionListRelationFilter
+    course?: XOR<CourseScalarRelationFilter, CourseWhereInput>
+  }, "id">
+
+  export type SectionGroupOrderByWithAggregationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    order?: SortOrder
+    courseId?: SortOrder
+    _count?: SectionGroupCountOrderByAggregateInput
+    _avg?: SectionGroupAvgOrderByAggregateInput
+    _max?: SectionGroupMaxOrderByAggregateInput
+    _min?: SectionGroupMinOrderByAggregateInput
+    _sum?: SectionGroupSumOrderByAggregateInput
+  }
+
+  export type SectionGroupScalarWhereWithAggregatesInput = {
+    AND?: SectionGroupScalarWhereWithAggregatesInput | SectionGroupScalarWhereWithAggregatesInput[]
+    OR?: SectionGroupScalarWhereWithAggregatesInput[]
+    NOT?: SectionGroupScalarWhereWithAggregatesInput | SectionGroupScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"SectionGroup"> | number
+    title?: StringWithAggregatesFilter<"SectionGroup"> | string
+    order?: IntWithAggregatesFilter<"SectionGroup"> | number
+    courseId?: IntWithAggregatesFilter<"SectionGroup"> | number
+  }
+
   export type SectionWhereInput = {
     AND?: SectionWhereInput | SectionWhereInput[]
     OR?: SectionWhereInput[]
@@ -9861,18 +11139,18 @@ export namespace Prisma {
     id?: IntFilter<"Section"> | number
     title?: StringFilter<"Section"> | string
     order?: IntFilter<"Section"> | number
-    courseId?: IntFilter<"Section"> | number
+    sectionGroupId?: IntFilter<"Section"> | number
     lessons?: LessonListRelationFilter
-    course?: XOR<CourseScalarRelationFilter, CourseWhereInput>
+    sectionGroup?: XOR<SectionGroupScalarRelationFilter, SectionGroupWhereInput>
   }
 
   export type SectionOrderByWithRelationInput = {
     id?: SortOrder
     title?: SortOrder
     order?: SortOrder
-    courseId?: SortOrder
+    sectionGroupId?: SortOrder
     lessons?: LessonOrderByRelationAggregateInput
-    course?: CourseOrderByWithRelationInput
+    sectionGroup?: SectionGroupOrderByWithRelationInput
   }
 
   export type SectionWhereUniqueInput = Prisma.AtLeast<{
@@ -9882,16 +11160,16 @@ export namespace Prisma {
     NOT?: SectionWhereInput | SectionWhereInput[]
     title?: StringFilter<"Section"> | string
     order?: IntFilter<"Section"> | number
-    courseId?: IntFilter<"Section"> | number
+    sectionGroupId?: IntFilter<"Section"> | number
     lessons?: LessonListRelationFilter
-    course?: XOR<CourseScalarRelationFilter, CourseWhereInput>
+    sectionGroup?: XOR<SectionGroupScalarRelationFilter, SectionGroupWhereInput>
   }, "id">
 
   export type SectionOrderByWithAggregationInput = {
     id?: SortOrder
     title?: SortOrder
     order?: SortOrder
-    courseId?: SortOrder
+    sectionGroupId?: SortOrder
     _count?: SectionCountOrderByAggregateInput
     _avg?: SectionAvgOrderByAggregateInput
     _max?: SectionMaxOrderByAggregateInput
@@ -9906,7 +11184,7 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"Section"> | number
     title?: StringWithAggregatesFilter<"Section"> | string
     order?: IntWithAggregatesFilter<"Section"> | number
-    courseId?: IntWithAggregatesFilter<"Section"> | number
+    sectionGroupId?: IntWithAggregatesFilter<"Section"> | number
   }
 
   export type LessonWhereInput = {
@@ -10153,7 +11431,7 @@ export namespace Prisma {
     description: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    sections?: SectionCreateNestedManyWithoutCourseInput
+    sectionGroups?: SectionGroupCreateNestedManyWithoutCourseInput
     user: UserCreateNestedOneWithoutCoursesInput
     category: CategoryCreateNestedOneWithoutCoursesInput
   }
@@ -10166,7 +11444,7 @@ export namespace Prisma {
     userId: number
     createdAt?: Date | string
     updatedAt?: Date | string
-    sections?: SectionUncheckedCreateNestedManyWithoutCourseInput
+    sectionGroups?: SectionGroupUncheckedCreateNestedManyWithoutCourseInput
   }
 
   export type CourseUpdateInput = {
@@ -10174,7 +11452,7 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    sections?: SectionUpdateManyWithoutCourseNestedInput
+    sectionGroups?: SectionGroupUpdateManyWithoutCourseNestedInput
     user?: UserUpdateOneRequiredWithoutCoursesNestedInput
     category?: CategoryUpdateOneRequiredWithoutCoursesNestedInput
   }
@@ -10187,7 +11465,7 @@ export namespace Prisma {
     userId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    sections?: SectionUncheckedUpdateManyWithoutCourseNestedInput
+    sectionGroups?: SectionGroupUncheckedUpdateManyWithoutCourseNestedInput
   }
 
   export type CourseCreateManyInput = {
@@ -10260,18 +11538,67 @@ export namespace Prisma {
     image?: StringFieldUpdateOperationsInput | string
   }
 
+  export type SectionGroupCreateInput = {
+    title: string
+    order: number
+    sections?: SectionCreateNestedManyWithoutSectionGroupInput
+    course: CourseCreateNestedOneWithoutSectionGroupsInput
+  }
+
+  export type SectionGroupUncheckedCreateInput = {
+    id?: number
+    title: string
+    order: number
+    courseId: number
+    sections?: SectionUncheckedCreateNestedManyWithoutSectionGroupInput
+  }
+
+  export type SectionGroupUpdateInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+    sections?: SectionUpdateManyWithoutSectionGroupNestedInput
+    course?: CourseUpdateOneRequiredWithoutSectionGroupsNestedInput
+  }
+
+  export type SectionGroupUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+    courseId?: IntFieldUpdateOperationsInput | number
+    sections?: SectionUncheckedUpdateManyWithoutSectionGroupNestedInput
+  }
+
+  export type SectionGroupCreateManyInput = {
+    id?: number
+    title: string
+    order: number
+    courseId: number
+  }
+
+  export type SectionGroupUpdateManyMutationInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type SectionGroupUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+    courseId?: IntFieldUpdateOperationsInput | number
+  }
+
   export type SectionCreateInput = {
     title: string
     order: number
     lessons?: LessonCreateNestedManyWithoutSectionInput
-    course: CourseCreateNestedOneWithoutSectionsInput
+    sectionGroup: SectionGroupCreateNestedOneWithoutSectionsInput
   }
 
   export type SectionUncheckedCreateInput = {
     id?: number
     title: string
     order: number
-    courseId: number
+    sectionGroupId: number
     lessons?: LessonUncheckedCreateNestedManyWithoutSectionInput
   }
 
@@ -10279,14 +11606,14 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     lessons?: LessonUpdateManyWithoutSectionNestedInput
-    course?: CourseUpdateOneRequiredWithoutSectionsNestedInput
+    sectionGroup?: SectionGroupUpdateOneRequiredWithoutSectionsNestedInput
   }
 
   export type SectionUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
-    courseId?: IntFieldUpdateOperationsInput | number
+    sectionGroupId?: IntFieldUpdateOperationsInput | number
     lessons?: LessonUncheckedUpdateManyWithoutSectionNestedInput
   }
 
@@ -10294,7 +11621,7 @@ export namespace Prisma {
     id?: number
     title: string
     order: number
-    courseId: number
+    sectionGroupId: number
   }
 
   export type SectionUpdateManyMutationInput = {
@@ -10306,7 +11633,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
-    courseId?: IntFieldUpdateOperationsInput | number
+    sectionGroupId?: IntFieldUpdateOperationsInput | number
   }
 
   export type LessonCreateInput = {
@@ -10610,10 +11937,10 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
-  export type SectionListRelationFilter = {
-    every?: SectionWhereInput
-    some?: SectionWhereInput
-    none?: SectionWhereInput
+  export type SectionGroupListRelationFilter = {
+    every?: SectionGroupWhereInput
+    some?: SectionGroupWhereInput
+    none?: SectionGroupWhereInput
   }
 
   export type UserScalarRelationFilter = {
@@ -10626,7 +11953,7 @@ export namespace Prisma {
     isNot?: CategoryWhereInput
   }
 
-  export type SectionOrderByRelationAggregateInput = {
+  export type SectionGroupOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -10712,15 +12039,63 @@ export namespace Prisma {
     id?: SortOrder
   }
 
+  export type SectionListRelationFilter = {
+    every?: SectionWhereInput
+    some?: SectionWhereInput
+    none?: SectionWhereInput
+  }
+
+  export type CourseScalarRelationFilter = {
+    is?: CourseWhereInput
+    isNot?: CourseWhereInput
+  }
+
+  export type SectionOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type SectionGroupCountOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    order?: SortOrder
+    courseId?: SortOrder
+  }
+
+  export type SectionGroupAvgOrderByAggregateInput = {
+    id?: SortOrder
+    order?: SortOrder
+    courseId?: SortOrder
+  }
+
+  export type SectionGroupMaxOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    order?: SortOrder
+    courseId?: SortOrder
+  }
+
+  export type SectionGroupMinOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    order?: SortOrder
+    courseId?: SortOrder
+  }
+
+  export type SectionGroupSumOrderByAggregateInput = {
+    id?: SortOrder
+    order?: SortOrder
+    courseId?: SortOrder
+  }
+
   export type LessonListRelationFilter = {
     every?: LessonWhereInput
     some?: LessonWhereInput
     none?: LessonWhereInput
   }
 
-  export type CourseScalarRelationFilter = {
-    is?: CourseWhereInput
-    isNot?: CourseWhereInput
+  export type SectionGroupScalarRelationFilter = {
+    is?: SectionGroupWhereInput
+    isNot?: SectionGroupWhereInput
   }
 
   export type LessonOrderByRelationAggregateInput = {
@@ -10731,33 +12106,33 @@ export namespace Prisma {
     id?: SortOrder
     title?: SortOrder
     order?: SortOrder
-    courseId?: SortOrder
+    sectionGroupId?: SortOrder
   }
 
   export type SectionAvgOrderByAggregateInput = {
     id?: SortOrder
     order?: SortOrder
-    courseId?: SortOrder
+    sectionGroupId?: SortOrder
   }
 
   export type SectionMaxOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
     order?: SortOrder
-    courseId?: SortOrder
+    sectionGroupId?: SortOrder
   }
 
   export type SectionMinOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
     order?: SortOrder
-    courseId?: SortOrder
+    sectionGroupId?: SortOrder
   }
 
   export type SectionSumOrderByAggregateInput = {
     id?: SortOrder
     order?: SortOrder
-    courseId?: SortOrder
+    sectionGroupId?: SortOrder
   }
 
   export type StringNullableFilter<$PrismaModel = never> = {
@@ -11069,11 +12444,11 @@ export namespace Prisma {
     deleteMany?: CourseScalarWhereInput | CourseScalarWhereInput[]
   }
 
-  export type SectionCreateNestedManyWithoutCourseInput = {
-    create?: XOR<SectionCreateWithoutCourseInput, SectionUncheckedCreateWithoutCourseInput> | SectionCreateWithoutCourseInput[] | SectionUncheckedCreateWithoutCourseInput[]
-    connectOrCreate?: SectionCreateOrConnectWithoutCourseInput | SectionCreateOrConnectWithoutCourseInput[]
-    createMany?: SectionCreateManyCourseInputEnvelope
-    connect?: SectionWhereUniqueInput | SectionWhereUniqueInput[]
+  export type SectionGroupCreateNestedManyWithoutCourseInput = {
+    create?: XOR<SectionGroupCreateWithoutCourseInput, SectionGroupUncheckedCreateWithoutCourseInput> | SectionGroupCreateWithoutCourseInput[] | SectionGroupUncheckedCreateWithoutCourseInput[]
+    connectOrCreate?: SectionGroupCreateOrConnectWithoutCourseInput | SectionGroupCreateOrConnectWithoutCourseInput[]
+    createMany?: SectionGroupCreateManyCourseInputEnvelope
+    connect?: SectionGroupWhereUniqueInput | SectionGroupWhereUniqueInput[]
   }
 
   export type UserCreateNestedOneWithoutCoursesInput = {
@@ -11088,29 +12463,29 @@ export namespace Prisma {
     connect?: CategoryWhereUniqueInput
   }
 
-  export type SectionUncheckedCreateNestedManyWithoutCourseInput = {
-    create?: XOR<SectionCreateWithoutCourseInput, SectionUncheckedCreateWithoutCourseInput> | SectionCreateWithoutCourseInput[] | SectionUncheckedCreateWithoutCourseInput[]
-    connectOrCreate?: SectionCreateOrConnectWithoutCourseInput | SectionCreateOrConnectWithoutCourseInput[]
-    createMany?: SectionCreateManyCourseInputEnvelope
-    connect?: SectionWhereUniqueInput | SectionWhereUniqueInput[]
+  export type SectionGroupUncheckedCreateNestedManyWithoutCourseInput = {
+    create?: XOR<SectionGroupCreateWithoutCourseInput, SectionGroupUncheckedCreateWithoutCourseInput> | SectionGroupCreateWithoutCourseInput[] | SectionGroupUncheckedCreateWithoutCourseInput[]
+    connectOrCreate?: SectionGroupCreateOrConnectWithoutCourseInput | SectionGroupCreateOrConnectWithoutCourseInput[]
+    createMany?: SectionGroupCreateManyCourseInputEnvelope
+    connect?: SectionGroupWhereUniqueInput | SectionGroupWhereUniqueInput[]
   }
 
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
   }
 
-  export type SectionUpdateManyWithoutCourseNestedInput = {
-    create?: XOR<SectionCreateWithoutCourseInput, SectionUncheckedCreateWithoutCourseInput> | SectionCreateWithoutCourseInput[] | SectionUncheckedCreateWithoutCourseInput[]
-    connectOrCreate?: SectionCreateOrConnectWithoutCourseInput | SectionCreateOrConnectWithoutCourseInput[]
-    upsert?: SectionUpsertWithWhereUniqueWithoutCourseInput | SectionUpsertWithWhereUniqueWithoutCourseInput[]
-    createMany?: SectionCreateManyCourseInputEnvelope
-    set?: SectionWhereUniqueInput | SectionWhereUniqueInput[]
-    disconnect?: SectionWhereUniqueInput | SectionWhereUniqueInput[]
-    delete?: SectionWhereUniqueInput | SectionWhereUniqueInput[]
-    connect?: SectionWhereUniqueInput | SectionWhereUniqueInput[]
-    update?: SectionUpdateWithWhereUniqueWithoutCourseInput | SectionUpdateWithWhereUniqueWithoutCourseInput[]
-    updateMany?: SectionUpdateManyWithWhereWithoutCourseInput | SectionUpdateManyWithWhereWithoutCourseInput[]
-    deleteMany?: SectionScalarWhereInput | SectionScalarWhereInput[]
+  export type SectionGroupUpdateManyWithoutCourseNestedInput = {
+    create?: XOR<SectionGroupCreateWithoutCourseInput, SectionGroupUncheckedCreateWithoutCourseInput> | SectionGroupCreateWithoutCourseInput[] | SectionGroupUncheckedCreateWithoutCourseInput[]
+    connectOrCreate?: SectionGroupCreateOrConnectWithoutCourseInput | SectionGroupCreateOrConnectWithoutCourseInput[]
+    upsert?: SectionGroupUpsertWithWhereUniqueWithoutCourseInput | SectionGroupUpsertWithWhereUniqueWithoutCourseInput[]
+    createMany?: SectionGroupCreateManyCourseInputEnvelope
+    set?: SectionGroupWhereUniqueInput | SectionGroupWhereUniqueInput[]
+    disconnect?: SectionGroupWhereUniqueInput | SectionGroupWhereUniqueInput[]
+    delete?: SectionGroupWhereUniqueInput | SectionGroupWhereUniqueInput[]
+    connect?: SectionGroupWhereUniqueInput | SectionGroupWhereUniqueInput[]
+    update?: SectionGroupUpdateWithWhereUniqueWithoutCourseInput | SectionGroupUpdateWithWhereUniqueWithoutCourseInput[]
+    updateMany?: SectionGroupUpdateManyWithWhereWithoutCourseInput | SectionGroupUpdateManyWithWhereWithoutCourseInput[]
+    deleteMany?: SectionGroupScalarWhereInput | SectionGroupScalarWhereInput[]
   }
 
   export type UserUpdateOneRequiredWithoutCoursesNestedInput = {
@@ -11129,18 +12504,18 @@ export namespace Prisma {
     update?: XOR<XOR<CategoryUpdateToOneWithWhereWithoutCoursesInput, CategoryUpdateWithoutCoursesInput>, CategoryUncheckedUpdateWithoutCoursesInput>
   }
 
-  export type SectionUncheckedUpdateManyWithoutCourseNestedInput = {
-    create?: XOR<SectionCreateWithoutCourseInput, SectionUncheckedCreateWithoutCourseInput> | SectionCreateWithoutCourseInput[] | SectionUncheckedCreateWithoutCourseInput[]
-    connectOrCreate?: SectionCreateOrConnectWithoutCourseInput | SectionCreateOrConnectWithoutCourseInput[]
-    upsert?: SectionUpsertWithWhereUniqueWithoutCourseInput | SectionUpsertWithWhereUniqueWithoutCourseInput[]
-    createMany?: SectionCreateManyCourseInputEnvelope
-    set?: SectionWhereUniqueInput | SectionWhereUniqueInput[]
-    disconnect?: SectionWhereUniqueInput | SectionWhereUniqueInput[]
-    delete?: SectionWhereUniqueInput | SectionWhereUniqueInput[]
-    connect?: SectionWhereUniqueInput | SectionWhereUniqueInput[]
-    update?: SectionUpdateWithWhereUniqueWithoutCourseInput | SectionUpdateWithWhereUniqueWithoutCourseInput[]
-    updateMany?: SectionUpdateManyWithWhereWithoutCourseInput | SectionUpdateManyWithWhereWithoutCourseInput[]
-    deleteMany?: SectionScalarWhereInput | SectionScalarWhereInput[]
+  export type SectionGroupUncheckedUpdateManyWithoutCourseNestedInput = {
+    create?: XOR<SectionGroupCreateWithoutCourseInput, SectionGroupUncheckedCreateWithoutCourseInput> | SectionGroupCreateWithoutCourseInput[] | SectionGroupUncheckedCreateWithoutCourseInput[]
+    connectOrCreate?: SectionGroupCreateOrConnectWithoutCourseInput | SectionGroupCreateOrConnectWithoutCourseInput[]
+    upsert?: SectionGroupUpsertWithWhereUniqueWithoutCourseInput | SectionGroupUpsertWithWhereUniqueWithoutCourseInput[]
+    createMany?: SectionGroupCreateManyCourseInputEnvelope
+    set?: SectionGroupWhereUniqueInput | SectionGroupWhereUniqueInput[]
+    disconnect?: SectionGroupWhereUniqueInput | SectionGroupWhereUniqueInput[]
+    delete?: SectionGroupWhereUniqueInput | SectionGroupWhereUniqueInput[]
+    connect?: SectionGroupWhereUniqueInput | SectionGroupWhereUniqueInput[]
+    update?: SectionGroupUpdateWithWhereUniqueWithoutCourseInput | SectionGroupUpdateWithWhereUniqueWithoutCourseInput[]
+    updateMany?: SectionGroupUpdateManyWithWhereWithoutCourseInput | SectionGroupUpdateManyWithWhereWithoutCourseInput[]
+    deleteMany?: SectionGroupScalarWhereInput | SectionGroupScalarWhereInput[]
   }
 
   export type CourseCreateNestedManyWithoutCategoryInput = {
@@ -11185,6 +12560,62 @@ export namespace Prisma {
     deleteMany?: CourseScalarWhereInput | CourseScalarWhereInput[]
   }
 
+  export type SectionCreateNestedManyWithoutSectionGroupInput = {
+    create?: XOR<SectionCreateWithoutSectionGroupInput, SectionUncheckedCreateWithoutSectionGroupInput> | SectionCreateWithoutSectionGroupInput[] | SectionUncheckedCreateWithoutSectionGroupInput[]
+    connectOrCreate?: SectionCreateOrConnectWithoutSectionGroupInput | SectionCreateOrConnectWithoutSectionGroupInput[]
+    createMany?: SectionCreateManySectionGroupInputEnvelope
+    connect?: SectionWhereUniqueInput | SectionWhereUniqueInput[]
+  }
+
+  export type CourseCreateNestedOneWithoutSectionGroupsInput = {
+    create?: XOR<CourseCreateWithoutSectionGroupsInput, CourseUncheckedCreateWithoutSectionGroupsInput>
+    connectOrCreate?: CourseCreateOrConnectWithoutSectionGroupsInput
+    connect?: CourseWhereUniqueInput
+  }
+
+  export type SectionUncheckedCreateNestedManyWithoutSectionGroupInput = {
+    create?: XOR<SectionCreateWithoutSectionGroupInput, SectionUncheckedCreateWithoutSectionGroupInput> | SectionCreateWithoutSectionGroupInput[] | SectionUncheckedCreateWithoutSectionGroupInput[]
+    connectOrCreate?: SectionCreateOrConnectWithoutSectionGroupInput | SectionCreateOrConnectWithoutSectionGroupInput[]
+    createMany?: SectionCreateManySectionGroupInputEnvelope
+    connect?: SectionWhereUniqueInput | SectionWhereUniqueInput[]
+  }
+
+  export type SectionUpdateManyWithoutSectionGroupNestedInput = {
+    create?: XOR<SectionCreateWithoutSectionGroupInput, SectionUncheckedCreateWithoutSectionGroupInput> | SectionCreateWithoutSectionGroupInput[] | SectionUncheckedCreateWithoutSectionGroupInput[]
+    connectOrCreate?: SectionCreateOrConnectWithoutSectionGroupInput | SectionCreateOrConnectWithoutSectionGroupInput[]
+    upsert?: SectionUpsertWithWhereUniqueWithoutSectionGroupInput | SectionUpsertWithWhereUniqueWithoutSectionGroupInput[]
+    createMany?: SectionCreateManySectionGroupInputEnvelope
+    set?: SectionWhereUniqueInput | SectionWhereUniqueInput[]
+    disconnect?: SectionWhereUniqueInput | SectionWhereUniqueInput[]
+    delete?: SectionWhereUniqueInput | SectionWhereUniqueInput[]
+    connect?: SectionWhereUniqueInput | SectionWhereUniqueInput[]
+    update?: SectionUpdateWithWhereUniqueWithoutSectionGroupInput | SectionUpdateWithWhereUniqueWithoutSectionGroupInput[]
+    updateMany?: SectionUpdateManyWithWhereWithoutSectionGroupInput | SectionUpdateManyWithWhereWithoutSectionGroupInput[]
+    deleteMany?: SectionScalarWhereInput | SectionScalarWhereInput[]
+  }
+
+  export type CourseUpdateOneRequiredWithoutSectionGroupsNestedInput = {
+    create?: XOR<CourseCreateWithoutSectionGroupsInput, CourseUncheckedCreateWithoutSectionGroupsInput>
+    connectOrCreate?: CourseCreateOrConnectWithoutSectionGroupsInput
+    upsert?: CourseUpsertWithoutSectionGroupsInput
+    connect?: CourseWhereUniqueInput
+    update?: XOR<XOR<CourseUpdateToOneWithWhereWithoutSectionGroupsInput, CourseUpdateWithoutSectionGroupsInput>, CourseUncheckedUpdateWithoutSectionGroupsInput>
+  }
+
+  export type SectionUncheckedUpdateManyWithoutSectionGroupNestedInput = {
+    create?: XOR<SectionCreateWithoutSectionGroupInput, SectionUncheckedCreateWithoutSectionGroupInput> | SectionCreateWithoutSectionGroupInput[] | SectionUncheckedCreateWithoutSectionGroupInput[]
+    connectOrCreate?: SectionCreateOrConnectWithoutSectionGroupInput | SectionCreateOrConnectWithoutSectionGroupInput[]
+    upsert?: SectionUpsertWithWhereUniqueWithoutSectionGroupInput | SectionUpsertWithWhereUniqueWithoutSectionGroupInput[]
+    createMany?: SectionCreateManySectionGroupInputEnvelope
+    set?: SectionWhereUniqueInput | SectionWhereUniqueInput[]
+    disconnect?: SectionWhereUniqueInput | SectionWhereUniqueInput[]
+    delete?: SectionWhereUniqueInput | SectionWhereUniqueInput[]
+    connect?: SectionWhereUniqueInput | SectionWhereUniqueInput[]
+    update?: SectionUpdateWithWhereUniqueWithoutSectionGroupInput | SectionUpdateWithWhereUniqueWithoutSectionGroupInput[]
+    updateMany?: SectionUpdateManyWithWhereWithoutSectionGroupInput | SectionUpdateManyWithWhereWithoutSectionGroupInput[]
+    deleteMany?: SectionScalarWhereInput | SectionScalarWhereInput[]
+  }
+
   export type LessonCreateNestedManyWithoutSectionInput = {
     create?: XOR<LessonCreateWithoutSectionInput, LessonUncheckedCreateWithoutSectionInput> | LessonCreateWithoutSectionInput[] | LessonUncheckedCreateWithoutSectionInput[]
     connectOrCreate?: LessonCreateOrConnectWithoutSectionInput | LessonCreateOrConnectWithoutSectionInput[]
@@ -11192,10 +12623,10 @@ export namespace Prisma {
     connect?: LessonWhereUniqueInput | LessonWhereUniqueInput[]
   }
 
-  export type CourseCreateNestedOneWithoutSectionsInput = {
-    create?: XOR<CourseCreateWithoutSectionsInput, CourseUncheckedCreateWithoutSectionsInput>
-    connectOrCreate?: CourseCreateOrConnectWithoutSectionsInput
-    connect?: CourseWhereUniqueInput
+  export type SectionGroupCreateNestedOneWithoutSectionsInput = {
+    create?: XOR<SectionGroupCreateWithoutSectionsInput, SectionGroupUncheckedCreateWithoutSectionsInput>
+    connectOrCreate?: SectionGroupCreateOrConnectWithoutSectionsInput
+    connect?: SectionGroupWhereUniqueInput
   }
 
   export type LessonUncheckedCreateNestedManyWithoutSectionInput = {
@@ -11219,12 +12650,12 @@ export namespace Prisma {
     deleteMany?: LessonScalarWhereInput | LessonScalarWhereInput[]
   }
 
-  export type CourseUpdateOneRequiredWithoutSectionsNestedInput = {
-    create?: XOR<CourseCreateWithoutSectionsInput, CourseUncheckedCreateWithoutSectionsInput>
-    connectOrCreate?: CourseCreateOrConnectWithoutSectionsInput
-    upsert?: CourseUpsertWithoutSectionsInput
-    connect?: CourseWhereUniqueInput
-    update?: XOR<XOR<CourseUpdateToOneWithWhereWithoutSectionsInput, CourseUpdateWithoutSectionsInput>, CourseUncheckedUpdateWithoutSectionsInput>
+  export type SectionGroupUpdateOneRequiredWithoutSectionsNestedInput = {
+    create?: XOR<SectionGroupCreateWithoutSectionsInput, SectionGroupUncheckedCreateWithoutSectionsInput>
+    connectOrCreate?: SectionGroupCreateOrConnectWithoutSectionsInput
+    upsert?: SectionGroupUpsertWithoutSectionsInput
+    connect?: SectionGroupWhereUniqueInput
+    update?: XOR<XOR<SectionGroupUpdateToOneWithWhereWithoutSectionsInput, SectionGroupUpdateWithoutSectionsInput>, SectionGroupUncheckedUpdateWithoutSectionsInput>
   }
 
   export type LessonUncheckedUpdateManyWithoutSectionNestedInput = {
@@ -11613,7 +13044,7 @@ export namespace Prisma {
     description: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    sections?: SectionCreateNestedManyWithoutCourseInput
+    sectionGroups?: SectionGroupCreateNestedManyWithoutCourseInput
     category: CategoryCreateNestedOneWithoutCoursesInput
   }
 
@@ -11624,7 +13055,7 @@ export namespace Prisma {
     categoryId: number
     createdAt?: Date | string
     updatedAt?: Date | string
-    sections?: SectionUncheckedCreateNestedManyWithoutCourseInput
+    sectionGroups?: SectionGroupUncheckedCreateNestedManyWithoutCourseInput
   }
 
   export type CourseCreateOrConnectWithoutUserInput = {
@@ -11666,26 +13097,26 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Course"> | Date | string
   }
 
-  export type SectionCreateWithoutCourseInput = {
+  export type SectionGroupCreateWithoutCourseInput = {
     title: string
     order: number
-    lessons?: LessonCreateNestedManyWithoutSectionInput
+    sections?: SectionCreateNestedManyWithoutSectionGroupInput
   }
 
-  export type SectionUncheckedCreateWithoutCourseInput = {
+  export type SectionGroupUncheckedCreateWithoutCourseInput = {
     id?: number
     title: string
     order: number
-    lessons?: LessonUncheckedCreateNestedManyWithoutSectionInput
+    sections?: SectionUncheckedCreateNestedManyWithoutSectionGroupInput
   }
 
-  export type SectionCreateOrConnectWithoutCourseInput = {
-    where: SectionWhereUniqueInput
-    create: XOR<SectionCreateWithoutCourseInput, SectionUncheckedCreateWithoutCourseInput>
+  export type SectionGroupCreateOrConnectWithoutCourseInput = {
+    where: SectionGroupWhereUniqueInput
+    create: XOR<SectionGroupCreateWithoutCourseInput, SectionGroupUncheckedCreateWithoutCourseInput>
   }
 
-  export type SectionCreateManyCourseInputEnvelope = {
-    data: SectionCreateManyCourseInput | SectionCreateManyCourseInput[]
+  export type SectionGroupCreateManyCourseInputEnvelope = {
+    data: SectionGroupCreateManyCourseInput | SectionGroupCreateManyCourseInput[]
     skipDuplicates?: boolean
   }
 
@@ -11725,30 +13156,30 @@ export namespace Prisma {
     create: XOR<CategoryCreateWithoutCoursesInput, CategoryUncheckedCreateWithoutCoursesInput>
   }
 
-  export type SectionUpsertWithWhereUniqueWithoutCourseInput = {
-    where: SectionWhereUniqueInput
-    update: XOR<SectionUpdateWithoutCourseInput, SectionUncheckedUpdateWithoutCourseInput>
-    create: XOR<SectionCreateWithoutCourseInput, SectionUncheckedCreateWithoutCourseInput>
+  export type SectionGroupUpsertWithWhereUniqueWithoutCourseInput = {
+    where: SectionGroupWhereUniqueInput
+    update: XOR<SectionGroupUpdateWithoutCourseInput, SectionGroupUncheckedUpdateWithoutCourseInput>
+    create: XOR<SectionGroupCreateWithoutCourseInput, SectionGroupUncheckedCreateWithoutCourseInput>
   }
 
-  export type SectionUpdateWithWhereUniqueWithoutCourseInput = {
-    where: SectionWhereUniqueInput
-    data: XOR<SectionUpdateWithoutCourseInput, SectionUncheckedUpdateWithoutCourseInput>
+  export type SectionGroupUpdateWithWhereUniqueWithoutCourseInput = {
+    where: SectionGroupWhereUniqueInput
+    data: XOR<SectionGroupUpdateWithoutCourseInput, SectionGroupUncheckedUpdateWithoutCourseInput>
   }
 
-  export type SectionUpdateManyWithWhereWithoutCourseInput = {
-    where: SectionScalarWhereInput
-    data: XOR<SectionUpdateManyMutationInput, SectionUncheckedUpdateManyWithoutCourseInput>
+  export type SectionGroupUpdateManyWithWhereWithoutCourseInput = {
+    where: SectionGroupScalarWhereInput
+    data: XOR<SectionGroupUpdateManyMutationInput, SectionGroupUncheckedUpdateManyWithoutCourseInput>
   }
 
-  export type SectionScalarWhereInput = {
-    AND?: SectionScalarWhereInput | SectionScalarWhereInput[]
-    OR?: SectionScalarWhereInput[]
-    NOT?: SectionScalarWhereInput | SectionScalarWhereInput[]
-    id?: IntFilter<"Section"> | number
-    title?: StringFilter<"Section"> | string
-    order?: IntFilter<"Section"> | number
-    courseId?: IntFilter<"Section"> | number
+  export type SectionGroupScalarWhereInput = {
+    AND?: SectionGroupScalarWhereInput | SectionGroupScalarWhereInput[]
+    OR?: SectionGroupScalarWhereInput[]
+    NOT?: SectionGroupScalarWhereInput | SectionGroupScalarWhereInput[]
+    id?: IntFilter<"SectionGroup"> | number
+    title?: StringFilter<"SectionGroup"> | string
+    order?: IntFilter<"SectionGroup"> | number
+    courseId?: IntFilter<"SectionGroup"> | number
   }
 
   export type UserUpsertWithoutCoursesInput = {
@@ -11804,7 +13235,7 @@ export namespace Prisma {
     description: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    sections?: SectionCreateNestedManyWithoutCourseInput
+    sectionGroups?: SectionGroupCreateNestedManyWithoutCourseInput
     user: UserCreateNestedOneWithoutCoursesInput
   }
 
@@ -11815,7 +13246,7 @@ export namespace Prisma {
     userId: number
     createdAt?: Date | string
     updatedAt?: Date | string
-    sections?: SectionUncheckedCreateNestedManyWithoutCourseInput
+    sectionGroups?: SectionGroupUncheckedCreateNestedManyWithoutCourseInput
   }
 
   export type CourseCreateOrConnectWithoutCategoryInput = {
@@ -11842,6 +13273,109 @@ export namespace Prisma {
   export type CourseUpdateManyWithWhereWithoutCategoryInput = {
     where: CourseScalarWhereInput
     data: XOR<CourseUpdateManyMutationInput, CourseUncheckedUpdateManyWithoutCategoryInput>
+  }
+
+  export type SectionCreateWithoutSectionGroupInput = {
+    title: string
+    order: number
+    lessons?: LessonCreateNestedManyWithoutSectionInput
+  }
+
+  export type SectionUncheckedCreateWithoutSectionGroupInput = {
+    id?: number
+    title: string
+    order: number
+    lessons?: LessonUncheckedCreateNestedManyWithoutSectionInput
+  }
+
+  export type SectionCreateOrConnectWithoutSectionGroupInput = {
+    where: SectionWhereUniqueInput
+    create: XOR<SectionCreateWithoutSectionGroupInput, SectionUncheckedCreateWithoutSectionGroupInput>
+  }
+
+  export type SectionCreateManySectionGroupInputEnvelope = {
+    data: SectionCreateManySectionGroupInput | SectionCreateManySectionGroupInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CourseCreateWithoutSectionGroupsInput = {
+    title: string
+    description: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutCoursesInput
+    category: CategoryCreateNestedOneWithoutCoursesInput
+  }
+
+  export type CourseUncheckedCreateWithoutSectionGroupsInput = {
+    id?: number
+    title: string
+    description: string
+    categoryId: number
+    userId: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CourseCreateOrConnectWithoutSectionGroupsInput = {
+    where: CourseWhereUniqueInput
+    create: XOR<CourseCreateWithoutSectionGroupsInput, CourseUncheckedCreateWithoutSectionGroupsInput>
+  }
+
+  export type SectionUpsertWithWhereUniqueWithoutSectionGroupInput = {
+    where: SectionWhereUniqueInput
+    update: XOR<SectionUpdateWithoutSectionGroupInput, SectionUncheckedUpdateWithoutSectionGroupInput>
+    create: XOR<SectionCreateWithoutSectionGroupInput, SectionUncheckedCreateWithoutSectionGroupInput>
+  }
+
+  export type SectionUpdateWithWhereUniqueWithoutSectionGroupInput = {
+    where: SectionWhereUniqueInput
+    data: XOR<SectionUpdateWithoutSectionGroupInput, SectionUncheckedUpdateWithoutSectionGroupInput>
+  }
+
+  export type SectionUpdateManyWithWhereWithoutSectionGroupInput = {
+    where: SectionScalarWhereInput
+    data: XOR<SectionUpdateManyMutationInput, SectionUncheckedUpdateManyWithoutSectionGroupInput>
+  }
+
+  export type SectionScalarWhereInput = {
+    AND?: SectionScalarWhereInput | SectionScalarWhereInput[]
+    OR?: SectionScalarWhereInput[]
+    NOT?: SectionScalarWhereInput | SectionScalarWhereInput[]
+    id?: IntFilter<"Section"> | number
+    title?: StringFilter<"Section"> | string
+    order?: IntFilter<"Section"> | number
+    sectionGroupId?: IntFilter<"Section"> | number
+  }
+
+  export type CourseUpsertWithoutSectionGroupsInput = {
+    update: XOR<CourseUpdateWithoutSectionGroupsInput, CourseUncheckedUpdateWithoutSectionGroupsInput>
+    create: XOR<CourseCreateWithoutSectionGroupsInput, CourseUncheckedCreateWithoutSectionGroupsInput>
+    where?: CourseWhereInput
+  }
+
+  export type CourseUpdateToOneWithWhereWithoutSectionGroupsInput = {
+    where?: CourseWhereInput
+    data: XOR<CourseUpdateWithoutSectionGroupsInput, CourseUncheckedUpdateWithoutSectionGroupsInput>
+  }
+
+  export type CourseUpdateWithoutSectionGroupsInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutCoursesNestedInput
+    category?: CategoryUpdateOneRequiredWithoutCoursesNestedInput
+  }
+
+  export type CourseUncheckedUpdateWithoutSectionGroupsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    categoryId?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type LessonCreateWithoutSectionInput = {
@@ -11875,28 +13409,22 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type CourseCreateWithoutSectionsInput = {
+  export type SectionGroupCreateWithoutSectionsInput = {
     title: string
-    description: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    user: UserCreateNestedOneWithoutCoursesInput
-    category: CategoryCreateNestedOneWithoutCoursesInput
+    order: number
+    course: CourseCreateNestedOneWithoutSectionGroupsInput
   }
 
-  export type CourseUncheckedCreateWithoutSectionsInput = {
+  export type SectionGroupUncheckedCreateWithoutSectionsInput = {
     id?: number
     title: string
-    description: string
-    categoryId: number
-    userId: number
-    createdAt?: Date | string
-    updatedAt?: Date | string
+    order: number
+    courseId: number
   }
 
-  export type CourseCreateOrConnectWithoutSectionsInput = {
-    where: CourseWhereUniqueInput
-    create: XOR<CourseCreateWithoutSectionsInput, CourseUncheckedCreateWithoutSectionsInput>
+  export type SectionGroupCreateOrConnectWithoutSectionsInput = {
+    where: SectionGroupWhereUniqueInput
+    create: XOR<SectionGroupCreateWithoutSectionsInput, SectionGroupUncheckedCreateWithoutSectionsInput>
   }
 
   export type LessonUpsertWithWhereUniqueWithoutSectionInput = {
@@ -11929,34 +13457,28 @@ export namespace Prisma {
     sectionId?: IntFilter<"Lesson"> | number
   }
 
-  export type CourseUpsertWithoutSectionsInput = {
-    update: XOR<CourseUpdateWithoutSectionsInput, CourseUncheckedUpdateWithoutSectionsInput>
-    create: XOR<CourseCreateWithoutSectionsInput, CourseUncheckedCreateWithoutSectionsInput>
-    where?: CourseWhereInput
+  export type SectionGroupUpsertWithoutSectionsInput = {
+    update: XOR<SectionGroupUpdateWithoutSectionsInput, SectionGroupUncheckedUpdateWithoutSectionsInput>
+    create: XOR<SectionGroupCreateWithoutSectionsInput, SectionGroupUncheckedCreateWithoutSectionsInput>
+    where?: SectionGroupWhereInput
   }
 
-  export type CourseUpdateToOneWithWhereWithoutSectionsInput = {
-    where?: CourseWhereInput
-    data: XOR<CourseUpdateWithoutSectionsInput, CourseUncheckedUpdateWithoutSectionsInput>
+  export type SectionGroupUpdateToOneWithWhereWithoutSectionsInput = {
+    where?: SectionGroupWhereInput
+    data: XOR<SectionGroupUpdateWithoutSectionsInput, SectionGroupUncheckedUpdateWithoutSectionsInput>
   }
 
-  export type CourseUpdateWithoutSectionsInput = {
+  export type SectionGroupUpdateWithoutSectionsInput = {
     title?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutCoursesNestedInput
-    category?: CategoryUpdateOneRequiredWithoutCoursesNestedInput
+    order?: IntFieldUpdateOperationsInput | number
+    course?: CourseUpdateOneRequiredWithoutSectionGroupsNestedInput
   }
 
-  export type CourseUncheckedUpdateWithoutSectionsInput = {
+  export type SectionGroupUncheckedUpdateWithoutSectionsInput = {
     id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    categoryId?: IntFieldUpdateOperationsInput | number
-    userId?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    order?: IntFieldUpdateOperationsInput | number
+    courseId?: IntFieldUpdateOperationsInput | number
   }
 
   export type QuizCreateWithoutLessonInput = {
@@ -11980,14 +13502,14 @@ export namespace Prisma {
   export type SectionCreateWithoutLessonsInput = {
     title: string
     order: number
-    course: CourseCreateNestedOneWithoutSectionsInput
+    sectionGroup: SectionGroupCreateNestedOneWithoutSectionsInput
   }
 
   export type SectionUncheckedCreateWithoutLessonsInput = {
     id?: number
     title: string
     order: number
-    courseId: number
+    sectionGroupId: number
   }
 
   export type SectionCreateOrConnectWithoutLessonsInput = {
@@ -12033,14 +13555,14 @@ export namespace Prisma {
   export type SectionUpdateWithoutLessonsInput = {
     title?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
-    course?: CourseUpdateOneRequiredWithoutSectionsNestedInput
+    sectionGroup?: SectionGroupUpdateOneRequiredWithoutSectionsNestedInput
   }
 
   export type SectionUncheckedUpdateWithoutLessonsInput = {
     id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
-    courseId?: IntFieldUpdateOperationsInput | number
+    sectionGroupId?: IntFieldUpdateOperationsInput | number
   }
 
   export type AnswerCreateWithoutQuizInput = {
@@ -12204,7 +13726,7 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    sections?: SectionUpdateManyWithoutCourseNestedInput
+    sectionGroups?: SectionGroupUpdateManyWithoutCourseNestedInput
     category?: CategoryUpdateOneRequiredWithoutCoursesNestedInput
   }
 
@@ -12215,7 +13737,7 @@ export namespace Prisma {
     categoryId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    sections?: SectionUncheckedUpdateManyWithoutCourseNestedInput
+    sectionGroups?: SectionGroupUncheckedUpdateManyWithoutCourseNestedInput
   }
 
   export type CourseUncheckedUpdateManyWithoutUserInput = {
@@ -12227,26 +13749,26 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type SectionCreateManyCourseInput = {
+  export type SectionGroupCreateManyCourseInput = {
     id?: number
     title: string
     order: number
   }
 
-  export type SectionUpdateWithoutCourseInput = {
+  export type SectionGroupUpdateWithoutCourseInput = {
     title?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
-    lessons?: LessonUpdateManyWithoutSectionNestedInput
+    sections?: SectionUpdateManyWithoutSectionGroupNestedInput
   }
 
-  export type SectionUncheckedUpdateWithoutCourseInput = {
+  export type SectionGroupUncheckedUpdateWithoutCourseInput = {
     id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
-    lessons?: LessonUncheckedUpdateManyWithoutSectionNestedInput
+    sections?: SectionUncheckedUpdateManyWithoutSectionGroupNestedInput
   }
 
-  export type SectionUncheckedUpdateManyWithoutCourseInput = {
+  export type SectionGroupUncheckedUpdateManyWithoutCourseInput = {
     id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
@@ -12266,7 +13788,7 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    sections?: SectionUpdateManyWithoutCourseNestedInput
+    sectionGroups?: SectionGroupUpdateManyWithoutCourseNestedInput
     user?: UserUpdateOneRequiredWithoutCoursesNestedInput
   }
 
@@ -12277,7 +13799,7 @@ export namespace Prisma {
     userId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    sections?: SectionUncheckedUpdateManyWithoutCourseNestedInput
+    sectionGroups?: SectionGroupUncheckedUpdateManyWithoutCourseNestedInput
   }
 
   export type CourseUncheckedUpdateManyWithoutCategoryInput = {
@@ -12287,6 +13809,31 @@ export namespace Prisma {
     userId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SectionCreateManySectionGroupInput = {
+    id?: number
+    title: string
+    order: number
+  }
+
+  export type SectionUpdateWithoutSectionGroupInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+    lessons?: LessonUpdateManyWithoutSectionNestedInput
+  }
+
+  export type SectionUncheckedUpdateWithoutSectionGroupInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+    lessons?: LessonUncheckedUpdateManyWithoutSectionNestedInput
+  }
+
+  export type SectionUncheckedUpdateManyWithoutSectionGroupInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
   }
 
   export type LessonCreateManySectionInput = {

@@ -1,34 +1,31 @@
 "use client";
-import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-import { setCurrentSection } from "@/lib/slices/CourseViewSlice";
-import { DBSection } from "@/types/dbSection";
-import { current } from "@reduxjs/toolkit";
+import { useAppDispatch } from "@/lib/hooks";
+import { DbSection } from "@/types/dbSection";
 
 type Props = {
-  sections: DBSection[];
+  sections: DbSection[];
 };
 const Actions = ({ sections }: Props) => {
-  const { currentSection } = useAppSelector((store) => store.CourseView);
   const dispatch = useAppDispatch();
-  function handleGoBack() {
-    const preSection = sections.find(
-      (section) => section.order === currentSection!.order - 1
-    );
-    if (preSection) {
-      dispatch(setCurrentSection(preSection));
-    }
-  }
-  function handleNextLesson() {
-    const nextSection = sections.find(
-      (section) => section.order === currentSection!.order + 1
-    );
-    if (nextSection) {
-      dispatch(setCurrentSection(nextSection));
-    }
-  }
+  // function handleGoBack() {
+  //   const preSection = sections.find(
+  //     (section) => section.order === currentSection!.order - 1
+  //   );
+  //   if (preSection) {
+  //     dispatch(setCurrentSection(preSection));
+  //   }
+  // }
+  // function handleNextLesson() {
+  //   const nextSection = sections.find(
+  //     (section) => section.order === currentSection!.order + 1
+  //   );
+  //   if (nextSection) {
+  //     dispatch(setCurrentSection(nextSection));
+  //   }
+  // }
   return (
     <div className="grow flex justify-center gap-4 items-end">
-      {currentSection?.order !== 1 && (
+      {/* {currentSection?.order !== 1 && (
         <button
           className="text-sm bg-purple-500 text-white p-2 rounded-sm hover:scale-95 duration-500"
           onClick={handleGoBack}
@@ -44,7 +41,7 @@ const Actions = ({ sections }: Props) => {
         >
           Go to next lesson
         </button>
-      )}
+      )} */}
     </div>
   );
 };

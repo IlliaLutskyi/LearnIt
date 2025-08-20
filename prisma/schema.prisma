@@ -20,8 +20,8 @@ model User {
 model Course{
   id Int @id @default(autoincrement())
   title String @db.Char(100)
-  description String @db.Char(500)
-  sections Section[]
+  description String @db.Char(1200)
+  sectionGroups SectionGroup[]
   categoryId Int
   userId Int
   user User @relation(fields: [userId],references: [id])
@@ -37,18 +37,27 @@ model Category{
   image String 
 }
 
-model Section{
+model SectionGroup{
   id Int @id @default(autoincrement())
-  lessons Lesson[]
-  title String @db.Char(300) 
+  title String @db.Char(50)
+  sections Section[]
   order Int 
   courseId Int
   course Course @relation(fields: [courseId],references: [id])
 }
 
+model Section{
+  id Int @id @default(autoincrement())
+  lessons Lesson[]
+  title String @db.Char(50) 
+  order Int 
+  sectionGroupId Int
+  sectionGroup SectionGroup @relation(fields: [sectionGroupId],references: [id])
+}
+
 model Lesson{
   id Int @id @default(autoincrement())
-  title String @db.Char(100)
+  title String @db.Char(50)
   content String?
   quiz Quiz?
   order Int

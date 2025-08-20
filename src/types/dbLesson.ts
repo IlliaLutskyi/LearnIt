@@ -1,12 +1,12 @@
 import { $Enums } from "../../prisma/generated/prisma";
-import { DBQuiz } from "./dbQuiz";
+import { DbQuiz } from "./dbQuiz";
 
-export type DBLesson = {
+export type DbLesson = {
   title: string;
   order: number;
   id: number;
   content: string | null;
-  quiz: DBQuiz | null;
+  quiz: DbQuiz | null;
   videoSource: $Enums.VideoSource | null;
   contentType: $Enums.ContentType;
   quizId: number | null;

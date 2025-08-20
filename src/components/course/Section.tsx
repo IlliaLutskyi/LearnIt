@@ -1,46 +1,31 @@
 "use client";
-import { useState } from "react";
-import { FaArrowDown } from "react-icons/fa";
-import { FaArrowUp } from "react-icons/fa";
 
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "../ui/collapsible";
-import LessonLink from "./LessonLink";
-import { useAppDispatch } from "@/lib/hooks";
-import { setCurrentSection } from "@/lib/slices/CourseViewSlice";
-import { DBSection } from "@/types/dbSection";
+import { useAppDispatch, useAppSelector } from "@/lib/hooks";
+import { setCurrentSectionId } from "@/lib/slices/CourseViewSlice";
+import { DbSection } from "@/types/dbSection";
+import { useEffect } from "react";
 
 type Props = {
-  section: DBSection;
+  section: DbSection;
 };
 const Section = ({ section }: Props) => {
-  const [isOpen, setIsOpen] = useState(false);
   const dispatch = useAppDispatch();
+  const { currentSectionId } = useAppSelector((store) => store.CourseView);
+  useEffect(() => {
+    if (section.order === 1) dispatch(setCurrentSectionId(section.id));
+  }, [section]);
   return (
-    <Collapsible
-      key={section.id}
-      className="w-full"
-      open={isOpen}
-      onClick={() => {
-        dispatch(setCurrentSection(section));
-      }}
-      onOpenChange={() => setIsOpen(!isOpen)}
-    >
-      <section>
-        <CollapsibleTrigger className="w-full flex items-center justify-between">
-          <h1 className="text-lg hover:underline">{section.title}</h1>
-          {isOpen ? <FaArrowUp /> : <FaArrowDown />}
-        </CollapsibleTrigger>
-      </section>
-      <CollapsibleContent className="flex flex-col gap-1 border-l-[1px] border-gray-200 pl-6 ml-3">
-        {section.lessons.map((lesson) => {
-          return <LessonLink lesson={lesson} key={lesson.id} />;
-        })}
-      </CollapsibleContent>
-    </Collapsible>
+    <div onClick={() => dispatch(setCurrentSectionId(section.id))}>
+      <h1
+        className={`${
+          currentSectionId === section.id
+            ? "text-purple-400"
+            : "text-white hover:text-purple-400"
+        } duration-400`}
+      >
+        {section.title}
+      </h1>
+    </div>
   );
 };
 

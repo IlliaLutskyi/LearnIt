@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { memo } from "react";
 
 type Props = {
   label?: string;
@@ -13,9 +13,10 @@ type Props = {
   value?: string;
   rootClassName?: string;
   inputClassName?: string;
-  defaultValue?: string;
   multiline?: boolean;
+  defaultValue?: string;
   name?: string;
+  maxLength?: number;
   checked?: boolean;
 };
 const InputField = ({
@@ -25,10 +26,11 @@ const InputField = ({
   placeholder,
   onChange,
   name,
+  defaultValue,
   rootClassName,
   value,
+  maxLength,
   checked,
-  defaultValue,
   multiline = false,
 }: Props) => {
   return (
@@ -43,16 +45,18 @@ const InputField = ({
           className={inputClassName}
           onChange={onChange}
           value={value}
+          maxLength={maxLength}
         />
       ) : (
         <input
           type={type}
           name={name}
           id={label}
+          defaultValue={defaultValue}
           checked={checked}
           onChange={onChange}
           value={value}
-          defaultValue={defaultValue}
+          maxLength={maxLength}
           className={inputClassName}
           placeholder={placeholder}
         />

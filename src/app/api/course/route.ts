@@ -11,14 +11,32 @@ export async function POST(req: Request) {
         { message: "Please fill all the fields in the previous step" },
         { status: 400 }
       );
-    if (course.sections.length === 0)
+    if (course.sectionGroups.length === 0)
       return Response.json(
-        { message: "Please add at least one section" },
+        { message: "Please add at least one section group" },
         { status: 400 }
       );
-    if (course.sections.some((section) => section.lessons.length === 0))
+    if (
+      course.sectionGroups.some(
+        (sectionGroup) => sectionGroup.sections.length === 0
+      )
+    )
       return Response.json(
-        { message: "Please add at least one lesson or quiz to each section" },
+        { message: "Please add at least one section in each section group" },
+        { status: 400 }
+      );
+    if (course.sectionGroups.some((sectionGroup) => !sectionGroup.title))
+      return Response.json(
+        { message: "Please add a title to each section group" },
+        { status: 400 }
+      );
+    if (
+      course.sectionGroups.some((sectionGroup) =>
+        sectionGroup.sections.some((section) => !section.title)
+      )
+    )
+      return Response.json(
+        { message: "Please add a title to each section" },
         { status: 400 }
       );
     await prisma.course.create({
@@ -33,33 +51,39 @@ export async function POST(req: Request) {
             id: Number(course.userId),
           },
         },
-        sections: {
-          create: course.sections.map((section) => ({
-            title: section.title,
-            order: section.order,
-            lessons: {
-              create: section.lessons.map((lesson) => ({
-                title: lesson.title,
-                content: lesson.content,
-                contentType: lesson.contentType,
-                order: lesson.order,
-                videoSource: lesson.videoSource,
-                quiz: lesson.quiz
-                  ? {
-                      create: {
-                        question: lesson.quiz.question,
-                        explanation: lesson.quiz.explanation,
-                        answers: {
-                          createMany: {
-                            data: lesson.quiz.answers.map((a) => ({
-                              content: a.content,
-                              isCorrect: a.isCorrect,
-                            })),
+        sectionGroups: {
+          create: course.sectionGroups.map((sectionGroup) => ({
+            title: sectionGroup.title,
+            order: sectionGroup.order,
+            sections: {
+              create: sectionGroup.sections.map((section) => ({
+                title: section.title,
+                order: section.order,
+                lessons: {
+                  create: section.lessons.map((lesson) => ({
+                    title: lesson.title,
+                    content: lesson.content,
+                    contentType: lesson.contentType,
+                    order: lesson.order,
+                    videoSource: lesson.videoSource,
+                    quiz: lesson.quiz
+                      ? {
+                          create: {
+                            question: lesson.quiz.question,
+                            explanation: lesson.quiz.explanation,
+                            answers: {
+                              createMany: {
+                                data: lesson.quiz.answers.map((a) => ({
+                                  content: a.content,
+                                  isCorrect: a.isCorrect,
+                                })),
+                              },
+                            },
                           },
-                        },
-                      },
-                    }
-                  : undefined,
+                        }
+                      : undefined,
+                  })),
+                },
               })),
             },
           })),

@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@plugin "@tailwindcss/typography";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -122,3 +123,6 @@
     @apply bg-background text-foreground;
   }
 }
+/* ---------------------------------- */
+/* Text editor styles */
+/* ---------------------------------- */
