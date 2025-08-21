@@ -1,10 +1,10 @@
 "use client";
 import { CreateLesson } from "../CreateLessonForm";
-import { generateHTML } from "@tiptap/react";
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import { useEffect } from "react";
 import TextMenuBar from "./TextMenuBar";
+import UploadDocButton from "../buttons/UploadDocButton";
 
 type Props = {
   setFormData: React.Dispatch<React.SetStateAction<CreateLesson>>;
@@ -18,9 +18,7 @@ const TextOption = ({ formData, setFormData }: Props) => {
         class: "prose prose-sm focus:outline-none",
       },
     },
-    content: formData.content
-      ? generateHTML(JSON.parse(formData.content), [StarterKit.configure()])
-      : "",
+    content: formData.content,
     immediatelyRender: true,
     autofocus: true,
   });
@@ -29,13 +27,12 @@ const TextOption = ({ formData, setFormData }: Props) => {
     if (!editor) return;
 
     const handleUpdate = () => {
-      const json = editor.getJSON();
-      setFormData((prev) => ({ ...prev, content: JSON.stringify(json) }));
+      const html = editor.getHTML();
+      setFormData((prev) => ({ ...prev, content: html }));
     };
 
     editor.on("update", handleUpdate);
 
-    // Cleanup
     return () => {
       editor.off("update", handleUpdate);
     };
@@ -44,6 +41,7 @@ const TextOption = ({ formData, setFormData }: Props) => {
   return (
     <div>
       <TextMenuBar editor={editor} />
+      <UploadDocButton setFormData={setFormData} editor={editor} />
       <label className="text-sm">Content</label>
       <div
         className="overflow-y-auto h-[250px] border-[1px] border-gray-300 p-2 rounded-sm"

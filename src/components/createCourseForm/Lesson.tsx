@@ -10,8 +10,7 @@ import { CSS } from "@dnd-kit/utilities";
 import { FaSort } from "react-icons/fa";
 import Quiz from "./Quiz";
 import LessonMenu from "./LessonMenu";
-import { generateHTML } from "@tiptap/react";
-import StarterKit from "@tiptap/starter-kit";
+
 type Props = {
   lesson: Lesson;
 };
@@ -45,11 +44,9 @@ const Lesson = ({ lesson }: Props) => {
             <div
               className="mx-auto prose prose-sm w-full whitespace-pre-wrap break-words"
               dangerouslySetInnerHTML={{
-                __html: generateHTML(JSON.parse(lesson.content!), [
-                  StarterKit.configure(),
-                ]),
+                __html: lesson.content!,
               }}
-            ></div>
+            />
           )}
           {lesson.contentType === "Video" && (
             <iframe

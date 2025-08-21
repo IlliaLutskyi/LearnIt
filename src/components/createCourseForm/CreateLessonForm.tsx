@@ -79,6 +79,7 @@ const CreateLessonForm = ({
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    console.log(formData);
     if (!formData.title) return toast.error("Title is required");
     if (!formData.content) return toast.error("Content is required");
     if (!lesson) {
@@ -106,6 +107,12 @@ const CreateLessonForm = ({
       );
     }
     setIsOpen(false);
+    setFormData({
+      title: "",
+      content: "",
+      contentType: "Text",
+      videoSource: "Youtube",
+    });
     toast.success(
       `Lesson ${formData.title} was ${
         lesson ? "updated" : "added"
@@ -132,18 +139,16 @@ const CreateLessonForm = ({
               <select
                 className="outline-0  text-sm shadow-sm p-2 rounded-md"
                 value={formData.contentType}
-                onChange={(e) =>
+                onChange={(e) => {
                   setFormData({
                     ...formData,
                     contentType: e.target.value as contentType,
-                  })
-                }
+                    content: e.target.value === "Video" ? "" : formData.content,
+                  });
+                }}
               >
                 <option value="Text">Text</option>
                 <option value="Video">Video</option>
-                <option value="File" disabled>
-                  File
-                </option>
               </select>
             </section>
 
