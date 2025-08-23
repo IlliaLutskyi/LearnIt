@@ -4,7 +4,7 @@ import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import { useEffect } from "react";
 import TextMenuBar from "./TextMenuBar";
-import UploadDocButton from "../buttons/UploadDocButton";
+import Image from "@tiptap/extension-image";
 
 type Props = {
   setFormData: React.Dispatch<React.SetStateAction<CreateLesson>>;
@@ -12,7 +12,12 @@ type Props = {
 };
 const TextOption = ({ formData, setFormData }: Props) => {
   const editor = useEditor({
-    extensions: [StarterKit.configure()],
+    extensions: [
+      StarterKit,
+      Image.configure({
+        allowBase64: true,
+      }),
+    ],
     editorProps: {
       attributes: {
         class: "prose prose-sm focus:outline-none",
@@ -40,11 +45,10 @@ const TextOption = ({ formData, setFormData }: Props) => {
 
   return (
     <div>
-      <TextMenuBar editor={editor} />
-      <UploadDocButton setFormData={setFormData} editor={editor} />
+      <TextMenuBar editor={editor} setFormData={setFormData} />
       <label className="text-sm">Content</label>
       <div
-        className="overflow-y-auto h-[250px] border-[1px] border-gray-300 p-2 rounded-sm"
+        className="overflow-y-auto h-[270px] border-[1px] border-gray-300 p-2 rounded-sm"
         id="scrollbar"
       >
         <EditorContent editor={editor} />

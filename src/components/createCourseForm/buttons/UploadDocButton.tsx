@@ -1,3 +1,4 @@
+"use client";
 import mammoth from "mammoth";
 import { CreateLesson } from "../CreateLessonForm";
 import { toast } from "sonner";
@@ -30,7 +31,7 @@ const UploadDocButton = ({ editor, setFormData }: Props) => {
       editor.commands.setContent(result.value!);
       toast.success("File was converted successfully", { duration: 5000 });
     } catch (err) {
-      return toast.error("File must be in .docx or .doc format", {
+      return toast.error("File must be in docx or doc format", {
         duration: 5000,
       });
     }
@@ -38,7 +39,7 @@ const UploadDocButton = ({ editor, setFormData }: Props) => {
   return (
     <div>
       <label htmlFor="docs">
-        <span className="bg-gray-100 px-2 rounded-sm text-xs hover:bg-gray-200 duration-400">
+        <span className="bg-gray-100 p-1 rounded-sm text-xs hover:bg-gray-200 duration-400">
           Upload Document
         </span>
       </label>
