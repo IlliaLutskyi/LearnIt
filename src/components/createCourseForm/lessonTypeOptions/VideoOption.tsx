@@ -32,7 +32,7 @@ const VideoOption = ({ formData, setFormData }: Props) => {
         name="content"
         value={formData.content}
         rootClassName="flex gap-1 items-center"
-        placeholder="for example: https://www.youtube.com/watch?v=zHNxbJeEa"
+        placeholder="e.g. https://www.youtube.com/watch?v=zHNxbJeEa"
         inputClassName="w-full text-sm focus:ring-1 focus:ring-purple-500 shadow-sm p-2 focus:ring-1 focus:ring-purple-500 rounded-md "
       />
     </>

@@ -32,6 +32,7 @@ const CreateLessonForm = ({
   lesson,
 }: Props) => {
   const dispatch = useAppDispatch();
+
   const [formData, setFormData] = useState<CreateLesson>({
     title: "",
     content: "",
@@ -40,6 +41,7 @@ const CreateLessonForm = ({
   });
 
   const formRef = useRef<HTMLFormElement>(null);
+
   useEffect(() => {
     if (lesson) {
       setFormData({
@@ -79,8 +81,11 @@ const CreateLessonForm = ({
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+
     if (!formData.title) return toast.error("Title is required");
+
     if (!formData.content) return toast.error("Content is required");
+
     if (!lesson) {
       dispatch(
         addLessonToSection({
@@ -106,6 +111,13 @@ const CreateLessonForm = ({
       );
     }
     setIsOpen(false);
+    setFormData({
+      title: "",
+      content: "",
+      contentType: "Text",
+      videoSource: "Youtube",
+    });
+
     toast.success(
       `Lesson ${formData.title} was ${
         lesson ? "updated" : "added"
@@ -120,7 +132,7 @@ const CreateLessonForm = ({
           <BlurBackground />
           <form
             ref={formRef}
-            className="flex flex-col gap-3 absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] p-6 w-5/6  bg-white rounded-sm"
+            className="flex flex-col gap-2 absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] p-6 w-9/10 bg-white rounded-sm"
             onSubmit={handleSubmit}
             method="post"
           >
@@ -132,18 +144,16 @@ const CreateLessonForm = ({
               <select
                 className="outline-0  text-sm shadow-sm p-2 rounded-md"
                 value={formData.contentType}
-                onChange={(e) =>
+                onChange={(e) => {
                   setFormData({
                     ...formData,
                     contentType: e.target.value as contentType,
-                  })
-                }
+                    content: e.target.value === "Video" ? "" : formData.content,
+                  });
+                }}
               >
                 <option value="Text">Text</option>
                 <option value="Video">Video</option>
-                <option value="File" disabled>
-                  File
-                </option>
               </select>
             </section>
 
@@ -154,7 +164,7 @@ const CreateLessonForm = ({
                   type="text"
                   maxLength={50}
                   value={formData.title}
-                  placeholder="for example: Introduction"
+                  placeholder="e.g. introduction"
                   name="title"
                   inputClassName="w-full text-sm focus:ring-1 focus:ring-purple-500 shadow-sm p-2 focus:ring-1 focus:ring-purple-500 rounded-md "
                   onChange={handleChange}
