@@ -13,7 +13,7 @@ const Heading = () => {
         </p>
       </section>
       <section className="self-center">
-        <button className="p-2 bg-purple-500 rounded-xs text-sm text-white  hover:scale-95 duration-500 focus:scale-95">
+        <button className="p-2 bg-purple-600 rounded-xs text-sm text-white  hover:scale-95 duration-500 focus:scale-95">
           <Link href="/courses">View courses</Link>
         </button>
       </section>

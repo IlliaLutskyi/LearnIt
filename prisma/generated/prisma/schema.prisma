@@ -32,7 +32,7 @@ model Course {
 
 model Category {
   id      Int      @id @default(autoincrement())
-  name    String   @unique @db.Char(100)
+  name    String   @unique @db.Char(30)
   courses Course[]
   image   String
 }

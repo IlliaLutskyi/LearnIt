@@ -21,13 +21,16 @@ const Video = ({ lesson }: Props) => {
     }
   }
   return (
-    <iframe
-      src={getURl()}
-      ref={ref}
-      allowFullScreen
-      className="w-full aspect-video my-5"
-      id={`lesson-${lesson.id}`}
-    />
+    <>
+      <div ref={ref} id={`lesson-${lesson.id}`} />
+      <iframe
+        src={getURl()}
+        ref={ref}
+        allowFullScreen
+        className="w-full aspect-video my-5"
+        id={`lesson-${lesson.id}`}
+      />
+    </>
   );
 };
 

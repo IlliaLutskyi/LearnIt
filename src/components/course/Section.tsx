@@ -1,7 +1,7 @@
 "use client";
 
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-import { setCurrentSectionId } from "@/lib/slices/CourseViewSlice";
+import { setCurrentSection } from "@/lib/slices/CourseViewSlice";
 import { DbSection } from "@/types/dbSection";
 import { useEffect } from "react";
 
@@ -10,17 +10,32 @@ type Props = {
 };
 const Section = ({ section }: Props) => {
   const dispatch = useAppDispatch();
-  const { currentSectionId } = useAppSelector((store) => store.CourseView);
+  const { currentSection } = useAppSelector((store) => store.CourseView);
   useEffect(() => {
-    if (section.order === 1) dispatch(setCurrentSectionId(section.id));
+    if (section.order === 1)
+      dispatch(
+        setCurrentSection({
+          id: section.id,
+          sectionGroupId: section.sectionGroupId,
+        })
+      );
   }, [section]);
   return (
-    <div onClick={() => dispatch(setCurrentSectionId(section.id))}>
+    <div
+      onClick={() =>
+        dispatch(
+          setCurrentSection({
+            id: section.id,
+            sectionGroupId: section.sectionGroupId,
+          })
+        )
+      }
+    >
       <h1
-        className={`${
-          currentSectionId === section.id
-            ? "text-purple-400"
-            : "text-white hover:text-purple-400"
+        className={`text-sm ${
+          currentSection.id === section.id
+            ? "text-orange-300"
+            : "text-white hover:text-orange-300"
         } duration-400`}
       >
         {section.title}
