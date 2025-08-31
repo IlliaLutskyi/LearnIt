@@ -1,47 +1,54 @@
 "use client";
 import { useAppDispatch } from "@/lib/hooks";
-import { DbSection } from "@/types/dbSection";
+import { setCurrentSection } from "@/lib/slices/CourseViewSlice";
 
 type Props = {
-  sections: DbSection[];
+  nextSection: { id: number; sectionGroupId: number } | null;
+  prevSection: { id: number; sectionGroupId: number } | null;
 };
-const Actions = ({ sections }: Props) => {
+const Actions = ({ nextSection, prevSection }: Props) => {
   const dispatch = useAppDispatch();
-  // function handleGoBack() {
-  //   const preSection = sections.find(
-  //     (section) => section.order === currentSection!.order - 1
-  //   );
-  //   if (preSection) {
-  //     dispatch(setCurrentSection(preSection));
-  //   }
-  // }
-  // function handleNextLesson() {
-  //   const nextSection = sections.find(
-  //     (section) => section.order === currentSection!.order + 1
-  //   );
-  //   if (nextSection) {
-  //     dispatch(setCurrentSection(nextSection));
-  //   }
-  // }
+  function handleGoBack() {
+    if (!prevSection) return;
+    dispatch(
+      setCurrentSection({
+        id: prevSection.id,
+        sectionGroupId: prevSection.sectionGroupId,
+      })
+    );
+  }
+  function handleGoNext() {
+    if (!nextSection) return;
+    dispatch(
+      setCurrentSection({
+        id: nextSection.id,
+        sectionGroupId: nextSection.sectionGroupId,
+      })
+    );
+  }
   return (
-    <div className="grow flex justify-center gap-4 items-end">
-      {/* {currentSection?.order !== 1 && (
-        <button
-          className="text-sm bg-purple-500 text-white p-2 rounded-sm hover:scale-95 duration-500"
-          onClick={handleGoBack}
-        >
-          Go back to previous lesson
-        </button>
-      )}
+    <div className="grow flex justify-between gap-4 items-end mx-4">
+      <button
+        onClick={handleGoBack}
+        className={`text-sm text-purple-400 ${
+          !prevSection
+            ? "cursor-not-allowed"
+            : "hover:text-purple-600 hover:underline"
+        } duration-400 p-2`}
+      >
+        Go Back
+      </button>
 
-      {currentSection?.order !== sections.length && (
-        <button
-          className="text-sm bg-purple-500 text-white p-2 rounded-sm hover:scale-95 duration-500"
-          onClick={handleNextLesson}
-        >
-          Go to next lesson
-        </button>
-      )} */}
+      <button
+        onClick={handleGoNext}
+        className={`text-sm text-purple-400 ${
+          !nextSection
+            ? "cursor-not-allowed"
+            : "hover:text-purple-600 hover:underline"
+        } duration-200 p-2`}
+      >
+        Go Next
+      </button>
     </div>
   );
 };

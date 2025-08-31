@@ -40,6 +40,7 @@ const Quiz = ({ lesson }: Props) => {
       id={`lesson-${lesson.id}`}
       ref={ref}
     >
+      <div ref={ref} id={`lesson-${lesson.id}`} />
       <h1 className="text-lg text-center font-bold">{lesson.quiz?.question}</h1>
       <section>
         {isExplanationShown && lesson.quiz?.explanation && (

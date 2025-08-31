@@ -9,8 +9,8 @@ const Step2 = lazy(() => import("./Step2"));
 const MultiForm = () => {
   const steps = useAppSelector((store) => store.CreateCourse.steps);
   return (
-    <div className="grid max-sm:grid-cols-[1fr_4fr] grid-cols-[1fr_8fr]  gap-4 max-sm:w-[95%] min-h-[400px] w-3/4 mx-auto mt-[2rem] bg-white rounded-md shadow-2xl caret-purple-500">
-      <section className="flex flex-col justify-center items-center gap-4 p-2 bg-black text-black rounded-bl-md rounded-tl-md ">
+    <div className="grid sm:grid-cols-[1fr_8fr] max-sm:grid-rows-[1fr_10fr] gap-4 max-sm:w-[95%] min-h-[400px] w-3/4 mx-auto mt-[2rem] bg-white rounded-md shadow-2xl caret-purple-500">
+      <section className="flex sm:flex-col justify-center items-center gap-4 p-2 bg-black text-black rounded-bl-md rounded-tl-md ">
         <span
           className={`self-center px-3 py-1 text-sm  rounded-full   ${
             steps.step1 ? "bg-purple-500 text-white" : "bg-white"

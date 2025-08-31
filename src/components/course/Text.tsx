@@ -13,7 +13,8 @@ const Text = ({ lesson }: Props) => {
     if (inView) dispatch(setCurrentLessonViewId(lesson.id));
   }, [inView]);
   return (
-    <div id={`lesson-${lesson.id}`} ref={ref} className="">
+    <div>
+      <div ref={ref} id={`lesson-${lesson.id}`} />
       <h1 className="font-bold">{lesson.title}</h1>
       <div
         className="prose prose-sm whitespace-pre-wrap break-words"

@@ -16,7 +16,7 @@ const Step1 = () => {
   return (
     <div className="flex flex-col gap-2 p-4 ">
       <h1 className="text-lg font-bold self-center">General information</h1>
-      <section className="grid grid-cols-2 gap-2 ">
+      <section className="grid sm:grid-cols-2 grid-cols-1 gap-2 ">
         <InputField
           label="Course title"
           type="text"

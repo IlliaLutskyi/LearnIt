@@ -8,9 +8,9 @@ type Props = {
 };
 const ContentSideBar = ({ section }: Props) => {
   const { currentLessonViewId } = useAppSelector((store) => store.CourseView);
-  if (section.lessons && section.lessons.length <= 1) return null;
+  if (section.lessons && section.lessons.length < 1) return null;
   return (
-    <aside className="max-md:hidden flex flex-col gap-2 p-4 bg-black h-[calc(100vh-3.5rem)]">
+    <aside className="max-md:hidden flex flex-col gap-2 p-4 bg-purple-950 h-full">
       <h1 className="text-lg font-bold text-white">In this section</h1>
       <div
         className="flex flex-col gap-2  h-full text-white overflow-y-auto"
@@ -23,8 +23,8 @@ const ContentSideBar = ({ section }: Props) => {
               href={`#lesson-${lesson.id}`}
               className={`text-sm ${
                 lesson.id === currentLessonViewId
-                  ? "text-purple-400"
-                  : "hover:text-purple-400"
+                  ? "text-orange-300"
+                  : "hover:text-orange-300"
               } duration-500`}
             >
               <span className="m-1">{lesson.order}.</span> {lesson.title}

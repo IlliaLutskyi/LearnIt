@@ -6,31 +6,40 @@ import { useQuery } from "@tanstack/react-query";
 import Loader from "../common/Loader";
 import { lazy, Suspense } from "react";
 import ContentSideBar from "./ContentSideBar";
+import Actions from "./Actions";
 const Video = lazy(() => import("./Video"));
 const Text = lazy(() => import("./Text"));
 const Quiz = lazy(() => import("./Quiz"));
+type Data = {
+  section: DbSection;
+  prevSection: { id: number; sectionGroupId: number } | null;
+  nextSection: { id: number; sectionGroupId: number } | null;
+};
 const Content = () => {
-  const currentSectionId = useAppSelector(
-    (store) => store.CourseView.currentSectionId
+  const currentSection = useAppSelector(
+    (store) => store.CourseView.currentSection
   );
-  const { data, isPending, isError } = useQuery<{ section: DbSection }>({
-    queryKey: ["section", currentSectionId],
+  const { data, isPending, isError } = useQuery<Data>({
+    queryKey: ["section", currentSection.id],
     queryFn: async () => {
-      const res = await api.get(`/sections/${currentSectionId}`);
+      const res = await api.get(
+        `/sections/${currentSection.sectionGroupId}/${currentSection.id}`
+      );
       return res.data;
     },
-    enabled: !!currentSectionId,
+    enabled: !!currentSection.id,
+    gcTime: 0,
   });
-  if (isError) return <p>Something went wrong please try refresh page </p>;
   if (isPending) return <Loader />;
+  if (isError) return null;
   return (
     <Suspense fallback={<Loader />}>
       <div className="grid max-md:grid-cols-1 grid-cols-[4fr_1fr]">
-        <section className="flex flex-col gap-1 w-[90%] mx-auto">
-          <div
-            className="overflow-y-auto h-[calc(100vh-3.5rem)] "
-            id="scrollbar"
-          >
+        <section
+          className="flex flex-col gap-1 overflow-y-auto h-[90.5vh] max-sm:h-full"
+          id="styledScrollbar"
+        >
+          <div className="mx-auto w-[95%]">
             {data.section.lessons?.map((lesson) => {
               if (lesson.contentType === "Text")
                 return <Text key={lesson.id} lesson={lesson} />;
@@ -40,6 +49,10 @@ const Content = () => {
                 return <Quiz key={lesson.id} lesson={lesson} />;
             })}
           </div>
+          <Actions
+            nextSection={data.nextSection}
+            prevSection={data.prevSection}
+          />
         </section>
 
         <section>

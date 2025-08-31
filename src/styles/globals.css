@@ -7,6 +7,19 @@
 #scrollbar::-webkit-scrollbar {
   display: none;
 }
+#styledScrollbar::-webkit-scrollbar {
+  width: 10px;
+}
+
+#styledScrollbar::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+#styledScrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(146, 29, 146, 0.733);
+  border-radius: 20px;
+  border: 2px solid #f1f1f1;
+}
 
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
