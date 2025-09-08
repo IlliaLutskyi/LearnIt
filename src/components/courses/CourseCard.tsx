@@ -32,7 +32,7 @@ const CourseCard = ({ course }: Props) => {
 
       <div className="flex justify-between items-center text-xs text-gray-500 mt-auto">
         <span>{new Date(course.createdAt).toLocaleDateString()}</span>
-        <Link href={`/course/${course.id}`}>
+        <Link href={`/courseDetails/${course.id}`}>
           <span className="text-purple-600 font-medium hover:underline">
             View Details →
           </span>
