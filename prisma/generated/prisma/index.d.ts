@@ -3,7 +3,7 @@
  * Client
 **/
 
-import * as runtime from './runtime/library.js';
+import * as runtime from './runtime/binary.js';
 import $Types = runtime.Types // general types
 import $Public = runtime.Types.Public
 import $Utils = runtime.Types.Utils
@@ -53,6 +53,16 @@ export type Quiz = $Result.DefaultSelection<Prisma.$QuizPayload>
  * 
  */
 export type Answer = $Result.DefaultSelection<Prisma.$AnswerPayload>
+/**
+ * Model Preriquisit
+ * 
+ */
+export type Preriquisit = $Result.DefaultSelection<Prisma.$PreriquisitPayload>
+/**
+ * Model Skill
+ * 
+ */
+export type Skill = $Result.DefaultSelection<Prisma.$SkillPayload>
 
 /**
  * Enums
@@ -133,7 +143,7 @@ export class PrismaClient<
    */
 
   constructor(optionsArg ?: Prisma.Subset<ClientOptions, Prisma.PrismaClientOptions>);
-  $on<V extends U>(eventType: V, callback: (event: V extends 'query' ? Prisma.QueryEvent : Prisma.LogEvent) => void): PrismaClient;
+  $on<V extends (U | 'beforeExit')>(eventType: V, callback: (event: V extends 'query' ? Prisma.QueryEvent : V extends 'beforeExit' ? () => $Utils.JsPromise<void> : Prisma.LogEvent) => void): PrismaClient;
 
   /**
    * Connect with the database
@@ -293,6 +303,26 @@ export class PrismaClient<
     * ```
     */
   get answer(): Prisma.AnswerDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.preriquisit`: Exposes CRUD operations for the **Preriquisit** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Preriquisits
+    * const preriquisits = await prisma.preriquisit.findMany()
+    * ```
+    */
+  get preriquisit(): Prisma.PreriquisitDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.skill`: Exposes CRUD operations for the **Skill** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Skills
+    * const skills = await prisma.skill.findMany()
+    * ```
+    */
+  get skill(): Prisma.SkillDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -351,8 +381,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.14.0
-   * Query Engine version: 717184b7b35ea05dfa71a3236b7af656013e1e49
+   * Prisma Client JS version: 6.16.2
+   * Query Engine version: 1c57fdcd7e44b29b9313256c76699e91c3ac3c43
    */
   export type PrismaVersion = {
     client: string
@@ -740,7 +770,9 @@ export namespace Prisma {
     Section: 'Section',
     Lesson: 'Lesson',
     Quiz: 'Quiz',
-    Answer: 'Answer'
+    Answer: 'Answer',
+    Preriquisit: 'Preriquisit',
+    Skill: 'Skill'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -759,7 +791,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "course" | "category" | "sectionGroup" | "section" | "lesson" | "quiz" | "answer"
+      modelProps: "user" | "course" | "category" | "sectionGroup" | "section" | "lesson" | "quiz" | "answer" | "preriquisit" | "skill"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1355,6 +1387,154 @@ export namespace Prisma {
           }
         }
       }
+      Preriquisit: {
+        payload: Prisma.$PreriquisitPayload<ExtArgs>
+        fields: Prisma.PreriquisitFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PreriquisitFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PreriquisitPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PreriquisitFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PreriquisitPayload>
+          }
+          findFirst: {
+            args: Prisma.PreriquisitFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PreriquisitPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PreriquisitFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PreriquisitPayload>
+          }
+          findMany: {
+            args: Prisma.PreriquisitFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PreriquisitPayload>[]
+          }
+          create: {
+            args: Prisma.PreriquisitCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PreriquisitPayload>
+          }
+          createMany: {
+            args: Prisma.PreriquisitCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.PreriquisitCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PreriquisitPayload>[]
+          }
+          delete: {
+            args: Prisma.PreriquisitDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PreriquisitPayload>
+          }
+          update: {
+            args: Prisma.PreriquisitUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PreriquisitPayload>
+          }
+          deleteMany: {
+            args: Prisma.PreriquisitDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PreriquisitUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.PreriquisitUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PreriquisitPayload>[]
+          }
+          upsert: {
+            args: Prisma.PreriquisitUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PreriquisitPayload>
+          }
+          aggregate: {
+            args: Prisma.PreriquisitAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePreriquisit>
+          }
+          groupBy: {
+            args: Prisma.PreriquisitGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PreriquisitGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PreriquisitCountArgs<ExtArgs>
+            result: $Utils.Optional<PreriquisitCountAggregateOutputType> | number
+          }
+        }
+      }
+      Skill: {
+        payload: Prisma.$SkillPayload<ExtArgs>
+        fields: Prisma.SkillFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SkillFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SkillPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SkillFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SkillPayload>
+          }
+          findFirst: {
+            args: Prisma.SkillFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SkillPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SkillFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SkillPayload>
+          }
+          findMany: {
+            args: Prisma.SkillFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SkillPayload>[]
+          }
+          create: {
+            args: Prisma.SkillCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SkillPayload>
+          }
+          createMany: {
+            args: Prisma.SkillCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SkillCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SkillPayload>[]
+          }
+          delete: {
+            args: Prisma.SkillDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SkillPayload>
+          }
+          update: {
+            args: Prisma.SkillUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SkillPayload>
+          }
+          deleteMany: {
+            args: Prisma.SkillDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SkillUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.SkillUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SkillPayload>[]
+          }
+          upsert: {
+            args: Prisma.SkillUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SkillPayload>
+          }
+          aggregate: {
+            args: Prisma.SkillAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSkill>
+          }
+          groupBy: {
+            args: Prisma.SkillGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SkillGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SkillCountArgs<ExtArgs>
+            result: $Utils.Optional<SkillCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1455,6 +1635,8 @@ export namespace Prisma {
     lesson?: LessonOmit
     quiz?: QuizOmit
     answer?: AnswerOmit
+    preriquisit?: PreriquisitOmit
+    skill?: SkillOmit
   }
 
   /* Types for Logging */
@@ -1567,10 +1749,14 @@ export namespace Prisma {
 
   export type CourseCountOutputType = {
     sectionGroups: number
+    preriquisites: number
+    skills: number
   }
 
   export type CourseCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     sectionGroups?: boolean | CourseCountOutputTypeCountSectionGroupsArgs
+    preriquisites?: boolean | CourseCountOutputTypeCountPreriquisitesArgs
+    skills?: boolean | CourseCountOutputTypeCountSkillsArgs
   }
 
   // Custom InputTypes
@@ -1589,6 +1775,20 @@ export namespace Prisma {
    */
   export type CourseCountOutputTypeCountSectionGroupsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: SectionGroupWhereInput
+  }
+
+  /**
+   * CourseCountOutputType without action
+   */
+  export type CourseCountOutputTypeCountPreriquisitesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PreriquisitWhereInput
+  }
+
+  /**
+   * CourseCountOutputType without action
+   */
+  export type CourseCountOutputTypeCountSkillsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SkillWhereInput
   }
 
 
@@ -3047,6 +3247,8 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     sectionGroups?: boolean | Course$sectionGroupsArgs<ExtArgs>
+    preriquisites?: boolean | Course$preriquisitesArgs<ExtArgs>
+    skills?: boolean | Course$skillsArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
     category?: boolean | CategoryDefaultArgs<ExtArgs>
     _count?: boolean | CourseCountOutputTypeDefaultArgs<ExtArgs>
@@ -3089,6 +3291,8 @@ export namespace Prisma {
   export type CourseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "categoryId" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["course"]>
   export type CourseInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     sectionGroups?: boolean | Course$sectionGroupsArgs<ExtArgs>
+    preriquisites?: boolean | Course$preriquisitesArgs<ExtArgs>
+    skills?: boolean | Course$skillsArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
     category?: boolean | CategoryDefaultArgs<ExtArgs>
     _count?: boolean | CourseCountOutputTypeDefaultArgs<ExtArgs>
@@ -3106,6 +3310,8 @@ export namespace Prisma {
     name: "Course"
     objects: {
       sectionGroups: Prisma.$SectionGroupPayload<ExtArgs>[]
+      preriquisites: Prisma.$PreriquisitPayload<ExtArgs>[]
+      skills: Prisma.$SkillPayload<ExtArgs>[]
       user: Prisma.$UserPayload<ExtArgs>
       category: Prisma.$CategoryPayload<ExtArgs>
     }
@@ -3512,6 +3718,8 @@ export namespace Prisma {
   export interface Prisma__CourseClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     sectionGroups<T extends Course$sectionGroupsArgs<ExtArgs> = {}>(args?: Subset<T, Course$sectionGroupsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SectionGroupPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    preriquisites<T extends Course$preriquisitesArgs<ExtArgs> = {}>(args?: Subset<T, Course$preriquisitesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PreriquisitPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    skills<T extends Course$skillsArgs<ExtArgs> = {}>(args?: Subset<T, Course$skillsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SkillPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     category<T extends CategoryDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CategoryDefaultArgs<ExtArgs>>): Prisma__CategoryClient<$Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
@@ -3967,6 +4175,54 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: SectionGroupScalarFieldEnum | SectionGroupScalarFieldEnum[]
+  }
+
+  /**
+   * Course.preriquisites
+   */
+  export type Course$preriquisitesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Preriquisit
+     */
+    select?: PreriquisitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Preriquisit
+     */
+    omit?: PreriquisitOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PreriquisitInclude<ExtArgs> | null
+    where?: PreriquisitWhereInput
+    orderBy?: PreriquisitOrderByWithRelationInput | PreriquisitOrderByWithRelationInput[]
+    cursor?: PreriquisitWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PreriquisitScalarFieldEnum | PreriquisitScalarFieldEnum[]
+  }
+
+  /**
+   * Course.skills
+   */
+  export type Course$skillsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Skill
+     */
+    select?: SkillSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Skill
+     */
+    omit?: SkillOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillInclude<ExtArgs> | null
+    where?: SkillWhereInput
+    orderBy?: SkillOrderByWithRelationInput | SkillOrderByWithRelationInput[]
+    cursor?: SkillWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SkillScalarFieldEnum | SkillScalarFieldEnum[]
   }
 
   /**
@@ -10663,6 +10919,2146 @@ export namespace Prisma {
 
 
   /**
+   * Model Preriquisit
+   */
+
+  export type AggregatePreriquisit = {
+    _count: PreriquisitCountAggregateOutputType | null
+    _avg: PreriquisitAvgAggregateOutputType | null
+    _sum: PreriquisitSumAggregateOutputType | null
+    _min: PreriquisitMinAggregateOutputType | null
+    _max: PreriquisitMaxAggregateOutputType | null
+  }
+
+  export type PreriquisitAvgAggregateOutputType = {
+    id: number | null
+    courseId: number | null
+  }
+
+  export type PreriquisitSumAggregateOutputType = {
+    id: number | null
+    courseId: number | null
+  }
+
+  export type PreriquisitMinAggregateOutputType = {
+    id: number | null
+    content: string | null
+    courseId: number | null
+  }
+
+  export type PreriquisitMaxAggregateOutputType = {
+    id: number | null
+    content: string | null
+    courseId: number | null
+  }
+
+  export type PreriquisitCountAggregateOutputType = {
+    id: number
+    content: number
+    courseId: number
+    _all: number
+  }
+
+
+  export type PreriquisitAvgAggregateInputType = {
+    id?: true
+    courseId?: true
+  }
+
+  export type PreriquisitSumAggregateInputType = {
+    id?: true
+    courseId?: true
+  }
+
+  export type PreriquisitMinAggregateInputType = {
+    id?: true
+    content?: true
+    courseId?: true
+  }
+
+  export type PreriquisitMaxAggregateInputType = {
+    id?: true
+    content?: true
+    courseId?: true
+  }
+
+  export type PreriquisitCountAggregateInputType = {
+    id?: true
+    content?: true
+    courseId?: true
+    _all?: true
+  }
+
+  export type PreriquisitAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Preriquisit to aggregate.
+     */
+    where?: PreriquisitWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Preriquisits to fetch.
+     */
+    orderBy?: PreriquisitOrderByWithRelationInput | PreriquisitOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PreriquisitWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Preriquisits from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Preriquisits.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Preriquisits
+    **/
+    _count?: true | PreriquisitCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: PreriquisitAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: PreriquisitSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PreriquisitMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PreriquisitMaxAggregateInputType
+  }
+
+  export type GetPreriquisitAggregateType<T extends PreriquisitAggregateArgs> = {
+        [P in keyof T & keyof AggregatePreriquisit]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePreriquisit[P]>
+      : GetScalarType<T[P], AggregatePreriquisit[P]>
+  }
+
+
+
+
+  export type PreriquisitGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PreriquisitWhereInput
+    orderBy?: PreriquisitOrderByWithAggregationInput | PreriquisitOrderByWithAggregationInput[]
+    by: PreriquisitScalarFieldEnum[] | PreriquisitScalarFieldEnum
+    having?: PreriquisitScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PreriquisitCountAggregateInputType | true
+    _avg?: PreriquisitAvgAggregateInputType
+    _sum?: PreriquisitSumAggregateInputType
+    _min?: PreriquisitMinAggregateInputType
+    _max?: PreriquisitMaxAggregateInputType
+  }
+
+  export type PreriquisitGroupByOutputType = {
+    id: number
+    content: string
+    courseId: number
+    _count: PreriquisitCountAggregateOutputType | null
+    _avg: PreriquisitAvgAggregateOutputType | null
+    _sum: PreriquisitSumAggregateOutputType | null
+    _min: PreriquisitMinAggregateOutputType | null
+    _max: PreriquisitMaxAggregateOutputType | null
+  }
+
+  type GetPreriquisitGroupByPayload<T extends PreriquisitGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PreriquisitGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PreriquisitGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PreriquisitGroupByOutputType[P]>
+            : GetScalarType<T[P], PreriquisitGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PreriquisitSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    content?: boolean
+    courseId?: boolean
+    course?: boolean | CourseDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["preriquisit"]>
+
+  export type PreriquisitSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    content?: boolean
+    courseId?: boolean
+    course?: boolean | CourseDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["preriquisit"]>
+
+  export type PreriquisitSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    content?: boolean
+    courseId?: boolean
+    course?: boolean | CourseDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["preriquisit"]>
+
+  export type PreriquisitSelectScalar = {
+    id?: boolean
+    content?: boolean
+    courseId?: boolean
+  }
+
+  export type PreriquisitOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "content" | "courseId", ExtArgs["result"]["preriquisit"]>
+  export type PreriquisitInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    course?: boolean | CourseDefaultArgs<ExtArgs>
+  }
+  export type PreriquisitIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    course?: boolean | CourseDefaultArgs<ExtArgs>
+  }
+  export type PreriquisitIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    course?: boolean | CourseDefaultArgs<ExtArgs>
+  }
+
+  export type $PreriquisitPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Preriquisit"
+    objects: {
+      course: Prisma.$CoursePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      content: string
+      courseId: number
+    }, ExtArgs["result"]["preriquisit"]>
+    composites: {}
+  }
+
+  type PreriquisitGetPayload<S extends boolean | null | undefined | PreriquisitDefaultArgs> = $Result.GetResult<Prisma.$PreriquisitPayload, S>
+
+  type PreriquisitCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<PreriquisitFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: PreriquisitCountAggregateInputType | true
+    }
+
+  export interface PreriquisitDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Preriquisit'], meta: { name: 'Preriquisit' } }
+    /**
+     * Find zero or one Preriquisit that matches the filter.
+     * @param {PreriquisitFindUniqueArgs} args - Arguments to find a Preriquisit
+     * @example
+     * // Get one Preriquisit
+     * const preriquisit = await prisma.preriquisit.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PreriquisitFindUniqueArgs>(args: SelectSubset<T, PreriquisitFindUniqueArgs<ExtArgs>>): Prisma__PreriquisitClient<$Result.GetResult<Prisma.$PreriquisitPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Preriquisit that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {PreriquisitFindUniqueOrThrowArgs} args - Arguments to find a Preriquisit
+     * @example
+     * // Get one Preriquisit
+     * const preriquisit = await prisma.preriquisit.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PreriquisitFindUniqueOrThrowArgs>(args: SelectSubset<T, PreriquisitFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PreriquisitClient<$Result.GetResult<Prisma.$PreriquisitPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Preriquisit that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PreriquisitFindFirstArgs} args - Arguments to find a Preriquisit
+     * @example
+     * // Get one Preriquisit
+     * const preriquisit = await prisma.preriquisit.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PreriquisitFindFirstArgs>(args?: SelectSubset<T, PreriquisitFindFirstArgs<ExtArgs>>): Prisma__PreriquisitClient<$Result.GetResult<Prisma.$PreriquisitPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Preriquisit that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PreriquisitFindFirstOrThrowArgs} args - Arguments to find a Preriquisit
+     * @example
+     * // Get one Preriquisit
+     * const preriquisit = await prisma.preriquisit.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PreriquisitFindFirstOrThrowArgs>(args?: SelectSubset<T, PreriquisitFindFirstOrThrowArgs<ExtArgs>>): Prisma__PreriquisitClient<$Result.GetResult<Prisma.$PreriquisitPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Preriquisits that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PreriquisitFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Preriquisits
+     * const preriquisits = await prisma.preriquisit.findMany()
+     * 
+     * // Get first 10 Preriquisits
+     * const preriquisits = await prisma.preriquisit.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const preriquisitWithIdOnly = await prisma.preriquisit.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends PreriquisitFindManyArgs>(args?: SelectSubset<T, PreriquisitFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PreriquisitPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Preriquisit.
+     * @param {PreriquisitCreateArgs} args - Arguments to create a Preriquisit.
+     * @example
+     * // Create one Preriquisit
+     * const Preriquisit = await prisma.preriquisit.create({
+     *   data: {
+     *     // ... data to create a Preriquisit
+     *   }
+     * })
+     * 
+     */
+    create<T extends PreriquisitCreateArgs>(args: SelectSubset<T, PreriquisitCreateArgs<ExtArgs>>): Prisma__PreriquisitClient<$Result.GetResult<Prisma.$PreriquisitPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Preriquisits.
+     * @param {PreriquisitCreateManyArgs} args - Arguments to create many Preriquisits.
+     * @example
+     * // Create many Preriquisits
+     * const preriquisit = await prisma.preriquisit.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PreriquisitCreateManyArgs>(args?: SelectSubset<T, PreriquisitCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Preriquisits and returns the data saved in the database.
+     * @param {PreriquisitCreateManyAndReturnArgs} args - Arguments to create many Preriquisits.
+     * @example
+     * // Create many Preriquisits
+     * const preriquisit = await prisma.preriquisit.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Preriquisits and only return the `id`
+     * const preriquisitWithIdOnly = await prisma.preriquisit.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends PreriquisitCreateManyAndReturnArgs>(args?: SelectSubset<T, PreriquisitCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PreriquisitPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Preriquisit.
+     * @param {PreriquisitDeleteArgs} args - Arguments to delete one Preriquisit.
+     * @example
+     * // Delete one Preriquisit
+     * const Preriquisit = await prisma.preriquisit.delete({
+     *   where: {
+     *     // ... filter to delete one Preriquisit
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PreriquisitDeleteArgs>(args: SelectSubset<T, PreriquisitDeleteArgs<ExtArgs>>): Prisma__PreriquisitClient<$Result.GetResult<Prisma.$PreriquisitPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Preriquisit.
+     * @param {PreriquisitUpdateArgs} args - Arguments to update one Preriquisit.
+     * @example
+     * // Update one Preriquisit
+     * const preriquisit = await prisma.preriquisit.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PreriquisitUpdateArgs>(args: SelectSubset<T, PreriquisitUpdateArgs<ExtArgs>>): Prisma__PreriquisitClient<$Result.GetResult<Prisma.$PreriquisitPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Preriquisits.
+     * @param {PreriquisitDeleteManyArgs} args - Arguments to filter Preriquisits to delete.
+     * @example
+     * // Delete a few Preriquisits
+     * const { count } = await prisma.preriquisit.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PreriquisitDeleteManyArgs>(args?: SelectSubset<T, PreriquisitDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Preriquisits.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PreriquisitUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Preriquisits
+     * const preriquisit = await prisma.preriquisit.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PreriquisitUpdateManyArgs>(args: SelectSubset<T, PreriquisitUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Preriquisits and returns the data updated in the database.
+     * @param {PreriquisitUpdateManyAndReturnArgs} args - Arguments to update many Preriquisits.
+     * @example
+     * // Update many Preriquisits
+     * const preriquisit = await prisma.preriquisit.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Preriquisits and only return the `id`
+     * const preriquisitWithIdOnly = await prisma.preriquisit.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends PreriquisitUpdateManyAndReturnArgs>(args: SelectSubset<T, PreriquisitUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PreriquisitPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Preriquisit.
+     * @param {PreriquisitUpsertArgs} args - Arguments to update or create a Preriquisit.
+     * @example
+     * // Update or create a Preriquisit
+     * const preriquisit = await prisma.preriquisit.upsert({
+     *   create: {
+     *     // ... data to create a Preriquisit
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Preriquisit we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PreriquisitUpsertArgs>(args: SelectSubset<T, PreriquisitUpsertArgs<ExtArgs>>): Prisma__PreriquisitClient<$Result.GetResult<Prisma.$PreriquisitPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Preriquisits.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PreriquisitCountArgs} args - Arguments to filter Preriquisits to count.
+     * @example
+     * // Count the number of Preriquisits
+     * const count = await prisma.preriquisit.count({
+     *   where: {
+     *     // ... the filter for the Preriquisits we want to count
+     *   }
+     * })
+    **/
+    count<T extends PreriquisitCountArgs>(
+      args?: Subset<T, PreriquisitCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PreriquisitCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Preriquisit.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PreriquisitAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PreriquisitAggregateArgs>(args: Subset<T, PreriquisitAggregateArgs>): Prisma.PrismaPromise<GetPreriquisitAggregateType<T>>
+
+    /**
+     * Group by Preriquisit.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PreriquisitGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PreriquisitGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PreriquisitGroupByArgs['orderBy'] }
+        : { orderBy?: PreriquisitGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PreriquisitGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPreriquisitGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Preriquisit model
+   */
+  readonly fields: PreriquisitFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Preriquisit.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PreriquisitClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    course<T extends CourseDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CourseDefaultArgs<ExtArgs>>): Prisma__CourseClient<$Result.GetResult<Prisma.$CoursePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Preriquisit model
+   */
+  interface PreriquisitFieldRefs {
+    readonly id: FieldRef<"Preriquisit", 'Int'>
+    readonly content: FieldRef<"Preriquisit", 'String'>
+    readonly courseId: FieldRef<"Preriquisit", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Preriquisit findUnique
+   */
+  export type PreriquisitFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Preriquisit
+     */
+    select?: PreriquisitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Preriquisit
+     */
+    omit?: PreriquisitOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PreriquisitInclude<ExtArgs> | null
+    /**
+     * Filter, which Preriquisit to fetch.
+     */
+    where: PreriquisitWhereUniqueInput
+  }
+
+  /**
+   * Preriquisit findUniqueOrThrow
+   */
+  export type PreriquisitFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Preriquisit
+     */
+    select?: PreriquisitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Preriquisit
+     */
+    omit?: PreriquisitOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PreriquisitInclude<ExtArgs> | null
+    /**
+     * Filter, which Preriquisit to fetch.
+     */
+    where: PreriquisitWhereUniqueInput
+  }
+
+  /**
+   * Preriquisit findFirst
+   */
+  export type PreriquisitFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Preriquisit
+     */
+    select?: PreriquisitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Preriquisit
+     */
+    omit?: PreriquisitOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PreriquisitInclude<ExtArgs> | null
+    /**
+     * Filter, which Preriquisit to fetch.
+     */
+    where?: PreriquisitWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Preriquisits to fetch.
+     */
+    orderBy?: PreriquisitOrderByWithRelationInput | PreriquisitOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Preriquisits.
+     */
+    cursor?: PreriquisitWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Preriquisits from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Preriquisits.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Preriquisits.
+     */
+    distinct?: PreriquisitScalarFieldEnum | PreriquisitScalarFieldEnum[]
+  }
+
+  /**
+   * Preriquisit findFirstOrThrow
+   */
+  export type PreriquisitFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Preriquisit
+     */
+    select?: PreriquisitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Preriquisit
+     */
+    omit?: PreriquisitOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PreriquisitInclude<ExtArgs> | null
+    /**
+     * Filter, which Preriquisit to fetch.
+     */
+    where?: PreriquisitWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Preriquisits to fetch.
+     */
+    orderBy?: PreriquisitOrderByWithRelationInput | PreriquisitOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Preriquisits.
+     */
+    cursor?: PreriquisitWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Preriquisits from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Preriquisits.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Preriquisits.
+     */
+    distinct?: PreriquisitScalarFieldEnum | PreriquisitScalarFieldEnum[]
+  }
+
+  /**
+   * Preriquisit findMany
+   */
+  export type PreriquisitFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Preriquisit
+     */
+    select?: PreriquisitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Preriquisit
+     */
+    omit?: PreriquisitOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PreriquisitInclude<ExtArgs> | null
+    /**
+     * Filter, which Preriquisits to fetch.
+     */
+    where?: PreriquisitWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Preriquisits to fetch.
+     */
+    orderBy?: PreriquisitOrderByWithRelationInput | PreriquisitOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Preriquisits.
+     */
+    cursor?: PreriquisitWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Preriquisits from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Preriquisits.
+     */
+    skip?: number
+    distinct?: PreriquisitScalarFieldEnum | PreriquisitScalarFieldEnum[]
+  }
+
+  /**
+   * Preriquisit create
+   */
+  export type PreriquisitCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Preriquisit
+     */
+    select?: PreriquisitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Preriquisit
+     */
+    omit?: PreriquisitOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PreriquisitInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Preriquisit.
+     */
+    data: XOR<PreriquisitCreateInput, PreriquisitUncheckedCreateInput>
+  }
+
+  /**
+   * Preriquisit createMany
+   */
+  export type PreriquisitCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Preriquisits.
+     */
+    data: PreriquisitCreateManyInput | PreriquisitCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Preriquisit createManyAndReturn
+   */
+  export type PreriquisitCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Preriquisit
+     */
+    select?: PreriquisitSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Preriquisit
+     */
+    omit?: PreriquisitOmit<ExtArgs> | null
+    /**
+     * The data used to create many Preriquisits.
+     */
+    data: PreriquisitCreateManyInput | PreriquisitCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PreriquisitIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Preriquisit update
+   */
+  export type PreriquisitUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Preriquisit
+     */
+    select?: PreriquisitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Preriquisit
+     */
+    omit?: PreriquisitOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PreriquisitInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Preriquisit.
+     */
+    data: XOR<PreriquisitUpdateInput, PreriquisitUncheckedUpdateInput>
+    /**
+     * Choose, which Preriquisit to update.
+     */
+    where: PreriquisitWhereUniqueInput
+  }
+
+  /**
+   * Preriquisit updateMany
+   */
+  export type PreriquisitUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Preriquisits.
+     */
+    data: XOR<PreriquisitUpdateManyMutationInput, PreriquisitUncheckedUpdateManyInput>
+    /**
+     * Filter which Preriquisits to update
+     */
+    where?: PreriquisitWhereInput
+    /**
+     * Limit how many Preriquisits to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Preriquisit updateManyAndReturn
+   */
+  export type PreriquisitUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Preriquisit
+     */
+    select?: PreriquisitSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Preriquisit
+     */
+    omit?: PreriquisitOmit<ExtArgs> | null
+    /**
+     * The data used to update Preriquisits.
+     */
+    data: XOR<PreriquisitUpdateManyMutationInput, PreriquisitUncheckedUpdateManyInput>
+    /**
+     * Filter which Preriquisits to update
+     */
+    where?: PreriquisitWhereInput
+    /**
+     * Limit how many Preriquisits to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PreriquisitIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Preriquisit upsert
+   */
+  export type PreriquisitUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Preriquisit
+     */
+    select?: PreriquisitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Preriquisit
+     */
+    omit?: PreriquisitOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PreriquisitInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Preriquisit to update in case it exists.
+     */
+    where: PreriquisitWhereUniqueInput
+    /**
+     * In case the Preriquisit found by the `where` argument doesn't exist, create a new Preriquisit with this data.
+     */
+    create: XOR<PreriquisitCreateInput, PreriquisitUncheckedCreateInput>
+    /**
+     * In case the Preriquisit was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PreriquisitUpdateInput, PreriquisitUncheckedUpdateInput>
+  }
+
+  /**
+   * Preriquisit delete
+   */
+  export type PreriquisitDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Preriquisit
+     */
+    select?: PreriquisitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Preriquisit
+     */
+    omit?: PreriquisitOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PreriquisitInclude<ExtArgs> | null
+    /**
+     * Filter which Preriquisit to delete.
+     */
+    where: PreriquisitWhereUniqueInput
+  }
+
+  /**
+   * Preriquisit deleteMany
+   */
+  export type PreriquisitDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Preriquisits to delete
+     */
+    where?: PreriquisitWhereInput
+    /**
+     * Limit how many Preriquisits to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Preriquisit without action
+   */
+  export type PreriquisitDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Preriquisit
+     */
+    select?: PreriquisitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Preriquisit
+     */
+    omit?: PreriquisitOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PreriquisitInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Skill
+   */
+
+  export type AggregateSkill = {
+    _count: SkillCountAggregateOutputType | null
+    _avg: SkillAvgAggregateOutputType | null
+    _sum: SkillSumAggregateOutputType | null
+    _min: SkillMinAggregateOutputType | null
+    _max: SkillMaxAggregateOutputType | null
+  }
+
+  export type SkillAvgAggregateOutputType = {
+    id: number | null
+    courseId: number | null
+  }
+
+  export type SkillSumAggregateOutputType = {
+    id: number | null
+    courseId: number | null
+  }
+
+  export type SkillMinAggregateOutputType = {
+    id: number | null
+    content: string | null
+    courseId: number | null
+  }
+
+  export type SkillMaxAggregateOutputType = {
+    id: number | null
+    content: string | null
+    courseId: number | null
+  }
+
+  export type SkillCountAggregateOutputType = {
+    id: number
+    content: number
+    courseId: number
+    _all: number
+  }
+
+
+  export type SkillAvgAggregateInputType = {
+    id?: true
+    courseId?: true
+  }
+
+  export type SkillSumAggregateInputType = {
+    id?: true
+    courseId?: true
+  }
+
+  export type SkillMinAggregateInputType = {
+    id?: true
+    content?: true
+    courseId?: true
+  }
+
+  export type SkillMaxAggregateInputType = {
+    id?: true
+    content?: true
+    courseId?: true
+  }
+
+  export type SkillCountAggregateInputType = {
+    id?: true
+    content?: true
+    courseId?: true
+    _all?: true
+  }
+
+  export type SkillAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Skill to aggregate.
+     */
+    where?: SkillWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Skills to fetch.
+     */
+    orderBy?: SkillOrderByWithRelationInput | SkillOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SkillWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Skills from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Skills.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Skills
+    **/
+    _count?: true | SkillCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: SkillAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: SkillSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SkillMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SkillMaxAggregateInputType
+  }
+
+  export type GetSkillAggregateType<T extends SkillAggregateArgs> = {
+        [P in keyof T & keyof AggregateSkill]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSkill[P]>
+      : GetScalarType<T[P], AggregateSkill[P]>
+  }
+
+
+
+
+  export type SkillGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SkillWhereInput
+    orderBy?: SkillOrderByWithAggregationInput | SkillOrderByWithAggregationInput[]
+    by: SkillScalarFieldEnum[] | SkillScalarFieldEnum
+    having?: SkillScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SkillCountAggregateInputType | true
+    _avg?: SkillAvgAggregateInputType
+    _sum?: SkillSumAggregateInputType
+    _min?: SkillMinAggregateInputType
+    _max?: SkillMaxAggregateInputType
+  }
+
+  export type SkillGroupByOutputType = {
+    id: number
+    content: string
+    courseId: number
+    _count: SkillCountAggregateOutputType | null
+    _avg: SkillAvgAggregateOutputType | null
+    _sum: SkillSumAggregateOutputType | null
+    _min: SkillMinAggregateOutputType | null
+    _max: SkillMaxAggregateOutputType | null
+  }
+
+  type GetSkillGroupByPayload<T extends SkillGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SkillGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SkillGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SkillGroupByOutputType[P]>
+            : GetScalarType<T[P], SkillGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SkillSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    content?: boolean
+    courseId?: boolean
+    course?: boolean | CourseDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["skill"]>
+
+  export type SkillSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    content?: boolean
+    courseId?: boolean
+    course?: boolean | CourseDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["skill"]>
+
+  export type SkillSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    content?: boolean
+    courseId?: boolean
+    course?: boolean | CourseDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["skill"]>
+
+  export type SkillSelectScalar = {
+    id?: boolean
+    content?: boolean
+    courseId?: boolean
+  }
+
+  export type SkillOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "content" | "courseId", ExtArgs["result"]["skill"]>
+  export type SkillInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    course?: boolean | CourseDefaultArgs<ExtArgs>
+  }
+  export type SkillIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    course?: boolean | CourseDefaultArgs<ExtArgs>
+  }
+  export type SkillIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    course?: boolean | CourseDefaultArgs<ExtArgs>
+  }
+
+  export type $SkillPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Skill"
+    objects: {
+      course: Prisma.$CoursePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      content: string
+      courseId: number
+    }, ExtArgs["result"]["skill"]>
+    composites: {}
+  }
+
+  type SkillGetPayload<S extends boolean | null | undefined | SkillDefaultArgs> = $Result.GetResult<Prisma.$SkillPayload, S>
+
+  type SkillCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SkillFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SkillCountAggregateInputType | true
+    }
+
+  export interface SkillDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Skill'], meta: { name: 'Skill' } }
+    /**
+     * Find zero or one Skill that matches the filter.
+     * @param {SkillFindUniqueArgs} args - Arguments to find a Skill
+     * @example
+     * // Get one Skill
+     * const skill = await prisma.skill.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SkillFindUniqueArgs>(args: SelectSubset<T, SkillFindUniqueArgs<ExtArgs>>): Prisma__SkillClient<$Result.GetResult<Prisma.$SkillPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Skill that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {SkillFindUniqueOrThrowArgs} args - Arguments to find a Skill
+     * @example
+     * // Get one Skill
+     * const skill = await prisma.skill.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SkillFindUniqueOrThrowArgs>(args: SelectSubset<T, SkillFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SkillClient<$Result.GetResult<Prisma.$SkillPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Skill that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SkillFindFirstArgs} args - Arguments to find a Skill
+     * @example
+     * // Get one Skill
+     * const skill = await prisma.skill.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SkillFindFirstArgs>(args?: SelectSubset<T, SkillFindFirstArgs<ExtArgs>>): Prisma__SkillClient<$Result.GetResult<Prisma.$SkillPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Skill that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SkillFindFirstOrThrowArgs} args - Arguments to find a Skill
+     * @example
+     * // Get one Skill
+     * const skill = await prisma.skill.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SkillFindFirstOrThrowArgs>(args?: SelectSubset<T, SkillFindFirstOrThrowArgs<ExtArgs>>): Prisma__SkillClient<$Result.GetResult<Prisma.$SkillPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Skills that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SkillFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Skills
+     * const skills = await prisma.skill.findMany()
+     * 
+     * // Get first 10 Skills
+     * const skills = await prisma.skill.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const skillWithIdOnly = await prisma.skill.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SkillFindManyArgs>(args?: SelectSubset<T, SkillFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SkillPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Skill.
+     * @param {SkillCreateArgs} args - Arguments to create a Skill.
+     * @example
+     * // Create one Skill
+     * const Skill = await prisma.skill.create({
+     *   data: {
+     *     // ... data to create a Skill
+     *   }
+     * })
+     * 
+     */
+    create<T extends SkillCreateArgs>(args: SelectSubset<T, SkillCreateArgs<ExtArgs>>): Prisma__SkillClient<$Result.GetResult<Prisma.$SkillPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Skills.
+     * @param {SkillCreateManyArgs} args - Arguments to create many Skills.
+     * @example
+     * // Create many Skills
+     * const skill = await prisma.skill.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SkillCreateManyArgs>(args?: SelectSubset<T, SkillCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Skills and returns the data saved in the database.
+     * @param {SkillCreateManyAndReturnArgs} args - Arguments to create many Skills.
+     * @example
+     * // Create many Skills
+     * const skill = await prisma.skill.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Skills and only return the `id`
+     * const skillWithIdOnly = await prisma.skill.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SkillCreateManyAndReturnArgs>(args?: SelectSubset<T, SkillCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SkillPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Skill.
+     * @param {SkillDeleteArgs} args - Arguments to delete one Skill.
+     * @example
+     * // Delete one Skill
+     * const Skill = await prisma.skill.delete({
+     *   where: {
+     *     // ... filter to delete one Skill
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SkillDeleteArgs>(args: SelectSubset<T, SkillDeleteArgs<ExtArgs>>): Prisma__SkillClient<$Result.GetResult<Prisma.$SkillPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Skill.
+     * @param {SkillUpdateArgs} args - Arguments to update one Skill.
+     * @example
+     * // Update one Skill
+     * const skill = await prisma.skill.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SkillUpdateArgs>(args: SelectSubset<T, SkillUpdateArgs<ExtArgs>>): Prisma__SkillClient<$Result.GetResult<Prisma.$SkillPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Skills.
+     * @param {SkillDeleteManyArgs} args - Arguments to filter Skills to delete.
+     * @example
+     * // Delete a few Skills
+     * const { count } = await prisma.skill.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SkillDeleteManyArgs>(args?: SelectSubset<T, SkillDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Skills.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SkillUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Skills
+     * const skill = await prisma.skill.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SkillUpdateManyArgs>(args: SelectSubset<T, SkillUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Skills and returns the data updated in the database.
+     * @param {SkillUpdateManyAndReturnArgs} args - Arguments to update many Skills.
+     * @example
+     * // Update many Skills
+     * const skill = await prisma.skill.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Skills and only return the `id`
+     * const skillWithIdOnly = await prisma.skill.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends SkillUpdateManyAndReturnArgs>(args: SelectSubset<T, SkillUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SkillPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Skill.
+     * @param {SkillUpsertArgs} args - Arguments to update or create a Skill.
+     * @example
+     * // Update or create a Skill
+     * const skill = await prisma.skill.upsert({
+     *   create: {
+     *     // ... data to create a Skill
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Skill we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SkillUpsertArgs>(args: SelectSubset<T, SkillUpsertArgs<ExtArgs>>): Prisma__SkillClient<$Result.GetResult<Prisma.$SkillPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Skills.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SkillCountArgs} args - Arguments to filter Skills to count.
+     * @example
+     * // Count the number of Skills
+     * const count = await prisma.skill.count({
+     *   where: {
+     *     // ... the filter for the Skills we want to count
+     *   }
+     * })
+    **/
+    count<T extends SkillCountArgs>(
+      args?: Subset<T, SkillCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SkillCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Skill.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SkillAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SkillAggregateArgs>(args: Subset<T, SkillAggregateArgs>): Prisma.PrismaPromise<GetSkillAggregateType<T>>
+
+    /**
+     * Group by Skill.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SkillGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SkillGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SkillGroupByArgs['orderBy'] }
+        : { orderBy?: SkillGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SkillGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSkillGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Skill model
+   */
+  readonly fields: SkillFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Skill.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SkillClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    course<T extends CourseDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CourseDefaultArgs<ExtArgs>>): Prisma__CourseClient<$Result.GetResult<Prisma.$CoursePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Skill model
+   */
+  interface SkillFieldRefs {
+    readonly id: FieldRef<"Skill", 'Int'>
+    readonly content: FieldRef<"Skill", 'String'>
+    readonly courseId: FieldRef<"Skill", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Skill findUnique
+   */
+  export type SkillFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Skill
+     */
+    select?: SkillSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Skill
+     */
+    omit?: SkillOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillInclude<ExtArgs> | null
+    /**
+     * Filter, which Skill to fetch.
+     */
+    where: SkillWhereUniqueInput
+  }
+
+  /**
+   * Skill findUniqueOrThrow
+   */
+  export type SkillFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Skill
+     */
+    select?: SkillSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Skill
+     */
+    omit?: SkillOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillInclude<ExtArgs> | null
+    /**
+     * Filter, which Skill to fetch.
+     */
+    where: SkillWhereUniqueInput
+  }
+
+  /**
+   * Skill findFirst
+   */
+  export type SkillFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Skill
+     */
+    select?: SkillSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Skill
+     */
+    omit?: SkillOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillInclude<ExtArgs> | null
+    /**
+     * Filter, which Skill to fetch.
+     */
+    where?: SkillWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Skills to fetch.
+     */
+    orderBy?: SkillOrderByWithRelationInput | SkillOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Skills.
+     */
+    cursor?: SkillWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Skills from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Skills.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Skills.
+     */
+    distinct?: SkillScalarFieldEnum | SkillScalarFieldEnum[]
+  }
+
+  /**
+   * Skill findFirstOrThrow
+   */
+  export type SkillFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Skill
+     */
+    select?: SkillSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Skill
+     */
+    omit?: SkillOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillInclude<ExtArgs> | null
+    /**
+     * Filter, which Skill to fetch.
+     */
+    where?: SkillWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Skills to fetch.
+     */
+    orderBy?: SkillOrderByWithRelationInput | SkillOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Skills.
+     */
+    cursor?: SkillWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Skills from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Skills.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Skills.
+     */
+    distinct?: SkillScalarFieldEnum | SkillScalarFieldEnum[]
+  }
+
+  /**
+   * Skill findMany
+   */
+  export type SkillFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Skill
+     */
+    select?: SkillSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Skill
+     */
+    omit?: SkillOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillInclude<ExtArgs> | null
+    /**
+     * Filter, which Skills to fetch.
+     */
+    where?: SkillWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Skills to fetch.
+     */
+    orderBy?: SkillOrderByWithRelationInput | SkillOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Skills.
+     */
+    cursor?: SkillWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Skills from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Skills.
+     */
+    skip?: number
+    distinct?: SkillScalarFieldEnum | SkillScalarFieldEnum[]
+  }
+
+  /**
+   * Skill create
+   */
+  export type SkillCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Skill
+     */
+    select?: SkillSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Skill
+     */
+    omit?: SkillOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Skill.
+     */
+    data: XOR<SkillCreateInput, SkillUncheckedCreateInput>
+  }
+
+  /**
+   * Skill createMany
+   */
+  export type SkillCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Skills.
+     */
+    data: SkillCreateManyInput | SkillCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Skill createManyAndReturn
+   */
+  export type SkillCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Skill
+     */
+    select?: SkillSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Skill
+     */
+    omit?: SkillOmit<ExtArgs> | null
+    /**
+     * The data used to create many Skills.
+     */
+    data: SkillCreateManyInput | SkillCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Skill update
+   */
+  export type SkillUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Skill
+     */
+    select?: SkillSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Skill
+     */
+    omit?: SkillOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Skill.
+     */
+    data: XOR<SkillUpdateInput, SkillUncheckedUpdateInput>
+    /**
+     * Choose, which Skill to update.
+     */
+    where: SkillWhereUniqueInput
+  }
+
+  /**
+   * Skill updateMany
+   */
+  export type SkillUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Skills.
+     */
+    data: XOR<SkillUpdateManyMutationInput, SkillUncheckedUpdateManyInput>
+    /**
+     * Filter which Skills to update
+     */
+    where?: SkillWhereInput
+    /**
+     * Limit how many Skills to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Skill updateManyAndReturn
+   */
+  export type SkillUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Skill
+     */
+    select?: SkillSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Skill
+     */
+    omit?: SkillOmit<ExtArgs> | null
+    /**
+     * The data used to update Skills.
+     */
+    data: XOR<SkillUpdateManyMutationInput, SkillUncheckedUpdateManyInput>
+    /**
+     * Filter which Skills to update
+     */
+    where?: SkillWhereInput
+    /**
+     * Limit how many Skills to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Skill upsert
+   */
+  export type SkillUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Skill
+     */
+    select?: SkillSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Skill
+     */
+    omit?: SkillOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Skill to update in case it exists.
+     */
+    where: SkillWhereUniqueInput
+    /**
+     * In case the Skill found by the `where` argument doesn't exist, create a new Skill with this data.
+     */
+    create: XOR<SkillCreateInput, SkillUncheckedCreateInput>
+    /**
+     * In case the Skill was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SkillUpdateInput, SkillUncheckedUpdateInput>
+  }
+
+  /**
+   * Skill delete
+   */
+  export type SkillDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Skill
+     */
+    select?: SkillSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Skill
+     */
+    omit?: SkillOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillInclude<ExtArgs> | null
+    /**
+     * Filter which Skill to delete.
+     */
+    where: SkillWhereUniqueInput
+  }
+
+  /**
+   * Skill deleteMany
+   */
+  export type SkillDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Skills to delete
+     */
+    where?: SkillWhereInput
+    /**
+     * Limit how many Skills to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Skill without action
+   */
+  export type SkillDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Skill
+     */
+    select?: SkillSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Skill
+     */
+    omit?: SkillOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -10761,6 +13157,24 @@ export namespace Prisma {
   };
 
   export type AnswerScalarFieldEnum = (typeof AnswerScalarFieldEnum)[keyof typeof AnswerScalarFieldEnum]
+
+
+  export const PreriquisitScalarFieldEnum: {
+    id: 'id',
+    content: 'content',
+    courseId: 'courseId'
+  };
+
+  export type PreriquisitScalarFieldEnum = (typeof PreriquisitScalarFieldEnum)[keyof typeof PreriquisitScalarFieldEnum]
+
+
+  export const SkillScalarFieldEnum: {
+    id: 'id',
+    content: 'content',
+    courseId: 'courseId'
+  };
+
+  export type SkillScalarFieldEnum = (typeof SkillScalarFieldEnum)[keyof typeof SkillScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -10969,6 +13383,8 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Course"> | Date | string
     updatedAt?: DateTimeFilter<"Course"> | Date | string
     sectionGroups?: SectionGroupListRelationFilter
+    preriquisites?: PreriquisitListRelationFilter
+    skills?: SkillListRelationFilter
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     category?: XOR<CategoryScalarRelationFilter, CategoryWhereInput>
   }
@@ -10982,6 +13398,8 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     sectionGroups?: SectionGroupOrderByRelationAggregateInput
+    preriquisites?: PreriquisitOrderByRelationAggregateInput
+    skills?: SkillOrderByRelationAggregateInput
     user?: UserOrderByWithRelationInput
     category?: CategoryOrderByWithRelationInput
   }
@@ -10998,6 +13416,8 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Course"> | Date | string
     updatedAt?: DateTimeFilter<"Course"> | Date | string
     sectionGroups?: SectionGroupListRelationFilter
+    preriquisites?: PreriquisitListRelationFilter
+    skills?: SkillListRelationFilter
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     category?: XOR<CategoryScalarRelationFilter, CategoryWhereInput>
   }, "id">
@@ -11369,6 +13789,100 @@ export namespace Prisma {
     isCorrect?: BoolWithAggregatesFilter<"Answer"> | boolean
   }
 
+  export type PreriquisitWhereInput = {
+    AND?: PreriquisitWhereInput | PreriquisitWhereInput[]
+    OR?: PreriquisitWhereInput[]
+    NOT?: PreriquisitWhereInput | PreriquisitWhereInput[]
+    id?: IntFilter<"Preriquisit"> | number
+    content?: StringFilter<"Preriquisit"> | string
+    courseId?: IntFilter<"Preriquisit"> | number
+    course?: XOR<CourseScalarRelationFilter, CourseWhereInput>
+  }
+
+  export type PreriquisitOrderByWithRelationInput = {
+    id?: SortOrder
+    content?: SortOrder
+    courseId?: SortOrder
+    course?: CourseOrderByWithRelationInput
+  }
+
+  export type PreriquisitWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: PreriquisitWhereInput | PreriquisitWhereInput[]
+    OR?: PreriquisitWhereInput[]
+    NOT?: PreriquisitWhereInput | PreriquisitWhereInput[]
+    content?: StringFilter<"Preriquisit"> | string
+    courseId?: IntFilter<"Preriquisit"> | number
+    course?: XOR<CourseScalarRelationFilter, CourseWhereInput>
+  }, "id">
+
+  export type PreriquisitOrderByWithAggregationInput = {
+    id?: SortOrder
+    content?: SortOrder
+    courseId?: SortOrder
+    _count?: PreriquisitCountOrderByAggregateInput
+    _avg?: PreriquisitAvgOrderByAggregateInput
+    _max?: PreriquisitMaxOrderByAggregateInput
+    _min?: PreriquisitMinOrderByAggregateInput
+    _sum?: PreriquisitSumOrderByAggregateInput
+  }
+
+  export type PreriquisitScalarWhereWithAggregatesInput = {
+    AND?: PreriquisitScalarWhereWithAggregatesInput | PreriquisitScalarWhereWithAggregatesInput[]
+    OR?: PreriquisitScalarWhereWithAggregatesInput[]
+    NOT?: PreriquisitScalarWhereWithAggregatesInput | PreriquisitScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Preriquisit"> | number
+    content?: StringWithAggregatesFilter<"Preriquisit"> | string
+    courseId?: IntWithAggregatesFilter<"Preriquisit"> | number
+  }
+
+  export type SkillWhereInput = {
+    AND?: SkillWhereInput | SkillWhereInput[]
+    OR?: SkillWhereInput[]
+    NOT?: SkillWhereInput | SkillWhereInput[]
+    id?: IntFilter<"Skill"> | number
+    content?: StringFilter<"Skill"> | string
+    courseId?: IntFilter<"Skill"> | number
+    course?: XOR<CourseScalarRelationFilter, CourseWhereInput>
+  }
+
+  export type SkillOrderByWithRelationInput = {
+    id?: SortOrder
+    content?: SortOrder
+    courseId?: SortOrder
+    course?: CourseOrderByWithRelationInput
+  }
+
+  export type SkillWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: SkillWhereInput | SkillWhereInput[]
+    OR?: SkillWhereInput[]
+    NOT?: SkillWhereInput | SkillWhereInput[]
+    content?: StringFilter<"Skill"> | string
+    courseId?: IntFilter<"Skill"> | number
+    course?: XOR<CourseScalarRelationFilter, CourseWhereInput>
+  }, "id">
+
+  export type SkillOrderByWithAggregationInput = {
+    id?: SortOrder
+    content?: SortOrder
+    courseId?: SortOrder
+    _count?: SkillCountOrderByAggregateInput
+    _avg?: SkillAvgOrderByAggregateInput
+    _max?: SkillMaxOrderByAggregateInput
+    _min?: SkillMinOrderByAggregateInput
+    _sum?: SkillSumOrderByAggregateInput
+  }
+
+  export type SkillScalarWhereWithAggregatesInput = {
+    AND?: SkillScalarWhereWithAggregatesInput | SkillScalarWhereWithAggregatesInput[]
+    OR?: SkillScalarWhereWithAggregatesInput[]
+    NOT?: SkillScalarWhereWithAggregatesInput | SkillScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Skill"> | number
+    content?: StringWithAggregatesFilter<"Skill"> | string
+    courseId?: IntWithAggregatesFilter<"Skill"> | number
+  }
+
   export type UserCreateInput = {
     name: string
     password: string
@@ -11432,6 +13946,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     sectionGroups?: SectionGroupCreateNestedManyWithoutCourseInput
+    preriquisites?: PreriquisitCreateNestedManyWithoutCourseInput
+    skills?: SkillCreateNestedManyWithoutCourseInput
     user: UserCreateNestedOneWithoutCoursesInput
     category: CategoryCreateNestedOneWithoutCoursesInput
   }
@@ -11445,6 +13961,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     sectionGroups?: SectionGroupUncheckedCreateNestedManyWithoutCourseInput
+    preriquisites?: PreriquisitUncheckedCreateNestedManyWithoutCourseInput
+    skills?: SkillUncheckedCreateNestedManyWithoutCourseInput
   }
 
   export type CourseUpdateInput = {
@@ -11453,6 +13971,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sectionGroups?: SectionGroupUpdateManyWithoutCourseNestedInput
+    preriquisites?: PreriquisitUpdateManyWithoutCourseNestedInput
+    skills?: SkillUpdateManyWithoutCourseNestedInput
     user?: UserUpdateOneRequiredWithoutCoursesNestedInput
     category?: CategoryUpdateOneRequiredWithoutCoursesNestedInput
   }
@@ -11466,6 +13986,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sectionGroups?: SectionGroupUncheckedUpdateManyWithoutCourseNestedInput
+    preriquisites?: PreriquisitUncheckedUpdateManyWithoutCourseNestedInput
+    skills?: SkillUncheckedUpdateManyWithoutCourseNestedInput
   }
 
   export type CourseCreateManyInput = {
@@ -11807,6 +14329,82 @@ export namespace Prisma {
     isCorrect?: BoolFieldUpdateOperationsInput | boolean
   }
 
+  export type PreriquisitCreateInput = {
+    content: string
+    course: CourseCreateNestedOneWithoutPreriquisitesInput
+  }
+
+  export type PreriquisitUncheckedCreateInput = {
+    id?: number
+    content: string
+    courseId: number
+  }
+
+  export type PreriquisitUpdateInput = {
+    content?: StringFieldUpdateOperationsInput | string
+    course?: CourseUpdateOneRequiredWithoutPreriquisitesNestedInput
+  }
+
+  export type PreriquisitUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    content?: StringFieldUpdateOperationsInput | string
+    courseId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type PreriquisitCreateManyInput = {
+    id?: number
+    content: string
+    courseId: number
+  }
+
+  export type PreriquisitUpdateManyMutationInput = {
+    content?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type PreriquisitUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    content?: StringFieldUpdateOperationsInput | string
+    courseId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type SkillCreateInput = {
+    content: string
+    course: CourseCreateNestedOneWithoutSkillsInput
+  }
+
+  export type SkillUncheckedCreateInput = {
+    id?: number
+    content: string
+    courseId: number
+  }
+
+  export type SkillUpdateInput = {
+    content?: StringFieldUpdateOperationsInput | string
+    course?: CourseUpdateOneRequiredWithoutSkillsNestedInput
+  }
+
+  export type SkillUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    content?: StringFieldUpdateOperationsInput | string
+    courseId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type SkillCreateManyInput = {
+    id?: number
+    content: string
+    courseId: number
+  }
+
+  export type SkillUpdateManyMutationInput = {
+    content?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type SkillUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    content?: StringFieldUpdateOperationsInput | string
+    courseId?: IntFieldUpdateOperationsInput | number
+  }
+
   export type IntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -11943,6 +14541,18 @@ export namespace Prisma {
     none?: SectionGroupWhereInput
   }
 
+  export type PreriquisitListRelationFilter = {
+    every?: PreriquisitWhereInput
+    some?: PreriquisitWhereInput
+    none?: PreriquisitWhereInput
+  }
+
+  export type SkillListRelationFilter = {
+    every?: SkillWhereInput
+    some?: SkillWhereInput
+    none?: SkillWhereInput
+  }
+
   export type UserScalarRelationFilter = {
     is?: UserWhereInput
     isNot?: UserWhereInput
@@ -11954,6 +14564,14 @@ export namespace Prisma {
   }
 
   export type SectionGroupOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type PreriquisitOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type SkillOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -12386,6 +15004,62 @@ export namespace Prisma {
     _max?: NestedBoolFilter<$PrismaModel>
   }
 
+  export type PreriquisitCountOrderByAggregateInput = {
+    id?: SortOrder
+    content?: SortOrder
+    courseId?: SortOrder
+  }
+
+  export type PreriquisitAvgOrderByAggregateInput = {
+    id?: SortOrder
+    courseId?: SortOrder
+  }
+
+  export type PreriquisitMaxOrderByAggregateInput = {
+    id?: SortOrder
+    content?: SortOrder
+    courseId?: SortOrder
+  }
+
+  export type PreriquisitMinOrderByAggregateInput = {
+    id?: SortOrder
+    content?: SortOrder
+    courseId?: SortOrder
+  }
+
+  export type PreriquisitSumOrderByAggregateInput = {
+    id?: SortOrder
+    courseId?: SortOrder
+  }
+
+  export type SkillCountOrderByAggregateInput = {
+    id?: SortOrder
+    content?: SortOrder
+    courseId?: SortOrder
+  }
+
+  export type SkillAvgOrderByAggregateInput = {
+    id?: SortOrder
+    courseId?: SortOrder
+  }
+
+  export type SkillMaxOrderByAggregateInput = {
+    id?: SortOrder
+    content?: SortOrder
+    courseId?: SortOrder
+  }
+
+  export type SkillMinOrderByAggregateInput = {
+    id?: SortOrder
+    content?: SortOrder
+    courseId?: SortOrder
+  }
+
+  export type SkillSumOrderByAggregateInput = {
+    id?: SortOrder
+    courseId?: SortOrder
+  }
+
   export type CourseCreateNestedManyWithoutUserInput = {
     create?: XOR<CourseCreateWithoutUserInput, CourseUncheckedCreateWithoutUserInput> | CourseCreateWithoutUserInput[] | CourseUncheckedCreateWithoutUserInput[]
     connectOrCreate?: CourseCreateOrConnectWithoutUserInput | CourseCreateOrConnectWithoutUserInput[]
@@ -12451,6 +15125,20 @@ export namespace Prisma {
     connect?: SectionGroupWhereUniqueInput | SectionGroupWhereUniqueInput[]
   }
 
+  export type PreriquisitCreateNestedManyWithoutCourseInput = {
+    create?: XOR<PreriquisitCreateWithoutCourseInput, PreriquisitUncheckedCreateWithoutCourseInput> | PreriquisitCreateWithoutCourseInput[] | PreriquisitUncheckedCreateWithoutCourseInput[]
+    connectOrCreate?: PreriquisitCreateOrConnectWithoutCourseInput | PreriquisitCreateOrConnectWithoutCourseInput[]
+    createMany?: PreriquisitCreateManyCourseInputEnvelope
+    connect?: PreriquisitWhereUniqueInput | PreriquisitWhereUniqueInput[]
+  }
+
+  export type SkillCreateNestedManyWithoutCourseInput = {
+    create?: XOR<SkillCreateWithoutCourseInput, SkillUncheckedCreateWithoutCourseInput> | SkillCreateWithoutCourseInput[] | SkillUncheckedCreateWithoutCourseInput[]
+    connectOrCreate?: SkillCreateOrConnectWithoutCourseInput | SkillCreateOrConnectWithoutCourseInput[]
+    createMany?: SkillCreateManyCourseInputEnvelope
+    connect?: SkillWhereUniqueInput | SkillWhereUniqueInput[]
+  }
+
   export type UserCreateNestedOneWithoutCoursesInput = {
     create?: XOR<UserCreateWithoutCoursesInput, UserUncheckedCreateWithoutCoursesInput>
     connectOrCreate?: UserCreateOrConnectWithoutCoursesInput
@@ -12470,6 +15158,20 @@ export namespace Prisma {
     connect?: SectionGroupWhereUniqueInput | SectionGroupWhereUniqueInput[]
   }
 
+  export type PreriquisitUncheckedCreateNestedManyWithoutCourseInput = {
+    create?: XOR<PreriquisitCreateWithoutCourseInput, PreriquisitUncheckedCreateWithoutCourseInput> | PreriquisitCreateWithoutCourseInput[] | PreriquisitUncheckedCreateWithoutCourseInput[]
+    connectOrCreate?: PreriquisitCreateOrConnectWithoutCourseInput | PreriquisitCreateOrConnectWithoutCourseInput[]
+    createMany?: PreriquisitCreateManyCourseInputEnvelope
+    connect?: PreriquisitWhereUniqueInput | PreriquisitWhereUniqueInput[]
+  }
+
+  export type SkillUncheckedCreateNestedManyWithoutCourseInput = {
+    create?: XOR<SkillCreateWithoutCourseInput, SkillUncheckedCreateWithoutCourseInput> | SkillCreateWithoutCourseInput[] | SkillUncheckedCreateWithoutCourseInput[]
+    connectOrCreate?: SkillCreateOrConnectWithoutCourseInput | SkillCreateOrConnectWithoutCourseInput[]
+    createMany?: SkillCreateManyCourseInputEnvelope
+    connect?: SkillWhereUniqueInput | SkillWhereUniqueInput[]
+  }
+
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
   }
@@ -12486,6 +15188,34 @@ export namespace Prisma {
     update?: SectionGroupUpdateWithWhereUniqueWithoutCourseInput | SectionGroupUpdateWithWhereUniqueWithoutCourseInput[]
     updateMany?: SectionGroupUpdateManyWithWhereWithoutCourseInput | SectionGroupUpdateManyWithWhereWithoutCourseInput[]
     deleteMany?: SectionGroupScalarWhereInput | SectionGroupScalarWhereInput[]
+  }
+
+  export type PreriquisitUpdateManyWithoutCourseNestedInput = {
+    create?: XOR<PreriquisitCreateWithoutCourseInput, PreriquisitUncheckedCreateWithoutCourseInput> | PreriquisitCreateWithoutCourseInput[] | PreriquisitUncheckedCreateWithoutCourseInput[]
+    connectOrCreate?: PreriquisitCreateOrConnectWithoutCourseInput | PreriquisitCreateOrConnectWithoutCourseInput[]
+    upsert?: PreriquisitUpsertWithWhereUniqueWithoutCourseInput | PreriquisitUpsertWithWhereUniqueWithoutCourseInput[]
+    createMany?: PreriquisitCreateManyCourseInputEnvelope
+    set?: PreriquisitWhereUniqueInput | PreriquisitWhereUniqueInput[]
+    disconnect?: PreriquisitWhereUniqueInput | PreriquisitWhereUniqueInput[]
+    delete?: PreriquisitWhereUniqueInput | PreriquisitWhereUniqueInput[]
+    connect?: PreriquisitWhereUniqueInput | PreriquisitWhereUniqueInput[]
+    update?: PreriquisitUpdateWithWhereUniqueWithoutCourseInput | PreriquisitUpdateWithWhereUniqueWithoutCourseInput[]
+    updateMany?: PreriquisitUpdateManyWithWhereWithoutCourseInput | PreriquisitUpdateManyWithWhereWithoutCourseInput[]
+    deleteMany?: PreriquisitScalarWhereInput | PreriquisitScalarWhereInput[]
+  }
+
+  export type SkillUpdateManyWithoutCourseNestedInput = {
+    create?: XOR<SkillCreateWithoutCourseInput, SkillUncheckedCreateWithoutCourseInput> | SkillCreateWithoutCourseInput[] | SkillUncheckedCreateWithoutCourseInput[]
+    connectOrCreate?: SkillCreateOrConnectWithoutCourseInput | SkillCreateOrConnectWithoutCourseInput[]
+    upsert?: SkillUpsertWithWhereUniqueWithoutCourseInput | SkillUpsertWithWhereUniqueWithoutCourseInput[]
+    createMany?: SkillCreateManyCourseInputEnvelope
+    set?: SkillWhereUniqueInput | SkillWhereUniqueInput[]
+    disconnect?: SkillWhereUniqueInput | SkillWhereUniqueInput[]
+    delete?: SkillWhereUniqueInput | SkillWhereUniqueInput[]
+    connect?: SkillWhereUniqueInput | SkillWhereUniqueInput[]
+    update?: SkillUpdateWithWhereUniqueWithoutCourseInput | SkillUpdateWithWhereUniqueWithoutCourseInput[]
+    updateMany?: SkillUpdateManyWithWhereWithoutCourseInput | SkillUpdateManyWithWhereWithoutCourseInput[]
+    deleteMany?: SkillScalarWhereInput | SkillScalarWhereInput[]
   }
 
   export type UserUpdateOneRequiredWithoutCoursesNestedInput = {
@@ -12516,6 +15246,34 @@ export namespace Prisma {
     update?: SectionGroupUpdateWithWhereUniqueWithoutCourseInput | SectionGroupUpdateWithWhereUniqueWithoutCourseInput[]
     updateMany?: SectionGroupUpdateManyWithWhereWithoutCourseInput | SectionGroupUpdateManyWithWhereWithoutCourseInput[]
     deleteMany?: SectionGroupScalarWhereInput | SectionGroupScalarWhereInput[]
+  }
+
+  export type PreriquisitUncheckedUpdateManyWithoutCourseNestedInput = {
+    create?: XOR<PreriquisitCreateWithoutCourseInput, PreriquisitUncheckedCreateWithoutCourseInput> | PreriquisitCreateWithoutCourseInput[] | PreriquisitUncheckedCreateWithoutCourseInput[]
+    connectOrCreate?: PreriquisitCreateOrConnectWithoutCourseInput | PreriquisitCreateOrConnectWithoutCourseInput[]
+    upsert?: PreriquisitUpsertWithWhereUniqueWithoutCourseInput | PreriquisitUpsertWithWhereUniqueWithoutCourseInput[]
+    createMany?: PreriquisitCreateManyCourseInputEnvelope
+    set?: PreriquisitWhereUniqueInput | PreriquisitWhereUniqueInput[]
+    disconnect?: PreriquisitWhereUniqueInput | PreriquisitWhereUniqueInput[]
+    delete?: PreriquisitWhereUniqueInput | PreriquisitWhereUniqueInput[]
+    connect?: PreriquisitWhereUniqueInput | PreriquisitWhereUniqueInput[]
+    update?: PreriquisitUpdateWithWhereUniqueWithoutCourseInput | PreriquisitUpdateWithWhereUniqueWithoutCourseInput[]
+    updateMany?: PreriquisitUpdateManyWithWhereWithoutCourseInput | PreriquisitUpdateManyWithWhereWithoutCourseInput[]
+    deleteMany?: PreriquisitScalarWhereInput | PreriquisitScalarWhereInput[]
+  }
+
+  export type SkillUncheckedUpdateManyWithoutCourseNestedInput = {
+    create?: XOR<SkillCreateWithoutCourseInput, SkillUncheckedCreateWithoutCourseInput> | SkillCreateWithoutCourseInput[] | SkillUncheckedCreateWithoutCourseInput[]
+    connectOrCreate?: SkillCreateOrConnectWithoutCourseInput | SkillCreateOrConnectWithoutCourseInput[]
+    upsert?: SkillUpsertWithWhereUniqueWithoutCourseInput | SkillUpsertWithWhereUniqueWithoutCourseInput[]
+    createMany?: SkillCreateManyCourseInputEnvelope
+    set?: SkillWhereUniqueInput | SkillWhereUniqueInput[]
+    disconnect?: SkillWhereUniqueInput | SkillWhereUniqueInput[]
+    delete?: SkillWhereUniqueInput | SkillWhereUniqueInput[]
+    connect?: SkillWhereUniqueInput | SkillWhereUniqueInput[]
+    update?: SkillUpdateWithWhereUniqueWithoutCourseInput | SkillUpdateWithWhereUniqueWithoutCourseInput[]
+    updateMany?: SkillUpdateManyWithWhereWithoutCourseInput | SkillUpdateManyWithWhereWithoutCourseInput[]
+    deleteMany?: SkillScalarWhereInput | SkillScalarWhereInput[]
   }
 
   export type CourseCreateNestedManyWithoutCategoryInput = {
@@ -12812,6 +15570,34 @@ export namespace Prisma {
     update?: XOR<XOR<QuizUpdateToOneWithWhereWithoutAnswersInput, QuizUpdateWithoutAnswersInput>, QuizUncheckedUpdateWithoutAnswersInput>
   }
 
+  export type CourseCreateNestedOneWithoutPreriquisitesInput = {
+    create?: XOR<CourseCreateWithoutPreriquisitesInput, CourseUncheckedCreateWithoutPreriquisitesInput>
+    connectOrCreate?: CourseCreateOrConnectWithoutPreriquisitesInput
+    connect?: CourseWhereUniqueInput
+  }
+
+  export type CourseUpdateOneRequiredWithoutPreriquisitesNestedInput = {
+    create?: XOR<CourseCreateWithoutPreriquisitesInput, CourseUncheckedCreateWithoutPreriquisitesInput>
+    connectOrCreate?: CourseCreateOrConnectWithoutPreriquisitesInput
+    upsert?: CourseUpsertWithoutPreriquisitesInput
+    connect?: CourseWhereUniqueInput
+    update?: XOR<XOR<CourseUpdateToOneWithWhereWithoutPreriquisitesInput, CourseUpdateWithoutPreriquisitesInput>, CourseUncheckedUpdateWithoutPreriquisitesInput>
+  }
+
+  export type CourseCreateNestedOneWithoutSkillsInput = {
+    create?: XOR<CourseCreateWithoutSkillsInput, CourseUncheckedCreateWithoutSkillsInput>
+    connectOrCreate?: CourseCreateOrConnectWithoutSkillsInput
+    connect?: CourseWhereUniqueInput
+  }
+
+  export type CourseUpdateOneRequiredWithoutSkillsNestedInput = {
+    create?: XOR<CourseCreateWithoutSkillsInput, CourseUncheckedCreateWithoutSkillsInput>
+    connectOrCreate?: CourseCreateOrConnectWithoutSkillsInput
+    upsert?: CourseUpsertWithoutSkillsInput
+    connect?: CourseWhereUniqueInput
+    update?: XOR<XOR<CourseUpdateToOneWithWhereWithoutSkillsInput, CourseUpdateWithoutSkillsInput>, CourseUncheckedUpdateWithoutSkillsInput>
+  }
+
   export type NestedIntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -13045,6 +15831,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     sectionGroups?: SectionGroupCreateNestedManyWithoutCourseInput
+    preriquisites?: PreriquisitCreateNestedManyWithoutCourseInput
+    skills?: SkillCreateNestedManyWithoutCourseInput
     category: CategoryCreateNestedOneWithoutCoursesInput
   }
 
@@ -13056,6 +15844,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     sectionGroups?: SectionGroupUncheckedCreateNestedManyWithoutCourseInput
+    preriquisites?: PreriquisitUncheckedCreateNestedManyWithoutCourseInput
+    skills?: SkillUncheckedCreateNestedManyWithoutCourseInput
   }
 
   export type CourseCreateOrConnectWithoutUserInput = {
@@ -13117,6 +15907,44 @@ export namespace Prisma {
 
   export type SectionGroupCreateManyCourseInputEnvelope = {
     data: SectionGroupCreateManyCourseInput | SectionGroupCreateManyCourseInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PreriquisitCreateWithoutCourseInput = {
+    content: string
+  }
+
+  export type PreriquisitUncheckedCreateWithoutCourseInput = {
+    id?: number
+    content: string
+  }
+
+  export type PreriquisitCreateOrConnectWithoutCourseInput = {
+    where: PreriquisitWhereUniqueInput
+    create: XOR<PreriquisitCreateWithoutCourseInput, PreriquisitUncheckedCreateWithoutCourseInput>
+  }
+
+  export type PreriquisitCreateManyCourseInputEnvelope = {
+    data: PreriquisitCreateManyCourseInput | PreriquisitCreateManyCourseInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type SkillCreateWithoutCourseInput = {
+    content: string
+  }
+
+  export type SkillUncheckedCreateWithoutCourseInput = {
+    id?: number
+    content: string
+  }
+
+  export type SkillCreateOrConnectWithoutCourseInput = {
+    where: SkillWhereUniqueInput
+    create: XOR<SkillCreateWithoutCourseInput, SkillUncheckedCreateWithoutCourseInput>
+  }
+
+  export type SkillCreateManyCourseInputEnvelope = {
+    data: SkillCreateManyCourseInput | SkillCreateManyCourseInput[]
     skipDuplicates?: boolean
   }
 
@@ -13182,6 +16010,56 @@ export namespace Prisma {
     courseId?: IntFilter<"SectionGroup"> | number
   }
 
+  export type PreriquisitUpsertWithWhereUniqueWithoutCourseInput = {
+    where: PreriquisitWhereUniqueInput
+    update: XOR<PreriquisitUpdateWithoutCourseInput, PreriquisitUncheckedUpdateWithoutCourseInput>
+    create: XOR<PreriquisitCreateWithoutCourseInput, PreriquisitUncheckedCreateWithoutCourseInput>
+  }
+
+  export type PreriquisitUpdateWithWhereUniqueWithoutCourseInput = {
+    where: PreriquisitWhereUniqueInput
+    data: XOR<PreriquisitUpdateWithoutCourseInput, PreriquisitUncheckedUpdateWithoutCourseInput>
+  }
+
+  export type PreriquisitUpdateManyWithWhereWithoutCourseInput = {
+    where: PreriquisitScalarWhereInput
+    data: XOR<PreriquisitUpdateManyMutationInput, PreriquisitUncheckedUpdateManyWithoutCourseInput>
+  }
+
+  export type PreriquisitScalarWhereInput = {
+    AND?: PreriquisitScalarWhereInput | PreriquisitScalarWhereInput[]
+    OR?: PreriquisitScalarWhereInput[]
+    NOT?: PreriquisitScalarWhereInput | PreriquisitScalarWhereInput[]
+    id?: IntFilter<"Preriquisit"> | number
+    content?: StringFilter<"Preriquisit"> | string
+    courseId?: IntFilter<"Preriquisit"> | number
+  }
+
+  export type SkillUpsertWithWhereUniqueWithoutCourseInput = {
+    where: SkillWhereUniqueInput
+    update: XOR<SkillUpdateWithoutCourseInput, SkillUncheckedUpdateWithoutCourseInput>
+    create: XOR<SkillCreateWithoutCourseInput, SkillUncheckedCreateWithoutCourseInput>
+  }
+
+  export type SkillUpdateWithWhereUniqueWithoutCourseInput = {
+    where: SkillWhereUniqueInput
+    data: XOR<SkillUpdateWithoutCourseInput, SkillUncheckedUpdateWithoutCourseInput>
+  }
+
+  export type SkillUpdateManyWithWhereWithoutCourseInput = {
+    where: SkillScalarWhereInput
+    data: XOR<SkillUpdateManyMutationInput, SkillUncheckedUpdateManyWithoutCourseInput>
+  }
+
+  export type SkillScalarWhereInput = {
+    AND?: SkillScalarWhereInput | SkillScalarWhereInput[]
+    OR?: SkillScalarWhereInput[]
+    NOT?: SkillScalarWhereInput | SkillScalarWhereInput[]
+    id?: IntFilter<"Skill"> | number
+    content?: StringFilter<"Skill"> | string
+    courseId?: IntFilter<"Skill"> | number
+  }
+
   export type UserUpsertWithoutCoursesInput = {
     update: XOR<UserUpdateWithoutCoursesInput, UserUncheckedUpdateWithoutCoursesInput>
     create: XOR<UserCreateWithoutCoursesInput, UserUncheckedCreateWithoutCoursesInput>
@@ -13236,6 +16114,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     sectionGroups?: SectionGroupCreateNestedManyWithoutCourseInput
+    preriquisites?: PreriquisitCreateNestedManyWithoutCourseInput
+    skills?: SkillCreateNestedManyWithoutCourseInput
     user: UserCreateNestedOneWithoutCoursesInput
   }
 
@@ -13247,6 +16127,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     sectionGroups?: SectionGroupUncheckedCreateNestedManyWithoutCourseInput
+    preriquisites?: PreriquisitUncheckedCreateNestedManyWithoutCourseInput
+    skills?: SkillUncheckedCreateNestedManyWithoutCourseInput
   }
 
   export type CourseCreateOrConnectWithoutCategoryInput = {
@@ -13303,6 +16185,8 @@ export namespace Prisma {
     description: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    preriquisites?: PreriquisitCreateNestedManyWithoutCourseInput
+    skills?: SkillCreateNestedManyWithoutCourseInput
     user: UserCreateNestedOneWithoutCoursesInput
     category: CategoryCreateNestedOneWithoutCoursesInput
   }
@@ -13315,6 +16199,8 @@ export namespace Prisma {
     userId: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    preriquisites?: PreriquisitUncheckedCreateNestedManyWithoutCourseInput
+    skills?: SkillUncheckedCreateNestedManyWithoutCourseInput
   }
 
   export type CourseCreateOrConnectWithoutSectionGroupsInput = {
@@ -13364,6 +16250,8 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    preriquisites?: PreriquisitUpdateManyWithoutCourseNestedInput
+    skills?: SkillUpdateManyWithoutCourseNestedInput
     user?: UserUpdateOneRequiredWithoutCoursesNestedInput
     category?: CategoryUpdateOneRequiredWithoutCoursesNestedInput
   }
@@ -13376,6 +16264,8 @@ export namespace Prisma {
     userId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    preriquisites?: PreriquisitUncheckedUpdateManyWithoutCourseNestedInput
+    skills?: SkillUncheckedUpdateManyWithoutCourseNestedInput
   }
 
   export type LessonCreateWithoutSectionInput = {
@@ -13712,6 +16602,130 @@ export namespace Prisma {
     lessonId?: IntFieldUpdateOperationsInput | number
   }
 
+  export type CourseCreateWithoutPreriquisitesInput = {
+    title: string
+    description: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    sectionGroups?: SectionGroupCreateNestedManyWithoutCourseInput
+    skills?: SkillCreateNestedManyWithoutCourseInput
+    user: UserCreateNestedOneWithoutCoursesInput
+    category: CategoryCreateNestedOneWithoutCoursesInput
+  }
+
+  export type CourseUncheckedCreateWithoutPreriquisitesInput = {
+    id?: number
+    title: string
+    description: string
+    categoryId: number
+    userId: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    sectionGroups?: SectionGroupUncheckedCreateNestedManyWithoutCourseInput
+    skills?: SkillUncheckedCreateNestedManyWithoutCourseInput
+  }
+
+  export type CourseCreateOrConnectWithoutPreriquisitesInput = {
+    where: CourseWhereUniqueInput
+    create: XOR<CourseCreateWithoutPreriquisitesInput, CourseUncheckedCreateWithoutPreriquisitesInput>
+  }
+
+  export type CourseUpsertWithoutPreriquisitesInput = {
+    update: XOR<CourseUpdateWithoutPreriquisitesInput, CourseUncheckedUpdateWithoutPreriquisitesInput>
+    create: XOR<CourseCreateWithoutPreriquisitesInput, CourseUncheckedCreateWithoutPreriquisitesInput>
+    where?: CourseWhereInput
+  }
+
+  export type CourseUpdateToOneWithWhereWithoutPreriquisitesInput = {
+    where?: CourseWhereInput
+    data: XOR<CourseUpdateWithoutPreriquisitesInput, CourseUncheckedUpdateWithoutPreriquisitesInput>
+  }
+
+  export type CourseUpdateWithoutPreriquisitesInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sectionGroups?: SectionGroupUpdateManyWithoutCourseNestedInput
+    skills?: SkillUpdateManyWithoutCourseNestedInput
+    user?: UserUpdateOneRequiredWithoutCoursesNestedInput
+    category?: CategoryUpdateOneRequiredWithoutCoursesNestedInput
+  }
+
+  export type CourseUncheckedUpdateWithoutPreriquisitesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    categoryId?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sectionGroups?: SectionGroupUncheckedUpdateManyWithoutCourseNestedInput
+    skills?: SkillUncheckedUpdateManyWithoutCourseNestedInput
+  }
+
+  export type CourseCreateWithoutSkillsInput = {
+    title: string
+    description: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    sectionGroups?: SectionGroupCreateNestedManyWithoutCourseInput
+    preriquisites?: PreriquisitCreateNestedManyWithoutCourseInput
+    user: UserCreateNestedOneWithoutCoursesInput
+    category: CategoryCreateNestedOneWithoutCoursesInput
+  }
+
+  export type CourseUncheckedCreateWithoutSkillsInput = {
+    id?: number
+    title: string
+    description: string
+    categoryId: number
+    userId: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    sectionGroups?: SectionGroupUncheckedCreateNestedManyWithoutCourseInput
+    preriquisites?: PreriquisitUncheckedCreateNestedManyWithoutCourseInput
+  }
+
+  export type CourseCreateOrConnectWithoutSkillsInput = {
+    where: CourseWhereUniqueInput
+    create: XOR<CourseCreateWithoutSkillsInput, CourseUncheckedCreateWithoutSkillsInput>
+  }
+
+  export type CourseUpsertWithoutSkillsInput = {
+    update: XOR<CourseUpdateWithoutSkillsInput, CourseUncheckedUpdateWithoutSkillsInput>
+    create: XOR<CourseCreateWithoutSkillsInput, CourseUncheckedCreateWithoutSkillsInput>
+    where?: CourseWhereInput
+  }
+
+  export type CourseUpdateToOneWithWhereWithoutSkillsInput = {
+    where?: CourseWhereInput
+    data: XOR<CourseUpdateWithoutSkillsInput, CourseUncheckedUpdateWithoutSkillsInput>
+  }
+
+  export type CourseUpdateWithoutSkillsInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sectionGroups?: SectionGroupUpdateManyWithoutCourseNestedInput
+    preriquisites?: PreriquisitUpdateManyWithoutCourseNestedInput
+    user?: UserUpdateOneRequiredWithoutCoursesNestedInput
+    category?: CategoryUpdateOneRequiredWithoutCoursesNestedInput
+  }
+
+  export type CourseUncheckedUpdateWithoutSkillsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    categoryId?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sectionGroups?: SectionGroupUncheckedUpdateManyWithoutCourseNestedInput
+    preriquisites?: PreriquisitUncheckedUpdateManyWithoutCourseNestedInput
+  }
+
   export type CourseCreateManyUserInput = {
     id?: number
     title: string
@@ -13727,6 +16741,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sectionGroups?: SectionGroupUpdateManyWithoutCourseNestedInput
+    preriquisites?: PreriquisitUpdateManyWithoutCourseNestedInput
+    skills?: SkillUpdateManyWithoutCourseNestedInput
     category?: CategoryUpdateOneRequiredWithoutCoursesNestedInput
   }
 
@@ -13738,6 +16754,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sectionGroups?: SectionGroupUncheckedUpdateManyWithoutCourseNestedInput
+    preriquisites?: PreriquisitUncheckedUpdateManyWithoutCourseNestedInput
+    skills?: SkillUncheckedUpdateManyWithoutCourseNestedInput
   }
 
   export type CourseUncheckedUpdateManyWithoutUserInput = {
@@ -13753,6 +16771,16 @@ export namespace Prisma {
     id?: number
     title: string
     order: number
+  }
+
+  export type PreriquisitCreateManyCourseInput = {
+    id?: number
+    content: string
+  }
+
+  export type SkillCreateManyCourseInput = {
+    id?: number
+    content: string
   }
 
   export type SectionGroupUpdateWithoutCourseInput = {
@@ -13774,6 +16802,34 @@ export namespace Prisma {
     order?: IntFieldUpdateOperationsInput | number
   }
 
+  export type PreriquisitUpdateWithoutCourseInput = {
+    content?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type PreriquisitUncheckedUpdateWithoutCourseInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    content?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type PreriquisitUncheckedUpdateManyWithoutCourseInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    content?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type SkillUpdateWithoutCourseInput = {
+    content?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type SkillUncheckedUpdateWithoutCourseInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    content?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type SkillUncheckedUpdateManyWithoutCourseInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    content?: StringFieldUpdateOperationsInput | string
+  }
+
   export type CourseCreateManyCategoryInput = {
     id?: number
     title: string
@@ -13789,6 +16845,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sectionGroups?: SectionGroupUpdateManyWithoutCourseNestedInput
+    preriquisites?: PreriquisitUpdateManyWithoutCourseNestedInput
+    skills?: SkillUpdateManyWithoutCourseNestedInput
     user?: UserUpdateOneRequiredWithoutCoursesNestedInput
   }
 
@@ -13800,6 +16858,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sectionGroups?: SectionGroupUncheckedUpdateManyWithoutCourseNestedInput
+    preriquisites?: PreriquisitUncheckedUpdateManyWithoutCourseNestedInput
+    skills?: SkillUncheckedUpdateManyWithoutCourseNestedInput
   }
 
   export type CourseUncheckedUpdateManyWithoutCategoryInput = {

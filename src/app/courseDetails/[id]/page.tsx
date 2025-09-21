@@ -17,6 +17,7 @@ const CourseDetails = async ({ params }: Props) => {
       title: true,
       description: true,
       updatedAt: true,
+      preriquisites: true,
       sectionGroups: {
         select: {
           title: true,
@@ -40,7 +41,7 @@ const CourseDetails = async ({ params }: Props) => {
     return <h1 className="text-center font-bold">Course not found</h1>;
   return (
     <div>
-      <div className="flex gap-3 px-8 py-4 min-h-[300px] bg-purple-200 text-black">
+      <div className="flex gap-3 px-8 py-4 min-h-[300px] bg-purple-100">
         <section className="w-4/3 flex flex-col gap-4">
           <div className="flex flex-col gap-2">
             <h1 className="text-3xl font-bold text-gray-900">{course.title}</h1>
@@ -62,12 +63,24 @@ const CourseDetails = async ({ params }: Props) => {
         <section className="w-1/3 mt-auto">
           <Link href={`/course/${id}`}>
             <button
-              className="w-full p-2 bg-purple-700 text-white rounded-xs hover:bg-purple- 
+              className="w-full p-2 bg-purple-500 text-white rounded-xs hover:bg-purple- 
           hover:scale-95 focus:scale-95 duration-500"
             >
-              See Course
+              Get started
             </button>
           </Link>
+        </section>
+      </div>
+      <div className="flex flex-col gap-4 px-8 py-4">
+        <section className="flex flex-col gap-2">
+          <h2 className="font-bold">Requirements:</h2>
+          <ul className="flex flex-col gap-2 list-disc pl-8">
+            {course.preriquisites.map((preriquisite) => (
+              <li key={preriquisite.id}>
+                <p className="text-sm">{preriquisite.content}</p>
+              </li>
+            ))}
+          </ul>
         </section>
       </div>
     </div>

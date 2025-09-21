@@ -41,18 +41,18 @@ const Courses = () => {
   useEffect(() => {
     if (inView && !isFetchingNextPage && hasNextPage) fetchNextPage();
   }, [inView, isFetchingNextPage, hasNextPage]);
-
   if (isError) return <h1 className="text-center">Something went wrong</h1>;
 
   return (
     <div className="flex flex-col gap-4 mx-[3rem] my-[2rem]">
       <h1 className="text-2xl font-bold text-center">All Courses</h1>
-      {/* <CategoryBar categories={categories} /> */}
+
       <section className="grid max-sm:grid-cols-1  max-md:grid-cols-2 grid-cols-3 gap-6">
         {data?.pages.map((page) =>
           page.map((course) => <CourseCard key={course.id} course={course} />)
         )}
       </section>
+
       {isFetchingNextPage && <Loader />}
       <div ref={ref} />
     </div>

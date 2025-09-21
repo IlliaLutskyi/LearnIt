@@ -1,13 +1,19 @@
+import { useState } from "react";
+import { Preriquisite } from "@/types/prerequisites";
 import { Quiz } from "@/types/quiz";
 import { Section } from "@/types/section";
 import { SectionGroup } from "@/types/sectionGroup";
+import { Skill } from "@/types/skill";
 import { arrayMove } from "@dnd-kit/sortable";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { set } from "zod";
 
 type ContentType = "Video" | "Text" | "File" | "Quiz";
-
+type Step = { step: number; title: string; active: boolean };
 type CourseStates = {
-  steps: { step1: boolean; step2: boolean };
+  steps: Step[];
+  prerequisites: Preriquisite[];
+  skills: Skill[];
   title: string;
   category: string;
   description: string;
@@ -15,7 +21,14 @@ type CourseStates = {
 };
 
 const initialState: CourseStates = {
-  steps: { step1: true, step2: false },
+  steps: [
+    { step: 1, title: "Genereral Information", active: true },
+    { step: 2, title: "Set up prerequisites", active: false },
+    { step: 3, title: "Learining outcomes", active: false },
+    { step: 4, title: "Content creation", active: false },
+  ],
+  prerequisites: [],
+  skills: [],
   title: "",
   category: "",
   description: "",
@@ -34,6 +47,55 @@ export const CourseSlice = createSlice({
     },
     setCategory: (state, action: PayloadAction<string>) => {
       state.category = action.payload;
+    },
+    addSkill: (state) => {
+      const maxId =
+        state.skills.length > 0
+          ? Math.max(...state.skills.map((skill) => skill.id))
+          : 0;
+      state.skills.push({ id: maxId + 1, content: `Skill ${maxId + 1}` });
+    },
+    editSkill: (
+      state,
+      action: PayloadAction<{ id: number; content: string }>
+    ) => {
+      const skill = state.skills.find(
+        (skill) => skill.id === action.payload.id
+      );
+      if (!skill) return;
+      skill.content = action.payload.content;
+    },
+    deleteSkill: (state, action: PayloadAction<number>) => {
+      state.skills = state.skills.filter(
+        (skill) => skill.id !== action.payload
+      );
+    },
+    addPreriquisite: (state) => {
+      const maxId =
+        state.prerequisites.length > 0
+          ? Math.max(
+              ...state.prerequisites.map((prerequisite) => prerequisite.id)
+            )
+          : 0;
+      state.prerequisites.push({
+        id: maxId + 1,
+        content: `Prerequisite ${maxId + 1}`,
+      });
+    },
+    editPreriquite: (
+      state,
+      action: PayloadAction<{ id: number; content: string }>
+    ) => {
+      const prerequisite = state.prerequisites.find(
+        (prerequisite) => prerequisite.id === action.payload.id
+      );
+      if (!prerequisite) return;
+      prerequisite.content = action.payload.content;
+    },
+    deletePreriquite: (state, action: PayloadAction<number>) => {
+      state.prerequisites = state.prerequisites.filter(
+        (prerequisite) => prerequisite.id !== action.payload
+      );
     },
     createSectionGroup: (state) => {
       const maxOrder =
@@ -82,8 +144,10 @@ export const CourseSlice = createSlice({
       if (course) {
         state.title = course.title;
         state.category = course.category;
+        state.skills = course.skills;
         state.description = course.description;
         state.sectionGroups = course.sectionGroups;
+        state.prerequisites = course.prerequisites;
       }
     },
     addSectionToSectionGroup: (
@@ -141,11 +205,30 @@ export const CourseSlice = createSlice({
         (section) => section.order !== action.payload.sectionOrder
       );
     },
-    setSteps: (
+    setNextStep: (state, action: PayloadAction<{ currentStep: number }>) => {
+      const currentStep = state.steps.find(
+        (step) => step.step === action.payload.currentStep
+      );
+      const nextStep = state.steps.find(
+        (step) => step.step === action.payload.currentStep + 1
+      );
+      if (!nextStep || !currentStep) return;
+      currentStep.active = false;
+      nextStep.active = true;
+    },
+    setPreviousStep: (
       state,
-      action: PayloadAction<{ step1: boolean; step2: boolean }>
+      action: PayloadAction<{ currentStep: number }>
     ) => {
-      state.steps = action.payload;
+      const currentStep = state.steps.find(
+        (step) => step.step === action.payload.currentStep
+      );
+      const previousStep = state.steps.find(
+        (step) => step.step === action.payload.currentStep - 1
+      );
+      if (!previousStep || !currentStep) return;
+      currentStep.active = false;
+      previousStep.active = true;
     },
     editSection: (
       state,
@@ -348,10 +431,17 @@ export const CourseSlice = createSlice({
 
 export const {
   addSectionToSectionGroup,
+  addPreriquisite,
+  addSkill,
+  deleteSkill,
+  editSkill,
+  deletePreriquite,
+  editPreriquite,
   setTitle,
   setDescription,
   setCategory,
-  setSteps,
+  setNextStep,
+  setPreviousStep,
   editSection,
   addLessonToSection,
   deleteSection,

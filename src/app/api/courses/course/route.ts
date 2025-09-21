@@ -11,6 +11,7 @@ export async function POST(req: Request) {
         { message: "Please fill all the fields in the previous step" },
         { status: 400 }
       );
+
     if (course.sectionGroups.length === 0)
       return Response.json(
         { message: "Please add at least one section group" },
@@ -43,6 +44,22 @@ export async function POST(req: Request) {
       data: {
         title: course.title,
         description: course.description,
+        skills:
+          course.skills.length > 0
+            ? {
+                create: course.prerequisites.map((prerequisite) => ({
+                  content: prerequisite.content,
+                })),
+              }
+            : undefined,
+        preriquisites:
+          course.prerequisites.length > 0
+            ? {
+                create: course.prerequisites.map((prerequisite) => ({
+                  content: prerequisite.content,
+                })),
+              }
+            : undefined,
         category: {
           connect: { id: Number(course.category.id) },
         },
@@ -97,7 +114,6 @@ export async function POST(req: Request) {
     );
   } catch (err) {
     console.log(err);
-    console.log(course.category.id);
     return Response.json(
       { message: "Something went wrong, please try again" },
       { status: 500 }

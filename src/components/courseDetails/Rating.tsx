@@ -8,7 +8,7 @@ const Rating = () => {
   const [rating, setRating] = useState(0);
   const stars = [1, 2, 3, 4, 5];
   return (
-    <div className="flex gap-2 items-center">
+    <div className="flex items-center gap-1">
       {stars.map((star) => {
         return (
           <button>

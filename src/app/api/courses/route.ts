@@ -1,9 +1,6 @@
 import prisma from "@/lib/db";
 import { NextResponse } from "next/server";
 
-type Props = {
-  searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
-};
 export async function GET(req: Request) {
   const url = new URL(req.url);
   const page = url.searchParams.get("page");
