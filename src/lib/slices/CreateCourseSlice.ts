@@ -1,19 +1,20 @@
-import { useState } from "react";
-import { Preriquisite } from "@/types/prerequisites";
-import { Quiz } from "@/types/quiz";
-import { Section } from "@/types/section";
-import { SectionGroup } from "@/types/sectionGroup";
-import { Skill } from "@/types/skill";
+import {
+  Prerequisite,
+  Quiz,
+  Section,
+  SectionGroup,
+  Skill,
+} from "@/types/create-course";
 import { arrayMove } from "@dnd-kit/sortable";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { set } from "zod";
 
 type ContentType = "Video" | "Text" | "File" | "Quiz";
 type Step = { step: number; title: string; active: boolean };
 type CourseStates = {
   steps: Step[];
-  prerequisites: Preriquisite[];
+  prerequisites: Prerequisite[];
   skills: Skill[];
+  slug: string;
   title: string;
   category: string;
   description: string;
@@ -24,11 +25,12 @@ const initialState: CourseStates = {
   steps: [
     { step: 1, title: "Genereral Information", active: true },
     { step: 2, title: "Set up prerequisites", active: false },
-    { step: 3, title: "Learining outcomes", active: false },
+    { step: 3, title: "Learnining outcomes", active: false },
     { step: 4, title: "Content creation", active: false },
   ],
   prerequisites: [],
   skills: [],
+  slug: "",
   title: "",
   category: "",
   description: "",
@@ -41,6 +43,7 @@ export const CourseSlice = createSlice({
   reducers: {
     setTitle: (state, action: PayloadAction<string>) => {
       state.title = action.payload;
+      state.slug = action.payload.replace(/\s+/g, "-").toLowerCase();
     },
     setDescription: (state, action: PayloadAction<string>) => {
       state.description = action.payload;
@@ -70,7 +73,7 @@ export const CourseSlice = createSlice({
         (skill) => skill.id !== action.payload
       );
     },
-    addPreriquisite: (state) => {
+    addPrerequisite: (state) => {
       const maxId =
         state.prerequisites.length > 0
           ? Math.max(
@@ -82,7 +85,7 @@ export const CourseSlice = createSlice({
         content: `Prerequisite ${maxId + 1}`,
       });
     },
-    editPreriquite: (
+    editPrerequite: (
       state,
       action: PayloadAction<{ id: number; content: string }>
     ) => {
@@ -92,7 +95,7 @@ export const CourseSlice = createSlice({
       if (!prerequisite) return;
       prerequisite.content = action.payload.content;
     },
-    deletePreriquite: (state, action: PayloadAction<number>) => {
+    deletePrerequite: (state, action: PayloadAction<number>) => {
       state.prerequisites = state.prerequisites.filter(
         (prerequisite) => prerequisite.id !== action.payload
       );
@@ -106,6 +109,7 @@ export const CourseSlice = createSlice({
           : 0;
       state.sectionGroups.push({
         title: `SectionGroup ${maxOrder + 1}`,
+        slug: `sectionGroup-${maxOrder + 1}`,
         sections: [],
         order: maxOrder + 1,
       });
@@ -135,6 +139,9 @@ export const CourseSlice = createSlice({
       );
       if (!sectionGroup) return;
       sectionGroup.title = action.payload.title;
+      sectionGroup.slug = action.payload.title
+        .replace(/\s+/g, "-")
+        .toLowerCase();
     },
 
     loadFromLocalStorage: (state) => {
@@ -168,6 +175,7 @@ export const CourseSlice = createSlice({
       const section: Section = {
         title: `Section ${maxOrder + 1}`,
         order: maxOrder + 1,
+        slug: `section-${maxOrder + 1}`,
         lessons: [],
         sectionGroupId: action.payload.sectionGroupOrder,
       };
@@ -248,6 +256,7 @@ export const CourseSlice = createSlice({
       );
       if (!section) return;
       section.title = action.payload.title;
+      section.slug = action.payload.title.replace(/\s+/g, "-").toLowerCase();
     },
     shiftLessons: (
       state,
@@ -431,12 +440,12 @@ export const CourseSlice = createSlice({
 
 export const {
   addSectionToSectionGroup,
-  addPreriquisite,
+  addPrerequisite,
   addSkill,
   deleteSkill,
   editSkill,
-  deletePreriquite,
-  editPreriquite,
+  deletePrerequite,
+  editPrerequite,
   setTitle,
   setDescription,
   setCategory,

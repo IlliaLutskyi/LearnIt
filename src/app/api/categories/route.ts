@@ -1,13 +1,9 @@
-import prisma from "@/lib/db";
+import createCategory from "@/services/create-category";
+import getCategories from "@/services/get-categories";
 
 export async function GET() {
-  try {
-    const categories = await prisma.category.findMany();
-    return Response.json({ categories }, { status: 200 });
-  } catch (err) {
-    return Response.json(
-      { message: "Unable to load categories" },
-      { status: 500 }
-    );
-  }
+  return await getCategories();
+}
+export async function POST(req: Request) {
+  return await createCategory(req);
 }

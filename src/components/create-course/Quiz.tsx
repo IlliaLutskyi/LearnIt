@@ -1,8 +1,8 @@
-import type { Quiz } from "@/types/quiz";
+import { Quiz as TQuiz } from "@/types/create-course";
 import React from "react";
 
 type Props = {
-  quiz: Quiz;
+  quiz: TQuiz;
 };
 const Quiz = ({ quiz }: Props) => {
   return (

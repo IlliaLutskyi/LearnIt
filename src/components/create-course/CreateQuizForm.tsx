@@ -1,5 +1,5 @@
 "use client";
-import { Answer } from "@/types/answer";
+import { Answer } from "@/types/create-course/answer";
 import { FormEvent, useEffect, useRef, useState } from "react";
 import InputField from "../common/InputField";
 import BlurBackground from "../common/BlurBackground";
@@ -7,7 +7,8 @@ import { useAppDispatch } from "@/lib/hooks";
 import { addQuizToSection, editQuiz } from "@/lib/slices/CreateCourseSlice";
 import { toast } from "sonner";
 import Answers from "./Answers";
-import { Lesson } from "@/types/lesson";
+import { Lesson } from "@/types/create-course";
+
 type Props = {
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;

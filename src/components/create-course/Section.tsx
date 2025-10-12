@@ -10,10 +10,10 @@ import {
 import SectionMenu from "./SectionMenu";
 import { FaSort } from "react-icons/fa";
 import Lessons from "./Lessons";
-import type { Section } from "@/types/section";
 import { memo } from "react";
+import { Section as TSection } from "@/types/create-course";
 type Props = {
-  section: Section;
+  section: TSection;
 };
 const Section = ({ section }: Props) => {
   const { attributes, listeners, setNodeRef, transform, transition } =

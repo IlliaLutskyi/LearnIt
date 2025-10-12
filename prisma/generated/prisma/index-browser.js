@@ -20,12 +20,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 6.16.2
- * Query Engine version: 1c57fdcd7e44b29b9313256c76699e91c3ac3c43
+ * Prisma Client JS version: 6.17.1
+ * Query Engine version: 272a37d34178c2894197e17273bf937f25acdeac
  */
 Prisma.prismaVersion = {
-  client: "6.16.2",
-  engine: "1c57fdcd7e44b29b9313256c76699e91c3ac3c43"
+  client: "6.17.1",
+  engine: "272a37d34178c2894197e17273bf937f25acdeac"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -131,6 +131,7 @@ exports.Prisma.UserScalarFieldEnum = {
 exports.Prisma.CourseScalarFieldEnum = {
   id: 'id',
   title: 'title',
+  slug: 'slug',
   description: 'description',
   categoryId: 'categoryId',
   userId: 'userId',
@@ -147,6 +148,7 @@ exports.Prisma.CategoryScalarFieldEnum = {
 exports.Prisma.SectionGroupScalarFieldEnum = {
   id: 'id',
   title: 'title',
+  slug: 'slug',
   order: 'order',
   courseId: 'courseId'
 };
@@ -154,6 +156,7 @@ exports.Prisma.SectionGroupScalarFieldEnum = {
 exports.Prisma.SectionScalarFieldEnum = {
   id: 'id',
   title: 'title',
+  slug: 'slug',
   order: 'order',
   sectionGroupId: 'sectionGroupId'
 };
@@ -183,7 +186,7 @@ exports.Prisma.AnswerScalarFieldEnum = {
   isCorrect: 'isCorrect'
 };
 
-exports.Prisma.PreriquisitScalarFieldEnum = {
+exports.Prisma.PrerequisitScalarFieldEnum = {
   id: 'id',
   content: 'content',
   courseId: 'courseId'
@@ -193,6 +196,15 @@ exports.Prisma.SkillScalarFieldEnum = {
   id: 'id',
   content: 'content',
   courseId: 'courseId'
+};
+
+exports.Prisma.SectionRatingScalarFieldEnum = {
+  id: 'id',
+  rate: 'rate',
+  userId: 'userId',
+  sectionId: 'sectionId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.SortOrder = {
@@ -234,8 +246,9 @@ exports.Prisma.ModelName = {
   Lesson: 'Lesson',
   Quiz: 'Quiz',
   Answer: 'Answer',
-  Preriquisit: 'Preriquisit',
-  Skill: 'Skill'
+  Prerequisit: 'Prerequisit',
+  Skill: 'Skill',
+  SectionRating: 'SectionRating'
 };
 
 /**

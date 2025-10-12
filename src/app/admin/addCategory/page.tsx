@@ -35,7 +35,7 @@ const AddCategory = () => {
       const formData = new FormData();
       formData.append("name", data.name);
       formData.append("image", data.image);
-      const res = await api.post("/categories/category", formData, {
+      const res = await api.post("/categories", formData, {
         withCredentials: true,
         headers: {
           "Content-Type": "multipart/form-data",

@@ -1,17 +1,14 @@
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import React from "react";
-import InputField from "../common/InputField";
 import {
-  addPreriquisite,
-  deletePreriquite,
-  editPreriquite,
+  addPrerequisite,
   setNextStep,
   setPreviousStep,
 } from "@/lib/slices/CreateCourseSlice";
-import { MdDelete } from "react-icons/md";
-import Preriquisit from "./Preriquisit";
+import Prerequisit from "./Prerequisit";
+import { Step } from "@/types/create-course";
 type Props = {
-  step: { step: number; title: string; active: boolean };
+  step: Step;
 };
 const Step2 = ({ step }: Props) => {
   const { prerequisites } = useAppSelector((state) => state.CreateCourse);
@@ -23,7 +20,7 @@ const Step2 = ({ step }: Props) => {
     }
   }
   function handleAddPreriquisite() {
-    dispatch(addPreriquisite());
+    dispatch(addPrerequisite());
   }
   const dispatch = useAppDispatch();
   return (
@@ -49,11 +46,7 @@ const Step2 = ({ step }: Props) => {
           )}
 
           {prerequisites.map((prerequisite) => (
-            <Preriquisit
-              content={prerequisite.content}
-              id={prerequisite.id}
-              key={prerequisite.id}
-            />
+            <Prerequisit prerequisite={prerequisite} key={prerequisite.id} />
           ))}
         </section>
       </div>

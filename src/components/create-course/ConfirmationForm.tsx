@@ -13,8 +13,15 @@ const ConfirmationForm = () => {
   const isOpen = useAppSelector((store) => store.ConfirmationForm.isOpen);
   const dispatch = useAppDispatch();
 
-  const { category, description, sectionGroups, title, prerequisites, skills } =
-    useAppSelector((store) => store.CreateCourse);
+  const {
+    category,
+    description,
+    sectionGroups,
+    title,
+    slug,
+    prerequisites,
+    skills,
+  } = useAppSelector((store) => store.CreateCourse);
   const { data: session } = useSession();
   async function handleCreate() {
     dispatch(setIsLoading(true));
@@ -22,6 +29,7 @@ const ConfirmationForm = () => {
     try {
       const course = {
         title,
+        slug,
         category: {
           id: category,
         },
@@ -31,7 +39,7 @@ const ConfirmationForm = () => {
         prerequisites,
         sectionGroups,
       };
-      const res = await api.post("/courses/course", course, {
+      const res = await api.post("/courses", course, {
         withCredentials: true,
       });
       toast.success(res.data.message, { duration: 5000 });

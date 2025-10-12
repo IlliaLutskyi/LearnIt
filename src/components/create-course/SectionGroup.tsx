@@ -7,12 +7,13 @@ import {
   CollapsibleTrigger,
 } from "../ui/collapsible";
 import { FaSort } from "react-icons/fa";
-import { type SectionGroup } from "@/types/sectionGroup";
 import Sections from "./Sections";
 import SectionGroupMenu from "./SectionGroupMenu";
-import { memo, use, useEffect, useState } from "react";
+import { memo } from "react";
+import { SectionGroup as TSectionGroup } from "@/types/create-course";
+
 type Props = {
-  sectionGroup: SectionGroup;
+  sectionGroup: TSectionGroup;
 };
 const SectionGroup = ({ sectionGroup }: Props) => {
   const { attributes, listeners, setNodeRef, transform, transition } =

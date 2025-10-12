@@ -1,9 +1,11 @@
 import { DbLesson } from "./dbLesson";
 
 export type DbSection = {
-  title: string;
-  order: number;
   id: number;
-  sectionGroupId: number;
+  title: string;
+  slug: string;
+  order: number;
   lessons?: DbLesson[];
+  sectionRates?: { rate: number; sectionId?: number; userId?: number }[];
+  sectionGroupId?: number;
 };

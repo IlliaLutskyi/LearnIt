@@ -9,9 +9,10 @@ import {
 } from "@/components/ui/menubar";
 import { useAppDispatch } from "@/lib/hooks";
 import { deleteSection } from "@/lib/slices/CreateCourseSlice";
+import { Section } from "@/types/create-course";
 import { lazy, memo, Suspense, useState } from "react";
 import { HiDotsVertical } from "react-icons/hi";
-import { Section } from "@/types/section";
+
 const CreateLessonForm = lazy(() => import("./CreateLessonForm"));
 const CreateQuizForm = lazy(() => import("./CreateQuizForm"));
 const RenameForm = lazy(() => import("./RenameForm"));

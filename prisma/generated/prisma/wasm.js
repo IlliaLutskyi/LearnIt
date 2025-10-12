@@ -35,12 +35,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 6.16.2
- * Query Engine version: 1c57fdcd7e44b29b9313256c76699e91c3ac3c43
+ * Prisma Client JS version: 6.17.1
+ * Query Engine version: 272a37d34178c2894197e17273bf937f25acdeac
  */
 Prisma.prismaVersion = {
-  client: "6.16.2",
-  engine: "1c57fdcd7e44b29b9313256c76699e91c3ac3c43"
+  client: "6.17.1",
+  engine: "272a37d34178c2894197e17273bf937f25acdeac"
 }
 
 Prisma.PrismaClientKnownRequestError = PrismaClientKnownRequestError;
@@ -103,6 +103,7 @@ exports.Prisma.UserScalarFieldEnum = {
 exports.Prisma.CourseScalarFieldEnum = {
   id: 'id',
   title: 'title',
+  slug: 'slug',
   description: 'description',
   categoryId: 'categoryId',
   userId: 'userId',
@@ -119,6 +120,7 @@ exports.Prisma.CategoryScalarFieldEnum = {
 exports.Prisma.SectionGroupScalarFieldEnum = {
   id: 'id',
   title: 'title',
+  slug: 'slug',
   order: 'order',
   courseId: 'courseId'
 };
@@ -126,6 +128,7 @@ exports.Prisma.SectionGroupScalarFieldEnum = {
 exports.Prisma.SectionScalarFieldEnum = {
   id: 'id',
   title: 'title',
+  slug: 'slug',
   order: 'order',
   sectionGroupId: 'sectionGroupId'
 };
@@ -155,7 +158,7 @@ exports.Prisma.AnswerScalarFieldEnum = {
   isCorrect: 'isCorrect'
 };
 
-exports.Prisma.PreriquisitScalarFieldEnum = {
+exports.Prisma.PrerequisitScalarFieldEnum = {
   id: 'id',
   content: 'content',
   courseId: 'courseId'
@@ -165,6 +168,15 @@ exports.Prisma.SkillScalarFieldEnum = {
   id: 'id',
   content: 'content',
   courseId: 'courseId'
+};
+
+exports.Prisma.SectionRatingScalarFieldEnum = {
+  id: 'id',
+  rate: 'rate',
+  userId: 'userId',
+  sectionId: 'sectionId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.SortOrder = {
@@ -206,8 +218,9 @@ exports.Prisma.ModelName = {
   Lesson: 'Lesson',
   Quiz: 'Quiz',
   Answer: 'Answer',
-  Preriquisit: 'Preriquisit',
-  Skill: 'Skill'
+  Prerequisit: 'Prerequisit',
+  Skill: 'Skill',
+  SectionRating: 'SectionRating'
 };
 /**
  * Create the Client
@@ -242,8 +255,8 @@ const config = {
     "schemaEnvPath": "../../../.env"
   },
   "relativePath": "../..",
-  "clientVersion": "6.16.2",
-  "engineVersion": "1c57fdcd7e44b29b9313256c76699e91c3ac3c43",
+  "clientVersion": "6.17.1",
+  "engineVersion": "272a37d34178c2894197e17273bf937f25acdeac",
   "datasourceNames": [
     "db"
   ],
@@ -256,13 +269,13 @@ const config = {
       }
     }
   },
-  "inlineSchema": "generator client {\n  provider   = \"prisma-client-js\"\n  output     = \"./generated/prisma\"\n  engineType = \"binary\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id       Int      @id @default(autoincrement())\n  name     String\n  password String\n  email    String   @unique\n  role     Role     @default(User)\n  courses  Course[]\n}\n\nmodel Course {\n  id            Int            @id @default(autoincrement())\n  title         String         @db.Char(100)\n  description   String         @db.Char(1200)\n  sectionGroups SectionGroup[]\n  preriquisites Preriquisit[]\n  skills        Skill[]\n  categoryId    Int\n  userId        Int\n  user          User           @relation(fields: [userId], references: [id])\n  category      Category       @relation(fields: [categoryId], references: [id])\n  createdAt     DateTime       @default(now())\n  updatedAt     DateTime       @updatedAt\n}\n\nmodel Category {\n  id      Int      @id @default(autoincrement())\n  name    String   @unique @db.Char(100)\n  courses Course[]\n  image   String\n}\n\nmodel SectionGroup {\n  id       Int       @id @default(autoincrement())\n  title    String    @db.Char(50)\n  sections Section[]\n  order    Int\n  courseId Int\n  course   Course    @relation(fields: [courseId], references: [id])\n}\n\nmodel Section {\n  id             Int          @id @default(autoincrement())\n  lessons        Lesson[]\n  title          String       @db.Char(50)\n  order          Int\n  sectionGroupId Int\n  sectionGroup   SectionGroup @relation(fields: [sectionGroupId], references: [id])\n}\n\nmodel Lesson {\n  id          Int          @id @default(autoincrement())\n  title       String       @db.Char(50)\n  content     String?\n  quiz        Quiz?\n  order       Int\n  quizId      Int?\n  contentType ContentType\n  videoSource VideoSource?\n  sectionId   Int\n  section     Section      @relation(fields: [sectionId], references: [id])\n}\n\nmodel Quiz {\n  id          Int      @id() @default(autoincrement())\n  answers     Answer[]\n  question    String   @db.Char(500)\n  explanation String?  @db.Char(500)\n  lessonId    Int      @unique\n  lesson      Lesson   @relation(fields: [lessonId], references: [id])\n}\n\nmodel Answer {\n  id        Int     @id() @default(autoincrement())\n  quizId    Int\n  quiz      Quiz    @relation(fields: [quizId], references: [id])\n  content   String\n  isCorrect Boolean\n}\n\nmodel Preriquisit {\n  id       Int    @id() @default(autoincrement())\n  content  String @db.Char(300)\n  courseId Int\n  course   Course @relation(fields: [courseId], references: [id])\n}\n\nmodel Skill {\n  id       Int    @id() @default(autoincrement())\n  content  String @db.Char(300)\n  courseId Int\n  course   Course @relation(fields: [courseId], references: [id])\n}\n\nenum Role {\n  Admin\n  User\n}\n\nenum VideoSource {\n  Youtube\n}\n\nenum ContentType {\n  Video\n  Text\n  File\n  Quiz\n}\n",
-  "inlineSchemaHash": "ce969759f52c0e48628eedca0019e9e0007a372e8f26aa3950e87edaf5d22c35",
+  "inlineSchema": "generator client {\n  provider   = \"prisma-client-js\"\n  output     = \"./generated/prisma\"\n  engineType = \"binary\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id             Int             @id @default(autoincrement())\n  name           String\n  password       String\n  email          String          @unique\n  sectionRatings SectionRating[]\n  role           Role            @default(User)\n  courses        Course[]\n}\n\nmodel Course {\n  id            Int            @id @default(autoincrement())\n  title         String\n  slug          String         @unique\n  description   String\n  sectionGroups SectionGroup[]\n  prerequisites Prerequisit[]\n  skills        Skill[]\n  categoryId    Int\n  userId        Int\n  user          User           @relation(fields: [userId], references: [id])\n  category      Category       @relation(fields: [categoryId], references: [id])\n  createdAt     DateTime       @default(now())\n  updatedAt     DateTime       @updatedAt\n}\n\nmodel Category {\n  id      Int      @id @default(autoincrement())\n  name    String   @unique\n  courses Course[]\n  image   String\n}\n\nmodel SectionGroup {\n  id       Int       @id @default(autoincrement())\n  title    String\n  slug     String    @unique\n  sections Section[]\n  order    Int\n  courseId Int\n  course   Course    @relation(fields: [courseId], references: [id])\n}\n\nmodel Section {\n  id             Int             @id @default(autoincrement())\n  lessons        Lesson[]\n  title          String          @unique\n  slug           String          @unique\n  order          Int\n  sectionRates   SectionRating[]\n  sectionGroupId Int\n  sectionGroup   SectionGroup    @relation(fields: [sectionGroupId], references: [id])\n}\n\nmodel Lesson {\n  id          Int          @id @default(autoincrement())\n  title       String\n  content     String?\n  quiz        Quiz?\n  order       Int\n  quizId      Int?\n  contentType ContentType\n  videoSource VideoSource?\n  sectionId   Int\n  section     Section      @relation(fields: [sectionId], references: [id])\n}\n\nmodel Quiz {\n  id          Int      @id() @default(autoincrement())\n  answers     Answer[]\n  question    String\n  explanation String?\n  lessonId    Int      @unique\n  lesson      Lesson   @relation(fields: [lessonId], references: [id])\n}\n\nmodel Answer {\n  id        Int     @id() @default(autoincrement())\n  quizId    Int\n  quiz      Quiz    @relation(fields: [quizId], references: [id])\n  content   String\n  isCorrect Boolean\n}\n\nmodel Prerequisit {\n  id       Int    @id() @default(autoincrement())\n  content  String\n  courseId Int\n  course   Course @relation(fields: [courseId], references: [id])\n}\n\nmodel Skill {\n  id       Int    @id() @default(autoincrement())\n  content  String\n  courseId Int\n  course   Course @relation(fields: [courseId], references: [id])\n}\n\nmodel SectionRating {\n  id        Int      @id() @default(autoincrement())\n  rate      Int      @default(0)\n  userId    Int\n  user      User     @relation(fields: [userId], references: [id])\n  sectionId Int\n  section   Section  @relation(fields: [sectionId], references: [id])\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  @@unique([userId, sectionId])\n}\n\nenum Role {\n  Admin\n  User\n}\n\nenum VideoSource {\n  Youtube\n}\n\nenum ContentType {\n  Video\n  Text\n  File\n  Quiz\n}\n",
+  "inlineSchemaHash": "41e12a98305002cb1c843318bdc919519df9a5fa1521fabaa9d0715263064339",
   "copyEngine": true
 }
 config.dirname = '/'
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"password\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"role\",\"kind\":\"enum\",\"type\":\"Role\"},{\"name\":\"courses\",\"kind\":\"object\",\"type\":\"Course\",\"relationName\":\"CourseToUser\"}],\"dbName\":null},\"Course\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"title\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"sectionGroups\",\"kind\":\"object\",\"type\":\"SectionGroup\",\"relationName\":\"CourseToSectionGroup\"},{\"name\":\"preriquisites\",\"kind\":\"object\",\"type\":\"Preriquisit\",\"relationName\":\"CourseToPreriquisit\"},{\"name\":\"skills\",\"kind\":\"object\",\"type\":\"Skill\",\"relationName\":\"CourseToSkill\"},{\"name\":\"categoryId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"CourseToUser\"},{\"name\":\"category\",\"kind\":\"object\",\"type\":\"Category\",\"relationName\":\"CategoryToCourse\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"Category\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"courses\",\"kind\":\"object\",\"type\":\"Course\",\"relationName\":\"CategoryToCourse\"},{\"name\":\"image\",\"kind\":\"scalar\",\"type\":\"String\"}],\"dbName\":null},\"SectionGroup\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"title\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"sections\",\"kind\":\"object\",\"type\":\"Section\",\"relationName\":\"SectionToSectionGroup\"},{\"name\":\"order\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"courseId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"course\",\"kind\":\"object\",\"type\":\"Course\",\"relationName\":\"CourseToSectionGroup\"}],\"dbName\":null},\"Section\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"lessons\",\"kind\":\"object\",\"type\":\"Lesson\",\"relationName\":\"LessonToSection\"},{\"name\":\"title\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"order\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"sectionGroupId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"sectionGroup\",\"kind\":\"object\",\"type\":\"SectionGroup\",\"relationName\":\"SectionToSectionGroup\"}],\"dbName\":null},\"Lesson\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"title\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"content\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"quiz\",\"kind\":\"object\",\"type\":\"Quiz\",\"relationName\":\"LessonToQuiz\"},{\"name\":\"order\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"quizId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"contentType\",\"kind\":\"enum\",\"type\":\"ContentType\"},{\"name\":\"videoSource\",\"kind\":\"enum\",\"type\":\"VideoSource\"},{\"name\":\"sectionId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"section\",\"kind\":\"object\",\"type\":\"Section\",\"relationName\":\"LessonToSection\"}],\"dbName\":null},\"Quiz\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"answers\",\"kind\":\"object\",\"type\":\"Answer\",\"relationName\":\"AnswerToQuiz\"},{\"name\":\"question\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"explanation\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"lessonId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"lesson\",\"kind\":\"object\",\"type\":\"Lesson\",\"relationName\":\"LessonToQuiz\"}],\"dbName\":null},\"Answer\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"quizId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"quiz\",\"kind\":\"object\",\"type\":\"Quiz\",\"relationName\":\"AnswerToQuiz\"},{\"name\":\"content\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"isCorrect\",\"kind\":\"scalar\",\"type\":\"Boolean\"}],\"dbName\":null},\"Preriquisit\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"content\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"courseId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"course\",\"kind\":\"object\",\"type\":\"Course\",\"relationName\":\"CourseToPreriquisit\"}],\"dbName\":null},\"Skill\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"content\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"courseId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"course\",\"kind\":\"object\",\"type\":\"Course\",\"relationName\":\"CourseToSkill\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"password\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"sectionRatings\",\"kind\":\"object\",\"type\":\"SectionRating\",\"relationName\":\"SectionRatingToUser\"},{\"name\":\"role\",\"kind\":\"enum\",\"type\":\"Role\"},{\"name\":\"courses\",\"kind\":\"object\",\"type\":\"Course\",\"relationName\":\"CourseToUser\"}],\"dbName\":null},\"Course\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"title\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"slug\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"sectionGroups\",\"kind\":\"object\",\"type\":\"SectionGroup\",\"relationName\":\"CourseToSectionGroup\"},{\"name\":\"prerequisites\",\"kind\":\"object\",\"type\":\"Prerequisit\",\"relationName\":\"CourseToPrerequisit\"},{\"name\":\"skills\",\"kind\":\"object\",\"type\":\"Skill\",\"relationName\":\"CourseToSkill\"},{\"name\":\"categoryId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"CourseToUser\"},{\"name\":\"category\",\"kind\":\"object\",\"type\":\"Category\",\"relationName\":\"CategoryToCourse\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"Category\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"courses\",\"kind\":\"object\",\"type\":\"Course\",\"relationName\":\"CategoryToCourse\"},{\"name\":\"image\",\"kind\":\"scalar\",\"type\":\"String\"}],\"dbName\":null},\"SectionGroup\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"title\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"slug\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"sections\",\"kind\":\"object\",\"type\":\"Section\",\"relationName\":\"SectionToSectionGroup\"},{\"name\":\"order\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"courseId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"course\",\"kind\":\"object\",\"type\":\"Course\",\"relationName\":\"CourseToSectionGroup\"}],\"dbName\":null},\"Section\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"lessons\",\"kind\":\"object\",\"type\":\"Lesson\",\"relationName\":\"LessonToSection\"},{\"name\":\"title\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"slug\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"order\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"sectionRates\",\"kind\":\"object\",\"type\":\"SectionRating\",\"relationName\":\"SectionToSectionRating\"},{\"name\":\"sectionGroupId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"sectionGroup\",\"kind\":\"object\",\"type\":\"SectionGroup\",\"relationName\":\"SectionToSectionGroup\"}],\"dbName\":null},\"Lesson\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"title\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"content\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"quiz\",\"kind\":\"object\",\"type\":\"Quiz\",\"relationName\":\"LessonToQuiz\"},{\"name\":\"order\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"quizId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"contentType\",\"kind\":\"enum\",\"type\":\"ContentType\"},{\"name\":\"videoSource\",\"kind\":\"enum\",\"type\":\"VideoSource\"},{\"name\":\"sectionId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"section\",\"kind\":\"object\",\"type\":\"Section\",\"relationName\":\"LessonToSection\"}],\"dbName\":null},\"Quiz\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"answers\",\"kind\":\"object\",\"type\":\"Answer\",\"relationName\":\"AnswerToQuiz\"},{\"name\":\"question\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"explanation\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"lessonId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"lesson\",\"kind\":\"object\",\"type\":\"Lesson\",\"relationName\":\"LessonToQuiz\"}],\"dbName\":null},\"Answer\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"quizId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"quiz\",\"kind\":\"object\",\"type\":\"Quiz\",\"relationName\":\"AnswerToQuiz\"},{\"name\":\"content\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"isCorrect\",\"kind\":\"scalar\",\"type\":\"Boolean\"}],\"dbName\":null},\"Prerequisit\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"content\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"courseId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"course\",\"kind\":\"object\",\"type\":\"Course\",\"relationName\":\"CourseToPrerequisit\"}],\"dbName\":null},\"Skill\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"content\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"courseId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"course\",\"kind\":\"object\",\"type\":\"Course\",\"relationName\":\"CourseToSkill\"}],\"dbName\":null},\"SectionRating\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"rate\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"SectionRatingToUser\"},{\"name\":\"sectionId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"section\",\"kind\":\"object\",\"type\":\"Section\",\"relationName\":\"SectionToSectionRating\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
 defineDmmfProperty(exports.Prisma, config.runtimeDataModel)
 config.engineWasm = {
   getRuntime: async () => require('./query_engine_bg.js'),

@@ -54,15 +54,20 @@ export type Quiz = $Result.DefaultSelection<Prisma.$QuizPayload>
  */
 export type Answer = $Result.DefaultSelection<Prisma.$AnswerPayload>
 /**
- * Model Preriquisit
+ * Model Prerequisit
  * 
  */
-export type Preriquisit = $Result.DefaultSelection<Prisma.$PreriquisitPayload>
+export type Prerequisit = $Result.DefaultSelection<Prisma.$PrerequisitPayload>
 /**
  * Model Skill
  * 
  */
 export type Skill = $Result.DefaultSelection<Prisma.$SkillPayload>
+/**
+ * Model SectionRating
+ * 
+ */
+export type SectionRating = $Result.DefaultSelection<Prisma.$SectionRatingPayload>
 
 /**
  * Enums
@@ -305,14 +310,14 @@ export class PrismaClient<
   get answer(): Prisma.AnswerDelegate<ExtArgs, ClientOptions>;
 
   /**
-   * `prisma.preriquisit`: Exposes CRUD operations for the **Preriquisit** model.
+   * `prisma.prerequisit`: Exposes CRUD operations for the **Prerequisit** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more Preriquisits
-    * const preriquisits = await prisma.preriquisit.findMany()
+    * // Fetch zero or more Prerequisits
+    * const prerequisits = await prisma.prerequisit.findMany()
     * ```
     */
-  get preriquisit(): Prisma.PreriquisitDelegate<ExtArgs, ClientOptions>;
+  get prerequisit(): Prisma.PrerequisitDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.skill`: Exposes CRUD operations for the **Skill** model.
@@ -323,6 +328,16 @@ export class PrismaClient<
     * ```
     */
   get skill(): Prisma.SkillDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.sectionRating`: Exposes CRUD operations for the **SectionRating** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SectionRatings
+    * const sectionRatings = await prisma.sectionRating.findMany()
+    * ```
+    */
+  get sectionRating(): Prisma.SectionRatingDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -381,8 +396,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.16.2
-   * Query Engine version: 1c57fdcd7e44b29b9313256c76699e91c3ac3c43
+   * Prisma Client JS version: 6.17.1
+   * Query Engine version: 272a37d34178c2894197e17273bf937f25acdeac
    */
   export type PrismaVersion = {
     client: string
@@ -771,8 +786,9 @@ export namespace Prisma {
     Lesson: 'Lesson',
     Quiz: 'Quiz',
     Answer: 'Answer',
-    Preriquisit: 'Preriquisit',
-    Skill: 'Skill'
+    Prerequisit: 'Prerequisit',
+    Skill: 'Skill',
+    SectionRating: 'SectionRating'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -791,7 +807,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "course" | "category" | "sectionGroup" | "section" | "lesson" | "quiz" | "answer" | "preriquisit" | "skill"
+      modelProps: "user" | "course" | "category" | "sectionGroup" | "section" | "lesson" | "quiz" | "answer" | "prerequisit" | "skill" | "sectionRating"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1387,77 +1403,77 @@ export namespace Prisma {
           }
         }
       }
-      Preriquisit: {
-        payload: Prisma.$PreriquisitPayload<ExtArgs>
-        fields: Prisma.PreriquisitFieldRefs
+      Prerequisit: {
+        payload: Prisma.$PrerequisitPayload<ExtArgs>
+        fields: Prisma.PrerequisitFieldRefs
         operations: {
           findUnique: {
-            args: Prisma.PreriquisitFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PreriquisitPayload> | null
+            args: Prisma.PrerequisitFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PrerequisitPayload> | null
           }
           findUniqueOrThrow: {
-            args: Prisma.PreriquisitFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PreriquisitPayload>
+            args: Prisma.PrerequisitFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PrerequisitPayload>
           }
           findFirst: {
-            args: Prisma.PreriquisitFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PreriquisitPayload> | null
+            args: Prisma.PrerequisitFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PrerequisitPayload> | null
           }
           findFirstOrThrow: {
-            args: Prisma.PreriquisitFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PreriquisitPayload>
+            args: Prisma.PrerequisitFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PrerequisitPayload>
           }
           findMany: {
-            args: Prisma.PreriquisitFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PreriquisitPayload>[]
+            args: Prisma.PrerequisitFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PrerequisitPayload>[]
           }
           create: {
-            args: Prisma.PreriquisitCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PreriquisitPayload>
+            args: Prisma.PrerequisitCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PrerequisitPayload>
           }
           createMany: {
-            args: Prisma.PreriquisitCreateManyArgs<ExtArgs>
+            args: Prisma.PrerequisitCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
           createManyAndReturn: {
-            args: Prisma.PreriquisitCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PreriquisitPayload>[]
+            args: Prisma.PrerequisitCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PrerequisitPayload>[]
           }
           delete: {
-            args: Prisma.PreriquisitDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PreriquisitPayload>
+            args: Prisma.PrerequisitDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PrerequisitPayload>
           }
           update: {
-            args: Prisma.PreriquisitUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PreriquisitPayload>
+            args: Prisma.PrerequisitUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PrerequisitPayload>
           }
           deleteMany: {
-            args: Prisma.PreriquisitDeleteManyArgs<ExtArgs>
+            args: Prisma.PrerequisitDeleteManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateMany: {
-            args: Prisma.PreriquisitUpdateManyArgs<ExtArgs>
+            args: Prisma.PrerequisitUpdateManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateManyAndReturn: {
-            args: Prisma.PreriquisitUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PreriquisitPayload>[]
+            args: Prisma.PrerequisitUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PrerequisitPayload>[]
           }
           upsert: {
-            args: Prisma.PreriquisitUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PreriquisitPayload>
+            args: Prisma.PrerequisitUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PrerequisitPayload>
           }
           aggregate: {
-            args: Prisma.PreriquisitAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregatePreriquisit>
+            args: Prisma.PrerequisitAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePrerequisit>
           }
           groupBy: {
-            args: Prisma.PreriquisitGroupByArgs<ExtArgs>
-            result: $Utils.Optional<PreriquisitGroupByOutputType>[]
+            args: Prisma.PrerequisitGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PrerequisitGroupByOutputType>[]
           }
           count: {
-            args: Prisma.PreriquisitCountArgs<ExtArgs>
-            result: $Utils.Optional<PreriquisitCountAggregateOutputType> | number
+            args: Prisma.PrerequisitCountArgs<ExtArgs>
+            result: $Utils.Optional<PrerequisitCountAggregateOutputType> | number
           }
         }
       }
@@ -1532,6 +1548,80 @@ export namespace Prisma {
           count: {
             args: Prisma.SkillCountArgs<ExtArgs>
             result: $Utils.Optional<SkillCountAggregateOutputType> | number
+          }
+        }
+      }
+      SectionRating: {
+        payload: Prisma.$SectionRatingPayload<ExtArgs>
+        fields: Prisma.SectionRatingFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SectionRatingFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SectionRatingPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SectionRatingFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SectionRatingPayload>
+          }
+          findFirst: {
+            args: Prisma.SectionRatingFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SectionRatingPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SectionRatingFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SectionRatingPayload>
+          }
+          findMany: {
+            args: Prisma.SectionRatingFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SectionRatingPayload>[]
+          }
+          create: {
+            args: Prisma.SectionRatingCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SectionRatingPayload>
+          }
+          createMany: {
+            args: Prisma.SectionRatingCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SectionRatingCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SectionRatingPayload>[]
+          }
+          delete: {
+            args: Prisma.SectionRatingDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SectionRatingPayload>
+          }
+          update: {
+            args: Prisma.SectionRatingUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SectionRatingPayload>
+          }
+          deleteMany: {
+            args: Prisma.SectionRatingDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SectionRatingUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.SectionRatingUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SectionRatingPayload>[]
+          }
+          upsert: {
+            args: Prisma.SectionRatingUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SectionRatingPayload>
+          }
+          aggregate: {
+            args: Prisma.SectionRatingAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSectionRating>
+          }
+          groupBy: {
+            args: Prisma.SectionRatingGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SectionRatingGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SectionRatingCountArgs<ExtArgs>
+            result: $Utils.Optional<SectionRatingCountAggregateOutputType> | number
           }
         }
       }
@@ -1635,8 +1725,9 @@ export namespace Prisma {
     lesson?: LessonOmit
     quiz?: QuizOmit
     answer?: AnswerOmit
-    preriquisit?: PreriquisitOmit
+    prerequisit?: PrerequisitOmit
     skill?: SkillOmit
+    sectionRating?: SectionRatingOmit
   }
 
   /* Types for Logging */
@@ -1717,10 +1808,12 @@ export namespace Prisma {
    */
 
   export type UserCountOutputType = {
+    sectionRatings: number
     courses: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    sectionRatings?: boolean | UserCountOutputTypeCountSectionRatingsArgs
     courses?: boolean | UserCountOutputTypeCountCoursesArgs
   }
 
@@ -1738,6 +1831,13 @@ export namespace Prisma {
   /**
    * UserCountOutputType without action
    */
+  export type UserCountOutputTypeCountSectionRatingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SectionRatingWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
   export type UserCountOutputTypeCountCoursesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: CourseWhereInput
   }
@@ -1749,13 +1849,13 @@ export namespace Prisma {
 
   export type CourseCountOutputType = {
     sectionGroups: number
-    preriquisites: number
+    prerequisites: number
     skills: number
   }
 
   export type CourseCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     sectionGroups?: boolean | CourseCountOutputTypeCountSectionGroupsArgs
-    preriquisites?: boolean | CourseCountOutputTypeCountPreriquisitesArgs
+    prerequisites?: boolean | CourseCountOutputTypeCountPrerequisitesArgs
     skills?: boolean | CourseCountOutputTypeCountSkillsArgs
   }
 
@@ -1780,8 +1880,8 @@ export namespace Prisma {
   /**
    * CourseCountOutputType without action
    */
-  export type CourseCountOutputTypeCountPreriquisitesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: PreriquisitWhereInput
+  export type CourseCountOutputTypeCountPrerequisitesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PrerequisitWhereInput
   }
 
   /**
@@ -1860,10 +1960,12 @@ export namespace Prisma {
 
   export type SectionCountOutputType = {
     lessons: number
+    sectionRates: number
   }
 
   export type SectionCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     lessons?: boolean | SectionCountOutputTypeCountLessonsArgs
+    sectionRates?: boolean | SectionCountOutputTypeCountSectionRatesArgs
   }
 
   // Custom InputTypes
@@ -1882,6 +1984,13 @@ export namespace Prisma {
    */
   export type SectionCountOutputTypeCountLessonsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: LessonWhereInput
+  }
+
+  /**
+   * SectionCountOutputType without action
+   */
+  export type SectionCountOutputTypeCountSectionRatesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SectionRatingWhereInput
   }
 
 
@@ -2118,6 +2227,7 @@ export namespace Prisma {
     password?: boolean
     email?: boolean
     role?: boolean
+    sectionRatings?: boolean | User$sectionRatingsArgs<ExtArgs>
     courses?: boolean | User$coursesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
@@ -2148,6 +2258,7 @@ export namespace Prisma {
 
   export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "password" | "email" | "role", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    sectionRatings?: boolean | User$sectionRatingsArgs<ExtArgs>
     courses?: boolean | User$coursesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -2157,6 +2268,7 @@ export namespace Prisma {
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
     objects: {
+      sectionRatings: Prisma.$SectionRatingPayload<ExtArgs>[]
       courses: Prisma.$CoursePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -2559,6 +2671,7 @@ export namespace Prisma {
    */
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    sectionRatings<T extends User$sectionRatingsArgs<ExtArgs> = {}>(args?: Subset<T, User$sectionRatingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SectionRatingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     courses<T extends User$coursesArgs<ExtArgs> = {}>(args?: Subset<T, User$coursesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CoursePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -2982,6 +3095,30 @@ export namespace Prisma {
   }
 
   /**
+   * User.sectionRatings
+   */
+  export type User$sectionRatingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SectionRating
+     */
+    select?: SectionRatingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SectionRating
+     */
+    omit?: SectionRatingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SectionRatingInclude<ExtArgs> | null
+    where?: SectionRatingWhereInput
+    orderBy?: SectionRatingOrderByWithRelationInput | SectionRatingOrderByWithRelationInput[]
+    cursor?: SectionRatingWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SectionRatingScalarFieldEnum | SectionRatingScalarFieldEnum[]
+  }
+
+  /**
    * User.courses
    */
   export type User$coursesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3051,6 +3188,7 @@ export namespace Prisma {
   export type CourseMinAggregateOutputType = {
     id: number | null
     title: string | null
+    slug: string | null
     description: string | null
     categoryId: number | null
     userId: number | null
@@ -3061,6 +3199,7 @@ export namespace Prisma {
   export type CourseMaxAggregateOutputType = {
     id: number | null
     title: string | null
+    slug: string | null
     description: string | null
     categoryId: number | null
     userId: number | null
@@ -3071,6 +3210,7 @@ export namespace Prisma {
   export type CourseCountAggregateOutputType = {
     id: number
     title: number
+    slug: number
     description: number
     categoryId: number
     userId: number
@@ -3095,6 +3235,7 @@ export namespace Prisma {
   export type CourseMinAggregateInputType = {
     id?: true
     title?: true
+    slug?: true
     description?: true
     categoryId?: true
     userId?: true
@@ -3105,6 +3246,7 @@ export namespace Prisma {
   export type CourseMaxAggregateInputType = {
     id?: true
     title?: true
+    slug?: true
     description?: true
     categoryId?: true
     userId?: true
@@ -3115,6 +3257,7 @@ export namespace Prisma {
   export type CourseCountAggregateInputType = {
     id?: true
     title?: true
+    slug?: true
     description?: true
     categoryId?: true
     userId?: true
@@ -3212,6 +3355,7 @@ export namespace Prisma {
   export type CourseGroupByOutputType = {
     id: number
     title: string
+    slug: string
     description: string
     categoryId: number
     userId: number
@@ -3241,13 +3385,14 @@ export namespace Prisma {
   export type CourseSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     title?: boolean
+    slug?: boolean
     description?: boolean
     categoryId?: boolean
     userId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     sectionGroups?: boolean | Course$sectionGroupsArgs<ExtArgs>
-    preriquisites?: boolean | Course$preriquisitesArgs<ExtArgs>
+    prerequisites?: boolean | Course$prerequisitesArgs<ExtArgs>
     skills?: boolean | Course$skillsArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
     category?: boolean | CategoryDefaultArgs<ExtArgs>
@@ -3257,6 +3402,7 @@ export namespace Prisma {
   export type CourseSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     title?: boolean
+    slug?: boolean
     description?: boolean
     categoryId?: boolean
     userId?: boolean
@@ -3269,6 +3415,7 @@ export namespace Prisma {
   export type CourseSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     title?: boolean
+    slug?: boolean
     description?: boolean
     categoryId?: boolean
     userId?: boolean
@@ -3281,6 +3428,7 @@ export namespace Prisma {
   export type CourseSelectScalar = {
     id?: boolean
     title?: boolean
+    slug?: boolean
     description?: boolean
     categoryId?: boolean
     userId?: boolean
@@ -3288,10 +3436,10 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type CourseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "categoryId" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["course"]>
+  export type CourseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "slug" | "description" | "categoryId" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["course"]>
   export type CourseInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     sectionGroups?: boolean | Course$sectionGroupsArgs<ExtArgs>
-    preriquisites?: boolean | Course$preriquisitesArgs<ExtArgs>
+    prerequisites?: boolean | Course$prerequisitesArgs<ExtArgs>
     skills?: boolean | Course$skillsArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
     category?: boolean | CategoryDefaultArgs<ExtArgs>
@@ -3310,7 +3458,7 @@ export namespace Prisma {
     name: "Course"
     objects: {
       sectionGroups: Prisma.$SectionGroupPayload<ExtArgs>[]
-      preriquisites: Prisma.$PreriquisitPayload<ExtArgs>[]
+      prerequisites: Prisma.$PrerequisitPayload<ExtArgs>[]
       skills: Prisma.$SkillPayload<ExtArgs>[]
       user: Prisma.$UserPayload<ExtArgs>
       category: Prisma.$CategoryPayload<ExtArgs>
@@ -3318,6 +3466,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: number
       title: string
+      slug: string
       description: string
       categoryId: number
       userId: number
@@ -3718,7 +3867,7 @@ export namespace Prisma {
   export interface Prisma__CourseClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     sectionGroups<T extends Course$sectionGroupsArgs<ExtArgs> = {}>(args?: Subset<T, Course$sectionGroupsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SectionGroupPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    preriquisites<T extends Course$preriquisitesArgs<ExtArgs> = {}>(args?: Subset<T, Course$preriquisitesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PreriquisitPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    prerequisites<T extends Course$prerequisitesArgs<ExtArgs> = {}>(args?: Subset<T, Course$prerequisitesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PrerequisitPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     skills<T extends Course$skillsArgs<ExtArgs> = {}>(args?: Subset<T, Course$skillsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SkillPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     category<T extends CategoryDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CategoryDefaultArgs<ExtArgs>>): Prisma__CategoryClient<$Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
@@ -3753,6 +3902,7 @@ export namespace Prisma {
   interface CourseFieldRefs {
     readonly id: FieldRef<"Course", 'Int'>
     readonly title: FieldRef<"Course", 'String'>
+    readonly slug: FieldRef<"Course", 'String'>
     readonly description: FieldRef<"Course", 'String'>
     readonly categoryId: FieldRef<"Course", 'Int'>
     readonly userId: FieldRef<"Course", 'Int'>
@@ -4178,27 +4328,27 @@ export namespace Prisma {
   }
 
   /**
-   * Course.preriquisites
+   * Course.prerequisites
    */
-  export type Course$preriquisitesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Course$prerequisitesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Preriquisit
+     * Select specific fields to fetch from the Prerequisit
      */
-    select?: PreriquisitSelect<ExtArgs> | null
+    select?: PrerequisitSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Preriquisit
+     * Omit specific fields from the Prerequisit
      */
-    omit?: PreriquisitOmit<ExtArgs> | null
+    omit?: PrerequisitOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PreriquisitInclude<ExtArgs> | null
-    where?: PreriquisitWhereInput
-    orderBy?: PreriquisitOrderByWithRelationInput | PreriquisitOrderByWithRelationInput[]
-    cursor?: PreriquisitWhereUniqueInput
+    include?: PrerequisitInclude<ExtArgs> | null
+    where?: PrerequisitWhereInput
+    orderBy?: PrerequisitOrderByWithRelationInput | PrerequisitOrderByWithRelationInput[]
+    cursor?: PrerequisitWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: PreriquisitScalarFieldEnum | PreriquisitScalarFieldEnum[]
+    distinct?: PrerequisitScalarFieldEnum | PrerequisitScalarFieldEnum[]
   }
 
   /**
@@ -5349,6 +5499,7 @@ export namespace Prisma {
   export type SectionGroupMinAggregateOutputType = {
     id: number | null
     title: string | null
+    slug: string | null
     order: number | null
     courseId: number | null
   }
@@ -5356,6 +5507,7 @@ export namespace Prisma {
   export type SectionGroupMaxAggregateOutputType = {
     id: number | null
     title: string | null
+    slug: string | null
     order: number | null
     courseId: number | null
   }
@@ -5363,6 +5515,7 @@ export namespace Prisma {
   export type SectionGroupCountAggregateOutputType = {
     id: number
     title: number
+    slug: number
     order: number
     courseId: number
     _all: number
@@ -5384,6 +5537,7 @@ export namespace Prisma {
   export type SectionGroupMinAggregateInputType = {
     id?: true
     title?: true
+    slug?: true
     order?: true
     courseId?: true
   }
@@ -5391,6 +5545,7 @@ export namespace Prisma {
   export type SectionGroupMaxAggregateInputType = {
     id?: true
     title?: true
+    slug?: true
     order?: true
     courseId?: true
   }
@@ -5398,6 +5553,7 @@ export namespace Prisma {
   export type SectionGroupCountAggregateInputType = {
     id?: true
     title?: true
+    slug?: true
     order?: true
     courseId?: true
     _all?: true
@@ -5492,6 +5648,7 @@ export namespace Prisma {
   export type SectionGroupGroupByOutputType = {
     id: number
     title: string
+    slug: string
     order: number
     courseId: number
     _count: SectionGroupCountAggregateOutputType | null
@@ -5518,6 +5675,7 @@ export namespace Prisma {
   export type SectionGroupSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     title?: boolean
+    slug?: boolean
     order?: boolean
     courseId?: boolean
     sections?: boolean | SectionGroup$sectionsArgs<ExtArgs>
@@ -5528,6 +5686,7 @@ export namespace Prisma {
   export type SectionGroupSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     title?: boolean
+    slug?: boolean
     order?: boolean
     courseId?: boolean
     course?: boolean | CourseDefaultArgs<ExtArgs>
@@ -5536,6 +5695,7 @@ export namespace Prisma {
   export type SectionGroupSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     title?: boolean
+    slug?: boolean
     order?: boolean
     courseId?: boolean
     course?: boolean | CourseDefaultArgs<ExtArgs>
@@ -5544,11 +5704,12 @@ export namespace Prisma {
   export type SectionGroupSelectScalar = {
     id?: boolean
     title?: boolean
+    slug?: boolean
     order?: boolean
     courseId?: boolean
   }
 
-  export type SectionGroupOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "order" | "courseId", ExtArgs["result"]["sectionGroup"]>
+  export type SectionGroupOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "slug" | "order" | "courseId", ExtArgs["result"]["sectionGroup"]>
   export type SectionGroupInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     sections?: boolean | SectionGroup$sectionsArgs<ExtArgs>
     course?: boolean | CourseDefaultArgs<ExtArgs>
@@ -5570,6 +5731,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: number
       title: string
+      slug: string
       order: number
       courseId: number
     }, ExtArgs["result"]["sectionGroup"]>
@@ -5999,6 +6161,7 @@ export namespace Prisma {
   interface SectionGroupFieldRefs {
     readonly id: FieldRef<"SectionGroup", 'Int'>
     readonly title: FieldRef<"SectionGroup", 'String'>
+    readonly slug: FieldRef<"SectionGroup", 'String'>
     readonly order: FieldRef<"SectionGroup", 'Int'>
     readonly courseId: FieldRef<"SectionGroup", 'Int'>
   }
@@ -6466,6 +6629,7 @@ export namespace Prisma {
   export type SectionMinAggregateOutputType = {
     id: number | null
     title: string | null
+    slug: string | null
     order: number | null
     sectionGroupId: number | null
   }
@@ -6473,6 +6637,7 @@ export namespace Prisma {
   export type SectionMaxAggregateOutputType = {
     id: number | null
     title: string | null
+    slug: string | null
     order: number | null
     sectionGroupId: number | null
   }
@@ -6480,6 +6645,7 @@ export namespace Prisma {
   export type SectionCountAggregateOutputType = {
     id: number
     title: number
+    slug: number
     order: number
     sectionGroupId: number
     _all: number
@@ -6501,6 +6667,7 @@ export namespace Prisma {
   export type SectionMinAggregateInputType = {
     id?: true
     title?: true
+    slug?: true
     order?: true
     sectionGroupId?: true
   }
@@ -6508,6 +6675,7 @@ export namespace Prisma {
   export type SectionMaxAggregateInputType = {
     id?: true
     title?: true
+    slug?: true
     order?: true
     sectionGroupId?: true
   }
@@ -6515,6 +6683,7 @@ export namespace Prisma {
   export type SectionCountAggregateInputType = {
     id?: true
     title?: true
+    slug?: true
     order?: true
     sectionGroupId?: true
     _all?: true
@@ -6609,6 +6778,7 @@ export namespace Prisma {
   export type SectionGroupByOutputType = {
     id: number
     title: string
+    slug: string
     order: number
     sectionGroupId: number
     _count: SectionCountAggregateOutputType | null
@@ -6635,9 +6805,11 @@ export namespace Prisma {
   export type SectionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     title?: boolean
+    slug?: boolean
     order?: boolean
     sectionGroupId?: boolean
     lessons?: boolean | Section$lessonsArgs<ExtArgs>
+    sectionRates?: boolean | Section$sectionRatesArgs<ExtArgs>
     sectionGroup?: boolean | SectionGroupDefaultArgs<ExtArgs>
     _count?: boolean | SectionCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["section"]>
@@ -6645,6 +6817,7 @@ export namespace Prisma {
   export type SectionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     title?: boolean
+    slug?: boolean
     order?: boolean
     sectionGroupId?: boolean
     sectionGroup?: boolean | SectionGroupDefaultArgs<ExtArgs>
@@ -6653,6 +6826,7 @@ export namespace Prisma {
   export type SectionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     title?: boolean
+    slug?: boolean
     order?: boolean
     sectionGroupId?: boolean
     sectionGroup?: boolean | SectionGroupDefaultArgs<ExtArgs>
@@ -6661,13 +6835,15 @@ export namespace Prisma {
   export type SectionSelectScalar = {
     id?: boolean
     title?: boolean
+    slug?: boolean
     order?: boolean
     sectionGroupId?: boolean
   }
 
-  export type SectionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "order" | "sectionGroupId", ExtArgs["result"]["section"]>
+  export type SectionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "slug" | "order" | "sectionGroupId", ExtArgs["result"]["section"]>
   export type SectionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     lessons?: boolean | Section$lessonsArgs<ExtArgs>
+    sectionRates?: boolean | Section$sectionRatesArgs<ExtArgs>
     sectionGroup?: boolean | SectionGroupDefaultArgs<ExtArgs>
     _count?: boolean | SectionCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -6682,11 +6858,13 @@ export namespace Prisma {
     name: "Section"
     objects: {
       lessons: Prisma.$LessonPayload<ExtArgs>[]
+      sectionRates: Prisma.$SectionRatingPayload<ExtArgs>[]
       sectionGroup: Prisma.$SectionGroupPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       title: string
+      slug: string
       order: number
       sectionGroupId: number
     }, ExtArgs["result"]["section"]>
@@ -7084,6 +7262,7 @@ export namespace Prisma {
   export interface Prisma__SectionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     lessons<T extends Section$lessonsArgs<ExtArgs> = {}>(args?: Subset<T, Section$lessonsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LessonPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    sectionRates<T extends Section$sectionRatesArgs<ExtArgs> = {}>(args?: Subset<T, Section$sectionRatesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SectionRatingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     sectionGroup<T extends SectionGroupDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SectionGroupDefaultArgs<ExtArgs>>): Prisma__SectionGroupClient<$Result.GetResult<Prisma.$SectionGroupPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -7116,6 +7295,7 @@ export namespace Prisma {
   interface SectionFieldRefs {
     readonly id: FieldRef<"Section", 'Int'>
     readonly title: FieldRef<"Section", 'String'>
+    readonly slug: FieldRef<"Section", 'String'>
     readonly order: FieldRef<"Section", 'Int'>
     readonly sectionGroupId: FieldRef<"Section", 'Int'>
   }
@@ -7535,6 +7715,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: LessonScalarFieldEnum | LessonScalarFieldEnum[]
+  }
+
+  /**
+   * Section.sectionRates
+   */
+  export type Section$sectionRatesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SectionRating
+     */
+    select?: SectionRatingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SectionRating
+     */
+    omit?: SectionRatingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SectionRatingInclude<ExtArgs> | null
+    where?: SectionRatingWhereInput
+    orderBy?: SectionRatingOrderByWithRelationInput | SectionRatingOrderByWithRelationInput[]
+    cursor?: SectionRatingWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SectionRatingScalarFieldEnum | SectionRatingScalarFieldEnum[]
   }
 
   /**
@@ -10919,40 +11123,40 @@ export namespace Prisma {
 
 
   /**
-   * Model Preriquisit
+   * Model Prerequisit
    */
 
-  export type AggregatePreriquisit = {
-    _count: PreriquisitCountAggregateOutputType | null
-    _avg: PreriquisitAvgAggregateOutputType | null
-    _sum: PreriquisitSumAggregateOutputType | null
-    _min: PreriquisitMinAggregateOutputType | null
-    _max: PreriquisitMaxAggregateOutputType | null
+  export type AggregatePrerequisit = {
+    _count: PrerequisitCountAggregateOutputType | null
+    _avg: PrerequisitAvgAggregateOutputType | null
+    _sum: PrerequisitSumAggregateOutputType | null
+    _min: PrerequisitMinAggregateOutputType | null
+    _max: PrerequisitMaxAggregateOutputType | null
   }
 
-  export type PreriquisitAvgAggregateOutputType = {
+  export type PrerequisitAvgAggregateOutputType = {
     id: number | null
     courseId: number | null
   }
 
-  export type PreriquisitSumAggregateOutputType = {
+  export type PrerequisitSumAggregateOutputType = {
     id: number | null
     courseId: number | null
   }
 
-  export type PreriquisitMinAggregateOutputType = {
-    id: number | null
-    content: string | null
-    courseId: number | null
-  }
-
-  export type PreriquisitMaxAggregateOutputType = {
+  export type PrerequisitMinAggregateOutputType = {
     id: number | null
     content: string | null
     courseId: number | null
   }
 
-  export type PreriquisitCountAggregateOutputType = {
+  export type PrerequisitMaxAggregateOutputType = {
+    id: number | null
+    content: string | null
+    courseId: number | null
+  }
+
+  export type PrerequisitCountAggregateOutputType = {
     id: number
     content: number
     courseId: number
@@ -10960,186 +11164,186 @@ export namespace Prisma {
   }
 
 
-  export type PreriquisitAvgAggregateInputType = {
+  export type PrerequisitAvgAggregateInputType = {
     id?: true
     courseId?: true
   }
 
-  export type PreriquisitSumAggregateInputType = {
+  export type PrerequisitSumAggregateInputType = {
     id?: true
     courseId?: true
   }
 
-  export type PreriquisitMinAggregateInputType = {
-    id?: true
-    content?: true
-    courseId?: true
-  }
-
-  export type PreriquisitMaxAggregateInputType = {
+  export type PrerequisitMinAggregateInputType = {
     id?: true
     content?: true
     courseId?: true
   }
 
-  export type PreriquisitCountAggregateInputType = {
+  export type PrerequisitMaxAggregateInputType = {
+    id?: true
+    content?: true
+    courseId?: true
+  }
+
+  export type PrerequisitCountAggregateInputType = {
     id?: true
     content?: true
     courseId?: true
     _all?: true
   }
 
-  export type PreriquisitAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PrerequisitAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which Preriquisit to aggregate.
+     * Filter which Prerequisit to aggregate.
      */
-    where?: PreriquisitWhereInput
+    where?: PrerequisitWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Preriquisits to fetch.
+     * Determine the order of Prerequisits to fetch.
      */
-    orderBy?: PreriquisitOrderByWithRelationInput | PreriquisitOrderByWithRelationInput[]
+    orderBy?: PrerequisitOrderByWithRelationInput | PrerequisitOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the start position
      */
-    cursor?: PreriquisitWhereUniqueInput
+    cursor?: PrerequisitWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Preriquisits from the position of the cursor.
+     * Take `±n` Prerequisits from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Preriquisits.
+     * Skip the first `n` Prerequisits.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Count returned Preriquisits
+     * Count returned Prerequisits
     **/
-    _count?: true | PreriquisitCountAggregateInputType
+    _count?: true | PrerequisitCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to average
     **/
-    _avg?: PreriquisitAvgAggregateInputType
+    _avg?: PrerequisitAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to sum
     **/
-    _sum?: PreriquisitSumAggregateInputType
+    _sum?: PrerequisitSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the minimum value
     **/
-    _min?: PreriquisitMinAggregateInputType
+    _min?: PrerequisitMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the maximum value
     **/
-    _max?: PreriquisitMaxAggregateInputType
+    _max?: PrerequisitMaxAggregateInputType
   }
 
-  export type GetPreriquisitAggregateType<T extends PreriquisitAggregateArgs> = {
-        [P in keyof T & keyof AggregatePreriquisit]: P extends '_count' | 'count'
+  export type GetPrerequisitAggregateType<T extends PrerequisitAggregateArgs> = {
+        [P in keyof T & keyof AggregatePrerequisit]: P extends '_count' | 'count'
       ? T[P] extends true
         ? number
-        : GetScalarType<T[P], AggregatePreriquisit[P]>
-      : GetScalarType<T[P], AggregatePreriquisit[P]>
+        : GetScalarType<T[P], AggregatePrerequisit[P]>
+      : GetScalarType<T[P], AggregatePrerequisit[P]>
   }
 
 
 
 
-  export type PreriquisitGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: PreriquisitWhereInput
-    orderBy?: PreriquisitOrderByWithAggregationInput | PreriquisitOrderByWithAggregationInput[]
-    by: PreriquisitScalarFieldEnum[] | PreriquisitScalarFieldEnum
-    having?: PreriquisitScalarWhereWithAggregatesInput
+  export type PrerequisitGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PrerequisitWhereInput
+    orderBy?: PrerequisitOrderByWithAggregationInput | PrerequisitOrderByWithAggregationInput[]
+    by: PrerequisitScalarFieldEnum[] | PrerequisitScalarFieldEnum
+    having?: PrerequisitScalarWhereWithAggregatesInput
     take?: number
     skip?: number
-    _count?: PreriquisitCountAggregateInputType | true
-    _avg?: PreriquisitAvgAggregateInputType
-    _sum?: PreriquisitSumAggregateInputType
-    _min?: PreriquisitMinAggregateInputType
-    _max?: PreriquisitMaxAggregateInputType
+    _count?: PrerequisitCountAggregateInputType | true
+    _avg?: PrerequisitAvgAggregateInputType
+    _sum?: PrerequisitSumAggregateInputType
+    _min?: PrerequisitMinAggregateInputType
+    _max?: PrerequisitMaxAggregateInputType
   }
 
-  export type PreriquisitGroupByOutputType = {
+  export type PrerequisitGroupByOutputType = {
     id: number
     content: string
     courseId: number
-    _count: PreriquisitCountAggregateOutputType | null
-    _avg: PreriquisitAvgAggregateOutputType | null
-    _sum: PreriquisitSumAggregateOutputType | null
-    _min: PreriquisitMinAggregateOutputType | null
-    _max: PreriquisitMaxAggregateOutputType | null
+    _count: PrerequisitCountAggregateOutputType | null
+    _avg: PrerequisitAvgAggregateOutputType | null
+    _sum: PrerequisitSumAggregateOutputType | null
+    _min: PrerequisitMinAggregateOutputType | null
+    _max: PrerequisitMaxAggregateOutputType | null
   }
 
-  type GetPreriquisitGroupByPayload<T extends PreriquisitGroupByArgs> = Prisma.PrismaPromise<
+  type GetPrerequisitGroupByPayload<T extends PrerequisitGroupByArgs> = Prisma.PrismaPromise<
     Array<
-      PickEnumerable<PreriquisitGroupByOutputType, T['by']> &
+      PickEnumerable<PrerequisitGroupByOutputType, T['by']> &
         {
-          [P in ((keyof T) & (keyof PreriquisitGroupByOutputType))]: P extends '_count'
+          [P in ((keyof T) & (keyof PrerequisitGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
               ? number
-              : GetScalarType<T[P], PreriquisitGroupByOutputType[P]>
-            : GetScalarType<T[P], PreriquisitGroupByOutputType[P]>
+              : GetScalarType<T[P], PrerequisitGroupByOutputType[P]>
+            : GetScalarType<T[P], PrerequisitGroupByOutputType[P]>
         }
       >
     >
 
 
-  export type PreriquisitSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type PrerequisitSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     content?: boolean
     courseId?: boolean
     course?: boolean | CourseDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["preriquisit"]>
+  }, ExtArgs["result"]["prerequisit"]>
 
-  export type PreriquisitSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type PrerequisitSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     content?: boolean
     courseId?: boolean
     course?: boolean | CourseDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["preriquisit"]>
+  }, ExtArgs["result"]["prerequisit"]>
 
-  export type PreriquisitSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type PrerequisitSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     content?: boolean
     courseId?: boolean
     course?: boolean | CourseDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["preriquisit"]>
+  }, ExtArgs["result"]["prerequisit"]>
 
-  export type PreriquisitSelectScalar = {
+  export type PrerequisitSelectScalar = {
     id?: boolean
     content?: boolean
     courseId?: boolean
   }
 
-  export type PreriquisitOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "content" | "courseId", ExtArgs["result"]["preriquisit"]>
-  export type PreriquisitInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PrerequisitOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "content" | "courseId", ExtArgs["result"]["prerequisit"]>
+  export type PrerequisitInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     course?: boolean | CourseDefaultArgs<ExtArgs>
   }
-  export type PreriquisitIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PrerequisitIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     course?: boolean | CourseDefaultArgs<ExtArgs>
   }
-  export type PreriquisitIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PrerequisitIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     course?: boolean | CourseDefaultArgs<ExtArgs>
   }
 
-  export type $PreriquisitPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "Preriquisit"
+  export type $PrerequisitPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Prerequisit"
     objects: {
       course: Prisma.$CoursePayload<ExtArgs>
     }
@@ -11147,136 +11351,136 @@ export namespace Prisma {
       id: number
       content: string
       courseId: number
-    }, ExtArgs["result"]["preriquisit"]>
+    }, ExtArgs["result"]["prerequisit"]>
     composites: {}
   }
 
-  type PreriquisitGetPayload<S extends boolean | null | undefined | PreriquisitDefaultArgs> = $Result.GetResult<Prisma.$PreriquisitPayload, S>
+  type PrerequisitGetPayload<S extends boolean | null | undefined | PrerequisitDefaultArgs> = $Result.GetResult<Prisma.$PrerequisitPayload, S>
 
-  type PreriquisitCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<PreriquisitFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: PreriquisitCountAggregateInputType | true
+  type PrerequisitCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<PrerequisitFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: PrerequisitCountAggregateInputType | true
     }
 
-  export interface PreriquisitDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Preriquisit'], meta: { name: 'Preriquisit' } }
+  export interface PrerequisitDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Prerequisit'], meta: { name: 'Prerequisit' } }
     /**
-     * Find zero or one Preriquisit that matches the filter.
-     * @param {PreriquisitFindUniqueArgs} args - Arguments to find a Preriquisit
+     * Find zero or one Prerequisit that matches the filter.
+     * @param {PrerequisitFindUniqueArgs} args - Arguments to find a Prerequisit
      * @example
-     * // Get one Preriquisit
-     * const preriquisit = await prisma.preriquisit.findUnique({
+     * // Get one Prerequisit
+     * const prerequisit = await prisma.prerequisit.findUnique({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUnique<T extends PreriquisitFindUniqueArgs>(args: SelectSubset<T, PreriquisitFindUniqueArgs<ExtArgs>>): Prisma__PreriquisitClient<$Result.GetResult<Prisma.$PreriquisitPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findUnique<T extends PrerequisitFindUniqueArgs>(args: SelectSubset<T, PrerequisitFindUniqueArgs<ExtArgs>>): Prisma__PrerequisitClient<$Result.GetResult<Prisma.$PrerequisitPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find one Preriquisit that matches the filter or throw an error with `error.code='P2025'`
+     * Find one Prerequisit that matches the filter or throw an error with `error.code='P2025'`
      * if no matches were found.
-     * @param {PreriquisitFindUniqueOrThrowArgs} args - Arguments to find a Preriquisit
+     * @param {PrerequisitFindUniqueOrThrowArgs} args - Arguments to find a Prerequisit
      * @example
-     * // Get one Preriquisit
-     * const preriquisit = await prisma.preriquisit.findUniqueOrThrow({
+     * // Get one Prerequisit
+     * const prerequisit = await prisma.prerequisit.findUniqueOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUniqueOrThrow<T extends PreriquisitFindUniqueOrThrowArgs>(args: SelectSubset<T, PreriquisitFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PreriquisitClient<$Result.GetResult<Prisma.$PreriquisitPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findUniqueOrThrow<T extends PrerequisitFindUniqueOrThrowArgs>(args: SelectSubset<T, PrerequisitFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PrerequisitClient<$Result.GetResult<Prisma.$PrerequisitPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first Preriquisit that matches the filter.
+     * Find the first Prerequisit that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {PreriquisitFindFirstArgs} args - Arguments to find a Preriquisit
+     * @param {PrerequisitFindFirstArgs} args - Arguments to find a Prerequisit
      * @example
-     * // Get one Preriquisit
-     * const preriquisit = await prisma.preriquisit.findFirst({
+     * // Get one Prerequisit
+     * const prerequisit = await prisma.prerequisit.findFirst({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirst<T extends PreriquisitFindFirstArgs>(args?: SelectSubset<T, PreriquisitFindFirstArgs<ExtArgs>>): Prisma__PreriquisitClient<$Result.GetResult<Prisma.$PreriquisitPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findFirst<T extends PrerequisitFindFirstArgs>(args?: SelectSubset<T, PrerequisitFindFirstArgs<ExtArgs>>): Prisma__PrerequisitClient<$Result.GetResult<Prisma.$PrerequisitPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first Preriquisit that matches the filter or
+     * Find the first Prerequisit that matches the filter or
      * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {PreriquisitFindFirstOrThrowArgs} args - Arguments to find a Preriquisit
+     * @param {PrerequisitFindFirstOrThrowArgs} args - Arguments to find a Prerequisit
      * @example
-     * // Get one Preriquisit
-     * const preriquisit = await prisma.preriquisit.findFirstOrThrow({
+     * // Get one Prerequisit
+     * const prerequisit = await prisma.prerequisit.findFirstOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirstOrThrow<T extends PreriquisitFindFirstOrThrowArgs>(args?: SelectSubset<T, PreriquisitFindFirstOrThrowArgs<ExtArgs>>): Prisma__PreriquisitClient<$Result.GetResult<Prisma.$PreriquisitPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findFirstOrThrow<T extends PrerequisitFindFirstOrThrowArgs>(args?: SelectSubset<T, PrerequisitFindFirstOrThrowArgs<ExtArgs>>): Prisma__PrerequisitClient<$Result.GetResult<Prisma.$PrerequisitPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find zero or more Preriquisits that matches the filter.
+     * Find zero or more Prerequisits that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {PreriquisitFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @param {PrerequisitFindManyArgs} args - Arguments to filter and select certain fields only.
      * @example
-     * // Get all Preriquisits
-     * const preriquisits = await prisma.preriquisit.findMany()
+     * // Get all Prerequisits
+     * const prerequisits = await prisma.prerequisit.findMany()
      * 
-     * // Get first 10 Preriquisits
-     * const preriquisits = await prisma.preriquisit.findMany({ take: 10 })
+     * // Get first 10 Prerequisits
+     * const prerequisits = await prisma.prerequisit.findMany({ take: 10 })
      * 
      * // Only select the `id`
-     * const preriquisitWithIdOnly = await prisma.preriquisit.findMany({ select: { id: true } })
+     * const prerequisitWithIdOnly = await prisma.prerequisit.findMany({ select: { id: true } })
      * 
      */
-    findMany<T extends PreriquisitFindManyArgs>(args?: SelectSubset<T, PreriquisitFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PreriquisitPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+    findMany<T extends PrerequisitFindManyArgs>(args?: SelectSubset<T, PrerequisitFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PrerequisitPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
     /**
-     * Create a Preriquisit.
-     * @param {PreriquisitCreateArgs} args - Arguments to create a Preriquisit.
+     * Create a Prerequisit.
+     * @param {PrerequisitCreateArgs} args - Arguments to create a Prerequisit.
      * @example
-     * // Create one Preriquisit
-     * const Preriquisit = await prisma.preriquisit.create({
+     * // Create one Prerequisit
+     * const Prerequisit = await prisma.prerequisit.create({
      *   data: {
-     *     // ... data to create a Preriquisit
+     *     // ... data to create a Prerequisit
      *   }
      * })
      * 
      */
-    create<T extends PreriquisitCreateArgs>(args: SelectSubset<T, PreriquisitCreateArgs<ExtArgs>>): Prisma__PreriquisitClient<$Result.GetResult<Prisma.$PreriquisitPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    create<T extends PrerequisitCreateArgs>(args: SelectSubset<T, PrerequisitCreateArgs<ExtArgs>>): Prisma__PrerequisitClient<$Result.GetResult<Prisma.$PrerequisitPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Create many Preriquisits.
-     * @param {PreriquisitCreateManyArgs} args - Arguments to create many Preriquisits.
+     * Create many Prerequisits.
+     * @param {PrerequisitCreateManyArgs} args - Arguments to create many Prerequisits.
      * @example
-     * // Create many Preriquisits
-     * const preriquisit = await prisma.preriquisit.createMany({
+     * // Create many Prerequisits
+     * const prerequisit = await prisma.prerequisit.createMany({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      *     
      */
-    createMany<T extends PreriquisitCreateManyArgs>(args?: SelectSubset<T, PreriquisitCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    createMany<T extends PrerequisitCreateManyArgs>(args?: SelectSubset<T, PrerequisitCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Create many Preriquisits and returns the data saved in the database.
-     * @param {PreriquisitCreateManyAndReturnArgs} args - Arguments to create many Preriquisits.
+     * Create many Prerequisits and returns the data saved in the database.
+     * @param {PrerequisitCreateManyAndReturnArgs} args - Arguments to create many Prerequisits.
      * @example
-     * // Create many Preriquisits
-     * const preriquisit = await prisma.preriquisit.createManyAndReturn({
+     * // Create many Prerequisits
+     * const prerequisit = await prisma.prerequisit.createManyAndReturn({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      * 
-     * // Create many Preriquisits and only return the `id`
-     * const preriquisitWithIdOnly = await prisma.preriquisit.createManyAndReturn({
+     * // Create many Prerequisits and only return the `id`
+     * const prerequisitWithIdOnly = await prisma.prerequisit.createManyAndReturn({
      *   select: { id: true },
      *   data: [
      *     // ... provide data here
@@ -11286,28 +11490,28 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    createManyAndReturn<T extends PreriquisitCreateManyAndReturnArgs>(args?: SelectSubset<T, PreriquisitCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PreriquisitPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+    createManyAndReturn<T extends PrerequisitCreateManyAndReturnArgs>(args?: SelectSubset<T, PrerequisitCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PrerequisitPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Delete a Preriquisit.
-     * @param {PreriquisitDeleteArgs} args - Arguments to delete one Preriquisit.
+     * Delete a Prerequisit.
+     * @param {PrerequisitDeleteArgs} args - Arguments to delete one Prerequisit.
      * @example
-     * // Delete one Preriquisit
-     * const Preriquisit = await prisma.preriquisit.delete({
+     * // Delete one Prerequisit
+     * const Prerequisit = await prisma.prerequisit.delete({
      *   where: {
-     *     // ... filter to delete one Preriquisit
+     *     // ... filter to delete one Prerequisit
      *   }
      * })
      * 
      */
-    delete<T extends PreriquisitDeleteArgs>(args: SelectSubset<T, PreriquisitDeleteArgs<ExtArgs>>): Prisma__PreriquisitClient<$Result.GetResult<Prisma.$PreriquisitPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    delete<T extends PrerequisitDeleteArgs>(args: SelectSubset<T, PrerequisitDeleteArgs<ExtArgs>>): Prisma__PrerequisitClient<$Result.GetResult<Prisma.$PrerequisitPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Update one Preriquisit.
-     * @param {PreriquisitUpdateArgs} args - Arguments to update one Preriquisit.
+     * Update one Prerequisit.
+     * @param {PrerequisitUpdateArgs} args - Arguments to update one Prerequisit.
      * @example
-     * // Update one Preriquisit
-     * const preriquisit = await prisma.preriquisit.update({
+     * // Update one Prerequisit
+     * const prerequisit = await prisma.prerequisit.update({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -11317,30 +11521,30 @@ export namespace Prisma {
      * })
      * 
      */
-    update<T extends PreriquisitUpdateArgs>(args: SelectSubset<T, PreriquisitUpdateArgs<ExtArgs>>): Prisma__PreriquisitClient<$Result.GetResult<Prisma.$PreriquisitPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    update<T extends PrerequisitUpdateArgs>(args: SelectSubset<T, PrerequisitUpdateArgs<ExtArgs>>): Prisma__PrerequisitClient<$Result.GetResult<Prisma.$PrerequisitPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Delete zero or more Preriquisits.
-     * @param {PreriquisitDeleteManyArgs} args - Arguments to filter Preriquisits to delete.
+     * Delete zero or more Prerequisits.
+     * @param {PrerequisitDeleteManyArgs} args - Arguments to filter Prerequisits to delete.
      * @example
-     * // Delete a few Preriquisits
-     * const { count } = await prisma.preriquisit.deleteMany({
+     * // Delete a few Prerequisits
+     * const { count } = await prisma.prerequisit.deleteMany({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      * 
      */
-    deleteMany<T extends PreriquisitDeleteManyArgs>(args?: SelectSubset<T, PreriquisitDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    deleteMany<T extends PrerequisitDeleteManyArgs>(args?: SelectSubset<T, PrerequisitDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more Preriquisits.
+     * Update zero or more Prerequisits.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {PreriquisitUpdateManyArgs} args - Arguments to update one or more rows.
+     * @param {PrerequisitUpdateManyArgs} args - Arguments to update one or more rows.
      * @example
-     * // Update many Preriquisits
-     * const preriquisit = await prisma.preriquisit.updateMany({
+     * // Update many Prerequisits
+     * const prerequisit = await prisma.prerequisit.updateMany({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -11350,14 +11554,14 @@ export namespace Prisma {
      * })
      * 
      */
-    updateMany<T extends PreriquisitUpdateManyArgs>(args: SelectSubset<T, PreriquisitUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    updateMany<T extends PrerequisitUpdateManyArgs>(args: SelectSubset<T, PrerequisitUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more Preriquisits and returns the data updated in the database.
-     * @param {PreriquisitUpdateManyAndReturnArgs} args - Arguments to update many Preriquisits.
+     * Update zero or more Prerequisits and returns the data updated in the database.
+     * @param {PrerequisitUpdateManyAndReturnArgs} args - Arguments to update many Prerequisits.
      * @example
-     * // Update many Preriquisits
-     * const preriquisit = await prisma.preriquisit.updateManyAndReturn({
+     * // Update many Prerequisits
+     * const prerequisit = await prisma.prerequisit.updateManyAndReturn({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -11366,8 +11570,8 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Update zero or more Preriquisits and only return the `id`
-     * const preriquisitWithIdOnly = await prisma.preriquisit.updateManyAndReturn({
+     * // Update zero or more Prerequisits and only return the `id`
+     * const prerequisitWithIdOnly = await prisma.prerequisit.updateManyAndReturn({
      *   select: { id: true },
      *   where: {
      *     // ... provide filter here
@@ -11380,56 +11584,56 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    updateManyAndReturn<T extends PreriquisitUpdateManyAndReturnArgs>(args: SelectSubset<T, PreriquisitUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PreriquisitPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+    updateManyAndReturn<T extends PrerequisitUpdateManyAndReturnArgs>(args: SelectSubset<T, PrerequisitUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PrerequisitPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Create or update one Preriquisit.
-     * @param {PreriquisitUpsertArgs} args - Arguments to update or create a Preriquisit.
+     * Create or update one Prerequisit.
+     * @param {PrerequisitUpsertArgs} args - Arguments to update or create a Prerequisit.
      * @example
-     * // Update or create a Preriquisit
-     * const preriquisit = await prisma.preriquisit.upsert({
+     * // Update or create a Prerequisit
+     * const prerequisit = await prisma.prerequisit.upsert({
      *   create: {
-     *     // ... data to create a Preriquisit
+     *     // ... data to create a Prerequisit
      *   },
      *   update: {
      *     // ... in case it already exists, update
      *   },
      *   where: {
-     *     // ... the filter for the Preriquisit we want to update
+     *     // ... the filter for the Prerequisit we want to update
      *   }
      * })
      */
-    upsert<T extends PreriquisitUpsertArgs>(args: SelectSubset<T, PreriquisitUpsertArgs<ExtArgs>>): Prisma__PreriquisitClient<$Result.GetResult<Prisma.$PreriquisitPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    upsert<T extends PrerequisitUpsertArgs>(args: SelectSubset<T, PrerequisitUpsertArgs<ExtArgs>>): Prisma__PrerequisitClient<$Result.GetResult<Prisma.$PrerequisitPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
 
     /**
-     * Count the number of Preriquisits.
+     * Count the number of Prerequisits.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {PreriquisitCountArgs} args - Arguments to filter Preriquisits to count.
+     * @param {PrerequisitCountArgs} args - Arguments to filter Prerequisits to count.
      * @example
-     * // Count the number of Preriquisits
-     * const count = await prisma.preriquisit.count({
+     * // Count the number of Prerequisits
+     * const count = await prisma.prerequisit.count({
      *   where: {
-     *     // ... the filter for the Preriquisits we want to count
+     *     // ... the filter for the Prerequisits we want to count
      *   }
      * })
     **/
-    count<T extends PreriquisitCountArgs>(
-      args?: Subset<T, PreriquisitCountArgs>,
+    count<T extends PrerequisitCountArgs>(
+      args?: Subset<T, PrerequisitCountArgs>,
     ): Prisma.PrismaPromise<
       T extends $Utils.Record<'select', any>
         ? T['select'] extends true
           ? number
-          : GetScalarType<T['select'], PreriquisitCountAggregateOutputType>
+          : GetScalarType<T['select'], PrerequisitCountAggregateOutputType>
         : number
     >
 
     /**
-     * Allows you to perform aggregations operations on a Preriquisit.
+     * Allows you to perform aggregations operations on a Prerequisit.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {PreriquisitAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @param {PrerequisitAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
      * @example
      * // Ordered by age ascending
      * // Where email contains prisma.io
@@ -11449,13 +11653,13 @@ export namespace Prisma {
      *   take: 10,
      * })
     **/
-    aggregate<T extends PreriquisitAggregateArgs>(args: Subset<T, PreriquisitAggregateArgs>): Prisma.PrismaPromise<GetPreriquisitAggregateType<T>>
+    aggregate<T extends PrerequisitAggregateArgs>(args: Subset<T, PrerequisitAggregateArgs>): Prisma.PrismaPromise<GetPrerequisitAggregateType<T>>
 
     /**
-     * Group by Preriquisit.
+     * Group by Prerequisit.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {PreriquisitGroupByArgs} args - Group by arguments.
+     * @param {PrerequisitGroupByArgs} args - Group by arguments.
      * @example
      * // Group by city, order by createdAt, get count
      * const result = await prisma.user.groupBy({
@@ -11470,14 +11674,14 @@ export namespace Prisma {
      * 
     **/
     groupBy<
-      T extends PreriquisitGroupByArgs,
+      T extends PrerequisitGroupByArgs,
       HasSelectOrTake extends Or<
         Extends<'skip', Keys<T>>,
         Extends<'take', Keys<T>>
       >,
       OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: PreriquisitGroupByArgs['orderBy'] }
-        : { orderBy?: PreriquisitGroupByArgs['orderBy'] },
+        ? { orderBy: PrerequisitGroupByArgs['orderBy'] }
+        : { orderBy?: PrerequisitGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
       ByFields extends MaybeTupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
@@ -11526,20 +11730,20 @@ export namespace Prisma {
             ? never
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
-    >(args: SubsetIntersection<T, PreriquisitGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPreriquisitGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+    >(args: SubsetIntersection<T, PrerequisitGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPrerequisitGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
   /**
-   * Fields of the Preriquisit model
+   * Fields of the Prerequisit model
    */
-  readonly fields: PreriquisitFieldRefs;
+  readonly fields: PrerequisitFieldRefs;
   }
 
   /**
-   * The delegate class that acts as a "Promise-like" for Preriquisit.
+   * The delegate class that acts as a "Promise-like" for Prerequisit.
    * Why is this prefixed with `Prisma__`?
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export interface Prisma__PreriquisitClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+  export interface Prisma__PrerequisitClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     course<T extends CourseDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CourseDefaultArgs<ExtArgs>>): Prisma__CourseClient<$Result.GetResult<Prisma.$CoursePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
@@ -11568,423 +11772,423 @@ export namespace Prisma {
 
 
   /**
-   * Fields of the Preriquisit model
+   * Fields of the Prerequisit model
    */
-  interface PreriquisitFieldRefs {
-    readonly id: FieldRef<"Preriquisit", 'Int'>
-    readonly content: FieldRef<"Preriquisit", 'String'>
-    readonly courseId: FieldRef<"Preriquisit", 'Int'>
+  interface PrerequisitFieldRefs {
+    readonly id: FieldRef<"Prerequisit", 'Int'>
+    readonly content: FieldRef<"Prerequisit", 'String'>
+    readonly courseId: FieldRef<"Prerequisit", 'Int'>
   }
     
 
   // Custom InputTypes
   /**
-   * Preriquisit findUnique
+   * Prerequisit findUnique
    */
-  export type PreriquisitFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PrerequisitFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Preriquisit
+     * Select specific fields to fetch from the Prerequisit
      */
-    select?: PreriquisitSelect<ExtArgs> | null
+    select?: PrerequisitSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Preriquisit
+     * Omit specific fields from the Prerequisit
      */
-    omit?: PreriquisitOmit<ExtArgs> | null
+    omit?: PrerequisitOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PreriquisitInclude<ExtArgs> | null
+    include?: PrerequisitInclude<ExtArgs> | null
     /**
-     * Filter, which Preriquisit to fetch.
+     * Filter, which Prerequisit to fetch.
      */
-    where: PreriquisitWhereUniqueInput
+    where: PrerequisitWhereUniqueInput
   }
 
   /**
-   * Preriquisit findUniqueOrThrow
+   * Prerequisit findUniqueOrThrow
    */
-  export type PreriquisitFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PrerequisitFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Preriquisit
+     * Select specific fields to fetch from the Prerequisit
      */
-    select?: PreriquisitSelect<ExtArgs> | null
+    select?: PrerequisitSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Preriquisit
+     * Omit specific fields from the Prerequisit
      */
-    omit?: PreriquisitOmit<ExtArgs> | null
+    omit?: PrerequisitOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PreriquisitInclude<ExtArgs> | null
+    include?: PrerequisitInclude<ExtArgs> | null
     /**
-     * Filter, which Preriquisit to fetch.
+     * Filter, which Prerequisit to fetch.
      */
-    where: PreriquisitWhereUniqueInput
+    where: PrerequisitWhereUniqueInput
   }
 
   /**
-   * Preriquisit findFirst
+   * Prerequisit findFirst
    */
-  export type PreriquisitFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PrerequisitFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Preriquisit
+     * Select specific fields to fetch from the Prerequisit
      */
-    select?: PreriquisitSelect<ExtArgs> | null
+    select?: PrerequisitSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Preriquisit
+     * Omit specific fields from the Prerequisit
      */
-    omit?: PreriquisitOmit<ExtArgs> | null
+    omit?: PrerequisitOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PreriquisitInclude<ExtArgs> | null
+    include?: PrerequisitInclude<ExtArgs> | null
     /**
-     * Filter, which Preriquisit to fetch.
+     * Filter, which Prerequisit to fetch.
      */
-    where?: PreriquisitWhereInput
+    where?: PrerequisitWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Preriquisits to fetch.
+     * Determine the order of Prerequisits to fetch.
      */
-    orderBy?: PreriquisitOrderByWithRelationInput | PreriquisitOrderByWithRelationInput[]
+    orderBy?: PrerequisitOrderByWithRelationInput | PrerequisitOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for Preriquisits.
+     * Sets the position for searching for Prerequisits.
      */
-    cursor?: PreriquisitWhereUniqueInput
+    cursor?: PrerequisitWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Preriquisits from the position of the cursor.
+     * Take `±n` Prerequisits from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Preriquisits.
+     * Skip the first `n` Prerequisits.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of Preriquisits.
+     * Filter by unique combinations of Prerequisits.
      */
-    distinct?: PreriquisitScalarFieldEnum | PreriquisitScalarFieldEnum[]
+    distinct?: PrerequisitScalarFieldEnum | PrerequisitScalarFieldEnum[]
   }
 
   /**
-   * Preriquisit findFirstOrThrow
+   * Prerequisit findFirstOrThrow
    */
-  export type PreriquisitFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PrerequisitFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Preriquisit
+     * Select specific fields to fetch from the Prerequisit
      */
-    select?: PreriquisitSelect<ExtArgs> | null
+    select?: PrerequisitSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Preriquisit
+     * Omit specific fields from the Prerequisit
      */
-    omit?: PreriquisitOmit<ExtArgs> | null
+    omit?: PrerequisitOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PreriquisitInclude<ExtArgs> | null
+    include?: PrerequisitInclude<ExtArgs> | null
     /**
-     * Filter, which Preriquisit to fetch.
+     * Filter, which Prerequisit to fetch.
      */
-    where?: PreriquisitWhereInput
+    where?: PrerequisitWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Preriquisits to fetch.
+     * Determine the order of Prerequisits to fetch.
      */
-    orderBy?: PreriquisitOrderByWithRelationInput | PreriquisitOrderByWithRelationInput[]
+    orderBy?: PrerequisitOrderByWithRelationInput | PrerequisitOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for Preriquisits.
+     * Sets the position for searching for Prerequisits.
      */
-    cursor?: PreriquisitWhereUniqueInput
+    cursor?: PrerequisitWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Preriquisits from the position of the cursor.
+     * Take `±n` Prerequisits from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Preriquisits.
+     * Skip the first `n` Prerequisits.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of Preriquisits.
+     * Filter by unique combinations of Prerequisits.
      */
-    distinct?: PreriquisitScalarFieldEnum | PreriquisitScalarFieldEnum[]
+    distinct?: PrerequisitScalarFieldEnum | PrerequisitScalarFieldEnum[]
   }
 
   /**
-   * Preriquisit findMany
+   * Prerequisit findMany
    */
-  export type PreriquisitFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PrerequisitFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Preriquisit
+     * Select specific fields to fetch from the Prerequisit
      */
-    select?: PreriquisitSelect<ExtArgs> | null
+    select?: PrerequisitSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Preriquisit
+     * Omit specific fields from the Prerequisit
      */
-    omit?: PreriquisitOmit<ExtArgs> | null
+    omit?: PrerequisitOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PreriquisitInclude<ExtArgs> | null
+    include?: PrerequisitInclude<ExtArgs> | null
     /**
-     * Filter, which Preriquisits to fetch.
+     * Filter, which Prerequisits to fetch.
      */
-    where?: PreriquisitWhereInput
+    where?: PrerequisitWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Preriquisits to fetch.
+     * Determine the order of Prerequisits to fetch.
      */
-    orderBy?: PreriquisitOrderByWithRelationInput | PreriquisitOrderByWithRelationInput[]
+    orderBy?: PrerequisitOrderByWithRelationInput | PrerequisitOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for listing Preriquisits.
+     * Sets the position for listing Prerequisits.
      */
-    cursor?: PreriquisitWhereUniqueInput
+    cursor?: PrerequisitWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Preriquisits from the position of the cursor.
+     * Take `±n` Prerequisits from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Preriquisits.
+     * Skip the first `n` Prerequisits.
      */
     skip?: number
-    distinct?: PreriquisitScalarFieldEnum | PreriquisitScalarFieldEnum[]
+    distinct?: PrerequisitScalarFieldEnum | PrerequisitScalarFieldEnum[]
   }
 
   /**
-   * Preriquisit create
+   * Prerequisit create
    */
-  export type PreriquisitCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PrerequisitCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Preriquisit
+     * Select specific fields to fetch from the Prerequisit
      */
-    select?: PreriquisitSelect<ExtArgs> | null
+    select?: PrerequisitSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Preriquisit
+     * Omit specific fields from the Prerequisit
      */
-    omit?: PreriquisitOmit<ExtArgs> | null
+    omit?: PrerequisitOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PreriquisitInclude<ExtArgs> | null
+    include?: PrerequisitInclude<ExtArgs> | null
     /**
-     * The data needed to create a Preriquisit.
+     * The data needed to create a Prerequisit.
      */
-    data: XOR<PreriquisitCreateInput, PreriquisitUncheckedCreateInput>
+    data: XOR<PrerequisitCreateInput, PrerequisitUncheckedCreateInput>
   }
 
   /**
-   * Preriquisit createMany
+   * Prerequisit createMany
    */
-  export type PreriquisitCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PrerequisitCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to create many Preriquisits.
+     * The data used to create many Prerequisits.
      */
-    data: PreriquisitCreateManyInput | PreriquisitCreateManyInput[]
+    data: PrerequisitCreateManyInput | PrerequisitCreateManyInput[]
     skipDuplicates?: boolean
   }
 
   /**
-   * Preriquisit createManyAndReturn
+   * Prerequisit createManyAndReturn
    */
-  export type PreriquisitCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PrerequisitCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Preriquisit
+     * Select specific fields to fetch from the Prerequisit
      */
-    select?: PreriquisitSelectCreateManyAndReturn<ExtArgs> | null
+    select?: PrerequisitSelectCreateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the Preriquisit
+     * Omit specific fields from the Prerequisit
      */
-    omit?: PreriquisitOmit<ExtArgs> | null
+    omit?: PrerequisitOmit<ExtArgs> | null
     /**
-     * The data used to create many Preriquisits.
+     * The data used to create many Prerequisits.
      */
-    data: PreriquisitCreateManyInput | PreriquisitCreateManyInput[]
+    data: PrerequisitCreateManyInput | PrerequisitCreateManyInput[]
     skipDuplicates?: boolean
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PreriquisitIncludeCreateManyAndReturn<ExtArgs> | null
+    include?: PrerequisitIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
-   * Preriquisit update
+   * Prerequisit update
    */
-  export type PreriquisitUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PrerequisitUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Preriquisit
+     * Select specific fields to fetch from the Prerequisit
      */
-    select?: PreriquisitSelect<ExtArgs> | null
+    select?: PrerequisitSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Preriquisit
+     * Omit specific fields from the Prerequisit
      */
-    omit?: PreriquisitOmit<ExtArgs> | null
+    omit?: PrerequisitOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PreriquisitInclude<ExtArgs> | null
+    include?: PrerequisitInclude<ExtArgs> | null
     /**
-     * The data needed to update a Preriquisit.
+     * The data needed to update a Prerequisit.
      */
-    data: XOR<PreriquisitUpdateInput, PreriquisitUncheckedUpdateInput>
+    data: XOR<PrerequisitUpdateInput, PrerequisitUncheckedUpdateInput>
     /**
-     * Choose, which Preriquisit to update.
+     * Choose, which Prerequisit to update.
      */
-    where: PreriquisitWhereUniqueInput
+    where: PrerequisitWhereUniqueInput
   }
 
   /**
-   * Preriquisit updateMany
+   * Prerequisit updateMany
    */
-  export type PreriquisitUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PrerequisitUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to update Preriquisits.
+     * The data used to update Prerequisits.
      */
-    data: XOR<PreriquisitUpdateManyMutationInput, PreriquisitUncheckedUpdateManyInput>
+    data: XOR<PrerequisitUpdateManyMutationInput, PrerequisitUncheckedUpdateManyInput>
     /**
-     * Filter which Preriquisits to update
+     * Filter which Prerequisits to update
      */
-    where?: PreriquisitWhereInput
+    where?: PrerequisitWhereInput
     /**
-     * Limit how many Preriquisits to update.
+     * Limit how many Prerequisits to update.
      */
     limit?: number
   }
 
   /**
-   * Preriquisit updateManyAndReturn
+   * Prerequisit updateManyAndReturn
    */
-  export type PreriquisitUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PrerequisitUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Preriquisit
+     * Select specific fields to fetch from the Prerequisit
      */
-    select?: PreriquisitSelectUpdateManyAndReturn<ExtArgs> | null
+    select?: PrerequisitSelectUpdateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the Preriquisit
+     * Omit specific fields from the Prerequisit
      */
-    omit?: PreriquisitOmit<ExtArgs> | null
+    omit?: PrerequisitOmit<ExtArgs> | null
     /**
-     * The data used to update Preriquisits.
+     * The data used to update Prerequisits.
      */
-    data: XOR<PreriquisitUpdateManyMutationInput, PreriquisitUncheckedUpdateManyInput>
+    data: XOR<PrerequisitUpdateManyMutationInput, PrerequisitUncheckedUpdateManyInput>
     /**
-     * Filter which Preriquisits to update
+     * Filter which Prerequisits to update
      */
-    where?: PreriquisitWhereInput
+    where?: PrerequisitWhereInput
     /**
-     * Limit how many Preriquisits to update.
+     * Limit how many Prerequisits to update.
      */
     limit?: number
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PreriquisitIncludeUpdateManyAndReturn<ExtArgs> | null
+    include?: PrerequisitIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
-   * Preriquisit upsert
+   * Prerequisit upsert
    */
-  export type PreriquisitUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PrerequisitUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Preriquisit
+     * Select specific fields to fetch from the Prerequisit
      */
-    select?: PreriquisitSelect<ExtArgs> | null
+    select?: PrerequisitSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Preriquisit
+     * Omit specific fields from the Prerequisit
      */
-    omit?: PreriquisitOmit<ExtArgs> | null
+    omit?: PrerequisitOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PreriquisitInclude<ExtArgs> | null
+    include?: PrerequisitInclude<ExtArgs> | null
     /**
-     * The filter to search for the Preriquisit to update in case it exists.
+     * The filter to search for the Prerequisit to update in case it exists.
      */
-    where: PreriquisitWhereUniqueInput
+    where: PrerequisitWhereUniqueInput
     /**
-     * In case the Preriquisit found by the `where` argument doesn't exist, create a new Preriquisit with this data.
+     * In case the Prerequisit found by the `where` argument doesn't exist, create a new Prerequisit with this data.
      */
-    create: XOR<PreriquisitCreateInput, PreriquisitUncheckedCreateInput>
+    create: XOR<PrerequisitCreateInput, PrerequisitUncheckedCreateInput>
     /**
-     * In case the Preriquisit was found with the provided `where` argument, update it with this data.
+     * In case the Prerequisit was found with the provided `where` argument, update it with this data.
      */
-    update: XOR<PreriquisitUpdateInput, PreriquisitUncheckedUpdateInput>
+    update: XOR<PrerequisitUpdateInput, PrerequisitUncheckedUpdateInput>
   }
 
   /**
-   * Preriquisit delete
+   * Prerequisit delete
    */
-  export type PreriquisitDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PrerequisitDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Preriquisit
+     * Select specific fields to fetch from the Prerequisit
      */
-    select?: PreriquisitSelect<ExtArgs> | null
+    select?: PrerequisitSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Preriquisit
+     * Omit specific fields from the Prerequisit
      */
-    omit?: PreriquisitOmit<ExtArgs> | null
+    omit?: PrerequisitOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PreriquisitInclude<ExtArgs> | null
+    include?: PrerequisitInclude<ExtArgs> | null
     /**
-     * Filter which Preriquisit to delete.
+     * Filter which Prerequisit to delete.
      */
-    where: PreriquisitWhereUniqueInput
+    where: PrerequisitWhereUniqueInput
   }
 
   /**
-   * Preriquisit deleteMany
+   * Prerequisit deleteMany
    */
-  export type PreriquisitDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PrerequisitDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which Preriquisits to delete
+     * Filter which Prerequisits to delete
      */
-    where?: PreriquisitWhereInput
+    where?: PrerequisitWhereInput
     /**
-     * Limit how many Preriquisits to delete.
+     * Limit how many Prerequisits to delete.
      */
     limit?: number
   }
 
   /**
-   * Preriquisit without action
+   * Prerequisit without action
    */
-  export type PreriquisitDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PrerequisitDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Preriquisit
+     * Select specific fields to fetch from the Prerequisit
      */
-    select?: PreriquisitSelect<ExtArgs> | null
+    select?: PrerequisitSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Preriquisit
+     * Omit specific fields from the Prerequisit
      */
-    omit?: PreriquisitOmit<ExtArgs> | null
+    omit?: PrerequisitOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PreriquisitInclude<ExtArgs> | null
+    include?: PrerequisitInclude<ExtArgs> | null
   }
 
 
@@ -13059,6 +13263,1131 @@ export namespace Prisma {
 
 
   /**
+   * Model SectionRating
+   */
+
+  export type AggregateSectionRating = {
+    _count: SectionRatingCountAggregateOutputType | null
+    _avg: SectionRatingAvgAggregateOutputType | null
+    _sum: SectionRatingSumAggregateOutputType | null
+    _min: SectionRatingMinAggregateOutputType | null
+    _max: SectionRatingMaxAggregateOutputType | null
+  }
+
+  export type SectionRatingAvgAggregateOutputType = {
+    id: number | null
+    rate: number | null
+    userId: number | null
+    sectionId: number | null
+  }
+
+  export type SectionRatingSumAggregateOutputType = {
+    id: number | null
+    rate: number | null
+    userId: number | null
+    sectionId: number | null
+  }
+
+  export type SectionRatingMinAggregateOutputType = {
+    id: number | null
+    rate: number | null
+    userId: number | null
+    sectionId: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SectionRatingMaxAggregateOutputType = {
+    id: number | null
+    rate: number | null
+    userId: number | null
+    sectionId: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SectionRatingCountAggregateOutputType = {
+    id: number
+    rate: number
+    userId: number
+    sectionId: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type SectionRatingAvgAggregateInputType = {
+    id?: true
+    rate?: true
+    userId?: true
+    sectionId?: true
+  }
+
+  export type SectionRatingSumAggregateInputType = {
+    id?: true
+    rate?: true
+    userId?: true
+    sectionId?: true
+  }
+
+  export type SectionRatingMinAggregateInputType = {
+    id?: true
+    rate?: true
+    userId?: true
+    sectionId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SectionRatingMaxAggregateInputType = {
+    id?: true
+    rate?: true
+    userId?: true
+    sectionId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SectionRatingCountAggregateInputType = {
+    id?: true
+    rate?: true
+    userId?: true
+    sectionId?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type SectionRatingAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SectionRating to aggregate.
+     */
+    where?: SectionRatingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SectionRatings to fetch.
+     */
+    orderBy?: SectionRatingOrderByWithRelationInput | SectionRatingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SectionRatingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SectionRatings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SectionRatings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SectionRatings
+    **/
+    _count?: true | SectionRatingCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: SectionRatingAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: SectionRatingSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SectionRatingMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SectionRatingMaxAggregateInputType
+  }
+
+  export type GetSectionRatingAggregateType<T extends SectionRatingAggregateArgs> = {
+        [P in keyof T & keyof AggregateSectionRating]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSectionRating[P]>
+      : GetScalarType<T[P], AggregateSectionRating[P]>
+  }
+
+
+
+
+  export type SectionRatingGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SectionRatingWhereInput
+    orderBy?: SectionRatingOrderByWithAggregationInput | SectionRatingOrderByWithAggregationInput[]
+    by: SectionRatingScalarFieldEnum[] | SectionRatingScalarFieldEnum
+    having?: SectionRatingScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SectionRatingCountAggregateInputType | true
+    _avg?: SectionRatingAvgAggregateInputType
+    _sum?: SectionRatingSumAggregateInputType
+    _min?: SectionRatingMinAggregateInputType
+    _max?: SectionRatingMaxAggregateInputType
+  }
+
+  export type SectionRatingGroupByOutputType = {
+    id: number
+    rate: number
+    userId: number
+    sectionId: number
+    createdAt: Date
+    updatedAt: Date
+    _count: SectionRatingCountAggregateOutputType | null
+    _avg: SectionRatingAvgAggregateOutputType | null
+    _sum: SectionRatingSumAggregateOutputType | null
+    _min: SectionRatingMinAggregateOutputType | null
+    _max: SectionRatingMaxAggregateOutputType | null
+  }
+
+  type GetSectionRatingGroupByPayload<T extends SectionRatingGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SectionRatingGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SectionRatingGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SectionRatingGroupByOutputType[P]>
+            : GetScalarType<T[P], SectionRatingGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SectionRatingSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    rate?: boolean
+    userId?: boolean
+    sectionId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    section?: boolean | SectionDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["sectionRating"]>
+
+  export type SectionRatingSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    rate?: boolean
+    userId?: boolean
+    sectionId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    section?: boolean | SectionDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["sectionRating"]>
+
+  export type SectionRatingSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    rate?: boolean
+    userId?: boolean
+    sectionId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    section?: boolean | SectionDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["sectionRating"]>
+
+  export type SectionRatingSelectScalar = {
+    id?: boolean
+    rate?: boolean
+    userId?: boolean
+    sectionId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type SectionRatingOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "rate" | "userId" | "sectionId" | "createdAt" | "updatedAt", ExtArgs["result"]["sectionRating"]>
+  export type SectionRatingInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    section?: boolean | SectionDefaultArgs<ExtArgs>
+  }
+  export type SectionRatingIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    section?: boolean | SectionDefaultArgs<ExtArgs>
+  }
+  export type SectionRatingIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    section?: boolean | SectionDefaultArgs<ExtArgs>
+  }
+
+  export type $SectionRatingPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SectionRating"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      section: Prisma.$SectionPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      rate: number
+      userId: number
+      sectionId: number
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["sectionRating"]>
+    composites: {}
+  }
+
+  type SectionRatingGetPayload<S extends boolean | null | undefined | SectionRatingDefaultArgs> = $Result.GetResult<Prisma.$SectionRatingPayload, S>
+
+  type SectionRatingCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SectionRatingFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SectionRatingCountAggregateInputType | true
+    }
+
+  export interface SectionRatingDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SectionRating'], meta: { name: 'SectionRating' } }
+    /**
+     * Find zero or one SectionRating that matches the filter.
+     * @param {SectionRatingFindUniqueArgs} args - Arguments to find a SectionRating
+     * @example
+     * // Get one SectionRating
+     * const sectionRating = await prisma.sectionRating.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SectionRatingFindUniqueArgs>(args: SelectSubset<T, SectionRatingFindUniqueArgs<ExtArgs>>): Prisma__SectionRatingClient<$Result.GetResult<Prisma.$SectionRatingPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one SectionRating that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {SectionRatingFindUniqueOrThrowArgs} args - Arguments to find a SectionRating
+     * @example
+     * // Get one SectionRating
+     * const sectionRating = await prisma.sectionRating.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SectionRatingFindUniqueOrThrowArgs>(args: SelectSubset<T, SectionRatingFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SectionRatingClient<$Result.GetResult<Prisma.$SectionRatingPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SectionRating that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SectionRatingFindFirstArgs} args - Arguments to find a SectionRating
+     * @example
+     * // Get one SectionRating
+     * const sectionRating = await prisma.sectionRating.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SectionRatingFindFirstArgs>(args?: SelectSubset<T, SectionRatingFindFirstArgs<ExtArgs>>): Prisma__SectionRatingClient<$Result.GetResult<Prisma.$SectionRatingPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SectionRating that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SectionRatingFindFirstOrThrowArgs} args - Arguments to find a SectionRating
+     * @example
+     * // Get one SectionRating
+     * const sectionRating = await prisma.sectionRating.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SectionRatingFindFirstOrThrowArgs>(args?: SelectSubset<T, SectionRatingFindFirstOrThrowArgs<ExtArgs>>): Prisma__SectionRatingClient<$Result.GetResult<Prisma.$SectionRatingPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more SectionRatings that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SectionRatingFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SectionRatings
+     * const sectionRatings = await prisma.sectionRating.findMany()
+     * 
+     * // Get first 10 SectionRatings
+     * const sectionRatings = await prisma.sectionRating.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const sectionRatingWithIdOnly = await prisma.sectionRating.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SectionRatingFindManyArgs>(args?: SelectSubset<T, SectionRatingFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SectionRatingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a SectionRating.
+     * @param {SectionRatingCreateArgs} args - Arguments to create a SectionRating.
+     * @example
+     * // Create one SectionRating
+     * const SectionRating = await prisma.sectionRating.create({
+     *   data: {
+     *     // ... data to create a SectionRating
+     *   }
+     * })
+     * 
+     */
+    create<T extends SectionRatingCreateArgs>(args: SelectSubset<T, SectionRatingCreateArgs<ExtArgs>>): Prisma__SectionRatingClient<$Result.GetResult<Prisma.$SectionRatingPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many SectionRatings.
+     * @param {SectionRatingCreateManyArgs} args - Arguments to create many SectionRatings.
+     * @example
+     * // Create many SectionRatings
+     * const sectionRating = await prisma.sectionRating.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SectionRatingCreateManyArgs>(args?: SelectSubset<T, SectionRatingCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many SectionRatings and returns the data saved in the database.
+     * @param {SectionRatingCreateManyAndReturnArgs} args - Arguments to create many SectionRatings.
+     * @example
+     * // Create many SectionRatings
+     * const sectionRating = await prisma.sectionRating.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many SectionRatings and only return the `id`
+     * const sectionRatingWithIdOnly = await prisma.sectionRating.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SectionRatingCreateManyAndReturnArgs>(args?: SelectSubset<T, SectionRatingCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SectionRatingPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a SectionRating.
+     * @param {SectionRatingDeleteArgs} args - Arguments to delete one SectionRating.
+     * @example
+     * // Delete one SectionRating
+     * const SectionRating = await prisma.sectionRating.delete({
+     *   where: {
+     *     // ... filter to delete one SectionRating
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SectionRatingDeleteArgs>(args: SelectSubset<T, SectionRatingDeleteArgs<ExtArgs>>): Prisma__SectionRatingClient<$Result.GetResult<Prisma.$SectionRatingPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one SectionRating.
+     * @param {SectionRatingUpdateArgs} args - Arguments to update one SectionRating.
+     * @example
+     * // Update one SectionRating
+     * const sectionRating = await prisma.sectionRating.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SectionRatingUpdateArgs>(args: SelectSubset<T, SectionRatingUpdateArgs<ExtArgs>>): Prisma__SectionRatingClient<$Result.GetResult<Prisma.$SectionRatingPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more SectionRatings.
+     * @param {SectionRatingDeleteManyArgs} args - Arguments to filter SectionRatings to delete.
+     * @example
+     * // Delete a few SectionRatings
+     * const { count } = await prisma.sectionRating.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SectionRatingDeleteManyArgs>(args?: SelectSubset<T, SectionRatingDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SectionRatings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SectionRatingUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SectionRatings
+     * const sectionRating = await prisma.sectionRating.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SectionRatingUpdateManyArgs>(args: SelectSubset<T, SectionRatingUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SectionRatings and returns the data updated in the database.
+     * @param {SectionRatingUpdateManyAndReturnArgs} args - Arguments to update many SectionRatings.
+     * @example
+     * // Update many SectionRatings
+     * const sectionRating = await prisma.sectionRating.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more SectionRatings and only return the `id`
+     * const sectionRatingWithIdOnly = await prisma.sectionRating.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends SectionRatingUpdateManyAndReturnArgs>(args: SelectSubset<T, SectionRatingUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SectionRatingPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one SectionRating.
+     * @param {SectionRatingUpsertArgs} args - Arguments to update or create a SectionRating.
+     * @example
+     * // Update or create a SectionRating
+     * const sectionRating = await prisma.sectionRating.upsert({
+     *   create: {
+     *     // ... data to create a SectionRating
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SectionRating we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SectionRatingUpsertArgs>(args: SelectSubset<T, SectionRatingUpsertArgs<ExtArgs>>): Prisma__SectionRatingClient<$Result.GetResult<Prisma.$SectionRatingPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of SectionRatings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SectionRatingCountArgs} args - Arguments to filter SectionRatings to count.
+     * @example
+     * // Count the number of SectionRatings
+     * const count = await prisma.sectionRating.count({
+     *   where: {
+     *     // ... the filter for the SectionRatings we want to count
+     *   }
+     * })
+    **/
+    count<T extends SectionRatingCountArgs>(
+      args?: Subset<T, SectionRatingCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SectionRatingCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SectionRating.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SectionRatingAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SectionRatingAggregateArgs>(args: Subset<T, SectionRatingAggregateArgs>): Prisma.PrismaPromise<GetSectionRatingAggregateType<T>>
+
+    /**
+     * Group by SectionRating.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SectionRatingGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SectionRatingGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SectionRatingGroupByArgs['orderBy'] }
+        : { orderBy?: SectionRatingGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SectionRatingGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSectionRatingGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the SectionRating model
+   */
+  readonly fields: SectionRatingFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SectionRating.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SectionRatingClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    section<T extends SectionDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SectionDefaultArgs<ExtArgs>>): Prisma__SectionClient<$Result.GetResult<Prisma.$SectionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the SectionRating model
+   */
+  interface SectionRatingFieldRefs {
+    readonly id: FieldRef<"SectionRating", 'Int'>
+    readonly rate: FieldRef<"SectionRating", 'Int'>
+    readonly userId: FieldRef<"SectionRating", 'Int'>
+    readonly sectionId: FieldRef<"SectionRating", 'Int'>
+    readonly createdAt: FieldRef<"SectionRating", 'DateTime'>
+    readonly updatedAt: FieldRef<"SectionRating", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * SectionRating findUnique
+   */
+  export type SectionRatingFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SectionRating
+     */
+    select?: SectionRatingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SectionRating
+     */
+    omit?: SectionRatingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SectionRatingInclude<ExtArgs> | null
+    /**
+     * Filter, which SectionRating to fetch.
+     */
+    where: SectionRatingWhereUniqueInput
+  }
+
+  /**
+   * SectionRating findUniqueOrThrow
+   */
+  export type SectionRatingFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SectionRating
+     */
+    select?: SectionRatingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SectionRating
+     */
+    omit?: SectionRatingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SectionRatingInclude<ExtArgs> | null
+    /**
+     * Filter, which SectionRating to fetch.
+     */
+    where: SectionRatingWhereUniqueInput
+  }
+
+  /**
+   * SectionRating findFirst
+   */
+  export type SectionRatingFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SectionRating
+     */
+    select?: SectionRatingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SectionRating
+     */
+    omit?: SectionRatingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SectionRatingInclude<ExtArgs> | null
+    /**
+     * Filter, which SectionRating to fetch.
+     */
+    where?: SectionRatingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SectionRatings to fetch.
+     */
+    orderBy?: SectionRatingOrderByWithRelationInput | SectionRatingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SectionRatings.
+     */
+    cursor?: SectionRatingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SectionRatings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SectionRatings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SectionRatings.
+     */
+    distinct?: SectionRatingScalarFieldEnum | SectionRatingScalarFieldEnum[]
+  }
+
+  /**
+   * SectionRating findFirstOrThrow
+   */
+  export type SectionRatingFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SectionRating
+     */
+    select?: SectionRatingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SectionRating
+     */
+    omit?: SectionRatingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SectionRatingInclude<ExtArgs> | null
+    /**
+     * Filter, which SectionRating to fetch.
+     */
+    where?: SectionRatingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SectionRatings to fetch.
+     */
+    orderBy?: SectionRatingOrderByWithRelationInput | SectionRatingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SectionRatings.
+     */
+    cursor?: SectionRatingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SectionRatings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SectionRatings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SectionRatings.
+     */
+    distinct?: SectionRatingScalarFieldEnum | SectionRatingScalarFieldEnum[]
+  }
+
+  /**
+   * SectionRating findMany
+   */
+  export type SectionRatingFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SectionRating
+     */
+    select?: SectionRatingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SectionRating
+     */
+    omit?: SectionRatingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SectionRatingInclude<ExtArgs> | null
+    /**
+     * Filter, which SectionRatings to fetch.
+     */
+    where?: SectionRatingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SectionRatings to fetch.
+     */
+    orderBy?: SectionRatingOrderByWithRelationInput | SectionRatingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SectionRatings.
+     */
+    cursor?: SectionRatingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SectionRatings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SectionRatings.
+     */
+    skip?: number
+    distinct?: SectionRatingScalarFieldEnum | SectionRatingScalarFieldEnum[]
+  }
+
+  /**
+   * SectionRating create
+   */
+  export type SectionRatingCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SectionRating
+     */
+    select?: SectionRatingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SectionRating
+     */
+    omit?: SectionRatingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SectionRatingInclude<ExtArgs> | null
+    /**
+     * The data needed to create a SectionRating.
+     */
+    data: XOR<SectionRatingCreateInput, SectionRatingUncheckedCreateInput>
+  }
+
+  /**
+   * SectionRating createMany
+   */
+  export type SectionRatingCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many SectionRatings.
+     */
+    data: SectionRatingCreateManyInput | SectionRatingCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SectionRating createManyAndReturn
+   */
+  export type SectionRatingCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SectionRating
+     */
+    select?: SectionRatingSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SectionRating
+     */
+    omit?: SectionRatingOmit<ExtArgs> | null
+    /**
+     * The data used to create many SectionRatings.
+     */
+    data: SectionRatingCreateManyInput | SectionRatingCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SectionRatingIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SectionRating update
+   */
+  export type SectionRatingUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SectionRating
+     */
+    select?: SectionRatingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SectionRating
+     */
+    omit?: SectionRatingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SectionRatingInclude<ExtArgs> | null
+    /**
+     * The data needed to update a SectionRating.
+     */
+    data: XOR<SectionRatingUpdateInput, SectionRatingUncheckedUpdateInput>
+    /**
+     * Choose, which SectionRating to update.
+     */
+    where: SectionRatingWhereUniqueInput
+  }
+
+  /**
+   * SectionRating updateMany
+   */
+  export type SectionRatingUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update SectionRatings.
+     */
+    data: XOR<SectionRatingUpdateManyMutationInput, SectionRatingUncheckedUpdateManyInput>
+    /**
+     * Filter which SectionRatings to update
+     */
+    where?: SectionRatingWhereInput
+    /**
+     * Limit how many SectionRatings to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * SectionRating updateManyAndReturn
+   */
+  export type SectionRatingUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SectionRating
+     */
+    select?: SectionRatingSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SectionRating
+     */
+    omit?: SectionRatingOmit<ExtArgs> | null
+    /**
+     * The data used to update SectionRatings.
+     */
+    data: XOR<SectionRatingUpdateManyMutationInput, SectionRatingUncheckedUpdateManyInput>
+    /**
+     * Filter which SectionRatings to update
+     */
+    where?: SectionRatingWhereInput
+    /**
+     * Limit how many SectionRatings to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SectionRatingIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SectionRating upsert
+   */
+  export type SectionRatingUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SectionRating
+     */
+    select?: SectionRatingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SectionRating
+     */
+    omit?: SectionRatingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SectionRatingInclude<ExtArgs> | null
+    /**
+     * The filter to search for the SectionRating to update in case it exists.
+     */
+    where: SectionRatingWhereUniqueInput
+    /**
+     * In case the SectionRating found by the `where` argument doesn't exist, create a new SectionRating with this data.
+     */
+    create: XOR<SectionRatingCreateInput, SectionRatingUncheckedCreateInput>
+    /**
+     * In case the SectionRating was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SectionRatingUpdateInput, SectionRatingUncheckedUpdateInput>
+  }
+
+  /**
+   * SectionRating delete
+   */
+  export type SectionRatingDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SectionRating
+     */
+    select?: SectionRatingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SectionRating
+     */
+    omit?: SectionRatingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SectionRatingInclude<ExtArgs> | null
+    /**
+     * Filter which SectionRating to delete.
+     */
+    where: SectionRatingWhereUniqueInput
+  }
+
+  /**
+   * SectionRating deleteMany
+   */
+  export type SectionRatingDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SectionRatings to delete
+     */
+    where?: SectionRatingWhereInput
+    /**
+     * Limit how many SectionRatings to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * SectionRating without action
+   */
+  export type SectionRatingDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SectionRating
+     */
+    select?: SectionRatingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SectionRating
+     */
+    omit?: SectionRatingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SectionRatingInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -13086,6 +14415,7 @@ export namespace Prisma {
   export const CourseScalarFieldEnum: {
     id: 'id',
     title: 'title',
+    slug: 'slug',
     description: 'description',
     categoryId: 'categoryId',
     userId: 'userId',
@@ -13108,6 +14438,7 @@ export namespace Prisma {
   export const SectionGroupScalarFieldEnum: {
     id: 'id',
     title: 'title',
+    slug: 'slug',
     order: 'order',
     courseId: 'courseId'
   };
@@ -13118,6 +14449,7 @@ export namespace Prisma {
   export const SectionScalarFieldEnum: {
     id: 'id',
     title: 'title',
+    slug: 'slug',
     order: 'order',
     sectionGroupId: 'sectionGroupId'
   };
@@ -13159,13 +14491,13 @@ export namespace Prisma {
   export type AnswerScalarFieldEnum = (typeof AnswerScalarFieldEnum)[keyof typeof AnswerScalarFieldEnum]
 
 
-  export const PreriquisitScalarFieldEnum: {
+  export const PrerequisitScalarFieldEnum: {
     id: 'id',
     content: 'content',
     courseId: 'courseId'
   };
 
-  export type PreriquisitScalarFieldEnum = (typeof PreriquisitScalarFieldEnum)[keyof typeof PreriquisitScalarFieldEnum]
+  export type PrerequisitScalarFieldEnum = (typeof PrerequisitScalarFieldEnum)[keyof typeof PrerequisitScalarFieldEnum]
 
 
   export const SkillScalarFieldEnum: {
@@ -13175,6 +14507,18 @@ export namespace Prisma {
   };
 
   export type SkillScalarFieldEnum = (typeof SkillScalarFieldEnum)[keyof typeof SkillScalarFieldEnum]
+
+
+  export const SectionRatingScalarFieldEnum: {
+    id: 'id',
+    rate: 'rate',
+    userId: 'userId',
+    sectionId: 'sectionId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type SectionRatingScalarFieldEnum = (typeof SectionRatingScalarFieldEnum)[keyof typeof SectionRatingScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -13323,6 +14667,7 @@ export namespace Prisma {
     password?: StringFilter<"User"> | string
     email?: StringFilter<"User"> | string
     role?: EnumRoleFilter<"User"> | $Enums.Role
+    sectionRatings?: SectionRatingListRelationFilter
     courses?: CourseListRelationFilter
   }
 
@@ -13332,6 +14677,7 @@ export namespace Prisma {
     password?: SortOrder
     email?: SortOrder
     role?: SortOrder
+    sectionRatings?: SectionRatingOrderByRelationAggregateInput
     courses?: CourseOrderByRelationAggregateInput
   }
 
@@ -13344,6 +14690,7 @@ export namespace Prisma {
     name?: StringFilter<"User"> | string
     password?: StringFilter<"User"> | string
     role?: EnumRoleFilter<"User"> | $Enums.Role
+    sectionRatings?: SectionRatingListRelationFilter
     courses?: CourseListRelationFilter
   }, "id" | "email">
 
@@ -13377,13 +14724,14 @@ export namespace Prisma {
     NOT?: CourseWhereInput | CourseWhereInput[]
     id?: IntFilter<"Course"> | number
     title?: StringFilter<"Course"> | string
+    slug?: StringFilter<"Course"> | string
     description?: StringFilter<"Course"> | string
     categoryId?: IntFilter<"Course"> | number
     userId?: IntFilter<"Course"> | number
     createdAt?: DateTimeFilter<"Course"> | Date | string
     updatedAt?: DateTimeFilter<"Course"> | Date | string
     sectionGroups?: SectionGroupListRelationFilter
-    preriquisites?: PreriquisitListRelationFilter
+    prerequisites?: PrerequisitListRelationFilter
     skills?: SkillListRelationFilter
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     category?: XOR<CategoryScalarRelationFilter, CategoryWhereInput>
@@ -13392,13 +14740,14 @@ export namespace Prisma {
   export type CourseOrderByWithRelationInput = {
     id?: SortOrder
     title?: SortOrder
+    slug?: SortOrder
     description?: SortOrder
     categoryId?: SortOrder
     userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     sectionGroups?: SectionGroupOrderByRelationAggregateInput
-    preriquisites?: PreriquisitOrderByRelationAggregateInput
+    prerequisites?: PrerequisitOrderByRelationAggregateInput
     skills?: SkillOrderByRelationAggregateInput
     user?: UserOrderByWithRelationInput
     category?: CategoryOrderByWithRelationInput
@@ -13406,6 +14755,7 @@ export namespace Prisma {
 
   export type CourseWhereUniqueInput = Prisma.AtLeast<{
     id?: number
+    slug?: string
     AND?: CourseWhereInput | CourseWhereInput[]
     OR?: CourseWhereInput[]
     NOT?: CourseWhereInput | CourseWhereInput[]
@@ -13416,15 +14766,16 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Course"> | Date | string
     updatedAt?: DateTimeFilter<"Course"> | Date | string
     sectionGroups?: SectionGroupListRelationFilter
-    preriquisites?: PreriquisitListRelationFilter
+    prerequisites?: PrerequisitListRelationFilter
     skills?: SkillListRelationFilter
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     category?: XOR<CategoryScalarRelationFilter, CategoryWhereInput>
-  }, "id">
+  }, "id" | "slug">
 
   export type CourseOrderByWithAggregationInput = {
     id?: SortOrder
     title?: SortOrder
+    slug?: SortOrder
     description?: SortOrder
     categoryId?: SortOrder
     userId?: SortOrder
@@ -13443,6 +14794,7 @@ export namespace Prisma {
     NOT?: CourseScalarWhereWithAggregatesInput | CourseScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"Course"> | number
     title?: StringWithAggregatesFilter<"Course"> | string
+    slug?: StringWithAggregatesFilter<"Course"> | string
     description?: StringWithAggregatesFilter<"Course"> | string
     categoryId?: IntWithAggregatesFilter<"Course"> | number
     userId?: IntWithAggregatesFilter<"Course"> | number
@@ -13503,6 +14855,7 @@ export namespace Prisma {
     NOT?: SectionGroupWhereInput | SectionGroupWhereInput[]
     id?: IntFilter<"SectionGroup"> | number
     title?: StringFilter<"SectionGroup"> | string
+    slug?: StringFilter<"SectionGroup"> | string
     order?: IntFilter<"SectionGroup"> | number
     courseId?: IntFilter<"SectionGroup"> | number
     sections?: SectionListRelationFilter
@@ -13512,6 +14865,7 @@ export namespace Prisma {
   export type SectionGroupOrderByWithRelationInput = {
     id?: SortOrder
     title?: SortOrder
+    slug?: SortOrder
     order?: SortOrder
     courseId?: SortOrder
     sections?: SectionOrderByRelationAggregateInput
@@ -13520,6 +14874,7 @@ export namespace Prisma {
 
   export type SectionGroupWhereUniqueInput = Prisma.AtLeast<{
     id?: number
+    slug?: string
     AND?: SectionGroupWhereInput | SectionGroupWhereInput[]
     OR?: SectionGroupWhereInput[]
     NOT?: SectionGroupWhereInput | SectionGroupWhereInput[]
@@ -13528,11 +14883,12 @@ export namespace Prisma {
     courseId?: IntFilter<"SectionGroup"> | number
     sections?: SectionListRelationFilter
     course?: XOR<CourseScalarRelationFilter, CourseWhereInput>
-  }, "id">
+  }, "id" | "slug">
 
   export type SectionGroupOrderByWithAggregationInput = {
     id?: SortOrder
     title?: SortOrder
+    slug?: SortOrder
     order?: SortOrder
     courseId?: SortOrder
     _count?: SectionGroupCountOrderByAggregateInput
@@ -13548,6 +14904,7 @@ export namespace Prisma {
     NOT?: SectionGroupScalarWhereWithAggregatesInput | SectionGroupScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"SectionGroup"> | number
     title?: StringWithAggregatesFilter<"SectionGroup"> | string
+    slug?: StringWithAggregatesFilter<"SectionGroup"> | string
     order?: IntWithAggregatesFilter<"SectionGroup"> | number
     courseId?: IntWithAggregatesFilter<"SectionGroup"> | number
   }
@@ -13558,36 +14915,43 @@ export namespace Prisma {
     NOT?: SectionWhereInput | SectionWhereInput[]
     id?: IntFilter<"Section"> | number
     title?: StringFilter<"Section"> | string
+    slug?: StringFilter<"Section"> | string
     order?: IntFilter<"Section"> | number
     sectionGroupId?: IntFilter<"Section"> | number
     lessons?: LessonListRelationFilter
+    sectionRates?: SectionRatingListRelationFilter
     sectionGroup?: XOR<SectionGroupScalarRelationFilter, SectionGroupWhereInput>
   }
 
   export type SectionOrderByWithRelationInput = {
     id?: SortOrder
     title?: SortOrder
+    slug?: SortOrder
     order?: SortOrder
     sectionGroupId?: SortOrder
     lessons?: LessonOrderByRelationAggregateInput
+    sectionRates?: SectionRatingOrderByRelationAggregateInput
     sectionGroup?: SectionGroupOrderByWithRelationInput
   }
 
   export type SectionWhereUniqueInput = Prisma.AtLeast<{
     id?: number
+    title?: string
+    slug?: string
     AND?: SectionWhereInput | SectionWhereInput[]
     OR?: SectionWhereInput[]
     NOT?: SectionWhereInput | SectionWhereInput[]
-    title?: StringFilter<"Section"> | string
     order?: IntFilter<"Section"> | number
     sectionGroupId?: IntFilter<"Section"> | number
     lessons?: LessonListRelationFilter
+    sectionRates?: SectionRatingListRelationFilter
     sectionGroup?: XOR<SectionGroupScalarRelationFilter, SectionGroupWhereInput>
-  }, "id">
+  }, "id" | "title" | "slug">
 
   export type SectionOrderByWithAggregationInput = {
     id?: SortOrder
     title?: SortOrder
+    slug?: SortOrder
     order?: SortOrder
     sectionGroupId?: SortOrder
     _count?: SectionCountOrderByAggregateInput
@@ -13603,6 +14967,7 @@ export namespace Prisma {
     NOT?: SectionScalarWhereWithAggregatesInput | SectionScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"Section"> | number
     title?: StringWithAggregatesFilter<"Section"> | string
+    slug?: StringWithAggregatesFilter<"Section"> | string
     order?: IntWithAggregatesFilter<"Section"> | number
     sectionGroupId?: IntWithAggregatesFilter<"Section"> | number
   }
@@ -13789,51 +15154,51 @@ export namespace Prisma {
     isCorrect?: BoolWithAggregatesFilter<"Answer"> | boolean
   }
 
-  export type PreriquisitWhereInput = {
-    AND?: PreriquisitWhereInput | PreriquisitWhereInput[]
-    OR?: PreriquisitWhereInput[]
-    NOT?: PreriquisitWhereInput | PreriquisitWhereInput[]
-    id?: IntFilter<"Preriquisit"> | number
-    content?: StringFilter<"Preriquisit"> | string
-    courseId?: IntFilter<"Preriquisit"> | number
+  export type PrerequisitWhereInput = {
+    AND?: PrerequisitWhereInput | PrerequisitWhereInput[]
+    OR?: PrerequisitWhereInput[]
+    NOT?: PrerequisitWhereInput | PrerequisitWhereInput[]
+    id?: IntFilter<"Prerequisit"> | number
+    content?: StringFilter<"Prerequisit"> | string
+    courseId?: IntFilter<"Prerequisit"> | number
     course?: XOR<CourseScalarRelationFilter, CourseWhereInput>
   }
 
-  export type PreriquisitOrderByWithRelationInput = {
+  export type PrerequisitOrderByWithRelationInput = {
     id?: SortOrder
     content?: SortOrder
     courseId?: SortOrder
     course?: CourseOrderByWithRelationInput
   }
 
-  export type PreriquisitWhereUniqueInput = Prisma.AtLeast<{
+  export type PrerequisitWhereUniqueInput = Prisma.AtLeast<{
     id?: number
-    AND?: PreriquisitWhereInput | PreriquisitWhereInput[]
-    OR?: PreriquisitWhereInput[]
-    NOT?: PreriquisitWhereInput | PreriquisitWhereInput[]
-    content?: StringFilter<"Preriquisit"> | string
-    courseId?: IntFilter<"Preriquisit"> | number
+    AND?: PrerequisitWhereInput | PrerequisitWhereInput[]
+    OR?: PrerequisitWhereInput[]
+    NOT?: PrerequisitWhereInput | PrerequisitWhereInput[]
+    content?: StringFilter<"Prerequisit"> | string
+    courseId?: IntFilter<"Prerequisit"> | number
     course?: XOR<CourseScalarRelationFilter, CourseWhereInput>
   }, "id">
 
-  export type PreriquisitOrderByWithAggregationInput = {
+  export type PrerequisitOrderByWithAggregationInput = {
     id?: SortOrder
     content?: SortOrder
     courseId?: SortOrder
-    _count?: PreriquisitCountOrderByAggregateInput
-    _avg?: PreriquisitAvgOrderByAggregateInput
-    _max?: PreriquisitMaxOrderByAggregateInput
-    _min?: PreriquisitMinOrderByAggregateInput
-    _sum?: PreriquisitSumOrderByAggregateInput
+    _count?: PrerequisitCountOrderByAggregateInput
+    _avg?: PrerequisitAvgOrderByAggregateInput
+    _max?: PrerequisitMaxOrderByAggregateInput
+    _min?: PrerequisitMinOrderByAggregateInput
+    _sum?: PrerequisitSumOrderByAggregateInput
   }
 
-  export type PreriquisitScalarWhereWithAggregatesInput = {
-    AND?: PreriquisitScalarWhereWithAggregatesInput | PreriquisitScalarWhereWithAggregatesInput[]
-    OR?: PreriquisitScalarWhereWithAggregatesInput[]
-    NOT?: PreriquisitScalarWhereWithAggregatesInput | PreriquisitScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"Preriquisit"> | number
-    content?: StringWithAggregatesFilter<"Preriquisit"> | string
-    courseId?: IntWithAggregatesFilter<"Preriquisit"> | number
+  export type PrerequisitScalarWhereWithAggregatesInput = {
+    AND?: PrerequisitScalarWhereWithAggregatesInput | PrerequisitScalarWhereWithAggregatesInput[]
+    OR?: PrerequisitScalarWhereWithAggregatesInput[]
+    NOT?: PrerequisitScalarWhereWithAggregatesInput | PrerequisitScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Prerequisit"> | number
+    content?: StringWithAggregatesFilter<"Prerequisit"> | string
+    courseId?: IntWithAggregatesFilter<"Prerequisit"> | number
   }
 
   export type SkillWhereInput = {
@@ -13883,11 +15248,78 @@ export namespace Prisma {
     courseId?: IntWithAggregatesFilter<"Skill"> | number
   }
 
+  export type SectionRatingWhereInput = {
+    AND?: SectionRatingWhereInput | SectionRatingWhereInput[]
+    OR?: SectionRatingWhereInput[]
+    NOT?: SectionRatingWhereInput | SectionRatingWhereInput[]
+    id?: IntFilter<"SectionRating"> | number
+    rate?: IntFilter<"SectionRating"> | number
+    userId?: IntFilter<"SectionRating"> | number
+    sectionId?: IntFilter<"SectionRating"> | number
+    createdAt?: DateTimeFilter<"SectionRating"> | Date | string
+    updatedAt?: DateTimeFilter<"SectionRating"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    section?: XOR<SectionScalarRelationFilter, SectionWhereInput>
+  }
+
+  export type SectionRatingOrderByWithRelationInput = {
+    id?: SortOrder
+    rate?: SortOrder
+    userId?: SortOrder
+    sectionId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+    section?: SectionOrderByWithRelationInput
+  }
+
+  export type SectionRatingWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    userId_sectionId?: SectionRatingUserIdSectionIdCompoundUniqueInput
+    AND?: SectionRatingWhereInput | SectionRatingWhereInput[]
+    OR?: SectionRatingWhereInput[]
+    NOT?: SectionRatingWhereInput | SectionRatingWhereInput[]
+    rate?: IntFilter<"SectionRating"> | number
+    userId?: IntFilter<"SectionRating"> | number
+    sectionId?: IntFilter<"SectionRating"> | number
+    createdAt?: DateTimeFilter<"SectionRating"> | Date | string
+    updatedAt?: DateTimeFilter<"SectionRating"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    section?: XOR<SectionScalarRelationFilter, SectionWhereInput>
+  }, "id" | "userId_sectionId">
+
+  export type SectionRatingOrderByWithAggregationInput = {
+    id?: SortOrder
+    rate?: SortOrder
+    userId?: SortOrder
+    sectionId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: SectionRatingCountOrderByAggregateInput
+    _avg?: SectionRatingAvgOrderByAggregateInput
+    _max?: SectionRatingMaxOrderByAggregateInput
+    _min?: SectionRatingMinOrderByAggregateInput
+    _sum?: SectionRatingSumOrderByAggregateInput
+  }
+
+  export type SectionRatingScalarWhereWithAggregatesInput = {
+    AND?: SectionRatingScalarWhereWithAggregatesInput | SectionRatingScalarWhereWithAggregatesInput[]
+    OR?: SectionRatingScalarWhereWithAggregatesInput[]
+    NOT?: SectionRatingScalarWhereWithAggregatesInput | SectionRatingScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"SectionRating"> | number
+    rate?: IntWithAggregatesFilter<"SectionRating"> | number
+    userId?: IntWithAggregatesFilter<"SectionRating"> | number
+    sectionId?: IntWithAggregatesFilter<"SectionRating"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"SectionRating"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"SectionRating"> | Date | string
+  }
+
   export type UserCreateInput = {
     name: string
     password: string
     email: string
     role?: $Enums.Role
+    sectionRatings?: SectionRatingCreateNestedManyWithoutUserInput
     courses?: CourseCreateNestedManyWithoutUserInput
   }
 
@@ -13897,6 +15329,7 @@ export namespace Prisma {
     password: string
     email: string
     role?: $Enums.Role
+    sectionRatings?: SectionRatingUncheckedCreateNestedManyWithoutUserInput
     courses?: CourseUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -13905,6 +15338,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    sectionRatings?: SectionRatingUpdateManyWithoutUserNestedInput
     courses?: CourseUpdateManyWithoutUserNestedInput
   }
 
@@ -13914,6 +15348,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    sectionRatings?: SectionRatingUncheckedUpdateManyWithoutUserNestedInput
     courses?: CourseUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -13942,11 +15377,12 @@ export namespace Prisma {
 
   export type CourseCreateInput = {
     title: string
+    slug: string
     description: string
     createdAt?: Date | string
     updatedAt?: Date | string
     sectionGroups?: SectionGroupCreateNestedManyWithoutCourseInput
-    preriquisites?: PreriquisitCreateNestedManyWithoutCourseInput
+    prerequisites?: PrerequisitCreateNestedManyWithoutCourseInput
     skills?: SkillCreateNestedManyWithoutCourseInput
     user: UserCreateNestedOneWithoutCoursesInput
     category: CategoryCreateNestedOneWithoutCoursesInput
@@ -13955,23 +15391,25 @@ export namespace Prisma {
   export type CourseUncheckedCreateInput = {
     id?: number
     title: string
+    slug: string
     description: string
     categoryId: number
     userId: number
     createdAt?: Date | string
     updatedAt?: Date | string
     sectionGroups?: SectionGroupUncheckedCreateNestedManyWithoutCourseInput
-    preriquisites?: PreriquisitUncheckedCreateNestedManyWithoutCourseInput
+    prerequisites?: PrerequisitUncheckedCreateNestedManyWithoutCourseInput
     skills?: SkillUncheckedCreateNestedManyWithoutCourseInput
   }
 
   export type CourseUpdateInput = {
     title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sectionGroups?: SectionGroupUpdateManyWithoutCourseNestedInput
-    preriquisites?: PreriquisitUpdateManyWithoutCourseNestedInput
+    prerequisites?: PrerequisitUpdateManyWithoutCourseNestedInput
     skills?: SkillUpdateManyWithoutCourseNestedInput
     user?: UserUpdateOneRequiredWithoutCoursesNestedInput
     category?: CategoryUpdateOneRequiredWithoutCoursesNestedInput
@@ -13980,19 +15418,21 @@ export namespace Prisma {
   export type CourseUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     categoryId?: IntFieldUpdateOperationsInput | number
     userId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sectionGroups?: SectionGroupUncheckedUpdateManyWithoutCourseNestedInput
-    preriquisites?: PreriquisitUncheckedUpdateManyWithoutCourseNestedInput
+    prerequisites?: PrerequisitUncheckedUpdateManyWithoutCourseNestedInput
     skills?: SkillUncheckedUpdateManyWithoutCourseNestedInput
   }
 
   export type CourseCreateManyInput = {
     id?: number
     title: string
+    slug: string
     description: string
     categoryId: number
     userId: number
@@ -14002,6 +15442,7 @@ export namespace Prisma {
 
   export type CourseUpdateManyMutationInput = {
     title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -14010,6 +15451,7 @@ export namespace Prisma {
   export type CourseUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     categoryId?: IntFieldUpdateOperationsInput | number
     userId?: IntFieldUpdateOperationsInput | number
@@ -14062,6 +15504,7 @@ export namespace Prisma {
 
   export type SectionGroupCreateInput = {
     title: string
+    slug: string
     order: number
     sections?: SectionCreateNestedManyWithoutSectionGroupInput
     course: CourseCreateNestedOneWithoutSectionGroupsInput
@@ -14070,6 +15513,7 @@ export namespace Prisma {
   export type SectionGroupUncheckedCreateInput = {
     id?: number
     title: string
+    slug: string
     order: number
     courseId: number
     sections?: SectionUncheckedCreateNestedManyWithoutSectionGroupInput
@@ -14077,6 +15521,7 @@ export namespace Prisma {
 
   export type SectionGroupUpdateInput = {
     title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     sections?: SectionUpdateManyWithoutSectionGroupNestedInput
     course?: CourseUpdateOneRequiredWithoutSectionGroupsNestedInput
@@ -14085,6 +15530,7 @@ export namespace Prisma {
   export type SectionGroupUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     courseId?: IntFieldUpdateOperationsInput | number
     sections?: SectionUncheckedUpdateManyWithoutSectionGroupNestedInput
@@ -14093,67 +15539,81 @@ export namespace Prisma {
   export type SectionGroupCreateManyInput = {
     id?: number
     title: string
+    slug: string
     order: number
     courseId: number
   }
 
   export type SectionGroupUpdateManyMutationInput = {
     title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
   }
 
   export type SectionGroupUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     courseId?: IntFieldUpdateOperationsInput | number
   }
 
   export type SectionCreateInput = {
     title: string
+    slug: string
     order: number
     lessons?: LessonCreateNestedManyWithoutSectionInput
+    sectionRates?: SectionRatingCreateNestedManyWithoutSectionInput
     sectionGroup: SectionGroupCreateNestedOneWithoutSectionsInput
   }
 
   export type SectionUncheckedCreateInput = {
     id?: number
     title: string
+    slug: string
     order: number
     sectionGroupId: number
     lessons?: LessonUncheckedCreateNestedManyWithoutSectionInput
+    sectionRates?: SectionRatingUncheckedCreateNestedManyWithoutSectionInput
   }
 
   export type SectionUpdateInput = {
     title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     lessons?: LessonUpdateManyWithoutSectionNestedInput
+    sectionRates?: SectionRatingUpdateManyWithoutSectionNestedInput
     sectionGroup?: SectionGroupUpdateOneRequiredWithoutSectionsNestedInput
   }
 
   export type SectionUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     sectionGroupId?: IntFieldUpdateOperationsInput | number
     lessons?: LessonUncheckedUpdateManyWithoutSectionNestedInput
+    sectionRates?: SectionRatingUncheckedUpdateManyWithoutSectionNestedInput
   }
 
   export type SectionCreateManyInput = {
     id?: number
     title: string
+    slug: string
     order: number
     sectionGroupId: number
   }
 
   export type SectionUpdateManyMutationInput = {
     title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
   }
 
   export type SectionUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     sectionGroupId?: IntFieldUpdateOperationsInput | number
   }
@@ -14329,39 +15789,39 @@ export namespace Prisma {
     isCorrect?: BoolFieldUpdateOperationsInput | boolean
   }
 
-  export type PreriquisitCreateInput = {
+  export type PrerequisitCreateInput = {
     content: string
-    course: CourseCreateNestedOneWithoutPreriquisitesInput
+    course: CourseCreateNestedOneWithoutPrerequisitesInput
   }
 
-  export type PreriquisitUncheckedCreateInput = {
+  export type PrerequisitUncheckedCreateInput = {
     id?: number
     content: string
     courseId: number
   }
 
-  export type PreriquisitUpdateInput = {
+  export type PrerequisitUpdateInput = {
     content?: StringFieldUpdateOperationsInput | string
-    course?: CourseUpdateOneRequiredWithoutPreriquisitesNestedInput
+    course?: CourseUpdateOneRequiredWithoutPrerequisitesNestedInput
   }
 
-  export type PreriquisitUncheckedUpdateInput = {
+  export type PrerequisitUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     content?: StringFieldUpdateOperationsInput | string
     courseId?: IntFieldUpdateOperationsInput | number
   }
 
-  export type PreriquisitCreateManyInput = {
+  export type PrerequisitCreateManyInput = {
     id?: number
     content: string
     courseId: number
   }
 
-  export type PreriquisitUpdateManyMutationInput = {
+  export type PrerequisitUpdateManyMutationInput = {
     content?: StringFieldUpdateOperationsInput | string
   }
 
-  export type PreriquisitUncheckedUpdateManyInput = {
+  export type PrerequisitUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     content?: StringFieldUpdateOperationsInput | string
     courseId?: IntFieldUpdateOperationsInput | number
@@ -14405,6 +15865,64 @@ export namespace Prisma {
     courseId?: IntFieldUpdateOperationsInput | number
   }
 
+  export type SectionRatingCreateInput = {
+    rate?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutSectionRatingsInput
+    section: SectionCreateNestedOneWithoutSectionRatesInput
+  }
+
+  export type SectionRatingUncheckedCreateInput = {
+    id?: number
+    rate?: number
+    userId: number
+    sectionId: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SectionRatingUpdateInput = {
+    rate?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutSectionRatingsNestedInput
+    section?: SectionUpdateOneRequiredWithoutSectionRatesNestedInput
+  }
+
+  export type SectionRatingUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    rate?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    sectionId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SectionRatingCreateManyInput = {
+    id?: number
+    rate?: number
+    userId: number
+    sectionId: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SectionRatingUpdateManyMutationInput = {
+    rate?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SectionRatingUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    rate?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    sectionId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type IntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -14438,10 +15956,20 @@ export namespace Prisma {
     not?: NestedEnumRoleFilter<$PrismaModel> | $Enums.Role
   }
 
+  export type SectionRatingListRelationFilter = {
+    every?: SectionRatingWhereInput
+    some?: SectionRatingWhereInput
+    none?: SectionRatingWhereInput
+  }
+
   export type CourseListRelationFilter = {
     every?: CourseWhereInput
     some?: CourseWhereInput
     none?: CourseWhereInput
+  }
+
+  export type SectionRatingOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type CourseOrderByRelationAggregateInput = {
@@ -14541,10 +16069,10 @@ export namespace Prisma {
     none?: SectionGroupWhereInput
   }
 
-  export type PreriquisitListRelationFilter = {
-    every?: PreriquisitWhereInput
-    some?: PreriquisitWhereInput
-    none?: PreriquisitWhereInput
+  export type PrerequisitListRelationFilter = {
+    every?: PrerequisitWhereInput
+    some?: PrerequisitWhereInput
+    none?: PrerequisitWhereInput
   }
 
   export type SkillListRelationFilter = {
@@ -14567,7 +16095,7 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
-  export type PreriquisitOrderByRelationAggregateInput = {
+  export type PrerequisitOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -14578,6 +16106,7 @@ export namespace Prisma {
   export type CourseCountOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
+    slug?: SortOrder
     description?: SortOrder
     categoryId?: SortOrder
     userId?: SortOrder
@@ -14594,6 +16123,7 @@ export namespace Prisma {
   export type CourseMaxOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
+    slug?: SortOrder
     description?: SortOrder
     categoryId?: SortOrder
     userId?: SortOrder
@@ -14604,6 +16134,7 @@ export namespace Prisma {
   export type CourseMinOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
+    slug?: SortOrder
     description?: SortOrder
     categoryId?: SortOrder
     userId?: SortOrder
@@ -14675,6 +16206,7 @@ export namespace Prisma {
   export type SectionGroupCountOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
+    slug?: SortOrder
     order?: SortOrder
     courseId?: SortOrder
   }
@@ -14688,6 +16220,7 @@ export namespace Prisma {
   export type SectionGroupMaxOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
+    slug?: SortOrder
     order?: SortOrder
     courseId?: SortOrder
   }
@@ -14695,6 +16228,7 @@ export namespace Prisma {
   export type SectionGroupMinOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
+    slug?: SortOrder
     order?: SortOrder
     courseId?: SortOrder
   }
@@ -14723,6 +16257,7 @@ export namespace Prisma {
   export type SectionCountOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
+    slug?: SortOrder
     order?: SortOrder
     sectionGroupId?: SortOrder
   }
@@ -14736,6 +16271,7 @@ export namespace Prisma {
   export type SectionMaxOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
+    slug?: SortOrder
     order?: SortOrder
     sectionGroupId?: SortOrder
   }
@@ -14743,6 +16279,7 @@ export namespace Prisma {
   export type SectionMinOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
+    slug?: SortOrder
     order?: SortOrder
     sectionGroupId?: SortOrder
   }
@@ -15004,30 +16541,30 @@ export namespace Prisma {
     _max?: NestedBoolFilter<$PrismaModel>
   }
 
-  export type PreriquisitCountOrderByAggregateInput = {
+  export type PrerequisitCountOrderByAggregateInput = {
     id?: SortOrder
     content?: SortOrder
     courseId?: SortOrder
   }
 
-  export type PreriquisitAvgOrderByAggregateInput = {
+  export type PrerequisitAvgOrderByAggregateInput = {
     id?: SortOrder
     courseId?: SortOrder
   }
 
-  export type PreriquisitMaxOrderByAggregateInput = {
-    id?: SortOrder
-    content?: SortOrder
-    courseId?: SortOrder
-  }
-
-  export type PreriquisitMinOrderByAggregateInput = {
+  export type PrerequisitMaxOrderByAggregateInput = {
     id?: SortOrder
     content?: SortOrder
     courseId?: SortOrder
   }
 
-  export type PreriquisitSumOrderByAggregateInput = {
+  export type PrerequisitMinOrderByAggregateInput = {
+    id?: SortOrder
+    content?: SortOrder
+    courseId?: SortOrder
+  }
+
+  export type PrerequisitSumOrderByAggregateInput = {
     id?: SortOrder
     courseId?: SortOrder
   }
@@ -15060,11 +16597,71 @@ export namespace Prisma {
     courseId?: SortOrder
   }
 
+  export type SectionRatingUserIdSectionIdCompoundUniqueInput = {
+    userId: number
+    sectionId: number
+  }
+
+  export type SectionRatingCountOrderByAggregateInput = {
+    id?: SortOrder
+    rate?: SortOrder
+    userId?: SortOrder
+    sectionId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SectionRatingAvgOrderByAggregateInput = {
+    id?: SortOrder
+    rate?: SortOrder
+    userId?: SortOrder
+    sectionId?: SortOrder
+  }
+
+  export type SectionRatingMaxOrderByAggregateInput = {
+    id?: SortOrder
+    rate?: SortOrder
+    userId?: SortOrder
+    sectionId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SectionRatingMinOrderByAggregateInput = {
+    id?: SortOrder
+    rate?: SortOrder
+    userId?: SortOrder
+    sectionId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SectionRatingSumOrderByAggregateInput = {
+    id?: SortOrder
+    rate?: SortOrder
+    userId?: SortOrder
+    sectionId?: SortOrder
+  }
+
+  export type SectionRatingCreateNestedManyWithoutUserInput = {
+    create?: XOR<SectionRatingCreateWithoutUserInput, SectionRatingUncheckedCreateWithoutUserInput> | SectionRatingCreateWithoutUserInput[] | SectionRatingUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: SectionRatingCreateOrConnectWithoutUserInput | SectionRatingCreateOrConnectWithoutUserInput[]
+    createMany?: SectionRatingCreateManyUserInputEnvelope
+    connect?: SectionRatingWhereUniqueInput | SectionRatingWhereUniqueInput[]
+  }
+
   export type CourseCreateNestedManyWithoutUserInput = {
     create?: XOR<CourseCreateWithoutUserInput, CourseUncheckedCreateWithoutUserInput> | CourseCreateWithoutUserInput[] | CourseUncheckedCreateWithoutUserInput[]
     connectOrCreate?: CourseCreateOrConnectWithoutUserInput | CourseCreateOrConnectWithoutUserInput[]
     createMany?: CourseCreateManyUserInputEnvelope
     connect?: CourseWhereUniqueInput | CourseWhereUniqueInput[]
+  }
+
+  export type SectionRatingUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<SectionRatingCreateWithoutUserInput, SectionRatingUncheckedCreateWithoutUserInput> | SectionRatingCreateWithoutUserInput[] | SectionRatingUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: SectionRatingCreateOrConnectWithoutUserInput | SectionRatingCreateOrConnectWithoutUserInput[]
+    createMany?: SectionRatingCreateManyUserInputEnvelope
+    connect?: SectionRatingWhereUniqueInput | SectionRatingWhereUniqueInput[]
   }
 
   export type CourseUncheckedCreateNestedManyWithoutUserInput = {
@@ -15080,6 +16677,20 @@ export namespace Prisma {
 
   export type EnumRoleFieldUpdateOperationsInput = {
     set?: $Enums.Role
+  }
+
+  export type SectionRatingUpdateManyWithoutUserNestedInput = {
+    create?: XOR<SectionRatingCreateWithoutUserInput, SectionRatingUncheckedCreateWithoutUserInput> | SectionRatingCreateWithoutUserInput[] | SectionRatingUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: SectionRatingCreateOrConnectWithoutUserInput | SectionRatingCreateOrConnectWithoutUserInput[]
+    upsert?: SectionRatingUpsertWithWhereUniqueWithoutUserInput | SectionRatingUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: SectionRatingCreateManyUserInputEnvelope
+    set?: SectionRatingWhereUniqueInput | SectionRatingWhereUniqueInput[]
+    disconnect?: SectionRatingWhereUniqueInput | SectionRatingWhereUniqueInput[]
+    delete?: SectionRatingWhereUniqueInput | SectionRatingWhereUniqueInput[]
+    connect?: SectionRatingWhereUniqueInput | SectionRatingWhereUniqueInput[]
+    update?: SectionRatingUpdateWithWhereUniqueWithoutUserInput | SectionRatingUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: SectionRatingUpdateManyWithWhereWithoutUserInput | SectionRatingUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: SectionRatingScalarWhereInput | SectionRatingScalarWhereInput[]
   }
 
   export type CourseUpdateManyWithoutUserNestedInput = {
@@ -15104,6 +16715,20 @@ export namespace Prisma {
     divide?: number
   }
 
+  export type SectionRatingUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<SectionRatingCreateWithoutUserInput, SectionRatingUncheckedCreateWithoutUserInput> | SectionRatingCreateWithoutUserInput[] | SectionRatingUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: SectionRatingCreateOrConnectWithoutUserInput | SectionRatingCreateOrConnectWithoutUserInput[]
+    upsert?: SectionRatingUpsertWithWhereUniqueWithoutUserInput | SectionRatingUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: SectionRatingCreateManyUserInputEnvelope
+    set?: SectionRatingWhereUniqueInput | SectionRatingWhereUniqueInput[]
+    disconnect?: SectionRatingWhereUniqueInput | SectionRatingWhereUniqueInput[]
+    delete?: SectionRatingWhereUniqueInput | SectionRatingWhereUniqueInput[]
+    connect?: SectionRatingWhereUniqueInput | SectionRatingWhereUniqueInput[]
+    update?: SectionRatingUpdateWithWhereUniqueWithoutUserInput | SectionRatingUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: SectionRatingUpdateManyWithWhereWithoutUserInput | SectionRatingUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: SectionRatingScalarWhereInput | SectionRatingScalarWhereInput[]
+  }
+
   export type CourseUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<CourseCreateWithoutUserInput, CourseUncheckedCreateWithoutUserInput> | CourseCreateWithoutUserInput[] | CourseUncheckedCreateWithoutUserInput[]
     connectOrCreate?: CourseCreateOrConnectWithoutUserInput | CourseCreateOrConnectWithoutUserInput[]
@@ -15125,11 +16750,11 @@ export namespace Prisma {
     connect?: SectionGroupWhereUniqueInput | SectionGroupWhereUniqueInput[]
   }
 
-  export type PreriquisitCreateNestedManyWithoutCourseInput = {
-    create?: XOR<PreriquisitCreateWithoutCourseInput, PreriquisitUncheckedCreateWithoutCourseInput> | PreriquisitCreateWithoutCourseInput[] | PreriquisitUncheckedCreateWithoutCourseInput[]
-    connectOrCreate?: PreriquisitCreateOrConnectWithoutCourseInput | PreriquisitCreateOrConnectWithoutCourseInput[]
-    createMany?: PreriquisitCreateManyCourseInputEnvelope
-    connect?: PreriquisitWhereUniqueInput | PreriquisitWhereUniqueInput[]
+  export type PrerequisitCreateNestedManyWithoutCourseInput = {
+    create?: XOR<PrerequisitCreateWithoutCourseInput, PrerequisitUncheckedCreateWithoutCourseInput> | PrerequisitCreateWithoutCourseInput[] | PrerequisitUncheckedCreateWithoutCourseInput[]
+    connectOrCreate?: PrerequisitCreateOrConnectWithoutCourseInput | PrerequisitCreateOrConnectWithoutCourseInput[]
+    createMany?: PrerequisitCreateManyCourseInputEnvelope
+    connect?: PrerequisitWhereUniqueInput | PrerequisitWhereUniqueInput[]
   }
 
   export type SkillCreateNestedManyWithoutCourseInput = {
@@ -15158,11 +16783,11 @@ export namespace Prisma {
     connect?: SectionGroupWhereUniqueInput | SectionGroupWhereUniqueInput[]
   }
 
-  export type PreriquisitUncheckedCreateNestedManyWithoutCourseInput = {
-    create?: XOR<PreriquisitCreateWithoutCourseInput, PreriquisitUncheckedCreateWithoutCourseInput> | PreriquisitCreateWithoutCourseInput[] | PreriquisitUncheckedCreateWithoutCourseInput[]
-    connectOrCreate?: PreriquisitCreateOrConnectWithoutCourseInput | PreriquisitCreateOrConnectWithoutCourseInput[]
-    createMany?: PreriquisitCreateManyCourseInputEnvelope
-    connect?: PreriquisitWhereUniqueInput | PreriquisitWhereUniqueInput[]
+  export type PrerequisitUncheckedCreateNestedManyWithoutCourseInput = {
+    create?: XOR<PrerequisitCreateWithoutCourseInput, PrerequisitUncheckedCreateWithoutCourseInput> | PrerequisitCreateWithoutCourseInput[] | PrerequisitUncheckedCreateWithoutCourseInput[]
+    connectOrCreate?: PrerequisitCreateOrConnectWithoutCourseInput | PrerequisitCreateOrConnectWithoutCourseInput[]
+    createMany?: PrerequisitCreateManyCourseInputEnvelope
+    connect?: PrerequisitWhereUniqueInput | PrerequisitWhereUniqueInput[]
   }
 
   export type SkillUncheckedCreateNestedManyWithoutCourseInput = {
@@ -15190,18 +16815,18 @@ export namespace Prisma {
     deleteMany?: SectionGroupScalarWhereInput | SectionGroupScalarWhereInput[]
   }
 
-  export type PreriquisitUpdateManyWithoutCourseNestedInput = {
-    create?: XOR<PreriquisitCreateWithoutCourseInput, PreriquisitUncheckedCreateWithoutCourseInput> | PreriquisitCreateWithoutCourseInput[] | PreriquisitUncheckedCreateWithoutCourseInput[]
-    connectOrCreate?: PreriquisitCreateOrConnectWithoutCourseInput | PreriquisitCreateOrConnectWithoutCourseInput[]
-    upsert?: PreriquisitUpsertWithWhereUniqueWithoutCourseInput | PreriquisitUpsertWithWhereUniqueWithoutCourseInput[]
-    createMany?: PreriquisitCreateManyCourseInputEnvelope
-    set?: PreriquisitWhereUniqueInput | PreriquisitWhereUniqueInput[]
-    disconnect?: PreriquisitWhereUniqueInput | PreriquisitWhereUniqueInput[]
-    delete?: PreriquisitWhereUniqueInput | PreriquisitWhereUniqueInput[]
-    connect?: PreriquisitWhereUniqueInput | PreriquisitWhereUniqueInput[]
-    update?: PreriquisitUpdateWithWhereUniqueWithoutCourseInput | PreriquisitUpdateWithWhereUniqueWithoutCourseInput[]
-    updateMany?: PreriquisitUpdateManyWithWhereWithoutCourseInput | PreriquisitUpdateManyWithWhereWithoutCourseInput[]
-    deleteMany?: PreriquisitScalarWhereInput | PreriquisitScalarWhereInput[]
+  export type PrerequisitUpdateManyWithoutCourseNestedInput = {
+    create?: XOR<PrerequisitCreateWithoutCourseInput, PrerequisitUncheckedCreateWithoutCourseInput> | PrerequisitCreateWithoutCourseInput[] | PrerequisitUncheckedCreateWithoutCourseInput[]
+    connectOrCreate?: PrerequisitCreateOrConnectWithoutCourseInput | PrerequisitCreateOrConnectWithoutCourseInput[]
+    upsert?: PrerequisitUpsertWithWhereUniqueWithoutCourseInput | PrerequisitUpsertWithWhereUniqueWithoutCourseInput[]
+    createMany?: PrerequisitCreateManyCourseInputEnvelope
+    set?: PrerequisitWhereUniqueInput | PrerequisitWhereUniqueInput[]
+    disconnect?: PrerequisitWhereUniqueInput | PrerequisitWhereUniqueInput[]
+    delete?: PrerequisitWhereUniqueInput | PrerequisitWhereUniqueInput[]
+    connect?: PrerequisitWhereUniqueInput | PrerequisitWhereUniqueInput[]
+    update?: PrerequisitUpdateWithWhereUniqueWithoutCourseInput | PrerequisitUpdateWithWhereUniqueWithoutCourseInput[]
+    updateMany?: PrerequisitUpdateManyWithWhereWithoutCourseInput | PrerequisitUpdateManyWithWhereWithoutCourseInput[]
+    deleteMany?: PrerequisitScalarWhereInput | PrerequisitScalarWhereInput[]
   }
 
   export type SkillUpdateManyWithoutCourseNestedInput = {
@@ -15248,18 +16873,18 @@ export namespace Prisma {
     deleteMany?: SectionGroupScalarWhereInput | SectionGroupScalarWhereInput[]
   }
 
-  export type PreriquisitUncheckedUpdateManyWithoutCourseNestedInput = {
-    create?: XOR<PreriquisitCreateWithoutCourseInput, PreriquisitUncheckedCreateWithoutCourseInput> | PreriquisitCreateWithoutCourseInput[] | PreriquisitUncheckedCreateWithoutCourseInput[]
-    connectOrCreate?: PreriquisitCreateOrConnectWithoutCourseInput | PreriquisitCreateOrConnectWithoutCourseInput[]
-    upsert?: PreriquisitUpsertWithWhereUniqueWithoutCourseInput | PreriquisitUpsertWithWhereUniqueWithoutCourseInput[]
-    createMany?: PreriquisitCreateManyCourseInputEnvelope
-    set?: PreriquisitWhereUniqueInput | PreriquisitWhereUniqueInput[]
-    disconnect?: PreriquisitWhereUniqueInput | PreriquisitWhereUniqueInput[]
-    delete?: PreriquisitWhereUniqueInput | PreriquisitWhereUniqueInput[]
-    connect?: PreriquisitWhereUniqueInput | PreriquisitWhereUniqueInput[]
-    update?: PreriquisitUpdateWithWhereUniqueWithoutCourseInput | PreriquisitUpdateWithWhereUniqueWithoutCourseInput[]
-    updateMany?: PreriquisitUpdateManyWithWhereWithoutCourseInput | PreriquisitUpdateManyWithWhereWithoutCourseInput[]
-    deleteMany?: PreriquisitScalarWhereInput | PreriquisitScalarWhereInput[]
+  export type PrerequisitUncheckedUpdateManyWithoutCourseNestedInput = {
+    create?: XOR<PrerequisitCreateWithoutCourseInput, PrerequisitUncheckedCreateWithoutCourseInput> | PrerequisitCreateWithoutCourseInput[] | PrerequisitUncheckedCreateWithoutCourseInput[]
+    connectOrCreate?: PrerequisitCreateOrConnectWithoutCourseInput | PrerequisitCreateOrConnectWithoutCourseInput[]
+    upsert?: PrerequisitUpsertWithWhereUniqueWithoutCourseInput | PrerequisitUpsertWithWhereUniqueWithoutCourseInput[]
+    createMany?: PrerequisitCreateManyCourseInputEnvelope
+    set?: PrerequisitWhereUniqueInput | PrerequisitWhereUniqueInput[]
+    disconnect?: PrerequisitWhereUniqueInput | PrerequisitWhereUniqueInput[]
+    delete?: PrerequisitWhereUniqueInput | PrerequisitWhereUniqueInput[]
+    connect?: PrerequisitWhereUniqueInput | PrerequisitWhereUniqueInput[]
+    update?: PrerequisitUpdateWithWhereUniqueWithoutCourseInput | PrerequisitUpdateWithWhereUniqueWithoutCourseInput[]
+    updateMany?: PrerequisitUpdateManyWithWhereWithoutCourseInput | PrerequisitUpdateManyWithWhereWithoutCourseInput[]
+    deleteMany?: PrerequisitScalarWhereInput | PrerequisitScalarWhereInput[]
   }
 
   export type SkillUncheckedUpdateManyWithoutCourseNestedInput = {
@@ -15381,6 +17006,13 @@ export namespace Prisma {
     connect?: LessonWhereUniqueInput | LessonWhereUniqueInput[]
   }
 
+  export type SectionRatingCreateNestedManyWithoutSectionInput = {
+    create?: XOR<SectionRatingCreateWithoutSectionInput, SectionRatingUncheckedCreateWithoutSectionInput> | SectionRatingCreateWithoutSectionInput[] | SectionRatingUncheckedCreateWithoutSectionInput[]
+    connectOrCreate?: SectionRatingCreateOrConnectWithoutSectionInput | SectionRatingCreateOrConnectWithoutSectionInput[]
+    createMany?: SectionRatingCreateManySectionInputEnvelope
+    connect?: SectionRatingWhereUniqueInput | SectionRatingWhereUniqueInput[]
+  }
+
   export type SectionGroupCreateNestedOneWithoutSectionsInput = {
     create?: XOR<SectionGroupCreateWithoutSectionsInput, SectionGroupUncheckedCreateWithoutSectionsInput>
     connectOrCreate?: SectionGroupCreateOrConnectWithoutSectionsInput
@@ -15392,6 +17024,13 @@ export namespace Prisma {
     connectOrCreate?: LessonCreateOrConnectWithoutSectionInput | LessonCreateOrConnectWithoutSectionInput[]
     createMany?: LessonCreateManySectionInputEnvelope
     connect?: LessonWhereUniqueInput | LessonWhereUniqueInput[]
+  }
+
+  export type SectionRatingUncheckedCreateNestedManyWithoutSectionInput = {
+    create?: XOR<SectionRatingCreateWithoutSectionInput, SectionRatingUncheckedCreateWithoutSectionInput> | SectionRatingCreateWithoutSectionInput[] | SectionRatingUncheckedCreateWithoutSectionInput[]
+    connectOrCreate?: SectionRatingCreateOrConnectWithoutSectionInput | SectionRatingCreateOrConnectWithoutSectionInput[]
+    createMany?: SectionRatingCreateManySectionInputEnvelope
+    connect?: SectionRatingWhereUniqueInput | SectionRatingWhereUniqueInput[]
   }
 
   export type LessonUpdateManyWithoutSectionNestedInput = {
@@ -15406,6 +17045,20 @@ export namespace Prisma {
     update?: LessonUpdateWithWhereUniqueWithoutSectionInput | LessonUpdateWithWhereUniqueWithoutSectionInput[]
     updateMany?: LessonUpdateManyWithWhereWithoutSectionInput | LessonUpdateManyWithWhereWithoutSectionInput[]
     deleteMany?: LessonScalarWhereInput | LessonScalarWhereInput[]
+  }
+
+  export type SectionRatingUpdateManyWithoutSectionNestedInput = {
+    create?: XOR<SectionRatingCreateWithoutSectionInput, SectionRatingUncheckedCreateWithoutSectionInput> | SectionRatingCreateWithoutSectionInput[] | SectionRatingUncheckedCreateWithoutSectionInput[]
+    connectOrCreate?: SectionRatingCreateOrConnectWithoutSectionInput | SectionRatingCreateOrConnectWithoutSectionInput[]
+    upsert?: SectionRatingUpsertWithWhereUniqueWithoutSectionInput | SectionRatingUpsertWithWhereUniqueWithoutSectionInput[]
+    createMany?: SectionRatingCreateManySectionInputEnvelope
+    set?: SectionRatingWhereUniqueInput | SectionRatingWhereUniqueInput[]
+    disconnect?: SectionRatingWhereUniqueInput | SectionRatingWhereUniqueInput[]
+    delete?: SectionRatingWhereUniqueInput | SectionRatingWhereUniqueInput[]
+    connect?: SectionRatingWhereUniqueInput | SectionRatingWhereUniqueInput[]
+    update?: SectionRatingUpdateWithWhereUniqueWithoutSectionInput | SectionRatingUpdateWithWhereUniqueWithoutSectionInput[]
+    updateMany?: SectionRatingUpdateManyWithWhereWithoutSectionInput | SectionRatingUpdateManyWithWhereWithoutSectionInput[]
+    deleteMany?: SectionRatingScalarWhereInput | SectionRatingScalarWhereInput[]
   }
 
   export type SectionGroupUpdateOneRequiredWithoutSectionsNestedInput = {
@@ -15428,6 +17081,20 @@ export namespace Prisma {
     update?: LessonUpdateWithWhereUniqueWithoutSectionInput | LessonUpdateWithWhereUniqueWithoutSectionInput[]
     updateMany?: LessonUpdateManyWithWhereWithoutSectionInput | LessonUpdateManyWithWhereWithoutSectionInput[]
     deleteMany?: LessonScalarWhereInput | LessonScalarWhereInput[]
+  }
+
+  export type SectionRatingUncheckedUpdateManyWithoutSectionNestedInput = {
+    create?: XOR<SectionRatingCreateWithoutSectionInput, SectionRatingUncheckedCreateWithoutSectionInput> | SectionRatingCreateWithoutSectionInput[] | SectionRatingUncheckedCreateWithoutSectionInput[]
+    connectOrCreate?: SectionRatingCreateOrConnectWithoutSectionInput | SectionRatingCreateOrConnectWithoutSectionInput[]
+    upsert?: SectionRatingUpsertWithWhereUniqueWithoutSectionInput | SectionRatingUpsertWithWhereUniqueWithoutSectionInput[]
+    createMany?: SectionRatingCreateManySectionInputEnvelope
+    set?: SectionRatingWhereUniqueInput | SectionRatingWhereUniqueInput[]
+    disconnect?: SectionRatingWhereUniqueInput | SectionRatingWhereUniqueInput[]
+    delete?: SectionRatingWhereUniqueInput | SectionRatingWhereUniqueInput[]
+    connect?: SectionRatingWhereUniqueInput | SectionRatingWhereUniqueInput[]
+    update?: SectionRatingUpdateWithWhereUniqueWithoutSectionInput | SectionRatingUpdateWithWhereUniqueWithoutSectionInput[]
+    updateMany?: SectionRatingUpdateManyWithWhereWithoutSectionInput | SectionRatingUpdateManyWithWhereWithoutSectionInput[]
+    deleteMany?: SectionRatingScalarWhereInput | SectionRatingScalarWhereInput[]
   }
 
   export type QuizCreateNestedOneWithoutLessonInput = {
@@ -15570,18 +17237,18 @@ export namespace Prisma {
     update?: XOR<XOR<QuizUpdateToOneWithWhereWithoutAnswersInput, QuizUpdateWithoutAnswersInput>, QuizUncheckedUpdateWithoutAnswersInput>
   }
 
-  export type CourseCreateNestedOneWithoutPreriquisitesInput = {
-    create?: XOR<CourseCreateWithoutPreriquisitesInput, CourseUncheckedCreateWithoutPreriquisitesInput>
-    connectOrCreate?: CourseCreateOrConnectWithoutPreriquisitesInput
+  export type CourseCreateNestedOneWithoutPrerequisitesInput = {
+    create?: XOR<CourseCreateWithoutPrerequisitesInput, CourseUncheckedCreateWithoutPrerequisitesInput>
+    connectOrCreate?: CourseCreateOrConnectWithoutPrerequisitesInput
     connect?: CourseWhereUniqueInput
   }
 
-  export type CourseUpdateOneRequiredWithoutPreriquisitesNestedInput = {
-    create?: XOR<CourseCreateWithoutPreriquisitesInput, CourseUncheckedCreateWithoutPreriquisitesInput>
-    connectOrCreate?: CourseCreateOrConnectWithoutPreriquisitesInput
-    upsert?: CourseUpsertWithoutPreriquisitesInput
+  export type CourseUpdateOneRequiredWithoutPrerequisitesNestedInput = {
+    create?: XOR<CourseCreateWithoutPrerequisitesInput, CourseUncheckedCreateWithoutPrerequisitesInput>
+    connectOrCreate?: CourseCreateOrConnectWithoutPrerequisitesInput
+    upsert?: CourseUpsertWithoutPrerequisitesInput
     connect?: CourseWhereUniqueInput
-    update?: XOR<XOR<CourseUpdateToOneWithWhereWithoutPreriquisitesInput, CourseUpdateWithoutPreriquisitesInput>, CourseUncheckedUpdateWithoutPreriquisitesInput>
+    update?: XOR<XOR<CourseUpdateToOneWithWhereWithoutPrerequisitesInput, CourseUpdateWithoutPrerequisitesInput>, CourseUncheckedUpdateWithoutPrerequisitesInput>
   }
 
   export type CourseCreateNestedOneWithoutSkillsInput = {
@@ -15596,6 +17263,34 @@ export namespace Prisma {
     upsert?: CourseUpsertWithoutSkillsInput
     connect?: CourseWhereUniqueInput
     update?: XOR<XOR<CourseUpdateToOneWithWhereWithoutSkillsInput, CourseUpdateWithoutSkillsInput>, CourseUncheckedUpdateWithoutSkillsInput>
+  }
+
+  export type UserCreateNestedOneWithoutSectionRatingsInput = {
+    create?: XOR<UserCreateWithoutSectionRatingsInput, UserUncheckedCreateWithoutSectionRatingsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSectionRatingsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type SectionCreateNestedOneWithoutSectionRatesInput = {
+    create?: XOR<SectionCreateWithoutSectionRatesInput, SectionUncheckedCreateWithoutSectionRatesInput>
+    connectOrCreate?: SectionCreateOrConnectWithoutSectionRatesInput
+    connect?: SectionWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutSectionRatingsNestedInput = {
+    create?: XOR<UserCreateWithoutSectionRatingsInput, UserUncheckedCreateWithoutSectionRatingsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSectionRatingsInput
+    upsert?: UserUpsertWithoutSectionRatingsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutSectionRatingsInput, UserUpdateWithoutSectionRatingsInput>, UserUncheckedUpdateWithoutSectionRatingsInput>
+  }
+
+  export type SectionUpdateOneRequiredWithoutSectionRatesNestedInput = {
+    create?: XOR<SectionCreateWithoutSectionRatesInput, SectionUncheckedCreateWithoutSectionRatesInput>
+    connectOrCreate?: SectionCreateOrConnectWithoutSectionRatesInput
+    upsert?: SectionUpsertWithoutSectionRatesInput
+    connect?: SectionWhereUniqueInput
+    update?: XOR<XOR<SectionUpdateToOneWithWhereWithoutSectionRatesInput, SectionUpdateWithoutSectionRatesInput>, SectionUncheckedUpdateWithoutSectionRatesInput>
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -15825,13 +17520,39 @@ export namespace Prisma {
     _max?: NestedBoolFilter<$PrismaModel>
   }
 
+  export type SectionRatingCreateWithoutUserInput = {
+    rate?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    section: SectionCreateNestedOneWithoutSectionRatesInput
+  }
+
+  export type SectionRatingUncheckedCreateWithoutUserInput = {
+    id?: number
+    rate?: number
+    sectionId: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SectionRatingCreateOrConnectWithoutUserInput = {
+    where: SectionRatingWhereUniqueInput
+    create: XOR<SectionRatingCreateWithoutUserInput, SectionRatingUncheckedCreateWithoutUserInput>
+  }
+
+  export type SectionRatingCreateManyUserInputEnvelope = {
+    data: SectionRatingCreateManyUserInput | SectionRatingCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type CourseCreateWithoutUserInput = {
     title: string
+    slug: string
     description: string
     createdAt?: Date | string
     updatedAt?: Date | string
     sectionGroups?: SectionGroupCreateNestedManyWithoutCourseInput
-    preriquisites?: PreriquisitCreateNestedManyWithoutCourseInput
+    prerequisites?: PrerequisitCreateNestedManyWithoutCourseInput
     skills?: SkillCreateNestedManyWithoutCourseInput
     category: CategoryCreateNestedOneWithoutCoursesInput
   }
@@ -15839,12 +17560,13 @@ export namespace Prisma {
   export type CourseUncheckedCreateWithoutUserInput = {
     id?: number
     title: string
+    slug: string
     description: string
     categoryId: number
     createdAt?: Date | string
     updatedAt?: Date | string
     sectionGroups?: SectionGroupUncheckedCreateNestedManyWithoutCourseInput
-    preriquisites?: PreriquisitUncheckedCreateNestedManyWithoutCourseInput
+    prerequisites?: PrerequisitUncheckedCreateNestedManyWithoutCourseInput
     skills?: SkillUncheckedCreateNestedManyWithoutCourseInput
   }
 
@@ -15856,6 +17578,34 @@ export namespace Prisma {
   export type CourseCreateManyUserInputEnvelope = {
     data: CourseCreateManyUserInput | CourseCreateManyUserInput[]
     skipDuplicates?: boolean
+  }
+
+  export type SectionRatingUpsertWithWhereUniqueWithoutUserInput = {
+    where: SectionRatingWhereUniqueInput
+    update: XOR<SectionRatingUpdateWithoutUserInput, SectionRatingUncheckedUpdateWithoutUserInput>
+    create: XOR<SectionRatingCreateWithoutUserInput, SectionRatingUncheckedCreateWithoutUserInput>
+  }
+
+  export type SectionRatingUpdateWithWhereUniqueWithoutUserInput = {
+    where: SectionRatingWhereUniqueInput
+    data: XOR<SectionRatingUpdateWithoutUserInput, SectionRatingUncheckedUpdateWithoutUserInput>
+  }
+
+  export type SectionRatingUpdateManyWithWhereWithoutUserInput = {
+    where: SectionRatingScalarWhereInput
+    data: XOR<SectionRatingUpdateManyMutationInput, SectionRatingUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type SectionRatingScalarWhereInput = {
+    AND?: SectionRatingScalarWhereInput | SectionRatingScalarWhereInput[]
+    OR?: SectionRatingScalarWhereInput[]
+    NOT?: SectionRatingScalarWhereInput | SectionRatingScalarWhereInput[]
+    id?: IntFilter<"SectionRating"> | number
+    rate?: IntFilter<"SectionRating"> | number
+    userId?: IntFilter<"SectionRating"> | number
+    sectionId?: IntFilter<"SectionRating"> | number
+    createdAt?: DateTimeFilter<"SectionRating"> | Date | string
+    updatedAt?: DateTimeFilter<"SectionRating"> | Date | string
   }
 
   export type CourseUpsertWithWhereUniqueWithoutUserInput = {
@@ -15880,6 +17630,7 @@ export namespace Prisma {
     NOT?: CourseScalarWhereInput | CourseScalarWhereInput[]
     id?: IntFilter<"Course"> | number
     title?: StringFilter<"Course"> | string
+    slug?: StringFilter<"Course"> | string
     description?: StringFilter<"Course"> | string
     categoryId?: IntFilter<"Course"> | number
     userId?: IntFilter<"Course"> | number
@@ -15889,6 +17640,7 @@ export namespace Prisma {
 
   export type SectionGroupCreateWithoutCourseInput = {
     title: string
+    slug: string
     order: number
     sections?: SectionCreateNestedManyWithoutSectionGroupInput
   }
@@ -15896,6 +17648,7 @@ export namespace Prisma {
   export type SectionGroupUncheckedCreateWithoutCourseInput = {
     id?: number
     title: string
+    slug: string
     order: number
     sections?: SectionUncheckedCreateNestedManyWithoutSectionGroupInput
   }
@@ -15910,22 +17663,22 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type PreriquisitCreateWithoutCourseInput = {
+  export type PrerequisitCreateWithoutCourseInput = {
     content: string
   }
 
-  export type PreriquisitUncheckedCreateWithoutCourseInput = {
+  export type PrerequisitUncheckedCreateWithoutCourseInput = {
     id?: number
     content: string
   }
 
-  export type PreriquisitCreateOrConnectWithoutCourseInput = {
-    where: PreriquisitWhereUniqueInput
-    create: XOR<PreriquisitCreateWithoutCourseInput, PreriquisitUncheckedCreateWithoutCourseInput>
+  export type PrerequisitCreateOrConnectWithoutCourseInput = {
+    where: PrerequisitWhereUniqueInput
+    create: XOR<PrerequisitCreateWithoutCourseInput, PrerequisitUncheckedCreateWithoutCourseInput>
   }
 
-  export type PreriquisitCreateManyCourseInputEnvelope = {
-    data: PreriquisitCreateManyCourseInput | PreriquisitCreateManyCourseInput[]
+  export type PrerequisitCreateManyCourseInputEnvelope = {
+    data: PrerequisitCreateManyCourseInput | PrerequisitCreateManyCourseInput[]
     skipDuplicates?: boolean
   }
 
@@ -15953,6 +17706,7 @@ export namespace Prisma {
     password: string
     email: string
     role?: $Enums.Role
+    sectionRatings?: SectionRatingCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutCoursesInput = {
@@ -15961,6 +17715,7 @@ export namespace Prisma {
     password: string
     email: string
     role?: $Enums.Role
+    sectionRatings?: SectionRatingUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutCoursesInput = {
@@ -16006,33 +17761,34 @@ export namespace Prisma {
     NOT?: SectionGroupScalarWhereInput | SectionGroupScalarWhereInput[]
     id?: IntFilter<"SectionGroup"> | number
     title?: StringFilter<"SectionGroup"> | string
+    slug?: StringFilter<"SectionGroup"> | string
     order?: IntFilter<"SectionGroup"> | number
     courseId?: IntFilter<"SectionGroup"> | number
   }
 
-  export type PreriquisitUpsertWithWhereUniqueWithoutCourseInput = {
-    where: PreriquisitWhereUniqueInput
-    update: XOR<PreriquisitUpdateWithoutCourseInput, PreriquisitUncheckedUpdateWithoutCourseInput>
-    create: XOR<PreriquisitCreateWithoutCourseInput, PreriquisitUncheckedCreateWithoutCourseInput>
+  export type PrerequisitUpsertWithWhereUniqueWithoutCourseInput = {
+    where: PrerequisitWhereUniqueInput
+    update: XOR<PrerequisitUpdateWithoutCourseInput, PrerequisitUncheckedUpdateWithoutCourseInput>
+    create: XOR<PrerequisitCreateWithoutCourseInput, PrerequisitUncheckedCreateWithoutCourseInput>
   }
 
-  export type PreriquisitUpdateWithWhereUniqueWithoutCourseInput = {
-    where: PreriquisitWhereUniqueInput
-    data: XOR<PreriquisitUpdateWithoutCourseInput, PreriquisitUncheckedUpdateWithoutCourseInput>
+  export type PrerequisitUpdateWithWhereUniqueWithoutCourseInput = {
+    where: PrerequisitWhereUniqueInput
+    data: XOR<PrerequisitUpdateWithoutCourseInput, PrerequisitUncheckedUpdateWithoutCourseInput>
   }
 
-  export type PreriquisitUpdateManyWithWhereWithoutCourseInput = {
-    where: PreriquisitScalarWhereInput
-    data: XOR<PreriquisitUpdateManyMutationInput, PreriquisitUncheckedUpdateManyWithoutCourseInput>
+  export type PrerequisitUpdateManyWithWhereWithoutCourseInput = {
+    where: PrerequisitScalarWhereInput
+    data: XOR<PrerequisitUpdateManyMutationInput, PrerequisitUncheckedUpdateManyWithoutCourseInput>
   }
 
-  export type PreriquisitScalarWhereInput = {
-    AND?: PreriquisitScalarWhereInput | PreriquisitScalarWhereInput[]
-    OR?: PreriquisitScalarWhereInput[]
-    NOT?: PreriquisitScalarWhereInput | PreriquisitScalarWhereInput[]
-    id?: IntFilter<"Preriquisit"> | number
-    content?: StringFilter<"Preriquisit"> | string
-    courseId?: IntFilter<"Preriquisit"> | number
+  export type PrerequisitScalarWhereInput = {
+    AND?: PrerequisitScalarWhereInput | PrerequisitScalarWhereInput[]
+    OR?: PrerequisitScalarWhereInput[]
+    NOT?: PrerequisitScalarWhereInput | PrerequisitScalarWhereInput[]
+    id?: IntFilter<"Prerequisit"> | number
+    content?: StringFilter<"Prerequisit"> | string
+    courseId?: IntFilter<"Prerequisit"> | number
   }
 
   export type SkillUpsertWithWhereUniqueWithoutCourseInput = {
@@ -16076,6 +17832,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    sectionRatings?: SectionRatingUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCoursesInput = {
@@ -16084,6 +17841,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    sectionRatings?: SectionRatingUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type CategoryUpsertWithoutCoursesInput = {
@@ -16110,11 +17868,12 @@ export namespace Prisma {
 
   export type CourseCreateWithoutCategoryInput = {
     title: string
+    slug: string
     description: string
     createdAt?: Date | string
     updatedAt?: Date | string
     sectionGroups?: SectionGroupCreateNestedManyWithoutCourseInput
-    preriquisites?: PreriquisitCreateNestedManyWithoutCourseInput
+    prerequisites?: PrerequisitCreateNestedManyWithoutCourseInput
     skills?: SkillCreateNestedManyWithoutCourseInput
     user: UserCreateNestedOneWithoutCoursesInput
   }
@@ -16122,12 +17881,13 @@ export namespace Prisma {
   export type CourseUncheckedCreateWithoutCategoryInput = {
     id?: number
     title: string
+    slug: string
     description: string
     userId: number
     createdAt?: Date | string
     updatedAt?: Date | string
     sectionGroups?: SectionGroupUncheckedCreateNestedManyWithoutCourseInput
-    preriquisites?: PreriquisitUncheckedCreateNestedManyWithoutCourseInput
+    prerequisites?: PrerequisitUncheckedCreateNestedManyWithoutCourseInput
     skills?: SkillUncheckedCreateNestedManyWithoutCourseInput
   }
 
@@ -16159,15 +17919,19 @@ export namespace Prisma {
 
   export type SectionCreateWithoutSectionGroupInput = {
     title: string
+    slug: string
     order: number
     lessons?: LessonCreateNestedManyWithoutSectionInput
+    sectionRates?: SectionRatingCreateNestedManyWithoutSectionInput
   }
 
   export type SectionUncheckedCreateWithoutSectionGroupInput = {
     id?: number
     title: string
+    slug: string
     order: number
     lessons?: LessonUncheckedCreateNestedManyWithoutSectionInput
+    sectionRates?: SectionRatingUncheckedCreateNestedManyWithoutSectionInput
   }
 
   export type SectionCreateOrConnectWithoutSectionGroupInput = {
@@ -16182,10 +17946,11 @@ export namespace Prisma {
 
   export type CourseCreateWithoutSectionGroupsInput = {
     title: string
+    slug: string
     description: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    preriquisites?: PreriquisitCreateNestedManyWithoutCourseInput
+    prerequisites?: PrerequisitCreateNestedManyWithoutCourseInput
     skills?: SkillCreateNestedManyWithoutCourseInput
     user: UserCreateNestedOneWithoutCoursesInput
     category: CategoryCreateNestedOneWithoutCoursesInput
@@ -16194,12 +17959,13 @@ export namespace Prisma {
   export type CourseUncheckedCreateWithoutSectionGroupsInput = {
     id?: number
     title: string
+    slug: string
     description: string
     categoryId: number
     userId: number
     createdAt?: Date | string
     updatedAt?: Date | string
-    preriquisites?: PreriquisitUncheckedCreateNestedManyWithoutCourseInput
+    prerequisites?: PrerequisitUncheckedCreateNestedManyWithoutCourseInput
     skills?: SkillUncheckedCreateNestedManyWithoutCourseInput
   }
 
@@ -16230,6 +17996,7 @@ export namespace Prisma {
     NOT?: SectionScalarWhereInput | SectionScalarWhereInput[]
     id?: IntFilter<"Section"> | number
     title?: StringFilter<"Section"> | string
+    slug?: StringFilter<"Section"> | string
     order?: IntFilter<"Section"> | number
     sectionGroupId?: IntFilter<"Section"> | number
   }
@@ -16247,10 +18014,11 @@ export namespace Prisma {
 
   export type CourseUpdateWithoutSectionGroupsInput = {
     title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    preriquisites?: PreriquisitUpdateManyWithoutCourseNestedInput
+    prerequisites?: PrerequisitUpdateManyWithoutCourseNestedInput
     skills?: SkillUpdateManyWithoutCourseNestedInput
     user?: UserUpdateOneRequiredWithoutCoursesNestedInput
     category?: CategoryUpdateOneRequiredWithoutCoursesNestedInput
@@ -16259,12 +18027,13 @@ export namespace Prisma {
   export type CourseUncheckedUpdateWithoutSectionGroupsInput = {
     id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     categoryId?: IntFieldUpdateOperationsInput | number
     userId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    preriquisites?: PreriquisitUncheckedUpdateManyWithoutCourseNestedInput
+    prerequisites?: PrerequisitUncheckedUpdateManyWithoutCourseNestedInput
     skills?: SkillUncheckedUpdateManyWithoutCourseNestedInput
   }
 
@@ -16299,8 +18068,34 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type SectionRatingCreateWithoutSectionInput = {
+    rate?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutSectionRatingsInput
+  }
+
+  export type SectionRatingUncheckedCreateWithoutSectionInput = {
+    id?: number
+    rate?: number
+    userId: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SectionRatingCreateOrConnectWithoutSectionInput = {
+    where: SectionRatingWhereUniqueInput
+    create: XOR<SectionRatingCreateWithoutSectionInput, SectionRatingUncheckedCreateWithoutSectionInput>
+  }
+
+  export type SectionRatingCreateManySectionInputEnvelope = {
+    data: SectionRatingCreateManySectionInput | SectionRatingCreateManySectionInput[]
+    skipDuplicates?: boolean
+  }
+
   export type SectionGroupCreateWithoutSectionsInput = {
     title: string
+    slug: string
     order: number
     course: CourseCreateNestedOneWithoutSectionGroupsInput
   }
@@ -16308,6 +18103,7 @@ export namespace Prisma {
   export type SectionGroupUncheckedCreateWithoutSectionsInput = {
     id?: number
     title: string
+    slug: string
     order: number
     courseId: number
   }
@@ -16347,6 +18143,22 @@ export namespace Prisma {
     sectionId?: IntFilter<"Lesson"> | number
   }
 
+  export type SectionRatingUpsertWithWhereUniqueWithoutSectionInput = {
+    where: SectionRatingWhereUniqueInput
+    update: XOR<SectionRatingUpdateWithoutSectionInput, SectionRatingUncheckedUpdateWithoutSectionInput>
+    create: XOR<SectionRatingCreateWithoutSectionInput, SectionRatingUncheckedCreateWithoutSectionInput>
+  }
+
+  export type SectionRatingUpdateWithWhereUniqueWithoutSectionInput = {
+    where: SectionRatingWhereUniqueInput
+    data: XOR<SectionRatingUpdateWithoutSectionInput, SectionRatingUncheckedUpdateWithoutSectionInput>
+  }
+
+  export type SectionRatingUpdateManyWithWhereWithoutSectionInput = {
+    where: SectionRatingScalarWhereInput
+    data: XOR<SectionRatingUpdateManyMutationInput, SectionRatingUncheckedUpdateManyWithoutSectionInput>
+  }
+
   export type SectionGroupUpsertWithoutSectionsInput = {
     update: XOR<SectionGroupUpdateWithoutSectionsInput, SectionGroupUncheckedUpdateWithoutSectionsInput>
     create: XOR<SectionGroupCreateWithoutSectionsInput, SectionGroupUncheckedCreateWithoutSectionsInput>
@@ -16360,6 +18172,7 @@ export namespace Prisma {
 
   export type SectionGroupUpdateWithoutSectionsInput = {
     title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     course?: CourseUpdateOneRequiredWithoutSectionGroupsNestedInput
   }
@@ -16367,6 +18180,7 @@ export namespace Prisma {
   export type SectionGroupUncheckedUpdateWithoutSectionsInput = {
     id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     courseId?: IntFieldUpdateOperationsInput | number
   }
@@ -16391,15 +18205,19 @@ export namespace Prisma {
 
   export type SectionCreateWithoutLessonsInput = {
     title: string
+    slug: string
     order: number
+    sectionRates?: SectionRatingCreateNestedManyWithoutSectionInput
     sectionGroup: SectionGroupCreateNestedOneWithoutSectionsInput
   }
 
   export type SectionUncheckedCreateWithoutLessonsInput = {
     id?: number
     title: string
+    slug: string
     order: number
     sectionGroupId: number
+    sectionRates?: SectionRatingUncheckedCreateNestedManyWithoutSectionInput
   }
 
   export type SectionCreateOrConnectWithoutLessonsInput = {
@@ -16444,15 +18262,19 @@ export namespace Prisma {
 
   export type SectionUpdateWithoutLessonsInput = {
     title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
+    sectionRates?: SectionRatingUpdateManyWithoutSectionNestedInput
     sectionGroup?: SectionGroupUpdateOneRequiredWithoutSectionsNestedInput
   }
 
   export type SectionUncheckedUpdateWithoutLessonsInput = {
     id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     sectionGroupId?: IntFieldUpdateOperationsInput | number
+    sectionRates?: SectionRatingUncheckedUpdateManyWithoutSectionNestedInput
   }
 
   export type AnswerCreateWithoutQuizInput = {
@@ -16602,8 +18424,9 @@ export namespace Prisma {
     lessonId?: IntFieldUpdateOperationsInput | number
   }
 
-  export type CourseCreateWithoutPreriquisitesInput = {
+  export type CourseCreateWithoutPrerequisitesInput = {
     title: string
+    slug: string
     description: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -16613,9 +18436,10 @@ export namespace Prisma {
     category: CategoryCreateNestedOneWithoutCoursesInput
   }
 
-  export type CourseUncheckedCreateWithoutPreriquisitesInput = {
+  export type CourseUncheckedCreateWithoutPrerequisitesInput = {
     id?: number
     title: string
+    slug: string
     description: string
     categoryId: number
     userId: number
@@ -16625,24 +18449,25 @@ export namespace Prisma {
     skills?: SkillUncheckedCreateNestedManyWithoutCourseInput
   }
 
-  export type CourseCreateOrConnectWithoutPreriquisitesInput = {
+  export type CourseCreateOrConnectWithoutPrerequisitesInput = {
     where: CourseWhereUniqueInput
-    create: XOR<CourseCreateWithoutPreriquisitesInput, CourseUncheckedCreateWithoutPreriquisitesInput>
+    create: XOR<CourseCreateWithoutPrerequisitesInput, CourseUncheckedCreateWithoutPrerequisitesInput>
   }
 
-  export type CourseUpsertWithoutPreriquisitesInput = {
-    update: XOR<CourseUpdateWithoutPreriquisitesInput, CourseUncheckedUpdateWithoutPreriquisitesInput>
-    create: XOR<CourseCreateWithoutPreriquisitesInput, CourseUncheckedCreateWithoutPreriquisitesInput>
+  export type CourseUpsertWithoutPrerequisitesInput = {
+    update: XOR<CourseUpdateWithoutPrerequisitesInput, CourseUncheckedUpdateWithoutPrerequisitesInput>
+    create: XOR<CourseCreateWithoutPrerequisitesInput, CourseUncheckedCreateWithoutPrerequisitesInput>
     where?: CourseWhereInput
   }
 
-  export type CourseUpdateToOneWithWhereWithoutPreriquisitesInput = {
+  export type CourseUpdateToOneWithWhereWithoutPrerequisitesInput = {
     where?: CourseWhereInput
-    data: XOR<CourseUpdateWithoutPreriquisitesInput, CourseUncheckedUpdateWithoutPreriquisitesInput>
+    data: XOR<CourseUpdateWithoutPrerequisitesInput, CourseUncheckedUpdateWithoutPrerequisitesInput>
   }
 
-  export type CourseUpdateWithoutPreriquisitesInput = {
+  export type CourseUpdateWithoutPrerequisitesInput = {
     title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -16652,9 +18477,10 @@ export namespace Prisma {
     category?: CategoryUpdateOneRequiredWithoutCoursesNestedInput
   }
 
-  export type CourseUncheckedUpdateWithoutPreriquisitesInput = {
+  export type CourseUncheckedUpdateWithoutPrerequisitesInput = {
     id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     categoryId?: IntFieldUpdateOperationsInput | number
     userId?: IntFieldUpdateOperationsInput | number
@@ -16666,11 +18492,12 @@ export namespace Prisma {
 
   export type CourseCreateWithoutSkillsInput = {
     title: string
+    slug: string
     description: string
     createdAt?: Date | string
     updatedAt?: Date | string
     sectionGroups?: SectionGroupCreateNestedManyWithoutCourseInput
-    preriquisites?: PreriquisitCreateNestedManyWithoutCourseInput
+    prerequisites?: PrerequisitCreateNestedManyWithoutCourseInput
     user: UserCreateNestedOneWithoutCoursesInput
     category: CategoryCreateNestedOneWithoutCoursesInput
   }
@@ -16678,13 +18505,14 @@ export namespace Prisma {
   export type CourseUncheckedCreateWithoutSkillsInput = {
     id?: number
     title: string
+    slug: string
     description: string
     categoryId: number
     userId: number
     createdAt?: Date | string
     updatedAt?: Date | string
     sectionGroups?: SectionGroupUncheckedCreateNestedManyWithoutCourseInput
-    preriquisites?: PreriquisitUncheckedCreateNestedManyWithoutCourseInput
+    prerequisites?: PrerequisitUncheckedCreateNestedManyWithoutCourseInput
   }
 
   export type CourseCreateOrConnectWithoutSkillsInput = {
@@ -16705,11 +18533,12 @@ export namespace Prisma {
 
   export type CourseUpdateWithoutSkillsInput = {
     title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sectionGroups?: SectionGroupUpdateManyWithoutCourseNestedInput
-    preriquisites?: PreriquisitUpdateManyWithoutCourseNestedInput
+    prerequisites?: PrerequisitUpdateManyWithoutCourseNestedInput
     user?: UserUpdateOneRequiredWithoutCoursesNestedInput
     category?: CategoryUpdateOneRequiredWithoutCoursesNestedInput
   }
@@ -16717,31 +18546,165 @@ export namespace Prisma {
   export type CourseUncheckedUpdateWithoutSkillsInput = {
     id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     categoryId?: IntFieldUpdateOperationsInput | number
     userId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sectionGroups?: SectionGroupUncheckedUpdateManyWithoutCourseNestedInput
-    preriquisites?: PreriquisitUncheckedUpdateManyWithoutCourseNestedInput
+    prerequisites?: PrerequisitUncheckedUpdateManyWithoutCourseNestedInput
+  }
+
+  export type UserCreateWithoutSectionRatingsInput = {
+    name: string
+    password: string
+    email: string
+    role?: $Enums.Role
+    courses?: CourseCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutSectionRatingsInput = {
+    id?: number
+    name: string
+    password: string
+    email: string
+    role?: $Enums.Role
+    courses?: CourseUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutSectionRatingsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutSectionRatingsInput, UserUncheckedCreateWithoutSectionRatingsInput>
+  }
+
+  export type SectionCreateWithoutSectionRatesInput = {
+    title: string
+    slug: string
+    order: number
+    lessons?: LessonCreateNestedManyWithoutSectionInput
+    sectionGroup: SectionGroupCreateNestedOneWithoutSectionsInput
+  }
+
+  export type SectionUncheckedCreateWithoutSectionRatesInput = {
+    id?: number
+    title: string
+    slug: string
+    order: number
+    sectionGroupId: number
+    lessons?: LessonUncheckedCreateNestedManyWithoutSectionInput
+  }
+
+  export type SectionCreateOrConnectWithoutSectionRatesInput = {
+    where: SectionWhereUniqueInput
+    create: XOR<SectionCreateWithoutSectionRatesInput, SectionUncheckedCreateWithoutSectionRatesInput>
+  }
+
+  export type UserUpsertWithoutSectionRatingsInput = {
+    update: XOR<UserUpdateWithoutSectionRatingsInput, UserUncheckedUpdateWithoutSectionRatingsInput>
+    create: XOR<UserCreateWithoutSectionRatingsInput, UserUncheckedCreateWithoutSectionRatingsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutSectionRatingsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutSectionRatingsInput, UserUncheckedUpdateWithoutSectionRatingsInput>
+  }
+
+  export type UserUpdateWithoutSectionRatingsInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    courses?: CourseUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutSectionRatingsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    courses?: CourseUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type SectionUpsertWithoutSectionRatesInput = {
+    update: XOR<SectionUpdateWithoutSectionRatesInput, SectionUncheckedUpdateWithoutSectionRatesInput>
+    create: XOR<SectionCreateWithoutSectionRatesInput, SectionUncheckedCreateWithoutSectionRatesInput>
+    where?: SectionWhereInput
+  }
+
+  export type SectionUpdateToOneWithWhereWithoutSectionRatesInput = {
+    where?: SectionWhereInput
+    data: XOR<SectionUpdateWithoutSectionRatesInput, SectionUncheckedUpdateWithoutSectionRatesInput>
+  }
+
+  export type SectionUpdateWithoutSectionRatesInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+    lessons?: LessonUpdateManyWithoutSectionNestedInput
+    sectionGroup?: SectionGroupUpdateOneRequiredWithoutSectionsNestedInput
+  }
+
+  export type SectionUncheckedUpdateWithoutSectionRatesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+    sectionGroupId?: IntFieldUpdateOperationsInput | number
+    lessons?: LessonUncheckedUpdateManyWithoutSectionNestedInput
+  }
+
+  export type SectionRatingCreateManyUserInput = {
+    id?: number
+    rate?: number
+    sectionId: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type CourseCreateManyUserInput = {
     id?: number
     title: string
+    slug: string
     description: string
     categoryId: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
+  export type SectionRatingUpdateWithoutUserInput = {
+    rate?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    section?: SectionUpdateOneRequiredWithoutSectionRatesNestedInput
+  }
+
+  export type SectionRatingUncheckedUpdateWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    rate?: IntFieldUpdateOperationsInput | number
+    sectionId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SectionRatingUncheckedUpdateManyWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    rate?: IntFieldUpdateOperationsInput | number
+    sectionId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type CourseUpdateWithoutUserInput = {
     title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sectionGroups?: SectionGroupUpdateManyWithoutCourseNestedInput
-    preriquisites?: PreriquisitUpdateManyWithoutCourseNestedInput
+    prerequisites?: PrerequisitUpdateManyWithoutCourseNestedInput
     skills?: SkillUpdateManyWithoutCourseNestedInput
     category?: CategoryUpdateOneRequiredWithoutCoursesNestedInput
   }
@@ -16749,18 +18712,20 @@ export namespace Prisma {
   export type CourseUncheckedUpdateWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     categoryId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sectionGroups?: SectionGroupUncheckedUpdateManyWithoutCourseNestedInput
-    preriquisites?: PreriquisitUncheckedUpdateManyWithoutCourseNestedInput
+    prerequisites?: PrerequisitUncheckedUpdateManyWithoutCourseNestedInput
     skills?: SkillUncheckedUpdateManyWithoutCourseNestedInput
   }
 
   export type CourseUncheckedUpdateManyWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     categoryId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -16770,10 +18735,11 @@ export namespace Prisma {
   export type SectionGroupCreateManyCourseInput = {
     id?: number
     title: string
+    slug: string
     order: number
   }
 
-  export type PreriquisitCreateManyCourseInput = {
+  export type PrerequisitCreateManyCourseInput = {
     id?: number
     content: string
   }
@@ -16785,6 +18751,7 @@ export namespace Prisma {
 
   export type SectionGroupUpdateWithoutCourseInput = {
     title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     sections?: SectionUpdateManyWithoutSectionGroupNestedInput
   }
@@ -16792,6 +18759,7 @@ export namespace Prisma {
   export type SectionGroupUncheckedUpdateWithoutCourseInput = {
     id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     sections?: SectionUncheckedUpdateManyWithoutSectionGroupNestedInput
   }
@@ -16799,19 +18767,20 @@ export namespace Prisma {
   export type SectionGroupUncheckedUpdateManyWithoutCourseInput = {
     id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
   }
 
-  export type PreriquisitUpdateWithoutCourseInput = {
+  export type PrerequisitUpdateWithoutCourseInput = {
     content?: StringFieldUpdateOperationsInput | string
   }
 
-  export type PreriquisitUncheckedUpdateWithoutCourseInput = {
+  export type PrerequisitUncheckedUpdateWithoutCourseInput = {
     id?: IntFieldUpdateOperationsInput | number
     content?: StringFieldUpdateOperationsInput | string
   }
 
-  export type PreriquisitUncheckedUpdateManyWithoutCourseInput = {
+  export type PrerequisitUncheckedUpdateManyWithoutCourseInput = {
     id?: IntFieldUpdateOperationsInput | number
     content?: StringFieldUpdateOperationsInput | string
   }
@@ -16833,6 +18802,7 @@ export namespace Prisma {
   export type CourseCreateManyCategoryInput = {
     id?: number
     title: string
+    slug: string
     description: string
     userId: number
     createdAt?: Date | string
@@ -16841,11 +18811,12 @@ export namespace Prisma {
 
   export type CourseUpdateWithoutCategoryInput = {
     title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sectionGroups?: SectionGroupUpdateManyWithoutCourseNestedInput
-    preriquisites?: PreriquisitUpdateManyWithoutCourseNestedInput
+    prerequisites?: PrerequisitUpdateManyWithoutCourseNestedInput
     skills?: SkillUpdateManyWithoutCourseNestedInput
     user?: UserUpdateOneRequiredWithoutCoursesNestedInput
   }
@@ -16853,18 +18824,20 @@ export namespace Prisma {
   export type CourseUncheckedUpdateWithoutCategoryInput = {
     id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     userId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sectionGroups?: SectionGroupUncheckedUpdateManyWithoutCourseNestedInput
-    preriquisites?: PreriquisitUncheckedUpdateManyWithoutCourseNestedInput
+    prerequisites?: PrerequisitUncheckedUpdateManyWithoutCourseNestedInput
     skills?: SkillUncheckedUpdateManyWithoutCourseNestedInput
   }
 
   export type CourseUncheckedUpdateManyWithoutCategoryInput = {
     id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     userId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -16874,25 +18847,31 @@ export namespace Prisma {
   export type SectionCreateManySectionGroupInput = {
     id?: number
     title: string
+    slug: string
     order: number
   }
 
   export type SectionUpdateWithoutSectionGroupInput = {
     title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     lessons?: LessonUpdateManyWithoutSectionNestedInput
+    sectionRates?: SectionRatingUpdateManyWithoutSectionNestedInput
   }
 
   export type SectionUncheckedUpdateWithoutSectionGroupInput = {
     id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
     lessons?: LessonUncheckedUpdateManyWithoutSectionNestedInput
+    sectionRates?: SectionRatingUncheckedUpdateManyWithoutSectionNestedInput
   }
 
   export type SectionUncheckedUpdateManyWithoutSectionGroupInput = {
     id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
   }
 
@@ -16904,6 +18883,14 @@ export namespace Prisma {
     quizId?: number | null
     contentType: $Enums.ContentType
     videoSource?: $Enums.VideoSource | null
+  }
+
+  export type SectionRatingCreateManySectionInput = {
+    id?: number
+    rate?: number
+    userId: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type LessonUpdateWithoutSectionInput = {
@@ -16935,6 +18922,29 @@ export namespace Prisma {
     quizId?: NullableIntFieldUpdateOperationsInput | number | null
     contentType?: EnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType
     videoSource?: NullableEnumVideoSourceFieldUpdateOperationsInput | $Enums.VideoSource | null
+  }
+
+  export type SectionRatingUpdateWithoutSectionInput = {
+    rate?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutSectionRatingsNestedInput
+  }
+
+  export type SectionRatingUncheckedUpdateWithoutSectionInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    rate?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SectionRatingUncheckedUpdateManyWithoutSectionInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    rate?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type AnswerCreateManyQuizInput = {

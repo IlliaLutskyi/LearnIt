@@ -18,9 +18,10 @@ import {
 import React, { memo } from "react";
 import Lesson from "./Lesson";
 import { shiftLessons } from "@/lib/slices/CreateCourseSlice";
+import { Lesson as TLesson } from "@/types/create-course";
 
 type Props = {
-  lessons: Lesson[];
+  lessons: TLesson[];
 };
 const Lessons = ({ lessons }: Props) => {
   const dispatch = useAppDispatch();

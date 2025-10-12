@@ -10,9 +10,10 @@ import {
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { lazy, memo, Suspense, useCallback, useState } from "react";
 import { HiDotsVertical } from "react-icons/hi";
-import { Lesson } from "@/types/lesson";
 import { deleteLesson } from "@/lib/slices/CreateCourseSlice";
-import { Section } from "@/types/section";
+import { Section } from "@/types/create-course/section";
+import { Lesson } from "@/types/create-course";
+
 const CreateLessonForm = lazy(() => import("./CreateLessonForm"));
 const RenameForm = lazy(() => import("./RenameForm"));
 const CreateQuizForm = lazy(() => import("./CreateQuizForm"));

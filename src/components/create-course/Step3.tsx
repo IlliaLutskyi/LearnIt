@@ -5,8 +5,9 @@ import {
   setPreviousStep,
 } from "@/lib/slices/CreateCourseSlice";
 import Skill from "./Skill";
+import { Step } from "@/types/create-course";
 type Props = {
-  step: { step: number; title: string; active: boolean };
+  step: Step;
 };
 const Step3 = ({ step }: Props) => {
   const { skills } = useAppSelector((state) => state.CreateCourse);
@@ -44,7 +45,7 @@ const Step3 = ({ step }: Props) => {
           )}
 
           {skills.map((skill) => (
-            <Skill key={skill.id} id={skill.id} content={skill.content} />
+            <Skill key={skill.id} skill={skill} />
           ))}
         </section>
       </div>

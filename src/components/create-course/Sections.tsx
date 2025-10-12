@@ -16,8 +16,8 @@ import {
 } from "@dnd-kit/sortable";
 import React, { memo } from "react";
 import { shiftSection } from "@/lib/slices/CreateCourseSlice";
-import type { Section } from "@/types/section";
 import SectionItem from "./Section";
+import { Section } from "@/types/create-course";
 
 type Props = {
   sections: Section[];

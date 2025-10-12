@@ -1,5 +1,5 @@
 import prisma from "@/lib/db";
-import { User } from "@/types/user";
+import { User } from "@/types/create-course/user";
 import bcrypt from "bcrypt";
 export async function POST(req: Request) {
   const user: User = await req.json();

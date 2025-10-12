@@ -7,8 +7,7 @@ import {
   renameSectionGroup,
 } from "@/lib/slices/CreateCourseSlice";
 import BlurBackground from "../common/BlurBackground";
-import { Section } from "@/types/section";
-import { SectionGroup } from "@/types/sectionGroup";
+import { Section, SectionGroup } from "@/types/create-course";
 
 type Props = {
   isOpen: boolean;
@@ -67,7 +66,7 @@ const RenameForm = ({ isOpen, section, sectionGroup, setIsOpen }: Props) => {
             <InputField
               label="title"
               onChange={(e) => setTitle(e.target.value)}
-              maxLength={50}
+              autoFocus={true}
               defaultValue={section ? section.title : sectionGroup?.title}
               inputClassName="w-full text-sm focus:ring-1 focus:ring-purple-500 shadow-sm p-2 rounded-md "
             />

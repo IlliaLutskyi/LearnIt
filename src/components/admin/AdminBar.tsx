@@ -5,11 +5,12 @@ import { CiCirclePlus } from "react-icons/ci";
 import { usePathname } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+
 const AdminBar = () => {
   const pathname = usePathname();
   const { data: session } = useSession();
   return (
-    <nav className="flex flex-col bg-white shadow-inner p-4 h-[calc(100vh-4rem)] overflow-y-auto">
+    <aside className="flex flex-col bg-white shadow-inner p-4 h-full overflow-y-auto">
       <div className="flex items-center gap-4 p-4 border-b-[1px] border-gray-200">
         <Avatar>
           <AvatarImage></AvatarImage>
@@ -35,7 +36,7 @@ const AdminBar = () => {
           </li>
         </ul>
       </div>
-    </nav>
+    </aside>
   );
 };
 

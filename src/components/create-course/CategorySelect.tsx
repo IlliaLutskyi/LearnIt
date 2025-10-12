@@ -2,7 +2,7 @@
 import api from "@/lib/axios";
 import { useAppSelector } from "@/lib/hooks";
 import { setCategory } from "@/lib/slices/CreateCourseSlice";
-import { Category } from "@/types/category";
+import { Category } from "@/types/create-course";
 import { useQuery } from "@tanstack/react-query";
 import { memo, useEffect } from "react";
 import { useDispatch } from "react-redux";
@@ -11,7 +11,7 @@ const CategorySelect = () => {
   const { data: categories } = useQuery<Category[]>({
     queryKey: ["categories"],
     queryFn: async () => {
-      const res = await api("/categories");
+      const res = await api.get("/categories");
       return res.data?.categories;
     },
   });
@@ -23,7 +23,7 @@ const CategorySelect = () => {
   }, [categories]);
   return (
     <div className="flex flex-col gap-1 ">
-      <label htmlFor="categories" className="text-sm">
+      <label htmlFor="categories" className="text-xs">
         Category
       </label>
       <select

@@ -1,15 +1,16 @@
 "use client";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import AddSectionButton from "./buttons/AddSectionButton";
-
 import SectionGroups from "./SectionGroups";
 import { toggleConfirmationForm } from "@/lib/slices/ConfirmationFormSlice";
 import { lazy, Suspense } from "react";
 import SaveOrClearCourseButton from "./buttons/SaveOrClearCourseButton";
-import { setNextStep, setPreviousStep } from "@/lib/slices/CreateCourseSlice";
+import { setPreviousStep } from "@/lib/slices/CreateCourseSlice";
+import { Step } from "@/types/create-course";
+
 const ConfirmationForm = lazy(() => import("./ConfirmationForm"));
 type Props = {
-  step: { step: number; title: string; active: boolean };
+  step: Step;
 };
 const Step4 = ({ step }: Props) => {
   const { sectionGroups } = useAppSelector((state) => state.CreateCourse);

@@ -10,7 +10,7 @@ import {
 } from "../ui/table";
 import InputField from "../common/InputField";
 import { CiTrash } from "react-icons/ci";
-import { Answer } from "@/types/answer";
+import { Answer } from "@/types/create-course";
 
 type Props = {
   answers: Answer[];

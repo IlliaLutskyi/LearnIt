@@ -13,10 +13,11 @@ import {
   deleteSectionGroup,
 } from "@/lib/slices/CreateCourseSlice";
 import { HiDotsVertical } from "react-icons/hi";
-import { SectionGroup } from "@/types/sectionGroup";
 import { lazy, memo, Suspense, useState } from "react";
+import { SectionGroup } from "@/types/create-course";
 
 const RenameForm = lazy(() => import("./RenameForm"));
+
 type Props = {
   sectionGroup: SectionGroup;
 };

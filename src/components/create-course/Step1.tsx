@@ -7,8 +7,9 @@ import {
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import InputField from "../common/InputField";
 import CategorySelect from "./CategorySelect";
+import { Step } from "@/types/create-course";
 type Props = {
-  step: { step: number; title: string; active: boolean };
+  step: Step;
 };
 const Step1 = ({ step }: Props) => {
   const { title, description } = useAppSelector((state) => state.CreateCourse);
@@ -19,8 +20,8 @@ const Step1 = ({ step }: Props) => {
   return (
     <div className="flex flex-col gap-4 p-4 h-full">
       <h1 className="text-lg font-bold self-center">{step.title}</h1>
-      <div className="grow">
-        <section className="grid sm:grid-cols-2 grid-cols-1 gap-2 ">
+      <section className="grow">
+        <div className="grid sm:grid-cols-2 grid-cols-1 gap-2 ">
           <InputField
             label="Course title"
             type="text"
@@ -30,8 +31,8 @@ const Step1 = ({ step }: Props) => {
             inputClassName="shadow-inner text-sm w-full p-2 shadow-md rounded-md outline-none focus:ring-1 focus:ring-purple-500"
           />
           <CategorySelect />
-        </section>
-        <section>
+        </div>
+        <div>
           <InputField
             label="description"
             type="text"
@@ -41,8 +42,8 @@ const Step1 = ({ step }: Props) => {
             multiline={true}
             inputClassName="shadow-inner outline-none text-sm w-full h-[15rem]  resize-none  p-2  shadow-md rounded-md outline-none focus:ring-1 focus:ring-purple-500"
           />
-        </section>
-      </div>
+        </div>
+      </section>
       <section className="flex justify-end items-center">
         <button
           className="self-end mt-4 bg-purple-500 text-white px-4 py-2 focus:scale-95 rounded-sm hover:bg-purple-700  duration-500"

@@ -5,8 +5,9 @@ import { FormEvent, lazy, Suspense, useEffect, useRef, useState } from "react";
 import InputField from "../common/InputField";
 import BlurBackground from "../common/BlurBackground";
 import { toast } from "sonner";
-import { Lesson } from "@/types/lesson";
 import Loader from "../common/Loader";
+import { Lesson } from "@/types/create-course";
+
 const VideoOption = lazy(() => import("./lessonTypeOptions/VideoOption"));
 const TextOption = lazy(() => import("./lessonTypeOptions/TextOption"));
 

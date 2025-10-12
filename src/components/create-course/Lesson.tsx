@@ -1,5 +1,5 @@
 "use client";
-import type { Lesson } from "@/types/lesson";
+
 import {
   Collapsible,
   CollapsibleContent,
@@ -10,9 +10,10 @@ import { CSS } from "@dnd-kit/utilities";
 import { FaSort } from "react-icons/fa";
 import Quiz from "./Quiz";
 import LessonMenu from "./LessonMenu";
+import { Lesson as TLesson } from "@/types/create-course";
 
 type Props = {
-  lesson: Lesson;
+  lesson: TLesson;
 };
 const Lesson = ({ lesson }: Props) => {
   const { attributes, listeners, setNodeRef, transform, transition } =

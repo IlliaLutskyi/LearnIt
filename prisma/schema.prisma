@@ -11,19 +11,21 @@ datasource db {
 
 model User {
   id Int @id @default(autoincrement())
-  name String 
+  name String
   password String 
   email String @unique
+  sectionRatings SectionRating[]
   role Role @default(User)
   courses Course[]
 }
 
 model Course{
   id Int @id @default(autoincrement())
-  title String @db.Char(100)
-  description String @db.Char(1200)
+  title String
+  slug String @unique
+  description String
   sectionGroups SectionGroup[]
-  preriquisites Preriquisit[]
+  prerequisites Prerequisit[]
   skills Skill[]
   categoryId Int
   userId Int
@@ -35,14 +37,15 @@ model Course{
 
 model Category{
   id Int @id @default(autoincrement())
-  name String @db.Char(100) @unique
+  name String  @unique
   courses Course[]
   image String 
 }
 
 model SectionGroup{
   id Int @id @default(autoincrement())
-  title String @db.Char(50)
+  title String 
+  slug String @unique
   sections Section[]
   order Int 
   courseId Int
@@ -51,16 +54,18 @@ model SectionGroup{
 
 model Section{
   id Int @id @default(autoincrement())
-  lessons Lesson[]
-  title String @db.Char(50) 
+  lessons Lesson[] 
+  title String @unique
+  slug String @unique
   order Int 
+  sectionRates SectionRating[]
   sectionGroupId Int
   sectionGroup SectionGroup @relation(fields: [sectionGroupId],references: [id])
 }
 
 model Lesson{
   id Int @id @default(autoincrement())
-  title String @db.Char(50)
+  title String
   content String?
   quiz Quiz?
   order Int
@@ -73,8 +78,8 @@ model Lesson{
 model Quiz{
   id Int @id() @default(autoincrement())
   answers Answer[]
-  question String @db.Char(500)
-  explanation String? @db.Char(500)
+  question String 
+  explanation String? 
   lessonId Int @unique
   lesson Lesson @relation(fields: [lessonId],references: [id])
 }
@@ -87,20 +92,30 @@ model Answer{
   isCorrect Boolean
 }
 
-model Preriquisit{
+model Prerequisit{
   id Int @id() @default(autoincrement())
-  content String @db.Char(300)
+  content String 
   courseId Int
   course Course @relation(fields: [courseId],references: [id])
 }
 
 model Skill{
   id Int @id() @default(autoincrement())
-  content String @db.Char(300)
+  content String
   courseId Int
   course Course @relation(fields: [courseId],references: [id])
 }
-
+model SectionRating{
+  id Int @id() @default(autoincrement())
+  rate Int @default(0)
+  userId Int
+  user User @relation(fields: [userId],references: [id])
+  sectionId Int
+  section Section @relation(fields: [sectionId],references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@unique([userId,sectionId])
+}
 enum Role {
   Admin
   User

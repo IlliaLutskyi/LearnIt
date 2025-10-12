@@ -1,5 +1,4 @@
 import Heading from "@/components/home/Heading";
-
 const Home = () => {
   return (
     <div>
