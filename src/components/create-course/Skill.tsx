@@ -1,5 +1,5 @@
 import { useAppDispatch } from "@/lib/hooks";
-import { deleteSkill, editSkill } from "@/lib/slices/CreateCourseSlice";
+import { deleteSkill, editSkill } from "@/lib/slices/create-course-slice";
 import InputField from "../common/InputField";
 import { MdDelete } from "react-icons/md";
 import { Skill as TSkill } from "@/types/create-course";

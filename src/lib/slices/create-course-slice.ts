@@ -4,11 +4,11 @@ import {
   Section,
   SectionGroup,
   Skill,
+  ContentType,
 } from "@/types/create-course";
 import { arrayMove } from "@dnd-kit/sortable";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-type ContentType = "Video" | "Text" | "File" | "Quiz";
 type Step = { step: number; title: string; active: boolean };
 type CourseStates = {
   steps: Step[];
@@ -43,7 +43,11 @@ export const CourseSlice = createSlice({
   reducers: {
     setTitle: (state, action: PayloadAction<string>) => {
       state.title = action.payload;
-      state.slug = action.payload.replace(/\s+/g, "-").toLowerCase();
+      state.slug = action.payload
+        .toLowerCase()
+        .trim()
+        .replace(/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~`\s]+/g, "-")
+        .replace(/^-+|-+$/g, "");
     },
     setDescription: (state, action: PayloadAction<string>) => {
       state.description = action.payload;
@@ -58,6 +62,7 @@ export const CourseSlice = createSlice({
           : 0;
       state.skills.push({ id: maxId + 1, content: `Skill ${maxId + 1}` });
     },
+
     editSkill: (
       state,
       action: PayloadAction<{ id: number; content: string }>
@@ -140,8 +145,10 @@ export const CourseSlice = createSlice({
       if (!sectionGroup) return;
       sectionGroup.title = action.payload.title;
       sectionGroup.slug = action.payload.title
-        .replace(/\s+/g, "-")
-        .toLowerCase();
+        .toLowerCase()
+        .trim()
+        .replace(/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~`\s]+/g, "-")
+        .replace(/^-+|-+$/g, "");
     },
 
     loadFromLocalStorage: (state) => {
@@ -256,7 +263,11 @@ export const CourseSlice = createSlice({
       );
       if (!section) return;
       section.title = action.payload.title;
-      section.slug = action.payload.title.replace(/\s+/g, "-").toLowerCase();
+      section.slug = action.payload.title
+        .toLowerCase()
+        .trim()
+        .replace(/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~`\s]+/g, "-")
+        .replace(/^-+|-+$/g, "");
     },
     shiftLessons: (
       state,
@@ -345,6 +356,7 @@ export const CourseSlice = createSlice({
         });
       }
     },
+
     deleteLesson: (
       state,
       action: PayloadAction<{

@@ -2,32 +2,32 @@
 import InputField from "@/components/common/InputField";
 import React, { ChangeEvent, use, useEffect, useState } from "react";
 import CategorySelect from "../CategorySelect";
-import { Course } from "../EditForm";
 import { useMutation } from "@tanstack/react-query";
 import api from "@/lib/axios";
 import { toast } from "sonner";
 import { isAxiosError } from "axios";
 import { useRouter } from "next/navigation";
+import { DbCourse } from "@/types";
 export type GeneralInfo = {
   title: string;
   description: string;
-  category: { id: number };
+  category: { id: number } | undefined;
 };
 
 type Props = {
-  course: Course;
+  course: DbCourse;
 };
 const GeneralInfoTab = ({ course }: Props) => {
   const [generalInfo, setGeneralInfo] = useState<GeneralInfo | undefined>();
   const router = useRouter();
-  const updateMutation = useMutation({
+  const updateMutation = useMutation<{ message: string; slug: string }>({
     mutationFn: async () => {
       if (!generalInfo) return;
       const res = await api.patch(`/courses/${course.id}`, generalInfo);
       return res.data;
     },
-    onSuccess: () => {
-      router.refresh();
+    onSuccess: (data) => {
+      router.push(`/course/${data.slug}`);
       return toast.success("General info updated successfully");
     },
     onError: (err) => {
@@ -67,32 +67,33 @@ const GeneralInfoTab = ({ course }: Props) => {
       onSubmit={handleSubmit}
     >
       <h2 className="font-bold text-center text-lg">General information</h2>
-
-      <section className="grow flex flex-col gap-2">
-        <div className="grid sm:grid-cols-2 grid-cols-1 gap-2">
-          <InputField
-            label="Course title"
-            type="text"
-            value={generalInfo?.title}
-            onChange={handleTitleChange}
-            inputClassName="shadow-inner text-sm w-full p-2 shadow-md rounded-md outline-none focus:ring-1 focus:ring-purple-500"
-          />
-          <CategorySelect
-            generalInfo={generalInfo}
-            setGenralInfo={setGeneralInfo}
-          />
-        </div>
-        <div>
-          <InputField
-            label="description"
-            type="text"
-            value={generalInfo?.description}
-            multiline={true}
-            onChange={handleDescriptionChange}
-            inputClassName="shadow-inner outline-none text-sm w-full h-[15rem] resize-none p-2 shadow-md rounded-md outline-none focus:ring-1 focus:ring-purple-500"
-          />
-        </div>
-      </section>
+      {generalInfo && (
+        <section className="grow flex flex-col gap-2">
+          <div className="grid sm:grid-cols-2 grid-cols-1 gap-2">
+            <InputField
+              label="Course title"
+              type="text"
+              value={generalInfo.title}
+              onChange={handleTitleChange}
+              inputClassName="shadow-inner text-sm w-full p-2 shadow-md rounded-md outline-none focus:ring-1 focus:ring-purple-500"
+            />
+            <CategorySelect
+              generalInfo={generalInfo}
+              setGenralInfo={setGeneralInfo}
+            />
+          </div>
+          <div>
+            <InputField
+              label="description"
+              type="text"
+              value={generalInfo.description}
+              multiline={true}
+              onChange={handleDescriptionChange}
+              inputClassName="shadow-inner outline-none text-sm w-full h-[15rem] resize-none p-2 shadow-md rounded-md outline-none focus:ring-1 focus:ring-purple-500"
+            />
+          </div>
+        </section>
+      )}
 
       <button
         type="submit"

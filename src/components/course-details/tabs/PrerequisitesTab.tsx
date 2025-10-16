@@ -1,19 +1,18 @@
 "use client";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
-import { Course } from "../EditForm";
 import InputField from "@/components/common/InputField";
 import { useMutation } from "@tanstack/react-query";
 import api from "@/lib/axios";
-import { Prerequisite } from "@/types/create-course/prerequisites";
 import { toast } from "sonner";
 import { isAxiosError } from "axios";
 import { MdDelete } from "react-icons/md";
 import { useRouter } from "next/navigation";
+import { DbCourse, DbPrerequisite } from "@/types";
 type Props = {
-  course: Course;
+  course: DbCourse;
 };
 const PrerequisitesTab = ({ course }: Props) => {
-  const [prerequisites, setPrerequisites] = useState<Prerequisite[]>();
+  const [prerequisites, setPrerequisites] = useState<DbPrerequisite[]>();
   const router = useRouter();
   const updateMutation = useMutation({
     mutationFn: async () => {
@@ -44,7 +43,7 @@ const PrerequisitesTab = ({ course }: Props) => {
       if (isAxiosError(err)) return toast.error(err.response?.data.message);
     },
   });
-  const addMutation = useMutation<{ prerequisite: Prerequisite }>({
+  const addMutation = useMutation<{ prerequisite: DbPrerequisite }>({
     mutationFn: async () => {
       const res = await api.post("/prerequisites", {
         courseId: course.id,
@@ -53,11 +52,10 @@ const PrerequisitesTab = ({ course }: Props) => {
     },
     onSuccess: (data) => {
       if (!prerequisites) return;
-      setPrerequisites((prev) => [
+      return setPrerequisites((prev) => [
         ...prev!,
         { id: data.prerequisite.id, content: data.prerequisite.content },
       ]);
-      return toast.success("Prerequisite added");
     },
     onError: (err) => {
       if (isAxiosError(err)) return toast.error(err.response?.data.message);
@@ -68,7 +66,7 @@ const PrerequisitesTab = ({ course }: Props) => {
     setPrerequisites(course.prerequisites);
   }, [course]);
   function handlePreriquisiteChange(
-    e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>,
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     id: number
   ) {
     if (!prerequisites) return;
@@ -104,7 +102,7 @@ const PrerequisitesTab = ({ course }: Props) => {
         Add Prerequisite
       </button>
       <div
-        className="grow flex flex-col gap-2 overflow-y-scroll h-[20rem]"
+        className="grow flex flex-col gap-2 overflow-y-auto h-[20rem]"
         id="styledScrollbar"
       >
         {prerequisites?.length === 0 && (

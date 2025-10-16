@@ -1,17 +1,18 @@
 "use client";
 import { useAppDispatch } from "@/lib/hooks";
-import { addLessonToSection, editLesson } from "@/lib/slices/CreateCourseSlice";
+import {
+  addLessonToSection,
+  editLesson,
+} from "@/lib/slices/create-course-slice";
 import { FormEvent, lazy, Suspense, useEffect, useRef, useState } from "react";
 import InputField from "../common/InputField";
 import BlurBackground from "../common/BlurBackground";
 import { toast } from "sonner";
 import Loader from "../common/Loader";
-import { Lesson } from "@/types/create-course";
+import { ContentType, Lesson } from "@/types/create-course";
 
 const VideoOption = lazy(() => import("./lessonTypeOptions/VideoOption"));
 const TextOption = lazy(() => import("./lessonTypeOptions/TextOption"));
-
-type contentType = "Text" | "Video" | "File" | "Quiz";
 type Props = {
   isOpen: boolean;
   sectionOrder: number;
@@ -22,7 +23,7 @@ type Props = {
 export type CreateLesson = {
   title: string;
   content: string;
-  contentType: contentType;
+  contentType: ContentType;
   videoSource?: "Youtube";
 };
 const CreateLessonForm = ({
@@ -126,74 +127,72 @@ const CreateLessonForm = ({
     );
   }
 
+  if (!isOpen) return null;
+
   return (
     <>
-      {isOpen && (
-        <>
-          <BlurBackground />
-          <form
-            ref={formRef}
-            className="flex flex-col gap-2 absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] p-6 w-9/10 bg-white rounded-sm"
-            onSubmit={handleSubmit}
-            method="post"
+      <BlurBackground />
+      <form
+        ref={formRef}
+        className="flex flex-col gap-2 absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] p-6 w-9/10 bg-white rounded-sm"
+        onSubmit={handleSubmit}
+        method="post"
+      >
+        <h1 className="text-lg font-bold text-center">
+          Create content for a lesson
+        </h1>
+        <section className="flex gap-4 items-center">
+          <label className="text-sm">Content type:</label>
+          <select
+            className="outline-0  text-sm shadow-sm p-2 rounded-md"
+            value={formData.contentType}
+            onChange={(e) => {
+              setFormData({
+                ...formData,
+                contentType: e.target.value as ContentType,
+                content: e.target.value === "Video" ? "" : formData.content,
+              });
+            }}
           >
-            <h1 className="text-lg font-bold text-center">
-              Create content for a lesson
-            </h1>
-            <section className="flex gap-4 items-center">
-              <label className="text-sm">Content type:</label>
-              <select
-                className="outline-0  text-sm shadow-sm p-2 rounded-md"
-                value={formData.contentType}
-                onChange={(e) => {
-                  setFormData({
-                    ...formData,
-                    contentType: e.target.value as contentType,
-                    content: e.target.value === "Video" ? "" : formData.content,
-                  });
-                }}
-              >
-                <option value="Text">Text</option>
-                <option value="Video">Video</option>
-              </select>
-            </section>
+            <option value="Text">Text</option>
+            <option value="Video">Video</option>
+          </select>
+        </section>
 
-            <section className="flex flex-col gap-4">
-              <div className="flex flex-col gap-2">
-                <InputField
-                  label="Title"
-                  type="text"
-                  maxLength={50}
-                  value={formData.title}
-                  placeholder="e.g. introduction"
-                  name="title"
-                  inputClassName="w-full text-sm outline-none focus:ring-1 focus:ring-purple-500 shadow-sm p-2 focus:ring-1 focus:ring-purple-500 rounded-md "
-                  onChange={handleChange}
-                />
-              </div>
+        <section className="flex flex-col gap-4">
+          <div className="flex flex-col gap-2">
+            <InputField
+              label="Title"
+              type="text"
+              maxLength={50}
+              value={formData.title}
+              placeholder="e.g. introduction"
+              name="title"
+              inputClassName="w-full text-sm outline-none focus:ring-1 focus:ring-purple-500 shadow-sm p-2 focus:ring-1 focus:ring-purple-500 rounded-md "
+              onChange={handleChange}
+            />
+          </div>
 
-              {formData.contentType === "Text" && (
-                <Suspense fallback={<Loader />}>
-                  <TextOption formData={formData} setFormData={setFormData} />
-                </Suspense>
-              )}
+          {formData.contentType === "Text" && (
+            <Suspense fallback={<Loader />}>
+              <TextOption formData={formData} setFormData={setFormData} />
+            </Suspense>
+          )}
 
-              {formData.contentType === "Video" && (
-                <Suspense fallback={<Loader />}>
-                  <VideoOption formData={formData} setFormData={setFormData} />
-                </Suspense>
-              )}
-            </section>
+          {formData.contentType === "Video" && (
+            <Suspense fallback={<Loader />}>
+              <VideoOption formData={formData} setFormData={setFormData} />
+            </Suspense>
+          )}
+        </section>
 
-            <button
-              type="submit"
-              className="bg-purple-500 p-2 rounded-md text-sm text-white self-end"
-            >
-              Save
-            </button>
-          </form>
-        </>
-      )}
+        <button
+          type="submit"
+          className="bg-purple-500 p-2 rounded-md text-sm text-white self-end"
+        >
+          Save
+        </button>
+      </form>
     </>
   );
 };

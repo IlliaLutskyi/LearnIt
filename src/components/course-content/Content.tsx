@@ -23,7 +23,9 @@ const Content = () => {
   const { data, isPending, isError } = useQuery<Data>({
     queryKey: ["section", params.sectionSlug],
     queryFn: async () => {
-      const res = await api.get(`/sections/${params.sectionSlug}`);
+      const res = await api.get(
+        `/sections/${params.courseSlug}/${params.sectionSlug}`
+      );
       return res.data;
     },
     enabled: !!params.sectionSlug,

@@ -1,7 +1,7 @@
 "use client";
 import api from "@/lib/axios";
 import { useAppSelector } from "@/lib/hooks";
-import { setCategory } from "@/lib/slices/CreateCourseSlice";
+import { setCategory } from "@/lib/slices/create-course-slice";
 import { Category } from "@/types/create-course";
 import { useQuery } from "@tanstack/react-query";
 import { memo, useEffect } from "react";

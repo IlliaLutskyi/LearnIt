@@ -1,6 +1,6 @@
 "use client";
 import { useAppSelector } from "@/lib/hooks";
-import { setCurrentTab } from "@/lib/slices/EditCourseDetailFormSlice";
+import { setCurrentTab } from "@/lib/slices/edit-course-detail-form-slice";
 import { useDispatch } from "react-redux";
 const SideBar = () => {
   const dispatch = useDispatch();

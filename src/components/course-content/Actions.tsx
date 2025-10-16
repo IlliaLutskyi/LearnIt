@@ -13,7 +13,7 @@ const Actions = ({ nextSection, prevSection }: Props) => {
   return (
     <div className="flex justify-between gap-4 items-end mx-4">
       <Link
-        href={`/course/${params.slug}/${prevSection?.sectionGroup.slug}/${prevSection?.slug}`}
+        href={`/course/${params.courseSlug}/${prevSection?.sectionGroup.slug}/${prevSection?.slug}`}
         className={`text-sm text-purple-400 ${
           !prevSection
             ? "cursor-not-allowed"
@@ -24,7 +24,7 @@ const Actions = ({ nextSection, prevSection }: Props) => {
       </Link>
 
       <Link
-        href={`/course/${params.slug}/${nextSection?.sectionGroup.slug}/${nextSection?.slug}`}
+        href={`/course/${params.courseSlug}/${nextSection?.sectionGroup.slug}/${nextSection?.slug}`}
         className={`text-sm text-purple-400 ${
           !nextSection
             ? "cursor-not-allowed"

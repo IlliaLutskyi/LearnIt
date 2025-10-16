@@ -8,7 +8,7 @@ import {
   MenubarTrigger,
 } from "@/components/ui/menubar";
 import { useAppDispatch } from "@/lib/hooks";
-import { deleteSection } from "@/lib/slices/CreateCourseSlice";
+import { deleteSection } from "@/lib/slices/create-course-slice";
 import { Section } from "@/types/create-course";
 import { lazy, memo, Suspense, useState } from "react";
 import { HiDotsVertical } from "react-icons/hi";
@@ -23,6 +23,8 @@ const SectionMenu = ({ section }: Props) => {
   const [isCreateLessonOpen, setIsCreateLessonOpen] = useState(false);
   const [isRenameSectionOpen, setIsRenameSectionOpen] = useState(false);
   const [isCreateQuizOpen, setIsCreateQuizOpen] = useState(false);
+  const [isCreateTable, setIsCreateTable] = useState(false);
+
   const dispatch = useAppDispatch();
   function handleDeleteSection() {
     dispatch(

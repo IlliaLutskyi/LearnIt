@@ -1,17 +1,18 @@
 import { useAppDispatch } from "@/lib/hooks";
-import React from "react";
 import { MdDelete } from "react-icons/md";
 import InputField from "../common/InputField";
 import {
   deletePrerequite,
   editPrerequite,
-} from "@/lib/slices/CreateCourseSlice";
+} from "@/lib/slices/create-course-slice";
 import { Prerequisite } from "@/types/create-course";
+import { useEffect, useState } from "react";
 type Props = {
   prerequisite: Prerequisite;
 };
 const Prerequisit = ({ prerequisite }: Props) => {
   const dispatch = useAppDispatch();
+
   function handleDeletePreriquisite(id: number) {
     dispatch(deletePrerequite(id));
   }

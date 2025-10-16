@@ -1,9 +1,13 @@
 import prisma from "@/lib/db";
-type Data = {
-  title: string;
-  description: string;
-  category: { id: number };
-};
+import z from "zod";
+const DataSchema = z.object({
+  title: z.string(),
+  description: z.string(),
+  category: z.object({
+    id: z.number(),
+  }),
+});
+type Data = z.infer<typeof DataSchema>;
 type Params = {
   params: Promise<{
     id: string;
@@ -15,7 +19,11 @@ export default async function updateCourseDetails(
 ) {
   const { id } = await params;
   const data: Data = await req.json();
+  const isValidData = DataSchema.safeParse(data);
   try {
+    if (!isValidData.success) {
+      return Response.json({ message: "Invalid data" }, { status: 400 });
+    }
     const course = await prisma.course.update({
       where: {
         id: Number(id),
@@ -28,7 +36,11 @@ export default async function updateCourseDetails(
         },
         description: data.description,
         title: data.title,
-        slug: data.title.replace(/\s+/g, "-").toLowerCase(),
+        slug: data.title
+          .toLowerCase()
+          .trim()
+          .replace(/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~`\s]+/g, "-")
+          .replace(/^-+|-+$/g, ""),
       },
     });
 
@@ -40,7 +52,7 @@ export default async function updateCourseDetails(
     }
 
     return Response.json(
-      { message: "Course updated successfully" },
+      { message: "Course updated successfully", slug: course.slug },
       { status: 200 }
     );
   } catch (err) {

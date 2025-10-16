@@ -4,7 +4,7 @@ import {
   addPrerequisite,
   setNextStep,
   setPreviousStep,
-} from "@/lib/slices/CreateCourseSlice";
+} from "@/lib/slices/create-course-slice";
 import Prerequisit from "./Prerequisit";
 import { Step } from "@/types/create-course";
 type Props = {

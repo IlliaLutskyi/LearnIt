@@ -10,7 +10,7 @@ import {
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { lazy, memo, Suspense, useCallback, useState } from "react";
 import { HiDotsVertical } from "react-icons/hi";
-import { deleteLesson } from "@/lib/slices/CreateCourseSlice";
+import { deleteLesson } from "@/lib/slices/create-course-slice";
 import { Section } from "@/types/create-course/section";
 import { Lesson } from "@/types/create-course";
 
@@ -24,10 +24,11 @@ type Props = {
 const LessonMenu = ({ lesson }: Props) => {
   const [isEditLessonOpen, setIsEditLessonOpen] = useState(false);
   const [isRenameSectionOpen, setIsRenameSectionOpen] = useState(false);
+  const [isEditQuizOpen, setIsEditQuizOpen] = useState(false);
+
   const sectionGroups = useAppSelector(
     (state) => state.CreateCourse.sectionGroups
   );
-  const [isEditQuizOpen, setIsEditQuizOpen] = useState(false);
   const dispatch = useAppDispatch();
   const findSection = useCallback(() => {
     const sectionGroup = sectionGroups.find(

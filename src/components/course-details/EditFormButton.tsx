@@ -1,6 +1,6 @@
 "use client";
 import { useAppDispatch } from "@/lib/hooks";
-import { toggleEditCourseDetailForm } from "@/lib/slices/EditCourseDetailFormSlice";
+import { toggleEditCourseDetailForm } from "@/lib/slices/edit-course-detail-form-slice";
 import { DbUser } from "@/types";
 import { useSession } from "next-auth/react";
 import React from "react";

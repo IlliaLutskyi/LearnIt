@@ -1,7 +1,7 @@
 "use client";
 import { lazy, Suspense, useEffect, useState } from "react";
 import Loader from "../common/Loader";
-import { setCurrentLessonViewId } from "@/lib/slices/CourseViewSlice";
+import { setCurrentLessonViewId } from "@/lib/slices/course-view-slice";
 import { useAppDispatch } from "@/lib/hooks";
 import { useInView } from "react-intersection-observer";
 import { DbLesson } from "@/types";

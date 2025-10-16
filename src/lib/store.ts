@@ -1,8 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
-import CreateCourseReducer from "./slices/CreateCourseSlice";
-import ConfirmationReducer from "./slices/ConfirmationFormSlice";
-import CourseViewReducer from "./slices/CourseViewSlice";
-import EditCourseDetailReducer from "./slices/EditCourseDetailFormSlice";
+import CreateCourseReducer from "./slices/create-course-slice";
+import ConfirmationReducer from "./slices/confirmation-form-slice";
+import CourseViewReducer from "./slices/course-view-slice";
+import EditCourseDetailReducer from "./slices/edit-course-detail-form-slice";
 export const makeStore = () => {
   return configureStore({
     reducer: {

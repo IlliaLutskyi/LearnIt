@@ -7,6 +7,7 @@ import { signIn } from "next-auth/react";
 import { toast } from "sonner";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+
 const User = z.object({
   email: z.string().min(1, "Email is required").email("Invalid email address"),
   password: z

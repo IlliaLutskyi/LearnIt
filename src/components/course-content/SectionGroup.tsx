@@ -11,8 +11,8 @@ type Props = {
 };
 
 const SectionGroup = ({ sectionGroup }: Props) => {
-  const [isOpen, setIsOpen] = useState(sectionGroup.order === 1 ? true : false);
   const params = useParams();
+  const [isOpen, setIsOpen] = useState(sectionGroup.order === 1 ? true : false);
   useEffect(() => {
     if (params.sectionGroupSlug == sectionGroup.slug) setIsOpen(true);
   }, [params.sectionGroupSlug]);

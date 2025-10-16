@@ -1,8 +1,8 @@
 import prisma from "@/lib/db";
-import { Prerequisite } from "@/types/create-course/prerequisites";
+import { DbPrerequisite } from "@/types";
 
 export default async function updatePrerequisites(req: Request) {
-  const data: Prerequisite[] = await req.json();
+  const data: DbPrerequisite[] = await req.json();
   try {
     await Promise.all(
       data.map(async (prerequisite) => {

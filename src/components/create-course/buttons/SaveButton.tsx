@@ -3,9 +3,16 @@ import { useAppSelector } from "@/lib/hooks";
 import { useEffect, useState } from "react";
 import { IoMdSave } from "react-icons/io";
 import { toast } from "sonner";
-const SaveOrClearCourseButton = () => {
-  const { title, description, sectionGroups, category, prerequisites, skills } =
-    useAppSelector((state) => state.CreateCourse);
+const SaveCourseToLocalStorageButton = () => {
+  const {
+    title,
+    description,
+    sectionGroups,
+    category,
+    prerequisites,
+    skills,
+    slug,
+  } = useAppSelector((state) => state.CreateCourse);
   const [isSaved, setIsSaved] = useState(false);
   useEffect(() => {
     if (localStorage.getItem("course")) setIsSaved(true);
@@ -21,6 +28,7 @@ const SaveOrClearCourseButton = () => {
     const course = {
       title,
       description,
+      slug,
       skills,
       sectionGroups,
       category,
@@ -44,4 +52,4 @@ const SaveOrClearCourseButton = () => {
   );
 };
 
-export default SaveOrClearCourseButton;
+export default SaveCourseToLocalStorageButton;

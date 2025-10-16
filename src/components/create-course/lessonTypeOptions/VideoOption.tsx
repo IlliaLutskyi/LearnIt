@@ -15,7 +15,7 @@ const VideoOption = ({ formData, setFormData }: Props) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   }
   return (
-    <>
+    <div className="flex flex-col gap-4">
       <section className="flex gap-4 items-center">
         <label className="text-sm">Video Source:</label>
         <select
@@ -27,7 +27,7 @@ const VideoOption = ({ formData, setFormData }: Props) => {
         </select>
       </section>
       <InputField
-        label="Video URL (YouTube):"
+        label="Video URL:"
         onChange={handleChange}
         name="content"
         value={formData.content}
@@ -35,7 +35,7 @@ const VideoOption = ({ formData, setFormData }: Props) => {
         placeholder="e.g. https://www.youtube.com/watch?v=zHNxbJeEa"
         inputClassName="w-full text-sm focus:ring-1 focus:ring-purple-500 shadow-sm p-2 focus:ring-1 focus:ring-purple-500 rounded-md "
       />
-    </>
+    </div>
   );
 };
 

@@ -11,7 +11,7 @@ import { useAppDispatch } from "@/lib/hooks";
 import {
   addSectionToSectionGroup,
   deleteSectionGroup,
-} from "@/lib/slices/CreateCourseSlice";
+} from "@/lib/slices/create-course-slice";
 import { HiDotsVertical } from "react-icons/hi";
 import { lazy, memo, Suspense, useState } from "react";
 import { SectionGroup } from "@/types/create-course";

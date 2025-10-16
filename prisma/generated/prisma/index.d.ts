@@ -14874,16 +14874,16 @@ export namespace Prisma {
 
   export type SectionGroupWhereUniqueInput = Prisma.AtLeast<{
     id?: number
-    slug?: string
     AND?: SectionGroupWhereInput | SectionGroupWhereInput[]
     OR?: SectionGroupWhereInput[]
     NOT?: SectionGroupWhereInput | SectionGroupWhereInput[]
     title?: StringFilter<"SectionGroup"> | string
+    slug?: StringFilter<"SectionGroup"> | string
     order?: IntFilter<"SectionGroup"> | number
     courseId?: IntFilter<"SectionGroup"> | number
     sections?: SectionListRelationFilter
     course?: XOR<CourseScalarRelationFilter, CourseWhereInput>
-  }, "id" | "slug">
+  }, "id">
 
   export type SectionGroupOrderByWithAggregationInput = {
     id?: SortOrder
@@ -14936,17 +14936,17 @@ export namespace Prisma {
 
   export type SectionWhereUniqueInput = Prisma.AtLeast<{
     id?: number
-    title?: string
-    slug?: string
     AND?: SectionWhereInput | SectionWhereInput[]
     OR?: SectionWhereInput[]
     NOT?: SectionWhereInput | SectionWhereInput[]
+    title?: StringFilter<"Section"> | string
+    slug?: StringFilter<"Section"> | string
     order?: IntFilter<"Section"> | number
     sectionGroupId?: IntFilter<"Section"> | number
     lessons?: LessonListRelationFilter
     sectionRates?: SectionRatingListRelationFilter
     sectionGroup?: XOR<SectionGroupScalarRelationFilter, SectionGroupWhereInput>
-  }, "id" | "title" | "slug">
+  }, "id">
 
   export type SectionOrderByWithAggregationInput = {
     id?: SortOrder

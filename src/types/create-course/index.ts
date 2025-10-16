@@ -8,10 +8,14 @@ import { Category } from "./category";
 import { Prerequisite } from "./prerequisites";
 import { Skill } from "./skill";
 import { Step } from "./step";
+import { Table } from "./table";
+import { ContentType } from "./contentType";
 export type {
   Step,
+  Table,
   Answer,
   Quiz,
+  ContentType,
   Lesson,
   Section,
   SectionGroup,

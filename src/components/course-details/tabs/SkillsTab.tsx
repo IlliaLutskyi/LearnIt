@@ -1,20 +1,19 @@
 "use client";
 import { ChangeEvent, useEffect, useState } from "react";
-import { Course } from "../EditForm";
 import InputField from "@/components/common/InputField";
 import api from "@/lib/axios";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { isAxiosError } from "axios";
 import { MdDelete } from "react-icons/md";
-import { Skill } from "@/types/create-course/skill";
 import { useRouter } from "next/navigation";
+import { DbCourse, DbSkill } from "@/types";
 
 type Props = {
-  course: Course;
+  course: DbCourse;
 };
 const SkillsTab = ({ course }: Props) => {
-  const [skills, setSkills] = useState<Skill[]>();
+  const [skills, setSkills] = useState<DbSkill[]>();
   const router = useRouter();
   const updateMustation = useMutation({
     mutationFn: async () => {
@@ -52,11 +51,10 @@ const SkillsTab = ({ course }: Props) => {
     },
     onSuccess: (data) => {
       if (!skills) return;
-      setSkills((prev) => [
+      return setSkills((prev) => [
         ...prev!,
         { id: data.skill.id, content: data.skill.content },
       ]);
-      return toast.success("Skill added");
     },
     onError: (err) => {
       if (isAxiosError(err)) return toast.error(err.response?.data.message);
@@ -76,7 +74,7 @@ const SkillsTab = ({ course }: Props) => {
   }
 
   function handleSkillChange(
-    e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>,
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     id: number
   ) {
     if (!skills) return;
@@ -107,7 +105,7 @@ const SkillsTab = ({ course }: Props) => {
       </button>
 
       <div
-        className="grow flex flex-col gap-2 overflow-y-scroll h-[20rem] p-2"
+        className="grow flex flex-col gap-2 overflow-y-auto h-[20rem] p-2"
         id="styledScrollbar"
       >
         {skills?.length === 0 && (

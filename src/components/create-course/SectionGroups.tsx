@@ -1,6 +1,6 @@
 "use client";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-import { shiftSectionGroup } from "@/lib/slices/CreateCourseSlice";
+import { shiftSectionGroup } from "@/lib/slices/create-course-slice";
 import {
   DndContext,
   closestCenter,

@@ -1,6 +1,6 @@
 "use client";
 import { useAppDispatch } from "@/lib/hooks";
-import { createSectionGroup } from "@/lib/slices/CreateCourseSlice";
+import { createSectionGroup } from "@/lib/slices/create-course-slice";
 import React from "react";
 import { FaPlus } from "react-icons/fa";
 const AddSectionButton = () => {

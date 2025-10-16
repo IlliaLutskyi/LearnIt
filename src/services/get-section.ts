@@ -1,13 +1,20 @@
 import prisma from "@/lib/db";
 
-export default async function getSection(sectionSlug: string) {
+export default async function getSection(
+  section_slug: string,
+  course_slug: string
+) {
   try {
-    if (!sectionSlug)
+    if (!section_slug || !course_slug)
       return Response.json({ message: "Slug is missing" }, { status: 400 });
-
-    const section = await prisma.section.findUnique({
+    const section = await prisma.section.findFirst({
       where: {
-        slug: sectionSlug,
+        sectionGroup: {
+          course: {
+            slug: course_slug,
+          },
+        },
+        slug: section_slug,
       },
       include: {
         lessons: {

@@ -5,7 +5,7 @@ import { useAppDispatch } from "@/lib/hooks";
 import {
   editSection,
   renameSectionGroup,
-} from "@/lib/slices/CreateCourseSlice";
+} from "@/lib/slices/create-course-slice";
 import BlurBackground from "../common/BlurBackground";
 import { Section, SectionGroup } from "@/types/create-course";
 
@@ -52,33 +52,32 @@ const RenameForm = ({ isOpen, section, sectionGroup, setIsOpen }: Props) => {
     }
     setIsOpen(false);
   }
+
+  if (!isOpen) return null;
+
   return (
     <>
-      {isOpen && (
-        <>
-          <BlurBackground />
-          <form
-            ref={formRef}
-            onSubmit={onSubmit}
-            className="absolute top-1/2 left-1/2 w-1/2 translate-x-[-50%] translate-y-[-50%] p-5 flex flex-col gap-2 bg-white shadow-lg rounded-md"
-            method="POST"
-          >
-            <InputField
-              label="title"
-              onChange={(e) => setTitle(e.target.value)}
-              autoFocus={true}
-              defaultValue={section ? section.title : sectionGroup?.title}
-              inputClassName="w-full text-sm focus:ring-1 focus:ring-purple-500 shadow-sm p-2 rounded-md "
-            />
-            <button
-              type="submit"
-              className="bg-purple-500 p-2 rounded-md text-sm text-white self-end"
-            >
-              Save
-            </button>
-          </form>
-        </>
-      )}
+      <BlurBackground />
+      <form
+        ref={formRef}
+        onSubmit={onSubmit}
+        className="absolute top-1/2 left-1/2 w-1/2 translate-x-[-50%] translate-y-[-50%] p-5 flex flex-col gap-2 bg-white shadow-lg rounded-md"
+        method="POST"
+      >
+        <InputField
+          label="title"
+          onChange={(e) => setTitle(e.target.value)}
+          autoFocus={true}
+          defaultValue={section ? section.title : sectionGroup?.title}
+          inputClassName="w-full text-sm focus:ring-1 focus:ring-purple-500 shadow-sm p-2 rounded-md "
+        />
+        <button
+          type="submit"
+          className="bg-purple-500 p-2 rounded-md text-sm text-white self-end"
+        >
+          Save
+        </button>
+      </form>
     </>
   );
 };

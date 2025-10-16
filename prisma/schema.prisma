@@ -45,7 +45,7 @@ model Category{
 model SectionGroup{
   id Int @id @default(autoincrement())
   title String 
-  slug String @unique
+  slug String
   sections Section[]
   order Int 
   courseId Int
@@ -55,8 +55,8 @@ model SectionGroup{
 model Section{
   id Int @id @default(autoincrement())
   lessons Lesson[] 
-  title String @unique
-  slug String @unique
+  title String
+  slug String
   order Int 
   sectionRates SectionRating[]
   sectionGroupId Int

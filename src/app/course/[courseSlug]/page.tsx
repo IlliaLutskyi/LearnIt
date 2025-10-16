@@ -11,14 +11,15 @@ const EditFormButton = lazy(
 
 type Props = {
   params: Promise<{
-    slug: string;
+    courseSlug: string;
   }>;
 };
 const CourseDetails = async ({ params }: Props) => {
-  const { slug } = await params;
-
+  const { courseSlug } = await params;
+  if (!courseSlug)
+    return <h1 className="text-center font-bold m-4">Course not found</h1>;
   const course = await prisma.course.findUnique({
-    where: { slug: slug },
+    where: { slug: courseSlug },
     select: {
       id: true,
       title: true,

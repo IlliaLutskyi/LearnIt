@@ -17,7 +17,7 @@ import {
 } from "@dnd-kit/sortable";
 import React, { memo } from "react";
 import Lesson from "./Lesson";
-import { shiftLessons } from "@/lib/slices/CreateCourseSlice";
+import { shiftLessons } from "@/lib/slices/create-course-slice";
 import { Lesson as TLesson } from "@/types/create-course";
 
 type Props = {

@@ -8,7 +8,7 @@ import { useSession } from "next-auth/react";
 import {
   setIsLoading,
   toggleConfirmationForm,
-} from "@/lib/slices/ConfirmationFormSlice";
+} from "@/lib/slices/confirmation-form-slice";
 const ConfirmationForm = () => {
   const isOpen = useAppSelector((store) => store.ConfirmationForm.isOpen);
   const dispatch = useAppDispatch();
@@ -45,7 +45,7 @@ const ConfirmationForm = () => {
       toast.success(res.data.message, { duration: 5000 });
     } catch (err) {
       if (isAxiosError(err))
-        return toast.error(err.response?.data.message, { duration: 5000 });
+        return toast.error(err.response?.data.message, { duration: 3000 });
     } finally {
       dispatch(setIsLoading(false));
     }

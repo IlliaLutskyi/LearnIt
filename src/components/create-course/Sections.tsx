@@ -15,7 +15,7 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import React, { memo } from "react";
-import { shiftSection } from "@/lib/slices/CreateCourseSlice";
+import { shiftSection } from "@/lib/slices/create-course-slice";
 import SectionItem from "./Section";
 import { Section } from "@/types/create-course";
 

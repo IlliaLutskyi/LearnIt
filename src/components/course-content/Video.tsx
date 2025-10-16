@@ -1,5 +1,5 @@
 import { useAppDispatch } from "@/lib/hooks";
-import { setCurrentLessonViewId } from "@/lib/slices/CourseViewSlice";
+import { setCurrentLessonViewId } from "@/lib/slices/course-view-slice";
 import { DbLesson } from "@/types";
 import React, { useEffect } from "react";
 import { useInView } from "react-intersection-observer";

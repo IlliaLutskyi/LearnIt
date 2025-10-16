@@ -31,9 +31,7 @@ const SectionInfo = ({ sectionGroup }: Props) => {
       {isOpen && sectionGroup?.sections && (
         <section className="flex flex-col gap-2 bg-slate-200 px-8 pb-2">
           {sectionGroup.sections.map((section) => {
-            if (!section.sectionRates || section.sectionRates.length < 1)
-              return null;
-
+            if (!section.sectionRates) return null;
             const rating =
               section.sectionRates.reduce((a, b) => a + b.rate, 0) /
               section.sectionRates.length;

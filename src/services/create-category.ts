@@ -1,5 +1,4 @@
 import prisma from "@/lib/db";
-
 export default async function createCategory(req: Request) {
   const data = await req.formData();
   const name = data.get("name") as string;

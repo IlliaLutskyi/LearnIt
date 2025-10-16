@@ -1,54 +1,37 @@
 import prisma from "@/lib/db";
 import { Course } from "@/types/create-course";
+import CourseSchema from "@/types/zod-schemas/create-course-schema";
+import z from "zod";
 
 export default async function createCourse(req: Request) {
   const course: Course & { userId: string } = await req.json();
   try {
-    if (!course.userId)
-      return Response.json({ message: "UserId is missing" }, { status: 400 });
+    const validated = CourseSchema.safeParse(course);
 
-    if (!course.title || !course.category || !course.description)
+    if (!validated.success) {
+      console.log(z.prettifyError(validated.error));
       return Response.json(
-        { message: "Please fill all the fields in the previous step" },
+        { message: z.prettifyError(validated.error) },
         { status: 400 }
       );
+    }
+    const isDuplicateSlug = await prisma.course.findUnique({
+      where: {
+        slug: course.slug,
+      },
+    });
 
-    if (course.sectionGroups.length === 0)
+    if (isDuplicateSlug) {
       return Response.json(
-        { message: "Please add at least one section group" },
+        { message: "Title already exists" },
         { status: 400 }
       );
-
-    if (
-      course.sectionGroups.some(
-        (sectionGroup) => sectionGroup.sections.length === 0
-      )
-    )
-      return Response.json(
-        { message: "Please add at least one section in each section group" },
-        { status: 400 }
-      );
-
-    if (course.sectionGroups.some((sectionGroup) => !sectionGroup.title))
-      return Response.json(
-        { message: "Please add a title to each section group" },
-        { status: 400 }
-      );
-
-    if (
-      course.sectionGroups.some((sectionGroup) =>
-        sectionGroup.sections.some((section) => !section.title)
-      )
-    )
-      return Response.json(
-        { message: "Please add a title to each section" },
-        { status: 400 }
-      );
+    }
 
     await prisma.course.create({
       data: {
         title: course.title,
-        slug: course.slug || course.title.replace(/\s+/g, "-").toLowerCase(),
+        slug: course.slug,
         description: course.description,
         skills:
           course.skills.length > 0
@@ -77,16 +60,12 @@ export default async function createCourse(req: Request) {
         sectionGroups: {
           create: course.sectionGroups.map((sectionGroup) => ({
             title: sectionGroup.title,
-            slug:
-              sectionGroup.slug ||
-              sectionGroup.title.replace(/\s+/g, "-").toLowerCase(),
+            slug: sectionGroup.slug,
             order: sectionGroup.order,
             sections: {
               create: sectionGroup.sections.map((section) => ({
                 title: section.title,
-                slug:
-                  section.slug ||
-                  section.title.replace(/\s+/g, "-").toLowerCase(),
+                slug: section.slug,
                 order: section.order,
                 lessons: {
                   create: section.lessons.map((lesson) => ({
@@ -125,7 +104,6 @@ export default async function createCourse(req: Request) {
       { status: 201 }
     );
   } catch (err) {
-    console.log(err);
     return Response.json(
       {
         message: "Something went wrong, please try again",

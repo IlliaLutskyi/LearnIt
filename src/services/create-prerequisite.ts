@@ -1,9 +1,7 @@
 import prisma from "@/lib/db";
-import { DbPrerequisite } from "@/types";
 
 export default async function createPrerequisite(req: Request) {
   const data = await req.json();
-
   try {
     const prerequisite = await prisma.prerequisit.create({
       data: {

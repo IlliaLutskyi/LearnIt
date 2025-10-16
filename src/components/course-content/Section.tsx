@@ -12,7 +12,7 @@ const Section = ({ section, sectionGroupSlug }: Props) => {
   return (
     <div>
       <Link
-        href={`/course/${params.slug}/${sectionGroupSlug}/${section.slug}`}
+        href={`/course/${params.courseSlug}/${sectionGroupSlug}/${section.slug}`}
         className={`text-sm ${
           params.sectionSlug === section.slug
             ? "text-orange-300"

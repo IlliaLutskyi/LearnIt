@@ -3,7 +3,7 @@ import {
   addSkill,
   setNextStep,
   setPreviousStep,
-} from "@/lib/slices/CreateCourseSlice";
+} from "@/lib/slices/create-course-slice";
 import Skill from "./Skill";
 import { Step } from "@/types/create-course";
 type Props = {
