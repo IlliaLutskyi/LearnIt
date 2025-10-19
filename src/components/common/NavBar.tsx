@@ -14,14 +14,14 @@ const NavBar = () => {
       </div>
       <ul className="flex max-sm:flex-col items-center justify-center max-sm:gap-1 gap-4 ">
         <li>
-          <Link href="/" className="hover:text-orange-300 duration-150 text-sm">
+          <Link href="/" className="hover:text-orange-300 duration-400 text-sm">
             Home
           </Link>
         </li>
         <li>
           <Link
             href="/courses"
-            className="hover:text-orange-300 duration-150  text-sm"
+            className="hover:text-orange-300 duration-400 text-sm"
           >
             Courses
           </Link>
@@ -30,7 +30,7 @@ const NavBar = () => {
           <li>
             <Link
               href="/auth/login"
-              className="hover:text-orange-300 duration-150 text-sm"
+              className="hover:text-orange-300 duration-400 text-sm"
             >
               Login
             </Link>
@@ -40,7 +40,7 @@ const NavBar = () => {
           <li>
             <Link
               href="/admin"
-              className="hover:text-orange-300 duration-150 text-sm"
+              className="hover:text-orange-300 duration-400 text-sm"
             >
               Admin
             </Link>

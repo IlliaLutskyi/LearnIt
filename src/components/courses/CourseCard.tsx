@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { DbCourse } from "@/types";
+import Image from "next/image";
 
 type Props = {
   course: DbCourse;
@@ -13,9 +14,10 @@ const CourseCard = ({ course }: Props) => {
           {course?.category?.name}
         </span>
         <img
-          src={course?.category?.image}
+          src={course?.category?.image || ""}
+          alt={`${course?.category?.name} icon`}
           className="w-4 h-4 rounded-full"
-        ></img>
+        />
       </div>
 
       <h2 className="text-lg font-semibold text-gray-800 line-clamp-1">
@@ -29,7 +31,7 @@ const CourseCard = ({ course }: Props) => {
           {course.createdAt && new Date(course.createdAt).toLocaleDateString()}
         </span>
         <Link href={`/course/${course.slug}`}>
-          <span className="text-purple-600 font-medium hover:underline">
+          <span className="text-purple-600 font-medium hover:text-purple-800">
             View Details →
           </span>
         </Link>

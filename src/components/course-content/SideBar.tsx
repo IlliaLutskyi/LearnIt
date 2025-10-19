@@ -4,6 +4,7 @@ import {
   DrawerClose,
   DrawerContent,
   DrawerHeader,
+  DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import { IoMdClose } from "react-icons/io";
@@ -42,6 +43,7 @@ const MobileSidebar = ({ sectionGroups }: Props) => {
         </DrawerTrigger>
 
         <DrawerContent className="bg-black">
+          <DrawerTitle className="hidden">Sections List</DrawerTitle>
           <DrawerHeader>
             <DrawerClose>
               <IoMdClose className="text-white" />

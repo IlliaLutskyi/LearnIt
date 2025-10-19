@@ -8,11 +8,11 @@ import { Category } from "./category";
 import { Prerequisite } from "./prerequisites";
 import { Skill } from "./skill";
 import { Step } from "./step";
-import { Table } from "./table";
 import { ContentType } from "./contentType";
+import { CreateLesson } from "./create-lesson";
 export type {
+  CreateLesson,
   Step,
-  Table,
   Answer,
   Quiz,
   ContentType,

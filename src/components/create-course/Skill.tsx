@@ -1,8 +1,8 @@
 import { useAppDispatch } from "@/lib/hooks";
 import { deleteSkill, editSkill } from "@/lib/slices/create-course-slice";
-import InputField from "../common/InputField";
 import { MdDelete } from "react-icons/md";
 import { Skill as TSkill } from "@/types/create-course";
+import Input from "../common/Input";
 
 type Props = {
   skill: TSkill;
@@ -15,10 +15,10 @@ const Skill = ({ skill }: Props) => {
   return (
     <div className="grid grid-cols-[1fr_10fr_1fr]">
       <span className="m-auto">.</span>
-      <InputField
+      <Input
         multiline
         value={skill.content}
-        inputClassName="w-full outline-0 text-sm focus:ring-1 focus:ring-purple-500 shadow-sm p-2 rounded-md h-[4rem] resize-none"
+        className="w-full outline-0 text-sm focus:ring-1 focus:ring-purple-500 shadow-sm p-2 rounded-sm h-[4rem] resize-none"
         onChange={(e) =>
           dispatch(
             editSkill({

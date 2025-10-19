@@ -2,13 +2,14 @@
 import api from "@/lib/axios";
 import { useAppSelector } from "@/lib/hooks";
 import { setCategory } from "@/lib/slices/create-course-slice";
+import { DbCategory } from "@/types";
 import { Category } from "@/types/create-course";
 import { useQuery } from "@tanstack/react-query";
 import { memo, useEffect } from "react";
 import { useDispatch } from "react-redux";
 
 const CategorySelect = () => {
-  const { data: categories } = useQuery<Category[]>({
+  const { data: categories } = useQuery<DbCategory[]>({
     queryKey: ["categories"],
     queryFn: async () => {
       const res = await api.get("/categories");
@@ -22,7 +23,7 @@ const CategorySelect = () => {
       dispatch(setCategory(String(categories[0].id)));
   }, [categories]);
   return (
-    <div className="flex flex-col gap-1 ">
+    <div className="flex flex-col gap-1">
       <label htmlFor="categories" className="text-xs">
         Category
       </label>
@@ -30,7 +31,7 @@ const CategorySelect = () => {
         id="categories"
         onChange={(e) => dispatch(setCategory(e.target.value))}
         value={category}
-        className="outline-0 shadow-md text-sm w-full p-2 rounded-md"
+        className="outline-0 shadow-md text-sm w-full p-2 rounded-sm"
       >
         {categories?.map((category) => {
           return (

@@ -11,12 +11,12 @@ const Step4 = lazy(() => import("./Step4"));
 const MultiForm = () => {
   const steps = useAppSelector((store) => store.CreateCourse.steps);
   return (
-    <div className="grid sm:grid-cols-[1fr_7fr] max-sm:grid-rows-[1fr_10fr] gap-4 max-sm:w-[95%] min-h-[500px] w-5/6 mx-auto mt-[2rem] bg-white rounded-md shadow-2xl caret-purple-500">
-      <section className="flex sm:flex-col justify-center items-center gap-4 px-4 bg-purple-950 text-black rounded-bl-md rounded-tl-md ">
+    <div className="grid sm:grid-cols-[1fr_7fr] max-sm:grid-rows-[1fr_10fr] gap-4 max-sm:w-[95%] min-h-[500px] w-5/6 mx-auto mt-[2rem] bg-white rounded-sm shadow-2xl caret-purple-500">
+      <section className="flex sm:flex-col justify-center items-center gap-4 px-4 bg-purple-950 text-black rounded-bl-md rounded-tl-md">
         {steps.map((step) => (
           <div className="flex items-center gap-4" key={step.step}>
             <span
-              className={`self-center px-3 py-1 text-sm  rounded-full ${
+              className={`self-center px-3 py-1 text-sm rounded-full ${
                 step.active ? "bg-purple-500 text-white" : "bg-white"
               } duration-400`}
             >

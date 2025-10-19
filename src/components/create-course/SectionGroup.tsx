@@ -24,7 +24,7 @@ const SectionGroup = ({ sectionGroup }: Props) => {
   };
   return (
     <div ref={setNodeRef} style={style}>
-      <Collapsible className="shadow-md rounded-md p-4">
+      <Collapsible className="shadow-md rounded-sm p-4">
         <div className="flex justify-between">
           <CollapsibleTrigger>
             <h1 className="font-bold">{sectionGroup.title}</h1>

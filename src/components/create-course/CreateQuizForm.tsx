@@ -1,13 +1,14 @@
 "use client";
 import { Answer } from "@/types/create-course/answer";
-import { FormEvent, useEffect, useRef, useState } from "react";
-import InputField from "../common/InputField";
+import { useEffect, useRef, useState } from "react";
+
 import BlurBackground from "../common/BlurBackground";
 import { useAppDispatch } from "@/lib/hooks";
 import { addQuizToSection, editQuiz } from "@/lib/slices/create-course-slice";
 import { toast } from "sonner";
 import Answers from "./Answers";
 import { Lesson } from "@/types/create-course";
+import Input from "../common/Input";
 
 type Props = {
   isOpen: boolean;
@@ -24,6 +25,7 @@ const CreateQuizForm = ({
   lesson,
 }: Props) => {
   const formRef = useRef<HTMLFormElement>(null);
+
   const [question, setQuestion] = useState("");
   const [explanation, setExplanation] = useState("");
   const [answers, setAnswers] = useState<Answer[]>([]);
@@ -43,7 +45,7 @@ const CreateQuizForm = ({
       document.removeEventListener("mousedown", clickOutsordere);
     };
   }, []);
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (!title) return toast.error("Title is required");
     if (!question) return toast.error("Question is required");
@@ -98,32 +100,29 @@ const CreateQuizForm = ({
       <BlurBackground />
       <form
         ref={formRef}
-        onSubmit={handleSubmit}
+        onSubmit={onSubmit}
         className="flex flex-col gap-2 absolute top-[50%] left-1/2 translate-x-[-50%] translate-y-[-50%] p-5 w-5/6 bg-white rounded-sm"
       >
         <h1 className="text-lg font-bold self-center">Create Quiz</h1>
         <section className="flex flex-col gap-2">
-          <InputField
-            label="Title"
+          <Input
+            label="title"
             value={title}
-            maxLength={50}
-            inputClassName="w-full text-sm shadow-sm  outline-none focus:ring-1 focus:ring-purple-500 p-2 rounded-md "
+            className="w-full text-sm shadow-sm outline-none focus:ring-1 focus:ring-purple-500 p-2 rounded-sm"
             onChange={(e) => setTitle(e.target.value)}
           />
           <section className="grid grid-cols-2 gap-4">
-            <InputField
-              label="Question"
-              maxLength={500}
+            <Input
+              label="question"
               multiline={true}
               value={question}
-              inputClassName="w-full text-sm outline-none focus:ring-1 focus:ring-purple-500 shadow-sm p-2 rounded-md h-[6rem] resize-none"
               onChange={(e) => setQuestion(e.target.value)}
+              className="w-full text-sm outline-none focus:ring-1 focus:ring-purple-500 shadow-sm p-2 rounded-sm h-[6rem] resize-none"
             />
-            <InputField
+            <Input
               label="Explanation (optional)"
               value={explanation}
-              maxLength={500}
-              inputClassName="w-full text-sm outline-none focus:ring-1 focus:ring-purple-500 shadow-sm p-2 rounded-md h-[6rem] resize-none"
+              className="w-full text-sm outline-none focus:ring-1 focus:ring-purple-500 shadow-sm p-2 rounded-sm h-[6rem] resize-none"
               onChange={(e) => setExplanation(e.target.value)}
               multiline={true}
             />

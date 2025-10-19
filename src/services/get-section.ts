@@ -33,6 +33,7 @@ export default async function getSection(
       },
       select: {
         slug: true,
+        title: true,
         sectionGroup: {
           select: {
             slug: true,
@@ -62,6 +63,7 @@ export default async function getSection(
           },
           select: {
             slug: true,
+            title: true,
             sectionGroup: {
               select: {
                 slug: true,
@@ -79,6 +81,7 @@ export default async function getSection(
       },
       select: {
         slug: true,
+        title: true,
         sectionGroup: {
           select: {
             slug: true,
@@ -114,6 +117,7 @@ export default async function getSection(
           },
           select: {
             slug: true,
+            title: true,
             sectionGroup: {
               select: {
                 slug: true,

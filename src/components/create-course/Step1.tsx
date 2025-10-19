@@ -1,69 +1,107 @@
 "use client";
+
 import {
   setTitle,
   setDescription,
   setNextStep,
+  setCategory,
 } from "@/lib/slices/create-course-slice";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-import InputField from "../common/InputField";
 import CategorySelect from "./CategorySelect";
 import { Step } from "@/types/create-course";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useForm } from "react-hook-form";
+import z from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import Input from "../common/Input";
+
+const GeneralInfoSchema = z.object({
+  title: z.string().min(1, "Title is required").max(100, "Title is too long"),
+  description: z
+    .string()
+    .min(1, "Description is required")
+    .max(10000, "Description is too long"),
+});
+type GeneralInfo = z.infer<typeof GeneralInfoSchema>;
+
 type Props = {
   step: Step;
 };
 const Step1 = ({ step }: Props) => {
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+    setValue,
+  } = useForm({ resolver: zodResolver(GeneralInfoSchema) });
+
   const dispatch = useAppDispatch();
-  const { title, description } = useAppSelector((state) => state.CreateCourse);
-  const [status, setStatus] = useState({
-    titleError: "",
-    descriptionError: "",
-  });
+  const { title, description, category } = useAppSelector(
+    (state) => state.CreateCourse
+  );
+
   useEffect(() => {
-    setStatus({
-      titleError: !title ? "Title is required" : "",
-      descriptionError: !description ? "Description is required" : "",
-    });
-  }, [title, description]);
-  function handleNext() {
+    const generalInfo = localStorage.getItem("generalInfo");
+    if (generalInfo) {
+      const { title, description, category } = JSON.parse(generalInfo);
+      setValue("title", title);
+      setValue("description", description);
+      dispatch(setCategory(category));
+    }
+  }, []);
+
+  function handleNext(data: GeneralInfo) {
+    dispatch(setTitle(data.title));
+    dispatch(setDescription(data.description));
+
     dispatch(setNextStep({ currentStep: step.step }));
+
+    localStorage.setItem(
+      "generalInfo",
+      JSON.stringify({ title: data.title, description: data.description })
+    );
   }
   return (
-    <div className="flex flex-col gap-4 p-4 h-full">
+    <form
+      className="flex flex-col gap-4 p-4 h-full"
+      onSubmit={handleSubmit(handleNext)}
+    >
       <h1 className="text-lg font-bold self-center">{step.title}</h1>
       <section className="grow flex flex-col gap-2">
         <div className="grid sm:grid-cols-2 grid-cols-1 gap-2">
-          <InputField
-            label="Course title"
+          <Input
+            label="course title"
             type="text"
-            value={title}
-            onChange={(e) => dispatch(setTitle(e.target.value))}
-            errorMessage={status.titleError}
-            inputClassName="shadow-inner text-sm w-full p-2 shadow-md rounded-md outline-none focus:ring-1 focus:ring-purple-500"
+            field="title"
+            defaultValue={title}
+            register={register}
+            error={errors.title?.message}
+            className="text-sm w-full p-2 shadow-sm rounded-md outline-none focus:ring-1 focus:ring-purple-500"
           />
           <CategorySelect />
         </div>
         <div>
-          <InputField
+          <Input
             label="description"
             type="text"
-            value={description}
-            onChange={(e) => dispatch(setDescription(e.target.value))}
-            errorMessage={status.descriptionError}
+            field="description"
+            register={register}
+            error={errors.description?.message}
             multiline={true}
-            inputClassName="shadow-inner outline-none text-sm w-full h-[15rem]  resize-none  p-2  shadow-md rounded-md outline-none focus:ring-1 focus:ring-purple-500"
+            defaultValue={description}
+            className="shadow-md text-sm w-full h-[17rem] resize-none p-2 rounded-sm outline-none focus:ring-1 focus:ring-purple-500"
           />
         </div>
       </section>
       <section className="flex justify-end items-center">
         <button
           className="self-end mt-4 bg-purple-500 text-white px-4 py-2 focus:scale-95 rounded-sm hover:bg-purple-700  duration-500"
-          onClick={handleNext}
+          type="submit"
         >
           Next
         </button>
       </section>
-    </div>
+    </form>
   );
 };
 

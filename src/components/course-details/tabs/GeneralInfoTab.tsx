@@ -1,5 +1,4 @@
 "use client";
-import InputField from "@/components/common/InputField";
 import React, { ChangeEvent, use, useEffect, useState } from "react";
 import CategorySelect from "../CategorySelect";
 import { useMutation } from "@tanstack/react-query";
@@ -8,6 +7,7 @@ import { toast } from "sonner";
 import { isAxiosError } from "axios";
 import { useRouter } from "next/navigation";
 import { DbCourse } from "@/types";
+import Input from "@/components/common/Input";
 export type GeneralInfo = {
   title: string;
   description: string;
@@ -70,12 +70,12 @@ const GeneralInfoTab = ({ course }: Props) => {
       {generalInfo && (
         <section className="grow flex flex-col gap-2">
           <div className="grid sm:grid-cols-2 grid-cols-1 gap-2">
-            <InputField
+            <Input
               label="Course title"
               type="text"
               value={generalInfo.title}
               onChange={handleTitleChange}
-              inputClassName="shadow-inner text-sm w-full p-2 shadow-md rounded-md outline-none focus:ring-1 focus:ring-purple-500"
+              className="text-sm w-full p-2 shadow-md rounded-sm outline-none focus:ring-1 focus:ring-purple-500"
             />
             <CategorySelect
               generalInfo={generalInfo}
@@ -83,13 +83,13 @@ const GeneralInfoTab = ({ course }: Props) => {
             />
           </div>
           <div>
-            <InputField
+            <Input
               label="description"
               type="text"
               value={generalInfo.description}
               multiline={true}
               onChange={handleDescriptionChange}
-              inputClassName="shadow-inner outline-none text-sm w-full h-[15rem] resize-none p-2 shadow-md rounded-md outline-none focus:ring-1 focus:ring-purple-500"
+              className="text-sm w-full h-[15rem] resize-none p-2 shadow-md rounded-sm outline-none focus:ring-1 focus:ring-purple-500"
             />
           </div>
         </section>

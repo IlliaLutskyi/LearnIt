@@ -23,7 +23,6 @@ const SectionMenu = ({ section }: Props) => {
   const [isCreateLessonOpen, setIsCreateLessonOpen] = useState(false);
   const [isRenameSectionOpen, setIsRenameSectionOpen] = useState(false);
   const [isCreateQuizOpen, setIsCreateQuizOpen] = useState(false);
-  const [isCreateTable, setIsCreateTable] = useState(false);
 
   const dispatch = useAppDispatch();
   function handleDeleteSection() {
@@ -40,6 +39,9 @@ const SectionMenu = ({ section }: Props) => {
   function handleAddQuiz() {
     setIsCreateQuizOpen(true);
   }
+  function handleRenameSection() {
+    setIsRenameSectionOpen(true);
+  }
   return (
     <>
       <Menubar>
@@ -54,10 +56,7 @@ const SectionMenu = ({ section }: Props) => {
             <MenubarItem onClick={handleAddLesson} id="create-lesson-anchor">
               Add Lesson
             </MenubarItem>
-            <MenubarItem
-              onClick={() => setIsRenameSectionOpen(true)}
-              id="rename-anchor"
-            >
+            <MenubarItem onClick={handleRenameSection} id="rename-anchor">
               Rename
             </MenubarItem>
             <MenubarSeparator />

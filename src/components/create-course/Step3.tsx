@@ -17,6 +17,7 @@ const Step3 = ({ step }: Props) => {
     } else {
       dispatch(setPreviousStep({ currentStep: step.step }));
     }
+    localStorage.setItem("skills", JSON.stringify(skills));
   }
   function handleAddPreriquisite() {
     dispatch(addSkill());

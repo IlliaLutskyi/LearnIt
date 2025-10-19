@@ -3,20 +3,14 @@ import { useAppSelector } from "@/lib/hooks";
 import { useEffect, useState } from "react";
 import { IoMdSave } from "react-icons/io";
 import { toast } from "sonner";
-const SaveCourseToLocalStorageButton = () => {
-  const {
-    title,
-    description,
-    sectionGroups,
-    category,
-    prerequisites,
-    skills,
-    slug,
-  } = useAppSelector((state) => state.CreateCourse);
+const SaveContentButton = () => {
+  const { sectionGroups } = useAppSelector((state) => state.CreateCourse);
   const [isSaved, setIsSaved] = useState(false);
+
   useEffect(() => {
     if (localStorage.getItem("course")) setIsSaved(true);
   }, [localStorage.getItem("course")]);
+
   function handleClearStorage() {
     localStorage.setItem("course", "");
     setIsSaved(false);
@@ -25,21 +19,9 @@ const SaveCourseToLocalStorageButton = () => {
     });
   }
   function handleSave() {
-    const course = {
-      title,
-      description,
-      slug,
-      skills,
-      sectionGroups,
-      category,
-      prerequisites,
-    };
-    localStorage.setItem("course", JSON.stringify(course));
+    localStorage.setItem("sectionGroups", JSON.stringify(sectionGroups));
     setIsSaved(true);
-    toast.success(
-      "All data was saved and will be restored when you enter this page again, you can relax now :)",
-      { duration: 5000 }
-    );
+    toast.success("All content was saved :)", { duration: 3000 });
   }
   return (
     <button
@@ -52,4 +34,4 @@ const SaveCourseToLocalStorageButton = () => {
   );
 };
 
-export default SaveCourseToLocalStorageButton;
+export default SaveContentButton;

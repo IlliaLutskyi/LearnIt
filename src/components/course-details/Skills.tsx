@@ -5,7 +5,7 @@ type Props = {
 };
 const Skills = ({ skills }: Props) => {
   return (
-    <div className="flex flex-col gap-4 p-5 border-[1px] border-purple-200 rounded-sm">
+    <div className="flex flex-col gap-4 p-5 border-[1px] border-purple-300 rounded-sm">
       <h2 className="font-bold text-lg">What you'll learn</h2>
       <section className="grid grid-cols-2 gap-4">
         {skills.map((skill) => (

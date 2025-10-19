@@ -56,7 +56,7 @@ const Lessons = ({ lessons }: Props) => {
       onDragEnd={handleDragEnd}
     >
       <div
-        className="flex flex-col gap-2 overflow-y-auto h-[20rem]  p-3 "
+        className="flex flex-col gap-2 overflow-y-auto h-[20rem] p-3"
         id="scrollbar"
       >
         <SortableContext

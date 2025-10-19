@@ -25,7 +25,7 @@ const Lesson = ({ lesson }: Props) => {
   return (
     <div>
       <Collapsible
-        className="shadow-md rounded-md p-4 "
+        className="shadow-md rounded-sm p-4"
         ref={setNodeRef}
         style={style}
       >
@@ -41,14 +41,6 @@ const Lesson = ({ lesson }: Props) => {
           </section>
         </div>
         <CollapsibleContent>
-          {lesson.contentType === "Text" && (
-            <div
-              className="mx-auto prose prose-sm w-full whitespace-pre-wrap break-words"
-              dangerouslySetInnerHTML={{
-                __html: lesson.content!,
-              }}
-            />
-          )}
           {lesson.contentType === "Video" && (
             <iframe
               src={lesson.content}
@@ -57,6 +49,16 @@ const Lesson = ({ lesson }: Props) => {
           )}
           {lesson.contentType === "Quiz" && (
             <Quiz quiz={lesson.quiz!} key={lesson.order} />
+          )}
+          {(lesson.contentType === "Table" ||
+            lesson.contentType === "Text" ||
+            lesson.contentType === "Markdown") && (
+            <div
+              className="mx-auto prose prose-sm w-full whitespace-pre-wrap break-words"
+              dangerouslySetInnerHTML={{
+                __html: lesson.content!,
+              }}
+            />
           )}
         </CollapsibleContent>
       </Collapsible>

@@ -21,9 +21,9 @@ export default function RootLayout({
       <SessionWraper>
         <ReactQuery>
           <StoreProvider>
-            <body className="flex flex-col min-h-screen bg-white">
+            <body className="flex flex-col min-h-screen bg-purple-100">
               <NavBar />
-              <main className="grow bg-white">{children}</main>
+              <main className="grow">{children}</main>
               <Toaster />
             </body>
           </StoreProvider>
