@@ -1,13 +1,14 @@
 "use client";
 import mammoth from "mammoth";
-import { CreateLesson } from "../CreateLessonForm";
 import { toast } from "sonner";
 import { Editor } from "@tiptap/react";
+import { CreateLesson } from "@/types/create-course";
+import { UseFormSetValue } from "react-hook-form";
 type Props = {
   editor: Editor;
-  setFormData: React.Dispatch<React.SetStateAction<CreateLesson>>;
+  setValue: UseFormSetValue<CreateLesson>;
 };
-const UploadDocButton = ({ editor, setFormData }: Props) => {
+const UploadDocButton = ({ editor, setValue }: Props) => {
   async function handleFileConvert(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files![0];
     if (!file) return;
@@ -27,7 +28,7 @@ const UploadDocButton = ({ editor, setFormData }: Props) => {
         }
       );
 
-      setFormData((prev) => ({ ...prev, content: result.value }));
+      setValue("content", result.value!);
       editor.commands.setContent(result.value!);
       toast.success("File was converted successfully", { duration: 5000 });
     } catch (err) {

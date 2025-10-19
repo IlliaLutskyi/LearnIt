@@ -20,7 +20,7 @@ const CategoryBar = ({ categories }: Props) => {
           className={`${
             filter === "all"
               ? "bg-amber-100 text-orange-400"
-              : "bg-purple-100 text-purple-500"
+              : "bg-purple-200 text-purple-600"
           } text-xs font-semibold px-3 py-1 hover:scale-95 duration-500 rounded-sm`}
         >
           All
@@ -35,7 +35,7 @@ const CategoryBar = ({ categories }: Props) => {
               className={`${
                 isActive
                   ? "bg-amber-100 text-orange-400"
-                  : "bg-purple-100 text-purple-500"
+                  : "bg-purple-200 text-purple-600"
               } text-xs font-semibold px-3 py-1 hover:scale-95 duration-500 rounded-sm`}
             >
               {category.name.slice(0, 1).toUpperCase() + category.name.slice(1)}

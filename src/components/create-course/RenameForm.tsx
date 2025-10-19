@@ -1,6 +1,5 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
-import InputField from "../common/InputField";
+import { useEffect, useRef } from "react";
 import { useAppDispatch } from "@/lib/hooks";
 import {
   editSection,
@@ -8,7 +7,15 @@ import {
 } from "@/lib/slices/create-course-slice";
 import BlurBackground from "../common/BlurBackground";
 import { Section, SectionGroup } from "@/types/create-course";
+import z from "zod";
+import Input from "../common/Input";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
 
+const DataSchema = z.object({
+  title: z.string().min(1, "Title is required").max(100, "Title is too long"),
+});
+type Data = z.infer<typeof DataSchema>;
 type Props = {
   isOpen: boolean;
   section?: Section;
@@ -16,15 +23,24 @@ type Props = {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 const RenameForm = ({ isOpen, section, sectionGroup, setIsOpen }: Props) => {
-  const [title, setTitle] = useState("");
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(DataSchema),
+  });
   const dispatch = useAppDispatch();
+
   const formRef = useRef<HTMLFormElement>(null);
+
   useEffect(() => {
     document.addEventListener("click", handleClickOutside);
     return () => {
       document.removeEventListener("click", handleClickOutside);
     };
   }, []);
+
   function handleClickOutside(e: MouseEvent) {
     const target = e.target as HTMLElement;
     if (
@@ -35,19 +51,21 @@ const RenameForm = ({ isOpen, section, sectionGroup, setIsOpen }: Props) => {
       setIsOpen(false);
     }
   }
-  function onSubmit() {
-    if (!title && title.length >= 30) return;
+  function onSubmit(data: Data) {
     if (section) {
       dispatch(
         editSection({
           sectionGroupOrder: section.sectionGroupId,
-          title,
+          title: data.title,
           order: section.order,
         })
       );
     } else if (sectionGroup) {
       dispatch(
-        renameSectionGroup({ title, sectionGroupOrder: sectionGroup.order })
+        renameSectionGroup({
+          title: data.title,
+          sectionGroupOrder: sectionGroup.order,
+        })
       );
     }
     setIsOpen(false);
@@ -60,16 +78,18 @@ const RenameForm = ({ isOpen, section, sectionGroup, setIsOpen }: Props) => {
       <BlurBackground />
       <form
         ref={formRef}
-        onSubmit={onSubmit}
-        className="absolute top-1/2 left-1/2 w-1/2 translate-x-[-50%] translate-y-[-50%] p-5 flex flex-col gap-2 bg-white shadow-lg rounded-md"
+        onSubmit={handleSubmit(onSubmit)}
+        className="absolute top-1/2 left-1/2 w-1/2 translate-x-[-50%] translate-y-[-50%] p-5 flex flex-col gap-2 bg-white shadow-lg rounded-sm"
         method="POST"
       >
-        <InputField
+        <Input
           label="title"
-          onChange={(e) => setTitle(e.target.value)}
+          register={register}
+          field="title"
           autoFocus={true}
           defaultValue={section ? section.title : sectionGroup?.title}
-          inputClassName="w-full text-sm focus:ring-1 focus:ring-purple-500 shadow-sm p-2 rounded-md "
+          error={errors.title?.message}
+          className="w-full text-sm focus:ring-1 focus:ring-purple-500 outline-0 shadow-sm p-2 rounded-md"
         />
         <button
           type="submit"

@@ -7,6 +7,7 @@ import {
 } from "@/lib/slices/create-course-slice";
 import Prerequisit from "./Prerequisit";
 import { Step } from "@/types/create-course";
+
 type Props = {
   step: Step;
 };
@@ -18,6 +19,7 @@ const Step2 = ({ step }: Props) => {
     } else {
       dispatch(setPreviousStep({ currentStep: step.step }));
     }
+    localStorage.setItem("prerequisites", JSON.stringify(prerequisites));
   }
   function handleAddPreriquisite() {
     dispatch(addPrerequisite());

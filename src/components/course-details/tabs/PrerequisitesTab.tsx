@@ -1,6 +1,5 @@
 "use client";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
-import InputField from "@/components/common/InputField";
 import { useMutation } from "@tanstack/react-query";
 import api from "@/lib/axios";
 import { toast } from "sonner";
@@ -8,6 +7,7 @@ import { isAxiosError } from "axios";
 import { MdDelete } from "react-icons/md";
 import { useRouter } from "next/navigation";
 import { DbCourse, DbPrerequisite } from "@/types";
+import Input from "@/components/common/Input";
 type Props = {
   course: DbCourse;
 };
@@ -111,11 +111,11 @@ const PrerequisitesTab = ({ course }: Props) => {
         {prerequisites &&
           prerequisites.map((preriquisite) => (
             <div key={preriquisite.id} className="grid grid-cols-[4fr_1fr]">
-              <InputField
+              <Input
                 multiline
                 value={preriquisite.content}
                 onChange={(e) => handlePreriquisiteChange(e, preriquisite.id)}
-                inputClassName="mx-auto w-3/4 outline-0 text-sm focus:ring-1 focus:ring-purple-500 shadow-sm p-2 rounded-md h-[4rem] resize-none"
+                className="mx-auto w-3/4 outline-0 text-sm focus:ring-1 focus:ring-purple-500 shadow-sm p-2 rounded-sm h-[4rem] resize-none"
               />
               <button
                 type="button"

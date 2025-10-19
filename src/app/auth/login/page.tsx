@@ -7,6 +7,7 @@ import { signIn } from "next-auth/react";
 import { toast } from "sonner";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import Input from "@/components/common/Input";
 
 const User = z.object({
   email: z.string().min(1, "Email is required").email("Invalid email address"),
@@ -45,44 +46,36 @@ const Login = () => {
     <form
       method="POST"
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col gap-4 sm:w-1/2 w-3/4 p-4 shadow-2xl mx-auto mt-[5rem] rounded-md"
+      className="flex flex-col gap-4 sm:w-1/2 w-3/4 p-4 shadow-2xl mx-auto mt-[5rem] rounded-sm bg-gradient-to-br from-white to-purple-200 min-h-[400px]"
     >
       <h1 className="text-xl font-bold text-center">Login</h1>
-      <div className="flex flex-col gap-1">
-        <label htmlFor="email" className="text-sm">
-          Email
-        </label>
-        <input
-          type="text"
-          {...register("email")}
-          id="email"
-          className="text-sm w-full p-2 shadow-md rounded-md outline-none focus:ring-1 focus:ring-purple-500"
+      <section className="grow flex flex-col gap-2">
+        <Input
+          label="Email"
+          register={register}
+          field="email"
+          error={errors.email?.message}
+          className="text-sm w-full p-2 shadow-md rounded-msm outline-none focus:ring-1 focus:ring-purple-500 bg-white"
         />
-        <p className="text-red-500 text-xs">{errors.email?.message}</p>
-      </div>
-      <div className="flex flex-col gap-1">
-        <label htmlFor="password" className="text-sm">
-          Password
-        </label>
-        <input
-          type="text"
-          {...register("password")}
-          id="password"
-          className="text-sm w-full p-2 shadow-md rounded-md outline-none focus:ring-1 focus:ring-purple-500"
+        <Input
+          label="Password"
+          register={register}
+          field="password"
+          type="password"
+          error={errors.password?.message}
+          className="text-sm w-full p-2 shadow-md rounded-sm outline-none focus:ring-1 focus:ring-purple-500 bg-white"
         />
-        <p className="text-red-500 text-xs">{errors.password?.message}</p>
-      </div>
-      <div className="relative border-t-[1px] border-gray-950">
-        <h1 className="absolute top-[-5%] left-[50%] translate-x-[-50%] translate-y-[-50%] bg-white px-2">
-          or
-        </h1>
+      </section>
+
+      <section className="relative border-t-[1px] border-purple-300">
         <p className="text-sm text-center mt-8 flex gap-2 justify-center">
           Don&apos;t have an account?
           <Link href="/auth/signup" className="text-purple-500 hover:underline">
             Signup
           </Link>
         </p>
-      </div>
+      </section>
+
       <button
         type="submit"
         disabled={loading}

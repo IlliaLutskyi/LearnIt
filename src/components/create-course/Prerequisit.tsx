@@ -1,12 +1,12 @@
 import { useAppDispatch } from "@/lib/hooks";
 import { MdDelete } from "react-icons/md";
-import InputField from "../common/InputField";
 import {
   deletePrerequite,
   editPrerequite,
 } from "@/lib/slices/create-course-slice";
 import { Prerequisite } from "@/types/create-course";
-import { useEffect, useState } from "react";
+import Input from "../common/Input";
+
 type Props = {
   prerequisite: Prerequisite;
 };
@@ -19,10 +19,11 @@ const Prerequisit = ({ prerequisite }: Props) => {
   return (
     <div className="grid grid-cols-[1fr_10fr_1fr]">
       <span className="m-auto">.</span>
-      <InputField
+      <Input
+        type="text"
         multiline
         value={prerequisite.content}
-        inputClassName="w-full outline-0 text-sm focus:ring-1 focus:ring-purple-500 shadow-sm p-2 rounded-md h-[4rem] resize-none"
+        className="w-full outline-0 text-sm focus:ring-1 focus:ring-purple-500 shadow-sm p-2 rounded-sm h-[4rem] resize-none"
         onChange={(e) =>
           dispatch(
             editPrerequite({

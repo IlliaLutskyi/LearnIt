@@ -32,7 +32,7 @@ const SectionGroup = ({ sectionGroup }: Props) => {
         )}
       </div>
       <CollapsibleContent>
-        <div className="border-l-[1px] border-gray-200 pl-4 ml-2 mt-2">
+        <div className="ml-2 mt-2">
           {sectionGroup.sections &&
             sectionGroup.sections.map((section) => (
               <Section

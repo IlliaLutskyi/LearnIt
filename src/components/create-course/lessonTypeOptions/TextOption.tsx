@@ -1,16 +1,19 @@
 "use client";
-import { CreateLesson } from "../CreateLessonForm";
+
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import { useEffect } from "react";
 import TextMenuBar from "./TextMenuBar";
 import Image from "@tiptap/extension-image";
-
+import { CreateLesson } from "@/types/create-course";
+import { UseFormSetValue } from "react-hook-form";
+import dompurify from "dompurify";
 type Props = {
-  setFormData: React.Dispatch<React.SetStateAction<CreateLesson>>;
-  formData: CreateLesson;
+  content: string;
+  setValue: UseFormSetValue<CreateLesson>;
+  error: string | undefined;
 };
-const TextOption = ({ formData, setFormData }: Props) => {
+const TextOption = ({ content, setValue, error }: Props) => {
   const editor = useEditor({
     extensions: [
       StarterKit,
@@ -20,10 +23,10 @@ const TextOption = ({ formData, setFormData }: Props) => {
     ],
     editorProps: {
       attributes: {
-        class: "prose prose-sm focus:outline-none",
+        class: "prose prose-sm focus:outline-none h-full w-full",
       },
     },
-    content: formData.content,
+    content: content || "",
     immediatelyRender: true,
     autofocus: true,
   });
@@ -32,8 +35,10 @@ const TextOption = ({ formData, setFormData }: Props) => {
     if (!editor) return;
 
     const handleUpdate = () => {
-      const html = editor.getHTML();
-      setFormData((prev) => ({ ...prev, content: html }));
+      const unsafeHtml = editor.getHTML();
+      const html = dompurify.sanitize(unsafeHtml);
+
+      setValue("content", html);
     };
 
     editor.on("update", handleUpdate);
@@ -45,14 +50,15 @@ const TextOption = ({ formData, setFormData }: Props) => {
 
   return (
     <div>
-      <TextMenuBar editor={editor} setFormData={setFormData} />
-      <label className="text-sm">Content</label>
+      <TextMenuBar editor={editor} setValue={setValue} />
+      <label className="text-xs">Content</label>
       <div
-        className="overflow-y-auto h-[270px] border-[1px] border-gray-300 p-2 rounded-sm"
-        id="scrollbar"
+        className="overflow-y-auto h-[20rem] border-[1px] rounded-sm border-purple-500 p-4"
+        id="styledScrollbar"
       >
         <EditorContent editor={editor} />
       </div>
+      {error && <p className="text-xs text-red-500">{error}</p>}
     </div>
   );
 };

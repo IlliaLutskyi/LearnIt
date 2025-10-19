@@ -12,9 +12,9 @@ type Props = {
 const SectionInfo = ({ sectionGroup }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <div className="flex flex-col border-[1px] border-slate-300 ml-4">
+    <div className="flex flex-col border-[1px] border-black ml-4">
       <button
-        className="flex gap-4 bg-slate-200 p-2 hover:bg-slate-200/40 duration-300"
+        className="flex gap-4 bg-purple-200 p-2 hover:bg-purple-300 duration-300"
         onClick={() => setIsOpen(!isOpen)}
       >
         <p>
@@ -29,7 +29,7 @@ const SectionInfo = ({ sectionGroup }: Props) => {
       </button>
 
       {isOpen && sectionGroup?.sections && (
-        <section className="flex flex-col gap-2 bg-slate-200 px-8 pb-2">
+        <section className="flex flex-col gap-2 bg-purple-200 px-8 pb-2">
           {sectionGroup.sections.map((section) => {
             if (!section.sectionRates) return null;
             const rating =

@@ -8,9 +8,9 @@ import {
   TableHeader,
   TableRow,
 } from "../ui/table";
-import InputField from "../common/InputField";
 import { CiTrash } from "react-icons/ci";
 import { Answer } from "@/types/create-course";
+import Input from "../common/Input";
 
 type Props = {
   answers: Answer[];
@@ -65,20 +65,19 @@ const Answers = ({ answers, setAnswers }: Props) => {
           return (
             <TableRow key={index}>
               <TableCell>
-                <InputField
+                <Input
                   value={answer.content}
                   onChange={(e) => editAnswer(e, index)}
-                  maxLength={500}
-                  inputClassName="shadow-inner text-sm w-full p-2 shadow-md rounded-md outline-none focus:ring-1 focus:ring-purple-500 h-[6rem] "
+                  className="text-sm w-full p-2 shadow-md rounded-sm outline-none focus:ring-1 focus:ring-purple-500 h-[6rem]"
                   multiline={true}
                 />
               </TableCell>
               <TableCell>
-                <InputField
+                <Input
                   type="checkbox"
                   checked={answer.isCorrect}
                   onChange={() => handleCheckBox(index)}
-                  inputClassName="m-auto rounded-sm text-lg"
+                  className="m-auto rounded-sm text-lg"
                 />
               </TableCell>
 
@@ -86,7 +85,7 @@ const Answers = ({ answers, setAnswers }: Props) => {
                 <button
                   type="button"
                   onClick={() => handleDeleteAnswer(index)}
-                  className="bg-red-500 text-white p-2 rounded-sm hover:bg-red-600  hover:scale-95 focus:scale-95 duration-500  "
+                  className="bg-red-500 text-white p-2 rounded-sm hover:bg-red-600  hover:scale-95 focus:scale-95 duration-500"
                 >
                   <CiTrash />
                 </button>

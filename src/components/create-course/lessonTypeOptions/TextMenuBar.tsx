@@ -1,12 +1,13 @@
 "use client";
 import { Editor, useEditorState } from "@tiptap/react";
-import { CreateLesson } from "../CreateLessonForm";
 import UploadDocButton from "../buttons/UploadDocButton";
+import { CreateLesson } from "@/types/create-course";
+import { UseFormSetValue } from "react-hook-form";
 type Props = {
   editor: Editor;
-  setFormData: React.Dispatch<React.SetStateAction<CreateLesson>>;
+  setValue: UseFormSetValue<CreateLesson>;
 };
-const TextMenuBar = ({ editor, setFormData }: Props) => {
+const TextMenuBar = ({ editor, setValue }: Props) => {
   const editorState = useEditorState({
     editor,
     selector: (ctx) => {
@@ -175,7 +176,7 @@ const TextMenuBar = ({ editor, setFormData }: Props) => {
       >
         Hard break
       </button>
-      <UploadDocButton editor={editor} setFormData={setFormData} />
+      <UploadDocButton editor={editor} setValue={setValue} />
       <button
         onClick={() => editor.chain().focus().undo().run()}
         disabled={!editorState.canUndo}

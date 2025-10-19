@@ -51,7 +51,7 @@ const Content = () => {
                 return <Quiz key={lesson.id} lesson={lesson} />;
             })}
           </div>
-          <div className="h-full flex flex-col justify-end">
+          <div className="h-full flex flex-col gap-2 justify-end mb-4">
             <Rating sectionId={data.section.id} />
             <Actions
               nextSection={data.nextSection}
@@ -60,9 +60,7 @@ const Content = () => {
           </div>
         </section>
 
-        <section>
-          <ContentSideBar section={data.section} />
-        </section>
+        <ContentSideBar section={data.section} />
       </div>
     </Suspense>
   );

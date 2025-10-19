@@ -10,7 +10,13 @@ type Props = {
 const Section = ({ section, sectionGroupSlug }: Props) => {
   const params = useParams();
   return (
-    <div>
+    <div
+      className={`${
+        section.slug === params.sectionSlug
+          ? "border-l-2 border-orange-400"
+          : "border-l-2 hover:border-orange-400 border-slate-200"
+      } pl-4`}
+    >
       <Link
         href={`/course/${params.courseSlug}/${sectionGroupSlug}/${section.slug}`}
         className={`text-sm ${
