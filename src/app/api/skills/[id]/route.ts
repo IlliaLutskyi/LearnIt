@@ -1,4 +1,4 @@
-import deleteSkill from "@/services/delete-skill";
+import deleteSkill from "@/features/skills/services/api/delete-skill";
 
 type Params = {
   params: Promise<{

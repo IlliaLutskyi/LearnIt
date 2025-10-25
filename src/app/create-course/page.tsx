@@ -1,8 +1,8 @@
-import MultiForm from "@/components/create-course/MultiForm";
+import MultiStepForm from "@/features/courses/components/create-course-form/MultiStepForm";
 export default function CreateCourse() {
   return (
     <>
-      <MultiForm />
+      <MultiStepForm />
     </>
   );
 }

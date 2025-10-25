@@ -9,7 +9,7 @@ import { isAxiosError } from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Input from "@/components/common/Input";
-import { CreateUserSchema } from "@/types/zod-schemas";
+import { CreateUserSchema } from "@/features/users/schemas/create-user-schema";
 
 type User = z.infer<typeof CreateUserSchema>;
 const Signup = () => {

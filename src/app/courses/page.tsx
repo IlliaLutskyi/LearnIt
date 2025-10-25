@@ -1,6 +1,6 @@
 "use client";
-import CategoryBar from "@/components/courses/CategoryBar";
-import CourseCard from "@/components/courses/CourseCard";
+import CategoryBar from "@/features/categories/components/CategoryBar";
+import CourseCard from "@/features/courses/components/create-course-form/CourseCard";
 import api from "@/lib/axios";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { useInView } from "react-intersection-observer";
@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import Loader from "@/components/common/Loader";
 import { useSearchParams } from "next/navigation";
 import { DbCourse } from "@/types";
+import { getCategories } from "@/features/categories/services/get-categories";
 
 const PAGE_SIZE = 10;
 const Courses = () => {
@@ -18,10 +19,7 @@ const Courses = () => {
 
   const { data: categories } = useQuery({
     queryKey: ["categories"],
-    queryFn: async () => {
-      const res = await api.get("/categories");
-      return res.data?.categories;
-    },
+    queryFn: getCategories,
   });
 
   const {

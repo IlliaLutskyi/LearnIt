@@ -8,7 +8,7 @@ import { toast } from "sonner";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Input from "@/components/common/Input";
-import { LoginUserSchema } from "@/types/zod-schemas";
+import { LoginUserSchema } from "@/features/users/schemas/login-user-schema";
 
 type User = z.infer<typeof LoginUserSchema>;
 const Login = () => {

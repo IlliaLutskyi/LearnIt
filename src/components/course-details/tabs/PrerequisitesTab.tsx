@@ -8,12 +8,15 @@ import { MdDelete } from "react-icons/md";
 import { useRouter } from "next/navigation";
 import { DbCourse, DbPrerequisite } from "@/types";
 import Input from "@/components/common/Input";
+import { useAppDispatch } from "@/lib/hooks";
+import { toggleEditCourseDetailForm } from "@/lib/slices/edit-course-detail-form-slice";
 type Props = {
   course: DbCourse;
 };
 const PrerequisitesTab = ({ course }: Props) => {
-  const [prerequisites, setPrerequisites] = useState<DbPrerequisite[]>();
   const router = useRouter();
+  const dispatch = useAppDispatch();
+  const [prerequisites, setPrerequisites] = useState<DbPrerequisite[]>();
   const updateMutation = useMutation({
     mutationFn: async () => {
       const res = await api.patch("/prerequisites", prerequisites);
@@ -87,6 +90,7 @@ const PrerequisitesTab = ({ course }: Props) => {
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     updateMutation.mutate();
+    dispatch(toggleEditCourseDetailForm());
   }
   return (
     <form className="flex flex-col gap-2 h-full" onSubmit={handleSubmit}>

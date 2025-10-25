@@ -1,4 +1,4 @@
-import deletePreriquisite from "@/services/delete-preriquisite";
+import deletePreriquisite from "@/features/prerequisites/services/api/delete-preriquisite";
 
 type Params = {
   params: Promise<{

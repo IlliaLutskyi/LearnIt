@@ -1,4 +1,4 @@
-import getUserRating from "@/services/get-user-rating";
+import getUserRating from "@/features/ratings/services/api/get-user-rating";
 
 type Params = {
   params: Promise<{ sectionId: string; userId: string }>;

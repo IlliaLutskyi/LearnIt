@@ -1,6 +1,6 @@
 "use client";
 import React, { ChangeEvent, use, useEffect, useState } from "react";
-import CategorySelect from "../CategorySelect";
+import CategorySelect from "../../../features/categories/components/CategorySelect";
 import { useMutation } from "@tanstack/react-query";
 import api from "@/lib/axios";
 import { toast } from "sonner";
@@ -8,6 +8,8 @@ import { isAxiosError } from "axios";
 import { useRouter } from "next/navigation";
 import { DbCourse } from "@/types";
 import Input from "@/components/common/Input";
+import { useAppDispatch } from "@/lib/hooks";
+import { toggleEditCourseDetailForm } from "@/lib/slices/edit-course-detail-form-slice";
 export type GeneralInfo = {
   title: string;
   description: string;
@@ -18,8 +20,9 @@ type Props = {
   course: DbCourse;
 };
 const GeneralInfoTab = ({ course }: Props) => {
-  const [generalInfo, setGeneralInfo] = useState<GeneralInfo | undefined>();
   const router = useRouter();
+  const dispatch = useAppDispatch();
+  const [generalInfo, setGeneralInfo] = useState<GeneralInfo | undefined>();
   const updateMutation = useMutation<{ message: string; slug: string }>({
     mutationFn: async () => {
       if (!generalInfo) return;
@@ -59,6 +62,7 @@ const GeneralInfoTab = ({ course }: Props) => {
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     updateMutation.mutate();
+    dispatch(toggleEditCourseDetailForm());
   }
   return (
     <form
