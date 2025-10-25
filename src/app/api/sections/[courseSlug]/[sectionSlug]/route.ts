@@ -1,4 +1,4 @@
-import getSection from "@/services/get-section";
+import getSection from "@/features/sections/services/api/get-section";
 
 type Props = {
   params: Promise<{

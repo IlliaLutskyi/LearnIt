@@ -1,6 +1,6 @@
 import Link from "next/link";
 import React from "react";
-import Rating from "./Rating";
+import Rating from "../../features/ratings/components/Rating";
 import { DbCourse } from "@/types";
 
 type Props = {

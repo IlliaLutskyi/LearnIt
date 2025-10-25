@@ -1,6 +1,9 @@
 import prisma from "@/lib/db";
-import { User } from "@/types/create-course/user";
 import bcrypt from "bcrypt";
+import { CreateUserSchema } from "@/features/users/schemas/create-user-schema";
+import z from "zod";
+type User = z.infer<typeof CreateUserSchema>;
+
 export async function POST(req: Request) {
   const user: User = await req.json();
   try {

@@ -1,6 +1,5 @@
-import createCourse from "@/services/create-course";
-import getCourses from "@/services/get-courses";
-import updateCourseDetails from "@/services/update-course-details";
+import createCourse from "@/features/courses/services/api/create-course";
+import getCourses from "@/features/courses/services/api/get-courses";
 
 export async function GET(req: Request) {
   return await getCourses(req);

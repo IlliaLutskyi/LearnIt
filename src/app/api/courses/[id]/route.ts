@@ -1,4 +1,4 @@
-import updateCourseDetails from "@/services/update-course-details";
+import updateCourseDetails from "@/features/courses/services/api/update-course-details";
 
 type Params = {
   params: Promise<{

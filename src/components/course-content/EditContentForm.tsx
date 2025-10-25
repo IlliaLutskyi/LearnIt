@@ -18,7 +18,7 @@ import {
 } from "@dnd-kit/sortable";
 import { useAppSelector } from "@/lib/hooks";
 import BlurBackground from "../common/BlurBackground";
-import Lesson from "./Lesson";
+import Lesson from "../../features/lessons/components/Lesson";
 
 type Props = {
   section: DbSection;

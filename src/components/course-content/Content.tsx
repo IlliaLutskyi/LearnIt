@@ -5,16 +5,16 @@ import { useQuery } from "@tanstack/react-query";
 import Loader from "../common/Loader";
 import { lazy, Suspense } from "react";
 import Actions from "./Actions";
-import Rating from "./Rating";
+import SetRating from "../../features/ratings/components/SetRating";
 import { useParams } from "next/navigation";
 import { DbNextOrPrevSection } from "@/types";
 import OnThisPageBar from "./OnThisPageBar";
 import EditButton from "./EditButton";
 import { useSession } from "next-auth/react";
 import EditContentForm from "./EditContentForm";
-const Video = lazy(() => import("./Video"));
-const Text = lazy(() => import("./Text"));
-const Quiz = lazy(() => import("./Quiz"));
+const Video = lazy(() => import("@/features/lessons/components/Video"));
+const Text = lazy(() => import("@/features/lessons/components/Text"));
+const Quiz = lazy(() => import("@/features/quizes/components/Quiz"));
 type Data = {
   section: DbSection;
   prevSection: DbNextOrPrevSection | null;
@@ -55,7 +55,7 @@ const Content = () => {
             })}
           </div>
           <div className="flex flex-col gap-2 justify-end mb-4 mx-4">
-            <Rating sectionId={data.section.id} />
+            <SetRating sectionId={data.section.id} />
             <Actions
               nextSection={data.nextSection}
               prevSection={data.prevSection}

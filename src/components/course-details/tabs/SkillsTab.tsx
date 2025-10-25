@@ -8,13 +8,16 @@ import { MdDelete } from "react-icons/md";
 import { useRouter } from "next/navigation";
 import { DbCourse, DbSkill } from "@/types";
 import Input from "@/components/common/Input";
+import { toggleEditCourseDetailForm } from "@/lib/slices/edit-course-detail-form-slice";
+import { useAppDispatch } from "@/lib/hooks";
 
 type Props = {
   course: DbCourse;
 };
 const SkillsTab = ({ course }: Props) => {
-  const [skills, setSkills] = useState<DbSkill[]>();
   const router = useRouter();
+  const dispatch = useAppDispatch();
+  const [skills, setSkills] = useState<DbSkill[]>();
   const updateMustation = useMutation({
     mutationFn: async () => {
       const res = await api.patch("/skills", skills);
@@ -89,6 +92,7 @@ const SkillsTab = ({ course }: Props) => {
   function handleSkillSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     updateMustation.mutate();
+    dispatch(toggleEditCourseDetailForm());
   }
   return (
     <form

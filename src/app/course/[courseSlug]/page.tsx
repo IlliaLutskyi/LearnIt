@@ -1,9 +1,10 @@
-import AboutSections from "@/components/course-details/AboutSections";
+import AboutSections from "@/features/sections/components/AboutSections";
 import Header from "@/components/course-details/Header";
-import Requirements from "@/components/course-details/Requirements";
-import Skills from "@/components/course-details/Skills";
-import prisma from "@/lib/db";
+import Prerequisites from "@/features/prerequisites/components/Prerequisites";
+import Skills from "@/features/skills/components/Skills";
 import { lazy, Suspense } from "react";
+import { getCourse } from "@/features/courses/services/get-course";
+
 const EditForm = lazy(() => import("@/components/course-details/EditForm"));
 const EditButton = lazy(() => import("@/components/course-details/EditButton"));
 
@@ -16,49 +17,8 @@ const CourseDetails = async ({ params }: Props) => {
   const { courseSlug } = await params;
   if (!courseSlug)
     return <h1 className="text-center font-bold m-4">Course not found</h1>;
-  const course = await prisma.course.findUnique({
-    where: { slug: courseSlug },
-    select: {
-      id: true,
-      title: true,
-      slug: true,
-      category: true,
-      description: true,
-      updatedAt: true,
-      prerequisites: true,
-      createdAt: true,
-      skills: true,
-      sectionGroups: {
-        select: {
-          id: true,
-          title: true,
-          slug: true,
-          order: true,
-          sections: {
-            select: {
-              id: true,
-              slug: true,
-              title: true,
-              order: true,
-              sectionRates: {
-                select: {
-                  rate: true,
-                },
-              },
-            },
-          },
-        },
-      },
-      user: {
-        select: {
-          name: true,
-          id: true,
-          role: true,
-        },
-      },
-    },
-  });
 
+  const course = await getCourse(courseSlug);
   if (!course)
     return <h1 className="text-center font-bold m-4">Course not found</h1>;
 
@@ -81,7 +41,7 @@ const CourseDetails = async ({ params }: Props) => {
         <div className="flex flex-col gap-2">
           <h2 className="font-bold text-lg">Prerequisites:</h2>
           {course.prerequisites.length > 0 && (
-            <Requirements preriquisites={course.prerequisites} />
+            <Prerequisites preriquisites={course.prerequisites} />
           )}
         </div>
         <div className="flex flex-col gap-2">

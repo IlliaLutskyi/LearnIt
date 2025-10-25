@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/drawer";
 import { IoMdClose } from "react-icons/io";
 import { IoMenu } from "react-icons/io5";
-import SectionGroup from "./SectionGroup";
+import SectionGroup from "@/features/sections/components/SectionGroup";
 import { DbSectionGroup } from "@/types";
 
 type Props = {
