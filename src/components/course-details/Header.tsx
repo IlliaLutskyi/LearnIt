@@ -8,7 +8,7 @@ type Props = {
 };
 const Header = ({ course }: Props) => {
   return (
-    <div className="flex max-sm:flex-col gap-3 px-8 py-4 min-h-[300px] bg-purple-200">
+    <div className="flex max-sm:flex-col gap-3 px-8 py-4 min-h-[300px] bg-purple-100">
       <section className="flex flex-col gap-4">
         <div className="flex flex-col gap-2">
           <h1 className="text-3xl font-bold text-gray-900">{course.title}</h1>

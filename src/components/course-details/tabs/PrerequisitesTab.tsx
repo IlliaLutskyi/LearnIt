@@ -89,11 +89,7 @@ const PrerequisitesTab = ({ course }: Props) => {
     updateMutation.mutate();
   }
   return (
-    <form
-      className="flex flex-col gap-2 h-full"
-      method="PATCh"
-      onSubmit={handleSubmit}
-    >
+    <form className="flex flex-col gap-2 h-full" onSubmit={handleSubmit}>
       <h2 className="font-bold text-center text-lg">Prerequisites</h2>
       <button
         className="self-end bg-purple-500 text-white px-4 py-2 text-sm hover:scale-95 focus:scale-95 rounded-sm hover:bg-purple-600 duration-300"
@@ -102,7 +98,7 @@ const PrerequisitesTab = ({ course }: Props) => {
         Add Prerequisite
       </button>
       <div
-        className="grow flex flex-col gap-2 overflow-y-auto h-[20rem]"
+        className="grow flex flex-col gap-2 overflow-y-auto h-[20rem] py-4"
         id="styledScrollbar"
       >
         {prerequisites?.length === 0 && (

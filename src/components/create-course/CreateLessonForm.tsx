@@ -4,31 +4,28 @@ import {
   addLessonToSection,
   editLesson,
 } from "@/lib/slices/create-course-slice";
-import { lazy, Suspense, useEffect, useRef, useState } from "react";
+import { lazy, Suspense, useEffect, useRef } from "react";
 import BlurBackground from "../common/BlurBackground";
 import { toast } from "sonner";
 import Loader from "../common/Loader";
-import { ContentType, Lesson } from "@/types/create-course";
+import { Lesson } from "@/types/create-course";
 import Input from "../common/Input";
 import z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { CreateLessonSchema } from "@/types/zod-schemas";
+
 const MarkdownOption = lazy(() => import("./lessonTypeOptions/MarkdownOption"));
 const TableOption = lazy(() => import("./lessonTypeOptions/TableOption"));
 const VideoOption = lazy(() => import("./lessonTypeOptions/VideoOption"));
 const TextOption = lazy(() => import("./lessonTypeOptions/TextOption"));
 
-const CreateLessonSchema = z.object({
-  title: z.string().min(1, { message: "Title is required" }),
-  content: z.string().min(1, { message: "Content is required" }),
-  contentType: z.enum(["Video", "Text", "Quiz", "Markdown", "Table"]),
-  videoSource: z.enum(["Youtube"]).optional(),
-});
 type CreateLesson = z.infer<typeof CreateLessonSchema>;
 type Props = {
   isOpen: boolean;
-  sectionOrder: number;
-  sectionGroupOrder: number;
+  sectionId?: string;
+  sectionOrder?: number;
+  sectionGroupOrder?: number;
   lesson?: Lesson;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
@@ -39,8 +36,6 @@ const CreateLessonForm = ({
   setIsOpen,
   lesson,
 }: Props) => {
-  const dispatch = useAppDispatch();
-
   const {
     register,
     handleSubmit,
@@ -54,6 +49,8 @@ const CreateLessonForm = ({
       contentType: "Text",
     },
   });
+
+  const dispatch = useAppDispatch();
   const contentType = watch("contentType");
 
   const formRef = useRef<HTMLFormElement>(null);
@@ -86,7 +83,7 @@ const CreateLessonForm = ({
   }
 
   function onSubmit(data: CreateLesson) {
-    if (!lesson) {
+    if (!lesson && sectionGroupOrder && sectionOrder) {
       dispatch(
         addLessonToSection({
           sectionGroupOrder,
@@ -97,7 +94,9 @@ const CreateLessonForm = ({
           videoSource: data.videoSource,
         })
       );
-    } else {
+    }
+
+    if (lesson && sectionGroupOrder && sectionOrder) {
       dispatch(
         editLesson({
           content: data.content,
@@ -109,6 +108,10 @@ const CreateLessonForm = ({
           videoSource: data.videoSource,
         })
       );
+    }
+
+    if (lesson && !sectionGroupOrder && !sectionOrder) {
+      return;
     }
 
     reset();
@@ -128,7 +131,6 @@ const CreateLessonForm = ({
         ref={formRef}
         className="flex flex-col gap-2 absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] p-6 w-9/10 bg-white rounded-sm"
         onSubmit={handleSubmit(onSubmit)}
-        method="post"
       >
         <h1 className="text-lg font-bold text-center">
           Create content for a lesson

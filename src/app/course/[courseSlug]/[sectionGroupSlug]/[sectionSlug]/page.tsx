@@ -1,5 +1,5 @@
 import Content from "@/components/course-content/Content";
-import Sidebar from "@/components/course-content/SideBar";
+import Sidebar from "@/components/course-content/Sidebar";
 import prisma from "@/lib/db";
 
 type Props = {

@@ -7,18 +7,20 @@ type Props<T extends FieldValues> = {
   field?: Path<T>;
   register?: UseFormRegister<T>;
   error?: string;
+  divClassName?: string;
 } & InputHTMLAttributes<HTMLInputElement | HTMLTextAreaElement>;
 const Input = <T extends FieldValues>({
   label,
   register,
   field,
+  divClassName,
   multiline = false,
   error,
   ...props
 }: Props<T>) => {
   const id = useId();
   return (
-    <div className="flex flex-col gap-1">
+    <div className={divClassName ? divClassName : "flex flex-col gap-1"}>
       <label htmlFor={id} className="text-xs">
         {label ? label[0].toUpperCase() + label.slice(1) : ""}
       </label>

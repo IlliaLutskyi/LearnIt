@@ -132,6 +132,7 @@ enum VideoSource {
 enum ContentType {
   Video
   Text
-  File
   Quiz
+  Markdown
+  Table
 }

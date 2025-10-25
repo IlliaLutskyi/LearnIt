@@ -5,9 +5,7 @@ import Skills from "@/components/course-details/Skills";
 import prisma from "@/lib/db";
 import { lazy, Suspense } from "react";
 const EditForm = lazy(() => import("@/components/course-details/EditForm"));
-const EditFormButton = lazy(
-  () => import("@/components/course-details/EditFormButton")
-);
+const EditButton = lazy(() => import("@/components/course-details/EditButton"));
 
 type Props = {
   params: Promise<{
@@ -92,7 +90,7 @@ const CourseDetails = async ({ params }: Props) => {
         </div>
         <Suspense>
           <section className="flex justify-end">
-            <EditFormButton author={course.user} />
+            <EditButton author={course.user} />
             <EditForm course={course} />
           </section>
         </Suspense>

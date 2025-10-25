@@ -1,4 +1,4 @@
-import { ContentType } from "./contentType";
+import { ContentType } from "./content-type";
 import { Quiz } from "./quiz";
 export type Lesson = {
   order: number;

@@ -35,12 +35,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 6.17.1
- * Query Engine version: 272a37d34178c2894197e17273bf937f25acdeac
+ * Prisma Client JS version: 6.18.0
+ * Query Engine version: 34b5a692b7bd79939a9a2c3ef97d816e749cda2f
  */
 Prisma.prismaVersion = {
-  client: "6.17.1",
-  engine: "272a37d34178c2894197e17273bf937f25acdeac"
+  client: "6.18.0",
+  engine: "34b5a692b7bd79939a9a2c3ef97d816e749cda2f"
 }
 
 Prisma.PrismaClientKnownRequestError = PrismaClientKnownRequestError;
@@ -205,8 +205,9 @@ exports.VideoSource = exports.$Enums.VideoSource = {
 exports.ContentType = exports.$Enums.ContentType = {
   Video: 'Video',
   Text: 'Text',
-  File: 'File',
-  Quiz: 'Quiz'
+  Quiz: 'Quiz',
+  Markdown: 'Markdown',
+  Table: 'Table'
 };
 
 exports.Prisma.ModelName = {
@@ -255,8 +256,8 @@ const config = {
     "schemaEnvPath": "../../../.env"
   },
   "relativePath": "../..",
-  "clientVersion": "6.17.1",
-  "engineVersion": "272a37d34178c2894197e17273bf937f25acdeac",
+  "clientVersion": "6.18.0",
+  "engineVersion": "34b5a692b7bd79939a9a2c3ef97d816e749cda2f",
   "datasourceNames": [
     "db"
   ],
@@ -269,8 +270,8 @@ const config = {
       }
     }
   },
-  "inlineSchema": "generator client {\n  provider   = \"prisma-client-js\"\n  output     = \"./generated/prisma\"\n  engineType = \"binary\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id             Int             @id @default(autoincrement())\n  name           String\n  password       String\n  email          String          @unique\n  sectionRatings SectionRating[]\n  role           Role            @default(User)\n  courses        Course[]\n}\n\nmodel Course {\n  id            Int            @id @default(autoincrement())\n  title         String\n  slug          String         @unique\n  description   String\n  sectionGroups SectionGroup[]\n  prerequisites Prerequisit[]\n  skills        Skill[]\n  categoryId    Int\n  userId        Int\n  user          User           @relation(fields: [userId], references: [id])\n  category      Category       @relation(fields: [categoryId], references: [id])\n  createdAt     DateTime       @default(now())\n  updatedAt     DateTime       @updatedAt\n}\n\nmodel Category {\n  id      Int      @id @default(autoincrement())\n  name    String   @unique\n  courses Course[]\n  image   String\n}\n\nmodel SectionGroup {\n  id       Int       @id @default(autoincrement())\n  title    String\n  slug     String\n  sections Section[]\n  order    Int\n  courseId Int\n  course   Course    @relation(fields: [courseId], references: [id])\n}\n\nmodel Section {\n  id             Int             @id @default(autoincrement())\n  lessons        Lesson[]\n  title          String\n  slug           String\n  order          Int\n  sectionRates   SectionRating[]\n  sectionGroupId Int\n  sectionGroup   SectionGroup    @relation(fields: [sectionGroupId], references: [id])\n}\n\nmodel Lesson {\n  id          Int          @id @default(autoincrement())\n  title       String\n  content     String?\n  quiz        Quiz?\n  order       Int\n  quizId      Int?\n  contentType ContentType\n  videoSource VideoSource?\n  sectionId   Int\n  section     Section      @relation(fields: [sectionId], references: [id])\n}\n\nmodel Quiz {\n  id          Int      @id() @default(autoincrement())\n  answers     Answer[]\n  question    String\n  explanation String?\n  lessonId    Int      @unique\n  lesson      Lesson   @relation(fields: [lessonId], references: [id])\n}\n\nmodel Answer {\n  id        Int     @id() @default(autoincrement())\n  quizId    Int\n  quiz      Quiz    @relation(fields: [quizId], references: [id])\n  content   String\n  isCorrect Boolean\n}\n\nmodel Prerequisit {\n  id       Int    @id() @default(autoincrement())\n  content  String\n  courseId Int\n  course   Course @relation(fields: [courseId], references: [id])\n}\n\nmodel Skill {\n  id       Int    @id() @default(autoincrement())\n  content  String\n  courseId Int\n  course   Course @relation(fields: [courseId], references: [id])\n}\n\nmodel SectionRating {\n  id        Int      @id() @default(autoincrement())\n  rate      Int      @default(0)\n  userId    Int\n  user      User     @relation(fields: [userId], references: [id])\n  sectionId Int\n  section   Section  @relation(fields: [sectionId], references: [id])\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  @@unique([userId, sectionId])\n}\n\nenum Role {\n  Admin\n  User\n}\n\nenum VideoSource {\n  Youtube\n}\n\nenum ContentType {\n  Video\n  Text\n  File\n  Quiz\n}\n",
-  "inlineSchemaHash": "4b123aa63bedc9b9a10fdb58e78a6dc0985388650ea4cb46c3820805c8a9a844",
+  "inlineSchema": "generator client {\n  provider   = \"prisma-client-js\"\n  output     = \"./generated/prisma\"\n  engineType = \"binary\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id             Int             @id @default(autoincrement())\n  name           String\n  password       String\n  email          String          @unique\n  sectionRatings SectionRating[]\n  role           Role            @default(User)\n  courses        Course[]\n}\n\nmodel Course {\n  id            Int            @id @default(autoincrement())\n  title         String\n  slug          String         @unique\n  description   String\n  sectionGroups SectionGroup[]\n  prerequisites Prerequisit[]\n  skills        Skill[]\n  categoryId    Int\n  userId        Int\n  user          User           @relation(fields: [userId], references: [id])\n  category      Category       @relation(fields: [categoryId], references: [id])\n  createdAt     DateTime       @default(now())\n  updatedAt     DateTime       @updatedAt\n}\n\nmodel Category {\n  id      Int      @id @default(autoincrement())\n  name    String   @unique\n  courses Course[]\n  image   String\n}\n\nmodel SectionGroup {\n  id       Int       @id @default(autoincrement())\n  title    String\n  slug     String\n  sections Section[]\n  order    Int\n  courseId Int\n  course   Course    @relation(fields: [courseId], references: [id])\n}\n\nmodel Section {\n  id             Int             @id @default(autoincrement())\n  lessons        Lesson[]\n  title          String\n  slug           String\n  order          Int\n  sectionRates   SectionRating[]\n  sectionGroupId Int\n  sectionGroup   SectionGroup    @relation(fields: [sectionGroupId], references: [id])\n}\n\nmodel Lesson {\n  id          Int          @id @default(autoincrement())\n  title       String\n  content     String?\n  quiz        Quiz?\n  order       Int\n  quizId      Int?\n  contentType ContentType\n  videoSource VideoSource?\n  sectionId   Int\n  section     Section      @relation(fields: [sectionId], references: [id])\n}\n\nmodel Quiz {\n  id          Int      @id() @default(autoincrement())\n  answers     Answer[]\n  question    String\n  explanation String?\n  lessonId    Int      @unique\n  lesson      Lesson   @relation(fields: [lessonId], references: [id])\n}\n\nmodel Answer {\n  id        Int     @id() @default(autoincrement())\n  quizId    Int\n  quiz      Quiz    @relation(fields: [quizId], references: [id])\n  content   String\n  isCorrect Boolean\n}\n\nmodel Prerequisit {\n  id       Int    @id() @default(autoincrement())\n  content  String\n  courseId Int\n  course   Course @relation(fields: [courseId], references: [id])\n}\n\nmodel Skill {\n  id       Int    @id() @default(autoincrement())\n  content  String\n  courseId Int\n  course   Course @relation(fields: [courseId], references: [id])\n}\n\nmodel SectionRating {\n  id        Int      @id() @default(autoincrement())\n  rate      Int      @default(0)\n  userId    Int\n  user      User     @relation(fields: [userId], references: [id])\n  sectionId Int\n  section   Section  @relation(fields: [sectionId], references: [id])\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  @@unique([userId, sectionId])\n}\n\nenum Role {\n  Admin\n  User\n}\n\nenum VideoSource {\n  Youtube\n}\n\nenum ContentType {\n  Video\n  Text\n  Quiz\n  Markdown\n  Table\n}\n",
+  "inlineSchemaHash": "d1b415b1a3e1d9428e147937057a394d3fd985f133308b9e292bfe864514eb9d",
   "copyEngine": true
 }
 config.dirname = '/'

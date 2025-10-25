@@ -1,6 +1,6 @@
 import { Category } from "./category";
 import { Prerequisite } from "./prerequisites";
-import { SectionGroup } from "./sectionGroup";
+import { SectionGroup } from "./section-group";
 import { Skill } from "./skill";
 
 export type Course = {

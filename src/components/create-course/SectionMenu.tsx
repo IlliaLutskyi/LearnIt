@@ -66,6 +66,7 @@ const SectionMenu = ({ section }: Props) => {
           </MenubarContent>
         </MenubarMenu>
       </Menubar>
+
       <Suspense>
         <CreateLessonForm
           isOpen={isCreateLessonOpen}

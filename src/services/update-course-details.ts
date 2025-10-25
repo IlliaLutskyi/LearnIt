@@ -1,13 +1,8 @@
 import prisma from "@/lib/db";
+import { UpdateGeneralInfoSchema } from "@/types/zod-schemas";
 import z from "zod";
-const DataSchema = z.object({
-  title: z.string(),
-  description: z.string(),
-  category: z.object({
-    id: z.number(),
-  }),
-});
-type Data = z.infer<typeof DataSchema>;
+
+type GeneralInfo = z.infer<typeof UpdateGeneralInfoSchema>;
 type Params = {
   params: Promise<{
     id: string;
@@ -18,8 +13,8 @@ export default async function updateCourseDetails(
   { params }: Params
 ) {
   const { id } = await params;
-  const data: Data = await req.json();
-  const isValidData = DataSchema.safeParse(data);
+  const data: GeneralInfo = await req.json();
+  const isValidData = UpdateGeneralInfoSchema.safeParse(data);
   try {
     if (!isValidData.success) {
       return Response.json({ message: "Invalid data" }, { status: 400 });

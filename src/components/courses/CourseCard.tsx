@@ -8,9 +8,9 @@ type Props = {
 };
 const CourseCard = ({ course }: Props) => {
   return (
-    <div className="bg-white rounded-2xl shadow-md hover:shadow-lg hover:scale-105 duration-500 p-5 flex flex-col gap-3">
+    <div className="bg-white rounded-2xl shadow-sm hover:shadow-lg hover:scale-105 duration-500 p-5 flex flex-col gap-3">
       <div className="flex items-center justify-between">
-        <span className="self-start bg-purple-100 text-purple-600 text-xs font-semibold px-3 py-1 rounded-full">
+        <span className="self-start bg-purple-100 text-purple-600 text-xs font-semibold px-3 py-1 rounded-sm">
           {course?.category?.name}
         </span>
         <img

@@ -9,24 +9,15 @@ import { isAxiosError } from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Input from "@/components/common/Input";
-const User = z.object({
-  name: z
-    .string()
-    .min(1, "Name is required")
-    .max(50, "Name cannot exceed 50 characters"),
-  email: z.string().min(1, "Email is required").email("Invalid email address"),
-  password: z
-    .string()
-    .min(1, "Password is required")
-    .max(100, "Password cannot exceed 100 characters"),
-});
-type User = z.infer<typeof User>;
+import { CreateUserSchema } from "@/types/zod-schemas";
+
+type User = z.infer<typeof CreateUserSchema>;
 const Signup = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({ resolver: zodResolver(User) });
+  } = useForm({ resolver: zodResolver(CreateUserSchema) });
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   async function onSubmit(data: User) {
@@ -48,7 +39,7 @@ const Signup = () => {
     <form
       method="POST"
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col gap-4 sm:w-1/2 w-3/4 p-4 shadow-2xl mx-auto mt-[5rem] rounded-sm bg-gradient-to-br from-white to-purple-200 min-h-[400px]"
+      className="flex flex-col gap-4 sm:w-1/2 w-3/4 p-4 shadow-inner mx-auto mt-[5rem] rounded-sm min-h-[400px] bg-slate-100"
     >
       <h1 className="text-xl font-bold text-center">Signup</h1>
 
@@ -58,21 +49,21 @@ const Signup = () => {
           register={register}
           field="name"
           error={errors.name?.message}
-          className="text-sm w-full p-2 shadow-md rounded-sm outline-none focus:ring-1 focus:ring-purple-500 bg-white"
+          className="text-sm w-full p-2 shadow-inner rounded-sm outline-none focus:ring-1 focus:ring-purple-500 bg-white"
         />
         <Input
           label="Email"
           register={register}
           field="email"
           error={errors.email?.message}
-          className="text-sm w-full p-2 shadow-md rounded-sm outline-none focus:ring-1 focus:ring-purple-500 bg-white"
+          className="text-sm w-full p-2 shadow-inner rounded-sm outline-none focus:ring-1 focus:ring-purple-500 bg-white"
         />
         <Input
           label="Password"
           register={register}
           field="password"
           error={errors.password?.message}
-          className="text-sm w-full p-2 shadow-md rounded-sm outline-none focus:ring-1 focus:ring-purple-500 bg-white"
+          className="text-sm w-full p-2 shadow-inner rounded-sm outline-none focus:ring-1 focus:ring-purple-500 bg-white"
         />
       </section>
 

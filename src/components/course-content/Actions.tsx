@@ -11,7 +11,7 @@ const Actions = ({ nextSection, prevSection }: Props) => {
   const params = useParams();
 
   return (
-    <div className="flex gap-2 mx-4">
+    <div className="flex gap-2">
       <Link
         href={`/course/${params.courseSlug}/${prevSection?.sectionGroup.slug}/${prevSection?.slug}`}
         className="w-full"

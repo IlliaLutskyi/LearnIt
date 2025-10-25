@@ -15,7 +15,6 @@ const Text = ({ lesson }: Props) => {
   return (
     <div>
       <div ref={ref} id={`lesson-${lesson.id}`} />
-      <h1 className="font-bold">{lesson.title}</h1>
       <div
         className="prose prose-sm whitespace-pre-wrap break-words"
         dangerouslySetInnerHTML={{

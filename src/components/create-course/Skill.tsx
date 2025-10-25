@@ -18,7 +18,7 @@ const Skill = ({ skill }: Props) => {
       <Input
         multiline
         value={skill.content}
-        className="w-full outline-0 text-sm focus:ring-1 focus:ring-purple-500 shadow-sm p-2 rounded-sm h-[4rem] resize-none"
+        className="w-full outline-0 text-sm focus:ring-1 focus:ring-purple-500 shadow-sm p-2 rounded-sm"
         onChange={(e) =>
           dispatch(
             editSkill({
@@ -29,6 +29,7 @@ const Skill = ({ skill }: Props) => {
         }
       />
       <button
+        type="button"
         onClick={() => handleDeletePreriquisite(skill.id)}
         className="text-red-500 m-auto text-lg"
       >

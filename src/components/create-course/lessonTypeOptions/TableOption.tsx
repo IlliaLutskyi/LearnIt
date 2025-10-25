@@ -5,7 +5,7 @@ import xlsx from "xlsx";
 import { DragEvent, useRef, useState } from "react";
 import { toast } from "sonner";
 import dompurify from "dompurify";
-import { SetValueConfig, UseFormSetValue } from "react-hook-form";
+import { UseFormSetValue } from "react-hook-form";
 
 type Props = {
   setValue: UseFormSetValue<CreateLesson>;
@@ -70,7 +70,7 @@ const TableOption = ({ setValue }: Props) => {
           } duration-200`}
         >
           {uploadStatus == "complete" && "Upload completed, you can save now"}
-          {uploadStatus == "idle" && "Click to upload or drag and drop"}
+          {uploadStatus == "idle" && "Click to upload or drag and drop a file"}
         </button>
 
         <input

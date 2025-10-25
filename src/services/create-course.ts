@@ -1,12 +1,12 @@
 import prisma from "@/lib/db";
 import { Course } from "@/types/create-course";
-import CourseSchema from "@/types/zod-schemas/create-course-schema";
+import { CreateCourseSchema } from "@/types/zod-schemas";
 import z from "zod";
 
 export default async function createCourse(req: Request) {
   const course: Course & { userId: string } = await req.json();
   try {
-    const validated = CourseSchema.safeParse(course);
+    const validated = CreateCourseSchema.safeParse(course);
 
     if (!validated.success) {
       console.log(z.prettifyError(validated.error));

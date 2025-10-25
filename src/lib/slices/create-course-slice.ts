@@ -151,18 +151,11 @@ export const CourseSlice = createSlice({
         .replace(/^-+|-+$/g, "");
     },
 
-    loadFromLocalStorage: (state) => {
-      const course = localStorage.getItem("course")
-        ? JSON.parse(localStorage.getItem("course") as string)
+    loadContent: (state) => {
+      const sectionGroups = localStorage.getItem("sectionGroups")
+        ? JSON.parse(localStorage.getItem("sectionGroups") as string)
         : null;
-      if (course) {
-        state.title = course.title;
-        state.category = course.category;
-        state.skills = course.skills;
-        state.description = course.description;
-        state.sectionGroups = course.sectionGroups;
-        state.prerequisites = course.prerequisites;
-      }
+      if (sectionGroups) state.sectionGroups = sectionGroups;
     },
     addSectionToSectionGroup: (
       state,
@@ -220,14 +213,12 @@ export const CourseSlice = createSlice({
         (section) => section.order !== action.payload.sectionOrder
       );
     },
-    setNextStep: (state, action: PayloadAction<{ currentStep: number }>) => {
-      const currentStep = state.steps.find(
-        (step) => step.step === action.payload.currentStep
-      );
+    setNextStep: (state, action: PayloadAction<{ nextStep: number }>) => {
       const nextStep = state.steps.find(
-        (step) => step.step === action.payload.currentStep + 1
+        (step) => step.step === action.payload.nextStep
       );
-      if (!nextStep || !currentStep) return;
+      const currentStep = state.steps.find((step) => step.active === true);
+      if (!currentStep || !nextStep) return;
       currentStep.active = false;
       nextStep.active = true;
     },
@@ -470,7 +461,7 @@ export const {
   shiftSection,
   deleteSectionGroup,
   shiftLessons,
-  loadFromLocalStorage,
+  loadContent,
   addQuizToSection,
   editQuiz,
   shiftSectionGroup,

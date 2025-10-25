@@ -140,7 +140,7 @@
 }
 
 #styledScrollbar::-webkit-scrollbar-thumb {
-  background-color: rgba(146, 29, 146, 0.733);
+  background: rgba(60, 4, 60, 0.733);
   border-radius: 20px;
   border: 2px solid #f1f1f1;
 }

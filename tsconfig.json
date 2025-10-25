@@ -27,7 +27,8 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "src/components/courses/CourseCardtsx"
+    "src/components/courses/CourseCardtsx",
+    "src/components/course-content/Lesson.tsx"
   ],
   "exclude": ["node_modules"]
 }

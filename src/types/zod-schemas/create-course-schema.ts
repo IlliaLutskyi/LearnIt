@@ -1,6 +1,6 @@
 import z from "zod";
 
-const CourseSchema = z.object({
+export const CreateCourseSchema = z.object({
   title: z.string().min(1, "Title is required"),
   description: z.string().min(1, "Description is required").max(10000),
   slug: z.string().min(1, "Slug is required"),
@@ -75,4 +75,3 @@ const CourseSchema = z.object({
     )
     .min(1, "At least one section group is required"),
 });
-export default CourseSchema;

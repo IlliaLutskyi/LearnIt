@@ -5,8 +5,7 @@ import StoreProvider from "@/components/providers/StoreProvider";
 import { Toaster } from "@/components/ui/sonner";
 import ReactQuery from "@/components/providers/ReactQuery";
 import SessionWraper from "@/components/providers/SessionWraper";
-import NavBar from "@/components/common/NavBar";
-
+import Navbar from "@/components/common/Navbar";
 export const metadata: Metadata = {
   title: "LearnIt",
 };
@@ -21,10 +20,10 @@ export default function RootLayout({
       <SessionWraper>
         <ReactQuery>
           <StoreProvider>
-            <body className="flex flex-col min-h-screen bg-purple-100">
-              <NavBar />
+            <body className="flex flex-col min-h-screen">
+              <Navbar />
               <main className="grow">{children}</main>
-              <Toaster />
+              <Toaster position="top-center" />
             </body>
           </StoreProvider>
         </ReactQuery>

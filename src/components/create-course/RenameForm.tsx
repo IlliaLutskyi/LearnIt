@@ -80,7 +80,6 @@ const RenameForm = ({ isOpen, section, sectionGroup, setIsOpen }: Props) => {
         ref={formRef}
         onSubmit={handleSubmit(onSubmit)}
         className="absolute top-1/2 left-1/2 w-1/2 translate-x-[-50%] translate-y-[-50%] p-5 flex flex-col gap-2 bg-white shadow-lg rounded-sm"
-        method="POST"
       >
         <Input
           label="title"
@@ -91,10 +90,7 @@ const RenameForm = ({ isOpen, section, sectionGroup, setIsOpen }: Props) => {
           error={errors.title?.message}
           className="w-full text-sm focus:ring-1 focus:ring-purple-500 outline-0 shadow-sm p-2 rounded-md"
         />
-        <button
-          type="submit"
-          className="bg-purple-500 p-2 rounded-md text-sm text-white self-end"
-        >
+        <button className="bg-purple-500 p-2 rounded-md text-sm text-white self-end hover:scale-95 focus:scale-95 duration-400">
           Save
         </button>
       </form>
