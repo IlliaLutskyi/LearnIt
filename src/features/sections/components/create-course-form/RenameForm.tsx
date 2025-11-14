@@ -54,9 +54,9 @@ const RenameForm = ({ isOpen, section, sectionGroup, setIsOpen }: Props) => {
     if (section) {
       dispatch(
         editSection({
-          sectionGroupOrder: section.sectionGroupId,
+          sectionGroupOrder: section.sectionGroupOrder,
           title: data.title,
-          order: section.order,
+          sectionOrder: section.order,
         })
       );
     } else if (sectionGroup) {

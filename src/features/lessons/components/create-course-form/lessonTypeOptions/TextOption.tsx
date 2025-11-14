@@ -1,13 +1,23 @@
 "use client";
 
-import { useEditor, EditorContent } from "@tiptap/react";
+import { useEditor, EditorContent, generateHTML } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import { useEffect } from "react";
 import TextMenuBar from "./TextMenuBar";
-import Image from "@tiptap/extension-image";
 import { CreateLesson } from "@/types/create-course";
 import { UseFormSetValue } from "react-hook-form";
-import dompurify from "dompurify";
+import Image from "@tiptap/extension-image";
+// import Bold from "@tiptap/extension-bold";
+// import Italic from "@tiptap/extension-italic";
+// import Underline from "@tiptap/extension-underline";
+// import Strike from "@tiptap/extension-strike";
+// import Code from "@tiptap/extension-code";
+// import CodeBlock from "@tiptap/extension-code-block";
+// import Link from "@tiptap/extension-link";
+// import Headline from "@tiptap/extension-heading";
+// import BulletList from "@tiptap/extension-bullet-list";
+// import OrderedList from "@tiptap/extension-ordered-list";
+// import BlockQuote from "@tiptap/extension-blockquote";
 type Props = {
   content: string;
   setValue: UseFormSetValue<CreateLesson>;
@@ -26,7 +36,9 @@ const TextOption = ({ content, setValue, error }: Props) => {
         class: "prose prose-sm focus:outline-none h-full w-full",
       },
     },
-    content: content || "",
+    content: content
+      ? generateHTML(JSON.parse(content), [StarterKit, Image])
+      : null,
     immediatelyRender: true,
     autofocus: true,
   });
@@ -35,10 +47,9 @@ const TextOption = ({ content, setValue, error }: Props) => {
     if (!editor) return;
 
     const handleUpdate = () => {
-      const unsafeHtml = editor.getHTML();
-      const html = dompurify.sanitize(unsafeHtml);
+      const json = editor.getJSON();
 
-      setValue("content", html);
+      setValue("content", JSON.stringify(json));
     };
 
     editor.on("update", handleUpdate);
@@ -53,7 +64,7 @@ const TextOption = ({ content, setValue, error }: Props) => {
       <TextMenuBar editor={editor} setValue={setValue} />
       <label className="text-xs">Content</label>
       <div
-        className="overflow-y-auto h-[20rem] border-[1px] rounded-sm border-purple-500 p-4"
+        className="overflow-y-auto h-[18rem] border-[1px] rounded-sm border-purple-500 p-4"
         id="styledScrollbar"
       >
         <EditorContent editor={editor} />

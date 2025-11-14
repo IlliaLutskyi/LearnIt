@@ -9,7 +9,6 @@ export default async function createCourse(req: Request) {
     const validated = CreateCourseSchema.safeParse(course);
 
     if (!validated.success) {
-      console.log(z.prettifyError(validated.error));
       return Response.json(
         { message: z.prettifyError(validated.error) },
         { status: 400 }

@@ -1,14 +1,19 @@
 import React from "react";
 import Link from "next/link";
 import { DbCourse } from "@/types";
-import Image from "next/image";
-
+import { motion } from "framer-motion";
+import { childVariants } from "@/features/animations/delay-children-appearing";
 type Props = {
   course: DbCourse;
 };
 const CourseCard = ({ course }: Props) => {
   return (
-    <div className="bg-white rounded-2xl shadow-sm hover:shadow-lg hover:scale-105 duration-500 p-5 flex flex-col gap-3">
+    <motion.div
+      className="flex flex-col gap-3 bg-white rounded-xl shadow-sm hover:shadow-lg hover:scale-105 duration-500 p-5"
+      variants={childVariants}
+      initial="hidden"
+      animate="visible"
+    >
       <div className="flex items-center justify-between">
         <span className="self-start bg-purple-100 text-purple-600 text-xs font-semibold px-3 py-1 rounded-sm">
           {course?.category?.name}
@@ -36,7 +41,7 @@ const CourseCard = ({ course }: Props) => {
           </span>
         </Link>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

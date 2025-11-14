@@ -1,5 +1,5 @@
-import createCategory from "@/features/categories/services/api/create-category";
-import getCategories from "@/features/categories/services/api/get-categories";
+import createCategory from "@/features/categories/services/server/create-category";
+import getCategories from "@/features/categories/services/server/get-categories";
 
 export async function GET() {
   return await getCategories();

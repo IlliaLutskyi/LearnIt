@@ -14757,11 +14757,11 @@ export namespace Prisma {
 
   export type CourseWhereUniqueInput = Prisma.AtLeast<{
     id?: number
+    title?: string
     slug?: string
     AND?: CourseWhereInput | CourseWhereInput[]
     OR?: CourseWhereInput[]
     NOT?: CourseWhereInput | CourseWhereInput[]
-    title?: StringFilter<"Course"> | string
     description?: StringFilter<"Course"> | string
     categoryId?: IntFilter<"Course"> | number
     userId?: IntFilter<"Course"> | number
@@ -14772,7 +14772,7 @@ export namespace Prisma {
     skills?: SkillListRelationFilter
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     category?: XOR<CategoryScalarRelationFilter, CategoryWhereInput>
-  }, "id" | "slug">
+  }, "id" | "title" | "slug">
 
   export type CourseOrderByWithAggregationInput = {
     id?: SortOrder

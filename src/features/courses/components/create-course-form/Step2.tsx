@@ -1,25 +1,41 @@
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import React from "react";
-import { addPrerequisite } from "@/lib/slices/create-course-slice";
+import { addPrerequisite, setNextStep } from "@/lib/slices/create-course-slice";
 import Prerequisite from "@/features/prerequisites/components/create-course-form/Prerequisite";
 import { Step } from "@/types/create-course";
 import Navigation from "./Navigation";
+import { motion } from "framer-motion";
+import { fadeInVariants } from "@/features/animations/fade-in";
 
 type Props = {
   step: Step;
 };
 const Step2 = ({ step }: Props) => {
   const { prerequisites } = useAppSelector((state) => state.CreateCourse);
+  const scrollRef = React.useRef<HTMLDivElement>(null);
+  const dispatch = useAppDispatch();
   function handleAddPreriquisite() {
     dispatch(addPrerequisite());
+    if (scrollRef.current) {
+      scrollRef.current.scrollTo({
+        behavior: "smooth",
+        top: scrollRef.current.scrollHeight,
+      });
+    }
   }
-  const dispatch = useAppDispatch();
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     localStorage.setItem("prerequisites", JSON.stringify(prerequisites));
+    dispatch(setNextStep({ nextStep: step.step + 1 }));
   }
   return (
-    <form className="h-full flex flex-col gap-4 p-4" onSubmit={handleSubmit}>
+    <motion.form
+      className="h-full flex flex-col gap-4 p-4"
+      onSubmit={handleSubmit}
+      variants={fadeInVariants}
+      initial="hidden"
+      animate="visible"
+    >
       <h1 className="font-bold text-lg self-center">{step.title}</h1>
 
       <div className="grow flex flex-col gap-2">
@@ -34,6 +50,7 @@ const Step2 = ({ step }: Props) => {
         </section>
 
         <section
+          ref={scrollRef}
           className="flex flex-col gap-4 overflow-y-auto h-[20rem] p-3"
           id="scrollbar"
         >
@@ -48,7 +65,7 @@ const Step2 = ({ step }: Props) => {
       </div>
 
       <Navigation currentStep={step.step} />
-    </form>
+    </motion.form>
   );
 };
 

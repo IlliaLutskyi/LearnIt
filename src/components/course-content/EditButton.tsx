@@ -8,6 +8,7 @@ const EditButton = () => {
   return (
     <button
       onClick={() => dispatch(toggleEditCourseContentForm())}
+      id="edit-content-form-anchor"
       className="self-end text-xs text-purple-500 hover:text-purple-700"
     >
       Edit Page

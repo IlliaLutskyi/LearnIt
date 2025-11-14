@@ -1,6 +1,9 @@
 import prisma from "@/lib/db";
 
-export default async function getUserRating(userId: string, sectionId: string) {
+export default async function getUserRating(
+  userId: number | undefined,
+  sectionId: string
+) {
   try {
     if (!sectionId || !userId)
       return Response.json(
@@ -14,7 +17,6 @@ export default async function getUserRating(userId: string, sectionId: string) {
         sectionId: Number(sectionId),
       },
     });
-
     return Response.json({ rating: rating?.rate }, { status: 200 });
   } catch (err) {
     return Response.json({ message: "Something went wrong" }, { status: 500 });

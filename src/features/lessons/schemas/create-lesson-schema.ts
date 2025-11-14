@@ -6,3 +6,4 @@ export const CreateLessonSchema = z.object({
   contentType: z.enum(["Video", "Text", "Quiz", "Markdown", "Table"]),
   videoSource: z.enum(["Youtube"]).optional(),
 });
+export type CreateLesson = z.infer<typeof CreateLessonSchema>;

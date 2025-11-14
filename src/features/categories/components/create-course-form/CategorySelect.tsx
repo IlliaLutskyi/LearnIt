@@ -5,18 +5,19 @@ import { useQuery } from "@tanstack/react-query";
 import { memo, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { getCategories } from "../../services/get-categories";
-
-const CategorySelect = () => {
+import { UseFormRegister } from "react-hook-form";
+import { CreateGeneralInfoSchema } from "@/features/courses/schemas/create-general-info-schema";
+import z from "zod";
+type GeneralInfo = z.infer<typeof CreateGeneralInfoSchema>;
+type Props = {
+  register: UseFormRegister<GeneralInfo>;
+};
+const CategorySelect = ({ register }: Props) => {
   const { data: categories } = useQuery({
     queryKey: ["categories"],
     queryFn: getCategories,
   });
-  const { category } = useAppSelector((state) => state.CreateCourse);
-  const dispatch = useDispatch();
-  useEffect(() => {
-    if (!category && categories)
-      dispatch(setCategory(String(categories[0].id)));
-  }, [categories]);
+  if (!categories) return null;
   return (
     <div className="flex flex-col gap-1">
       <label htmlFor="categories" className="text-xs">
@@ -24,8 +25,8 @@ const CategorySelect = () => {
       </label>
       <select
         id="categories"
-        onChange={(e) => dispatch(setCategory(e.target.value))}
-        value={category}
+        {...register("category.id")}
+        defaultValue={categories[0].id}
         className="outline-0 shadow-md text-sm w-full p-2 rounded-sm"
       >
         {categories?.map((category) => {

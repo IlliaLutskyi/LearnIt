@@ -44,7 +44,7 @@ const Sections = ({ sections }: Props) => {
 
       dispatch(
         shiftSection({
-          sectionGroupOrder: section.sectionGroupId,
+          sectionGroupOrder: section.sectionGroupOrder,
           newIndex: newIndex,
           oldIndex: oldIndex,
         })

@@ -10,6 +10,7 @@ import { DbCourse } from "./dbCourse";
 import { DbPrerequisite } from "./dbPrerequisite";
 import { DbSkill } from "./dbSkill";
 import { DbVideoSource } from "./dbVideoSourse";
+
 export type {
   DbUser,
   DbCourse,

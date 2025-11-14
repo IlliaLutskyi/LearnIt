@@ -27,6 +27,7 @@ const TableOption = ({ setValue }: Props) => {
       const buffer = reader.result as ArrayBuffer;
       const workbook = xlsx.read(buffer, { type: "buffer" });
       const worksheet = workbook.Sheets[workbook.SheetNames[0]];
+
       const unsafeHtml = xlsx.utils.sheet_to_html(worksheet);
       const html = dompurify.sanitize(unsafeHtml);
 
@@ -46,7 +47,9 @@ const TableOption = ({ setValue }: Props) => {
       const buffer = reader.result as ArrayBuffer;
       const workbook = xlsx.read(buffer, { type: "buffer" });
       const worksheet = workbook.Sheets[workbook.SheetNames[0]];
-      const html = xlsx.utils.sheet_to_html(worksheet);
+
+      const unsafeHtml = xlsx.utils.sheet_to_html(worksheet);
+      const html = dompurify.sanitize(unsafeHtml);
 
       setValue("content", html);
       setUploadStatus("complete");

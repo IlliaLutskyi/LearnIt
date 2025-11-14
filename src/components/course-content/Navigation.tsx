@@ -7,7 +7,7 @@ type Props = {
   nextSection: DbNextOrPrevSection | null;
   prevSection: DbNextOrPrevSection | null;
 };
-const Actions = ({ nextSection, prevSection }: Props) => {
+const Navigation = ({ nextSection, prevSection }: Props) => {
   const params = useParams();
 
   return (
@@ -17,12 +17,12 @@ const Actions = ({ nextSection, prevSection }: Props) => {
         className="w-full"
       >
         <button
-          className={`w-full flex flex-col items-start gap-2 border-purple-300 border-[1px] p-8 rounded-2xl hover:border-purple-600 ${
+          className={`w-full flex flex-col items-start gap-2 text-xs text-purple-500 hover:text-purple-900 border-purple-500 border-[1px] p-8 rounded-2xl hover:border-purple-900 ${
             !prevSection && "hidden"
           } duration-400`}
         >
           <span className="font-bold text-sm text-black">Back</span>
-          <span className="text-purple-600 text-sm line-clamp-1">
+          <span className="text-sm line-clamp-1">
             {"<- " + prevSection?.title}
           </span>
         </button>
@@ -33,12 +33,12 @@ const Actions = ({ nextSection, prevSection }: Props) => {
         className="w-full"
       >
         <button
-          className={`w-full flex flex-col items-end gap-2 text-xs border-purple-300 border-[1px] p-8 rounded-2xl hover:border-purple-600 ${
+          className={`w-full flex flex-col items-end gap-2 text-xs text-purple-500 hover:text-purple-900 border-purple-500 border-[1px] p-8 rounded-2xl hover:border-purple-900 ${
             !nextSection && "hidden"
           } duration-200`}
         >
           <span className="font-bold text-sm text-black">Next</span>
-          <span className="text-purple-600 text-sm line-clamp-1">
+          <span className="text-sm line-clamp-1">
             {nextSection?.title + " ->"}
           </span>
         </button>
@@ -47,4 +47,4 @@ const Actions = ({ nextSection, prevSection }: Props) => {
   );
 };
 
-export default Actions;
+export default Navigation;

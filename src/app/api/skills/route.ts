@@ -1,5 +1,5 @@
-import createSkill from "@/features/skills/services/api/create-skill";
-import updateSkills from "@/features/skills/services/api/update-skills";
+import createSkill from "@/features/skills/services/server/create-skill";
+import updateSkills from "@/features/skills/services/server/update-skills";
 
 export async function POST(req: Request) {
   return await createSkill(req);

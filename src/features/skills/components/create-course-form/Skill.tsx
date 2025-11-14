@@ -3,17 +3,31 @@ import { deleteSkill, editSkill } from "@/lib/slices/create-course-slice";
 import { MdDelete } from "react-icons/md";
 import { Skill as TSkill } from "@/types/create-course";
 import { Input } from "@/components/common";
-
+import { useEffect } from "react";
+import { motion, useAnimation } from "framer-motion";
+import { fadeInOutWithShiftVariants } from "@/features/animations/fade-in-out-with-shift";
 type Props = {
   skill: TSkill;
 };
 const Skill = ({ skill }: Props) => {
+  const controlls = useAnimation();
   const dispatch = useAppDispatch();
+  useEffect(() => {
+    async function inView() {
+      await controlls.start("visible");
+    }
+    inView();
+  }, []);
   function handleDeletePreriquisite(id: number) {
     dispatch(deleteSkill(id));
   }
   return (
-    <div className="grid grid-cols-[1fr_10fr_1fr]">
+    <motion.div
+      className="grid grid-cols-[1fr_10fr_1fr]"
+      variants={fadeInOutWithShiftVariants}
+      animate={controlls}
+      initial="hidden"
+    >
       <span className="m-auto">.</span>
       <Input
         multiline
@@ -30,12 +44,15 @@ const Skill = ({ skill }: Props) => {
       />
       <button
         type="button"
-        onClick={() => handleDeletePreriquisite(skill.id)}
+        onClick={async () => {
+          await controlls.start("exit");
+          handleDeletePreriquisite(skill.id);
+        }}
         className="text-red-500 m-auto text-lg"
       >
         <MdDelete />
       </button>
-    </div>
+    </motion.div>
   );
 };
 
