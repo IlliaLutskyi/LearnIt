@@ -1,5 +1,5 @@
 import Content from "@/components/course-content/Content";
-import Sidebar from "@/components/course-content/Sidebar";
+import Sidebar from "@/components/course-content/SideBar";
 import { getSectionGroups } from "@/features/sections/services/get-section-groups";
 
 type Props = {

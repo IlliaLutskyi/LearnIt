@@ -3,6 +3,7 @@ import {
   setTitle,
   setDescription,
   setCategory,
+  setNextStep,
 } from "@/lib/slices/create-course-slice";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { Step } from "@/types/create-course";
@@ -14,6 +15,8 @@ import Navigation from "./Navigation";
 import { CreateGeneralInfoSchema } from "../../schemas/create-general-info-schema";
 import { Input } from "@/components/common";
 import CategorySelect from "@/features/categories/components/create-course-form/CategorySelect";
+import { motion } from "framer-motion";
+import { fadeInVariants } from "@/features/animations/fade-in";
 
 type GeneralInfo = z.infer<typeof CreateGeneralInfoSchema>;
 type Props = {
@@ -45,6 +48,8 @@ const Step1 = ({ step }: Props) => {
   function onSubmit(data: GeneralInfo) {
     dispatch(setTitle(data.title));
     dispatch(setDescription(data.description));
+    dispatch(setCategory(data.category.id));
+
     localStorage.setItem(
       "generalInfo",
       JSON.stringify({
@@ -53,13 +58,18 @@ const Step1 = ({ step }: Props) => {
         category: category,
       })
     );
+    dispatch(setNextStep({ nextStep: step.step + 1 }));
   }
   return (
-    <form
+    <motion.form
       className="flex flex-col gap-4 p-4 h-full"
       onSubmit={handleSubmit(onSubmit)}
+      variants={fadeInVariants}
+      initial="hidden"
+      animate="visible"
     >
       <h1 className="text-lg font-bold self-center">{step.title}</h1>
+
       <section className="grow flex flex-col gap-2">
         <div className="grid sm:grid-cols-2 grid-cols-1 gap-2">
           <Input
@@ -71,7 +81,7 @@ const Step1 = ({ step }: Props) => {
             error={errors.title?.message}
             className="text-sm w-full p-2 shadow-sm rounded-md outline-none focus:ring-1 focus:ring-purple-500"
           />
-          <CategorySelect />
+          <CategorySelect register={register} />
         </div>
         <div>
           <Input
@@ -86,8 +96,9 @@ const Step1 = ({ step }: Props) => {
           />
         </div>
       </section>
+
       <Navigation currentStep={step.step} />
-    </form>
+    </motion.form>
   );
 };
 

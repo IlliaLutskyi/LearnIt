@@ -4,6 +4,6 @@ export type Section = {
   order: number;
   title: string;
   slug: string;
-  sectionGroupId: number;
+  sectionGroupOrder: number;
   lessons: Lesson[];
 };

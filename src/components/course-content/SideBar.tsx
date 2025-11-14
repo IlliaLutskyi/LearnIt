@@ -36,7 +36,7 @@ const Sidebar = ({ sectionGroups }: Props) => {
 };
 const MobileSidebar = ({ sectionGroups }: Props) => {
   return (
-    <div className="sticky sm:hidden top-0 bg-purple-700 w-full h-10 text-white p-2">
+    <div className="sticky sm:hidden top-0 bg-purple-700 w-full h-10 text-white p-2 z-50">
       <Drawer direction="left">
         <DrawerTrigger>
           <IoMenu />

@@ -6,18 +6,32 @@ import {
 } from "@/lib/slices/create-course-slice";
 import type { Prerequisite } from "@/types/create-course";
 import { Input } from "@/components/common";
-
+import { motion, useAnimation } from "framer-motion";
+import { fadeInOutWithShiftVariants } from "@/features/animations/fade-in-out-with-shift";
+import { useEffect } from "react";
 type Props = {
   prerequisite: Prerequisite;
 };
 const Prerequisite = ({ prerequisite }: Props) => {
+  const controlls = useAnimation();
   const dispatch = useAppDispatch();
 
   function handleDeletePreriquisite(id: number) {
     dispatch(deletePrerequite(id));
   }
+  useEffect(() => {
+    async function inView() {
+      await controlls.start("visible");
+    }
+    inView();
+  }, []);
   return (
-    <div className="grid grid-cols-[1fr_10fr_1fr]">
+    <motion.div
+      className="grid grid-cols-[1fr_10fr_1fr]"
+      variants={fadeInOutWithShiftVariants}
+      animate={controlls}
+      initial="hidden"
+    >
       <span className="m-auto">.</span>
       <Input
         type="text"
@@ -35,12 +49,15 @@ const Prerequisite = ({ prerequisite }: Props) => {
       />
       <button
         type="button"
-        onClick={() => handleDeletePreriquisite(prerequisite.id)}
+        onClick={async () => {
+          await controlls.start("exit");
+          handleDeletePreriquisite(prerequisite.id);
+        }}
         className="text-red-500 m-auto text-lg"
       >
         <MdDelete />
       </button>
-    </div>
+    </motion.div>
   );
 };
 

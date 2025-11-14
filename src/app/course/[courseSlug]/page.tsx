@@ -4,7 +4,6 @@ import Prerequisites from "@/features/prerequisites/components/Prerequisites";
 import Skills from "@/features/skills/components/Skills";
 import { lazy, Suspense } from "react";
 import { getCourse } from "@/features/courses/services/get-course";
-
 const EditForm = lazy(() => import("@/components/course-details/EditForm"));
 const EditButton = lazy(() => import("@/components/course-details/EditButton"));
 
@@ -44,10 +43,12 @@ const CourseDetails = async ({ params }: Props) => {
             <Prerequisites preriquisites={course.prerequisites} />
           )}
         </div>
+
         <div className="flex flex-col gap-2">
           <h2 className="font-bold text-lg">Course content</h2>
           <AboutSections sectionGroups={course.sectionGroups} />
         </div>
+
         <Suspense>
           <section className="flex justify-end">
             <EditButton author={course.user} />

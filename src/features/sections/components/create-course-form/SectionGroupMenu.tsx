@@ -15,17 +15,19 @@ import {
 import { HiDotsVertical } from "react-icons/hi";
 import { lazy, memo, Suspense, useState } from "react";
 import { SectionGroup } from "@/types/create-course";
-
+import { LegacyAnimationControls } from "framer-motion";
 const RenameForm = lazy(() => import("./RenameForm"));
 
 type Props = {
   sectionGroup: SectionGroup;
+  controlls: LegacyAnimationControls;
 };
-const SectionGroupMenu = ({ sectionGroup }: Props) => {
+const SectionGroupMenu = ({ sectionGroup, controlls }: Props) => {
   const dispatch = useAppDispatch();
   const [isRenameSectionGroupFormOpen, setIsRenameSectionGroupFormOpen] =
     useState(false);
-  function handleDeleteSectionGroup() {
+  async function handleDeleteSectionGroup() {
+    await controlls.start("exit");
     dispatch(deleteSectionGroup(sectionGroup.order));
   }
   function handleRenameSectionGroup() {

@@ -2,14 +2,16 @@ import Link from "next/link";
 
 const Heading = () => {
   return (
-    <div className="flex flex-col gap-4 mt-[6rem] w-screen border-b-[1px] border-gray-200 pb-[5rem]">
-      <section>
-        <h1 className="text-3xl font-bold text-center">
-          This platform is for those who wants to learn
+    <div className="flex flex-col gap-4 mt-[6rem] w-full border-b-[1px] border-gray-200 pb-[5rem]">
+      <section className="flex flex-col gap-4">
+        <h1 className="text-3xl font-bold text-center text-gray-900">
+          Welcome to our <span className="text-purple-600 ">LearnIt </span>
+          platform
         </h1>
-        <p className="text-sm text-center">
-          A lot of courses were made for you that includes quizes, videos and
-          more...
+        <p className="text-sm text-center text-gray-600">
+          The platform is designed to provide you with the best learning
+          experience possible. Whether you are a student, a teacher, or a
+          professional, our platform has everything you need to succeed.
         </p>
       </section>
       <section className="self-center">

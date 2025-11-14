@@ -1,7 +1,6 @@
 import { lazy, Suspense } from "react";
 import { DbSectionGroup } from "@/types";
 import { Loader } from "lucide-react";
-
 const SectionInfo = lazy(() => import("./SectionInfo"));
 
 type Props = {

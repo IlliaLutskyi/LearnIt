@@ -1,12 +1,15 @@
 import prisma from "@/lib/db";
 
-type Data = { userId: number; sectionId: number; rating: number };
+type Data = { sectionId: number; rating: number };
 
-export default async function createRating(req: Request) {
+export default async function createRating(
+  req: Request,
+  userId: number | undefined
+) {
   try {
     const data: Data = await req.json();
 
-    if (!data.userId || !data.sectionId)
+    if (!data.sectionId || !data.rating || !userId)
       return Response.json(
         { message: "Something went wrong" },
         { status: 400 }
@@ -14,7 +17,7 @@ export default async function createRating(req: Request) {
 
     const rating = await prisma.sectionRating.findFirst({
       where: {
-        userId: data.userId,
+        userId: userId,
         sectionId: data.sectionId,
       },
     });
@@ -22,7 +25,7 @@ export default async function createRating(req: Request) {
     if (!rating) {
       await prisma.sectionRating.create({
         data: {
-          userId: data.userId,
+          userId: userId,
           sectionId: data.sectionId,
           rate: data.rating,
         },
@@ -31,7 +34,7 @@ export default async function createRating(req: Request) {
       await prisma.sectionRating.update({
         where: {
           userId_sectionId: {
-            userId: data.userId,
+            userId: userId,
             sectionId: data.sectionId,
           },
         },

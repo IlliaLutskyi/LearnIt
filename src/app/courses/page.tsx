@@ -1,6 +1,6 @@
 "use client";
 import CategoryBar from "@/features/categories/components/CategoryBar";
-import CourseCard from "@/features/courses/components/create-course-form/CourseCard";
+import CourseCard from "@/features/courses/components/CourseCard";
 import api from "@/lib/axios";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { useInView } from "react-intersection-observer";
@@ -9,7 +9,9 @@ import Loader from "@/components/common/Loader";
 import { useSearchParams } from "next/navigation";
 import { DbCourse } from "@/types";
 import { getCategories } from "@/features/categories/services/get-categories";
-
+import { motion } from "framer-motion";
+import { parentVariants } from "@/features/animations/delay-children-appearing";
+import CourseGrid from "@/features/courses/components/CourseGrid";
 const PAGE_SIZE = 10;
 const Courses = () => {
   const { ref, inView } = useInView({
@@ -51,20 +53,18 @@ const Courses = () => {
   }, [inView, isFetchingNextPage, hasNextPage]);
 
   if (isError) return <h1 className="text-center">Something went wrong</h1>;
+  if (!data || !categories) return <Loader />;
 
   return (
-    <div className="flex flex-col gap-2 mx-[3rem] my-[2rem]">
+    <div className="flex flex-col gap-4 m-8">
       <h1 className="text-xl font-bold text-center">Course Catalog</h1>
-      <div className="flex flex-col gap-4">
-        <CategoryBar categories={categories || []} />
-        <section className="grid max-sm:grid-cols-1  max-md:grid-cols-2 grid-cols-3 gap-6">
-          {data?.pages.map((page) =>
-            page.map((course) => <CourseCard key={course.id} course={course} />)
-          )}
-        </section>
-      </div>
 
-      {isFetchingNextPage || (isLoading && <Loader />)}
+      <CategoryBar categories={categories} />
+
+      <CourseGrid courses={data.pages.flatMap((page) => page)} />
+
+      {(isFetchingNextPage || isLoading) && <Loader />}
+
       <div ref={ref} />
     </div>
   );

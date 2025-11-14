@@ -19,6 +19,19 @@ export default async function updateCourseDetails(
     if (!isValidData.success) {
       return Response.json({ message: "Invalid data" }, { status: 400 });
     }
+    const exists = await prisma.course.findFirst({
+      where: {
+        title: data.title,
+      },
+    });
+
+    if (exists) {
+      return Response.json(
+        { message: "Title already exists" },
+        { status: 400 }
+      );
+    }
+
     const course = await prisma.course.update({
       where: {
         id: Number(id),

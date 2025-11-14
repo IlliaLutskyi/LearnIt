@@ -21,21 +21,19 @@ const Rating = ({ sectionId }: Props) => {
   ]);
 
   const controller = useRef<AbortController>(null);
-  const { data } = useSession();
-
   const { data: sectionRating } = useQuery({
     queryKey: ["sectionRating", sectionId],
     queryFn: async () => {
-      const res = await api.get(
-        `/sections/ratings/${sectionId}/${data?.user.id}`
-      );
+      const res = await api.get(`/sections/ratings/${sectionId}`, {
+        withCredentials: true,
+      });
       return res.data;
     },
-    enabled: !!sectionId && !!data?.user.id,
+    enabled: !!sectionId,
   });
   const mutation = useMutation({
     mutationFn: async (rating: number) => {
-      if (!sectionId || !data) return;
+      if (!sectionId) return;
 
       controller.current = new AbortController();
 
@@ -43,10 +41,10 @@ const Rating = ({ sectionId }: Props) => {
         `/sections/ratings`,
         {
           sectionId,
-          userId: data?.user.id,
+
           rating,
         },
-        { signal: controller.current.signal }
+        { signal: controller.current.signal, withCredentials: true }
       );
       return res.data;
     },

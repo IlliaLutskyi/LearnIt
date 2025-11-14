@@ -1,3 +1,4 @@
+import { createSlug } from "@/features/courses/utils/create-slug";
 import {
   Prerequisite,
   Quiz,
@@ -43,11 +44,7 @@ export const CourseSlice = createSlice({
   reducers: {
     setTitle: (state, action: PayloadAction<string>) => {
       state.title = action.payload;
-      state.slug = action.payload
-        .toLowerCase()
-        .trim()
-        .replace(/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~`\s]+/g, "-")
-        .replace(/^-+|-+$/g, "");
+      state.slug = createSlug(action.payload);
     },
     setDescription: (state, action: PayloadAction<string>) => {
       state.description = action.payload;
@@ -144,11 +141,7 @@ export const CourseSlice = createSlice({
       );
       if (!sectionGroup) return;
       sectionGroup.title = action.payload.title;
-      sectionGroup.slug = action.payload.title
-        .toLowerCase()
-        .trim()
-        .replace(/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~`\s]+/g, "-")
-        .replace(/^-+|-+$/g, "");
+      sectionGroup.slug = createSlug(action.payload.title);
     },
 
     loadContent: (state) => {
@@ -177,7 +170,7 @@ export const CourseSlice = createSlice({
         order: maxOrder + 1,
         slug: `section-${maxOrder + 1}`,
         lessons: [],
-        sectionGroupId: action.payload.sectionGroupOrder,
+        sectionGroupOrder: action.payload.sectionGroupOrder,
       };
       sectionGroup.sections.push(section);
     },
@@ -240,7 +233,7 @@ export const CourseSlice = createSlice({
       state,
       action: PayloadAction<{
         sectionGroupOrder: number;
-        order: number;
+        sectionOrder: number;
         title: string;
       }>
     ) => {
@@ -250,15 +243,11 @@ export const CourseSlice = createSlice({
       );
       if (!sectionGroup) return;
       const section = sectionGroup.sections.find(
-        (section) => section.order === action.payload.order
+        (section) => section.order === action.payload.sectionOrder
       );
       if (!section) return;
       section.title = action.payload.title;
-      section.slug = action.payload.title
-        .toLowerCase()
-        .trim()
-        .replace(/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~`\s]+/g, "-")
-        .replace(/^-+|-+$/g, "");
+      section.slug = createSlug(action.payload.title);
     },
     shiftLessons: (
       state,
@@ -291,7 +280,7 @@ export const CourseSlice = createSlice({
         sectionGroupOrder: number;
         sectionOrder: number;
         quiz: Quiz;
-        lessonId: number;
+        lessonOrder: number;
         title: string;
       }>
     ) => {
@@ -305,7 +294,7 @@ export const CourseSlice = createSlice({
       );
       if (section) {
         const lesson = section.lessons.find(
-          (lesson) => lesson.order === action.payload.lessonId
+          (lesson) => lesson.order === action.payload.lessonOrder
         );
         if (lesson) {
           lesson.quiz = action.payload.quiz;
@@ -375,7 +364,7 @@ export const CourseSlice = createSlice({
       action: PayloadAction<{
         sectionGroupOrder: number;
         sectionOrder: number;
-        lessonOrder: string;
+        lessonOrder: number;
         title: string;
         content: string;
         contentType: ContentType;

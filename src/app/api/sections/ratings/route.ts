@@ -1,5 +1,8 @@
-import createRating from "@/features/ratings/services/api/create-rating";
+import createRating from "@/features/ratings/services/server/create-rating";
+import { getServerSession } from "next-auth";
+import { authOptions } from "../../auth/[...nextauth]/options";
 
 export async function POST(req: Request) {
-  return await createRating(req);
+  const session = await getServerSession(authOptions);
+  return await createRating(req, session?.user.id);
 }

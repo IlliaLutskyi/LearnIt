@@ -6,13 +6,21 @@ import {
 import { useState, memo } from "react";
 import Rating from "@/features/ratings/components/Rating";
 import { DbSectionGroup } from "@/types";
+import { motion } from "framer-motion";
+import { fadeInOutWithShiftVariants } from "@/features/animations/fade-in-out-with-shift";
+
 type Props = {
   sectionGroup: DbSectionGroup;
 };
 const SectionInfo = ({ sectionGroup }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <div className="flex flex-col border-[1px] border-black ml-4">
+    <motion.div
+      className="flex flex-col border-[1px] border-black ml-4"
+      variants={fadeInOutWithShiftVariants}
+      initial="hidden"
+      whileInView={"visible"}
+    >
       <button
         className="flex gap-4 bg-purple-200 p-2 hover:bg-purple-300 duration-300"
         onClick={() => setIsOpen(!isOpen)}
@@ -52,7 +60,7 @@ const SectionInfo = ({ sectionGroup }: Props) => {
           })}
         </section>
       )}
-    </div>
+    </motion.div>
   );
 };
 

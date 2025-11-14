@@ -3,6 +3,11 @@ import { memo } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { DbCategory } from "@/types";
+import { motion } from "framer-motion";
+import {
+  childVariants,
+  parentVariants,
+} from "@/features/animations/delay-children-appearing";
 
 type Props = {
   categories: DbCategory[];
@@ -14,36 +19,44 @@ const CategoryBar = ({ categories }: Props) => {
     : "all";
 
   return (
-    <div className="flex flex-wrap gap-2">
+    <motion.div
+      className="flex flex-wrap gap-2"
+      variants={parentVariants}
+      initial="hidden"
+      animate="visible"
+    >
       <Link href={`?filter=all`}>
-        <button
+        <motion.button
           className={`${
             filter === "all"
               ? "bg-amber-100 text-orange-400"
-              : "bg-purple-100 text-purple5600"
+              : "bg-purple-100 text-purple-500"
           } text-xs font-semibold px-3 py-1 hover:scale-95 duration-500 rounded-sm`}
+          variants={childVariants}
         >
           All
-        </button>
+        </motion.button>
       </Link>
+
       {categories.map((category) => {
         const isActive = filter == category.name.trim();
 
         return (
           <Link href={`?filter=${category.name}`} key={category.id}>
-            <button
+            <motion.button
               className={`${
                 isActive
                   ? "bg-amber-100 text-orange-400"
                   : "bg-purple-100 text-purple-500"
               } text-xs font-semibold px-3 py-1 hover:scale-95 duration-500 rounded-sm`}
+              variants={childVariants}
             >
               {category.name.slice(0, 1).toUpperCase() + category.name.slice(1)}
-            </button>
+            </motion.button>
           </Link>
         );
       })}
-    </div>
+    </motion.div>
   );
 };
 

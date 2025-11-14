@@ -10,9 +10,16 @@ import {
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { lazy, memo, Suspense, useCallback, useState } from "react";
 import { HiDotsVertical } from "react-icons/hi";
-import { deleteLesson } from "@/lib/slices/create-course-slice";
+import {
+  addLessonToSection,
+  deleteLesson,
+  editLesson,
+  editQuiz,
+} from "@/lib/slices/create-course-slice";
 import { Section } from "@/types/create-course/section";
 import { Lesson } from "@/types/create-course";
+import { CreateLesson } from "../../schemas/create-lesson-schema";
+import { CreateQuiz } from "@/features/quizes/schemas/create-quiz";
 
 const CreateLessonForm = lazy(() => import("./CreateLessonForm"));
 const RenameForm = lazy(
@@ -34,7 +41,7 @@ const LessonMenu = ({ lesson }: Props) => {
     (state) => state.CreateCourse.sectionGroups
   );
   const dispatch = useAppDispatch();
-  const findSection = useCallback(() => {
+  const findSection = (): Section => {
     const sectionGroup = sectionGroups.find(
       (sectionGroup) => sectionGroup.order === lesson.sectionId
     );
@@ -42,7 +49,7 @@ const LessonMenu = ({ lesson }: Props) => {
       (section) => section.order === lesson.sectionId
     );
     return section as Section;
-  }, [sectionGroups]);
+  };
   function handleDeleteLesson() {
     dispatch(
       deleteLesson({
@@ -58,6 +65,37 @@ const LessonMenu = ({ lesson }: Props) => {
   function handleEditQuiz() {
     setIsEditQuizOpen(true);
   }
+  function onSaveLesson(data: CreateLesson) {
+    const section = findSection();
+
+    dispatch(
+      editLesson({
+        sectionGroupOrder: section.sectionGroupOrder,
+        sectionOrder: section.order,
+        lessonOrder: lesson.order,
+        content: data.content,
+        contentType: data.contentType,
+        title: data.title,
+        videoSource: data.videoSource,
+      })
+    );
+  }
+  function onSaveQuiz(data: CreateQuiz) {
+    const section = findSection();
+    dispatch(
+      editQuiz({
+        sectionOrder: section.order,
+        sectionGroupOrder: section.sectionGroupOrder,
+        quiz: {
+          answers: data.answers,
+          explanation: data.explanation,
+          question: data.question,
+        },
+        lessonOrder: lesson.order,
+        title: data.title,
+      })
+    );
+  }
   return (
     <>
       <Menubar>
@@ -66,16 +104,20 @@ const LessonMenu = ({ lesson }: Props) => {
             <HiDotsVertical />
           </MenubarTrigger>
           <MenubarContent>
-            {lesson.contentType === "Quiz" && (
-              <MenubarItem onClick={handleEditQuiz} id="create-quiz-anchor">
-                Edit quiz
-              </MenubarItem>
-            )}
-            {lesson.contentType !== "Quiz" && (
-              <MenubarItem onClick={handleEditLesson} id="create-lesson-anchor">
-                Edit lesson
-              </MenubarItem>
-            )}
+            <MenubarItem
+              onClick={
+                lesson.contentType === "Quiz"
+                  ? handleEditQuiz
+                  : handleEditLesson
+              }
+              id={
+                lesson.contentType === "Quiz"
+                  ? "create-quiz-anchor"
+                  : "create-lesson-anchor"
+              }
+            >
+              {lesson.contentType === "Quiz" ? "Edit quiz" : "Edit lesson"}
+            </MenubarItem>
             <MenubarSeparator />
 
             <MenubarItem onClick={handleDeleteLesson}>
@@ -87,8 +129,7 @@ const LessonMenu = ({ lesson }: Props) => {
       <Suspense>
         <CreateLessonForm
           isOpen={isEditLessonOpen}
-          sectionOrder={lesson.sectionId}
-          sectionGroupOrder={lesson.sectionGroupId}
+          onSave={onSaveLesson}
           setIsOpen={setIsEditLessonOpen}
           lesson={lesson}
         />
@@ -99,10 +140,9 @@ const LessonMenu = ({ lesson }: Props) => {
         />
         <CreateQuizForm
           isOpen={isEditQuizOpen}
-          sectionOrder={lesson.sectionId}
-          sectionGroupOrder={lesson.sectionGroupId}
           setIsOpen={setIsEditQuizOpen}
           lesson={lesson}
+          onSave={onSaveQuiz}
         />
       </Suspense>
     </>

@@ -1,4 +1,4 @@
-import getSection from "@/features/sections/services/api/get-section";
+import getSection from "@/features/sections/services/server/get-section";
 
 type Props = {
   params: Promise<{
@@ -8,5 +8,6 @@ type Props = {
 };
 export async function GET(_: Request, { params }: Props) {
   const { sectionSlug, courseSlug } = await params;
+
   return await getSection(sectionSlug, courseSlug);
 }

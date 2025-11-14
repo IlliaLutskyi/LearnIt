@@ -6,4 +6,5 @@ export const CreateGeneralInfoSchema = z.object({
     .string()
     .min(1, "Description is required")
     .max(10000, "Description is too long"),
+  category: z.object({ id: z.string() }),
 });
