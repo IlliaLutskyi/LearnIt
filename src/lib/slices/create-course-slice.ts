@@ -6,6 +6,7 @@ import {
   SectionGroup,
   Skill,
   ContentType,
+  Lesson,
 } from "@/types/create-course";
 import { arrayMove } from "@dnd-kit/sortable";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
@@ -154,6 +155,8 @@ export const CourseSlice = createSlice({
       state,
       action: PayloadAction<{
         sectionGroupOrder: number;
+        title?: string;
+        lessons?: Lesson[];
       }>
     ) => {
       const sectionGroup = state.sectionGroups.find(
@@ -166,10 +169,14 @@ export const CourseSlice = createSlice({
           ? Math.max(...sectionGroup.sections.map((section) => section.order))
           : 0;
       const section: Section = {
-        title: `Section ${maxOrder + 1}`,
+        title: action.payload.title
+          ? action.payload.title
+          : `Section ${maxOrder + 1}`,
         order: maxOrder + 1,
-        slug: `section-${maxOrder + 1}`,
-        lessons: [],
+        slug: action.payload.title
+          ? createSlug(action.payload.title)
+          : `section-${maxOrder + 1}`,
+        lessons: action.payload.lessons ? action.payload.lessons : [],
         sectionGroupOrder: action.payload.sectionGroupOrder,
       };
       sectionGroup.sections.push(section);

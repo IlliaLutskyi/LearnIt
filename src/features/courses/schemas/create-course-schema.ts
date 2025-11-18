@@ -33,36 +33,16 @@ export const CreateCourseSchema = z.object({
                     order: z.coerce.number(),
                     quiz: z
                       .object({
-                        questions: z.array(
+                        question: z.string().min(1, "Question is required"),
+                        answers: z.array(
                           z.object({
-                            question: z
-                              .string()
-                              .min(1, "Question is required")
-                              .max(
-                                10000,
-                                "Question cannot exceed 10000 characters"
-                              ),
-                            explanation: z
-                              .string()
-                              .min(1, "Explanation is required")
-                              .max(
-                                10000,
-                                "Explanation cannot exceed 10000 characters"
-                              ),
-                            answer: z.array(
-                              z.object({
-                                content: z
-                                  .string()
-                                  .min(1, "Answer is required")
-                                  .max(
-                                    10000,
-                                    "Answer cannot exceed 10000 characters"
-                                  ),
-                                isCorrect: z.boolean(),
-                              })
-                            ),
+                            content: z.string().min(1, "Answer is required"),
+                            isCorrect: z.boolean(),
                           })
                         ),
+                        explanation: z
+                          .string()
+                          .min(1, "Explanation is required"),
                       })
                       .optional(),
                   })

@@ -13,21 +13,35 @@ import {
   addQuizToSection,
   deleteSection,
 } from "@/lib/slices/create-course-slice";
-import { ContentType, Section } from "@/types/create-course";
+import { ContentType, Quiz, Section } from "@/types/create-course";
 import { lazy, memo, Suspense, useState } from "react";
+import { SiGooglegemini } from "react-icons/si";
 import { HiDotsVertical } from "react-icons/hi";
 import { LegacyAnimationControls } from "framer-motion";
 import { CreateLesson } from "@/features/lessons/schemas/create-lesson-schema";
-import { CreateQuiz } from "@/features/quizes/schemas/create-quiz";
-import GenerateLessonForm from "@/features/lessons/components/create-course-form/GenerateLessonForm";
+import { CreateQuiz } from "@/features/quizzes/schemas/create-quiz";
+
+import { toast } from "sonner";
+import { GenerateQuiz } from "@/features/quizzes/schemas/generate-quiz";
 const CreateLessonForm = lazy(
   () =>
     import("@/features/lessons/components/create-course-form/CreateLessonForm")
 );
 const CreateQuizForm = lazy(
-  () => import("@/features/quizes/components/create-course-form/CreateQuizForm")
+  () =>
+    import("@/features/quizzes/components/create-course-form/CreateQuizForm")
 );
 const RenameForm = lazy(() => import("./RenameForm"));
+const GenerateLessonForm = lazy(
+  () =>
+    import(
+      "@/features/lessons/components/create-course-form/GenerateLessonForm"
+    )
+);
+const GenerateQuizForm = lazy(
+  () =>
+    import("@/features/quizzes/components/create-course-form/GenerateQuizForm")
+);
 type Props = {
   section: Section;
   controlls: LegacyAnimationControls;
@@ -37,6 +51,7 @@ const SectionMenu = ({ section, controlls }: Props) => {
   const [isRenameSectionOpen, setIsRenameSectionOpen] = useState(false);
   const [isCreateQuizOpen, setIsCreateQuizOpen] = useState(false);
   const [isGenerateLessonOpen, setIsGenerateLessonOpen] = useState(false);
+  const [isGenerateQuizOpen, setIsGenerateQuizOpen] = useState(false);
   const dispatch = useAppDispatch();
   async function handleDeleteSection() {
     await controlls.start("exit");
@@ -58,6 +73,9 @@ const SectionMenu = ({ section, controlls }: Props) => {
   }
   function handleGenerateLesson() {
     setIsGenerateLessonOpen(true);
+  }
+  function handleGenerateQuiz() {
+    setIsGenerateQuizOpen(true);
   }
   function onSaveLesson(data: CreateLesson) {
     dispatch(
@@ -85,6 +103,27 @@ const SectionMenu = ({ section, controlls }: Props) => {
         title: data.title,
       })
     );
+    return toast.message("Lesson added");
+  }
+  function onSaveGenerateQuiz(data: GenerateQuiz & { quizzes: string }) {
+    const quizzes = JSON.parse(data.quizzes) as (Quiz & { title: string })[];
+    quizzes.forEach((quiz) => {
+      dispatch(
+        addQuizToSection({
+          quiz: {
+            answers: quiz.answers,
+            explanation: quiz.explanation,
+            question: quiz.question,
+          },
+          sectionGroupOrder: section.sectionGroupOrder,
+          sectionOrder: section.order,
+          title: quiz.title,
+        })
+      );
+    });
+    return toast.success(
+      data.quizzes.length > 1 ? "Quizzes added" : "Quiz added"
+    );
   }
   function onSaveQuiz(data: CreateQuiz) {
     dispatch(
@@ -99,6 +138,7 @@ const SectionMenu = ({ section, controlls }: Props) => {
         title: data.title,
       })
     );
+    return toast.message("Quiz added");
   }
   return (
     <>
@@ -121,7 +161,13 @@ const SectionMenu = ({ section, controlls }: Props) => {
               onClick={handleGenerateLesson}
               id="generate-lesson-anchor"
             >
-              Generate Lesson With AI
+              <SiGooglegemini /> Generate Lesson With AI
+            </MenubarItem>
+            <MenubarItem
+              onClick={handleGenerateQuiz}
+              id="generate-lesson-anchor"
+            >
+              <SiGooglegemini /> Generate Quiz With AI
             </MenubarItem>
             <MenubarSeparator />
             <MenubarItem onClick={handleDeleteSection}>
@@ -151,6 +197,12 @@ const SectionMenu = ({ section, controlls }: Props) => {
           isOpen={isGenerateLessonOpen}
           setIsOpen={setIsGenerateLessonOpen}
           onSave={onSaveGenerateLesson}
+        />
+        <GenerateQuizForm
+          isOpen={isGenerateQuizOpen}
+          setIsOpen={setIsGenerateQuizOpen}
+          lessons={section.lessons}
+          onSave={onSaveGenerateQuiz}
         />
       </Suspense>
     </>

@@ -8,10 +8,9 @@ import {
   MenubarTrigger,
 } from "@/components/ui/menubar";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-import { lazy, memo, Suspense, useCallback, useState } from "react";
+import { lazy, memo, Suspense, useState } from "react";
 import { HiDotsVertical } from "react-icons/hi";
 import {
-  addLessonToSection,
   deleteLesson,
   editLesson,
   editQuiz,
@@ -19,14 +18,15 @@ import {
 import { Section } from "@/types/create-course/section";
 import { Lesson } from "@/types/create-course";
 import { CreateLesson } from "../../schemas/create-lesson-schema";
-import { CreateQuiz } from "@/features/quizes/schemas/create-quiz";
-
+import { CreateQuiz } from "@/features/quizzes/schemas/create-quiz";
+import { toast } from "sonner";
 const CreateLessonForm = lazy(() => import("./CreateLessonForm"));
 const RenameForm = lazy(
   () => import("@/features/sections/components/create-course-form/RenameForm")
 );
 const CreateQuizForm = lazy(
-  () => import("@/features/quizes/components/create-course-form/CreateQuizForm")
+  () =>
+    import("@/features/quizzes/components/create-course-form/CreateQuizForm")
 );
 
 type Props = {
@@ -79,6 +79,7 @@ const LessonMenu = ({ lesson }: Props) => {
         videoSource: data.videoSource,
       })
     );
+    return toast.message("Lesson updated");
   }
   function onSaveQuiz(data: CreateQuiz) {
     const section = findSection();
@@ -95,6 +96,7 @@ const LessonMenu = ({ lesson }: Props) => {
         title: data.title,
       })
     );
+    return toast.message("Quiz updated");
   }
   return (
     <>

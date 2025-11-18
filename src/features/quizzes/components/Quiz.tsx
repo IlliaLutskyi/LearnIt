@@ -43,7 +43,7 @@ const Quiz = ({ lesson }: Props) => {
         id={`lesson-${lesson.id}`}
         ref={ref}
       >
-        <h1 className="text-lg text-center font-bold">
+        <h1 className="text-sm text-center font-bold">
           {lesson.quiz?.question}
         </h1>
 
@@ -70,10 +70,10 @@ const Quiz = ({ lesson }: Props) => {
             return (
               <div
                 key={answer.id}
-                className={`p-4 ring-1 ring-gray-400 duration-400 bg-gray-200  hover:ring-2 ${isRight} ${isWrong}`}
+                className={`p-2 ring-1 ring-gray-400 hover:scale-95 duration-500 ${isRight} ${isWrong}`}
                 onClick={() => handleCheck(answer.id)}
               >
-                <p>{answer.content}</p>
+                <p className="text-sm">{answer.content}</p>
               </div>
             );
           })}

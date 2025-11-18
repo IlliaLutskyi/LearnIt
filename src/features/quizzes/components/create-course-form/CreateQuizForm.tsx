@@ -71,10 +71,6 @@ const CreateQuizForm = ({ isOpen, setIsOpen, lesson, onSave }: Props) => {
   function onSubmit(data: CreateQuiz) {
     if (onSave) onSave(data);
 
-    toast.success(
-      lesson?.quiz ? "Quiz updated successfully" : "Quiz created successfully"
-    );
-
     reset();
 
     setIsOpen(false);

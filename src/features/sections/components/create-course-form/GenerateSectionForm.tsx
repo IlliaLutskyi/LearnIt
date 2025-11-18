@@ -1,40 +1,40 @@
-import { formEmergenceVariants } from "@/features/animations/form-emergence";
-import { useEffect, useRef } from "react";
-import { AnimatePresence, motion } from "framer-motion";
 import { BlurBackground, Input, Loader } from "@/components/common";
+import { AnimatePresence, motion } from "framer-motion";
+import { useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  type GenerateLesson,
-  GenerateLessonSchema,
-} from "../../schemas/generate-lesson-schema";
 import { useMutation } from "@tanstack/react-query";
 import api from "@/lib/axios";
-import { toast } from "sonner";
 import { isAxiosError } from "axios";
+import { toast } from "sonner";
+import { formEmergenceVariants } from "@/features/animations/form-emergence";
+import {
+  GenerateSection,
+  GenerateSectionSchema,
+} from "../../schemas/generate-section";
 
 type Props = {
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  onSave?: (data: GenerateLesson & { content: string }) => void;
+  onSave?: (data: GenerateSection & { section: string }) => void;
 };
-const GenerateLessonForm = ({ isOpen, setIsOpen, onSave }: Props) => {
+
+const GenerateSectionForm = ({ isOpen, setIsOpen, onSave }: Props) => {
   const formRef = useRef<HTMLFormElement>(null);
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm({
-    resolver: zodResolver(GenerateLessonSchema),
+    resolver: zodResolver(GenerateSectionSchema),
   });
   const mutation = useMutation({
-    mutationFn: async (data: GenerateLesson) => {
-      const res = await api.post("/ai/lessons", data);
+    mutationFn: async (data: GenerateSection) => {
+      const res = await api.post("/ai/sections", data);
       return res.data;
     },
     onSuccess: (data, variables) => {
-      console.log(data);
-      if (onSave) onSave({ content: data.lesson, ...variables });
+      if (onSave) onSave({ section: data.section, ...variables });
       setIsOpen(false);
     },
     onError: (error) => {
@@ -44,18 +44,18 @@ const GenerateLessonForm = ({ isOpen, setIsOpen, onSave }: Props) => {
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       const target = event.target as HTMLElement;
-      if (target.id === "generate-lesson-anchor") return;
+      if (target.id === "generate-section-anchor") return;
       if (formRef.current && !formRef.current.contains(target)) {
         setIsOpen(false);
       }
     }
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("click", handleClickOutside);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("click", handleClickOutside);
     };
   }, []);
 
-  async function onSubmit(data: GenerateLesson) {
+  async function onSubmit(data: GenerateSection) {
     await mutation.mutateAsync(data);
   }
   return (
@@ -73,23 +73,6 @@ const GenerateLessonForm = ({ isOpen, setIsOpen, onSave }: Props) => {
             className="flex flex-col gap-2 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 p-6 w-1/2 bg-white rounded-sm"
           >
             <h1 className="text-lg font-bold text-center">AI Generator</h1>
-
-            <section className="flex items-center gap-4">
-              <label className="text-xs" htmlFor="lessonType">
-                Content type:
-              </label>
-              <select
-                id="lessonType"
-                className="outline-0 text-xs shadow-sm p-2 rounded-sm"
-                defaultValue="Text"
-                {...register("contentType")}
-              >
-                <option value="Text">Text</option>
-                {/* <option value="Video">Video</option>
-                <option value="Table">Excel Table</option>
-                <option value="Markdown">Markdown</option> */}
-              </select>
-            </section>
 
             <section className="grow flex flex-col gap-2">
               <div className="flex flex-col gap-2">
@@ -126,4 +109,4 @@ const GenerateLessonForm = ({ isOpen, setIsOpen, onSave }: Props) => {
   );
 };
 
-export default GenerateLessonForm;
+export default GenerateSectionForm;

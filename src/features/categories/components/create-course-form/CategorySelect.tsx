@@ -1,9 +1,6 @@
 "use client";
-import { useAppSelector } from "@/lib/hooks";
-import { setCategory } from "@/lib/slices/create-course-slice";
 import { useQuery } from "@tanstack/react-query";
-import { memo, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { memo } from "react";
 import { getCategories } from "../../services/get-categories";
 import { UseFormRegister } from "react-hook-form";
 import { CreateGeneralInfoSchema } from "@/features/courses/schemas/create-general-info-schema";
@@ -27,7 +24,7 @@ const CategorySelect = ({ register }: Props) => {
         id="categories"
         {...register("category.id")}
         defaultValue={categories[0].id}
-        className="outline-0 shadow-md text-sm w-full p-2 rounded-sm"
+        className="outline-0 text-sm focus:ring-1 focus:ring-purple-500 shadow-sm p-2 rounded-sm"
       >
         {categories?.map((category) => {
           return (

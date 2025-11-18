@@ -13,8 +13,9 @@ import { useAppDispatch } from "@/lib/hooks";
 import { toggleConfirmationForm } from "@/lib/slices/confirmation-form-slice";
 import { DbLesson } from "@/types";
 import { CreateLesson } from "@/features/lessons/schemas/create-lesson-schema";
-import CreateQuizForm from "@/features/quizes/components/create-course-form/CreateQuizForm";
-import { CreateQuiz } from "@/features/quizes/schemas/create-quiz";
+import CreateQuizForm from "@/features/quizzes/components/create-course-form/CreateQuizForm";
+import { CreateQuiz } from "@/features/quizzes/schemas/create-quiz";
+import { useMutation } from "@tanstack/react-query";
 import api from "@/lib/axios";
 import { toast } from "sonner";
 import { isAxiosError } from "axios";
@@ -34,6 +35,18 @@ type Props = {
   lesson: DbLesson;
 };
 const LessonMenu = ({ lesson }: Props) => {
+  const mutation = useMutation({
+    mutationFn: async (data: CreateLesson) => {
+      const res = await api.patch("/lessons", { ...data, id: lesson.id });
+      return res.data;
+    },
+    onSuccess: (data) => {
+      toast.success(data.message);
+    },
+    onError: (error) => {
+      if (isAxiosError(error)) toast.error(error.response?.data.message);
+    },
+  });
   const dispatch = useAppDispatch();
   const [isEditLessonOpen, setIsEditLessonOpen] = useState(false);
   const [isEditQuizOpen, setIsEditQuizOpen] = useState(false);
@@ -47,7 +60,7 @@ const LessonMenu = ({ lesson }: Props) => {
     setIsEditQuizOpen(true);
   }
   async function onSaveLesson(data: CreateLesson) {
-    return;
+    await mutation.mutateAsync(data);
   }
   async function onSaveQuiz(data: CreateQuiz) {
     return;

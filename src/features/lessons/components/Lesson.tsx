@@ -8,7 +8,7 @@ import {
 } from "../../../components/ui/collapsible";
 import { FaSort } from "react-icons/fa";
 import { CSS } from "@dnd-kit/utilities";
-import Quiz from "../../quizes/components/create-course-form/Quiz";
+import Quiz from "../../quizzes/components/create-course-form/Quiz";
 import LessonMenu from "./LessonMenu";
 import { motion } from "framer-motion";
 import { fadeInOutWithShiftVariants } from "@/features/animations/fade-in-out-with-shift";

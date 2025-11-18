@@ -15,7 +15,7 @@ import { getSection } from "@/features/sections/services/get-section";
 
 const Video = lazy(() => import("@/features/lessons/components/Video"));
 const Text = lazy(() => import("@/features/lessons/components/Text"));
-const Quiz = lazy(() => import("@/features/quizes/components/Quiz"));
+const Quiz = lazy(() => import("@/features/quizzes/components/Quiz"));
 
 const Content = () => {
   const containerRef = useRef<HTMLDivElement>(null);

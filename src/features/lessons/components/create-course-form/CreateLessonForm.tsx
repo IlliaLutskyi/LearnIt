@@ -71,10 +71,6 @@ const CreateLessonForm = ({ isOpen, setIsOpen, lesson, onSave }: Props) => {
   function onSubmit(data: CreateLesson) {
     if (onSave) onSave(data);
 
-    toast.success(
-      `Lesson ${data.title} was ${lesson ? "updated" : "added"} successfully`
-    );
-
     reset();
 
     setIsOpen(false);
