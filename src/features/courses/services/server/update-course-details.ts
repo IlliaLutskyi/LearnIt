@@ -1,8 +1,9 @@
 import prisma from "@/lib/db";
-import z from "zod";
-import { UpdateGeneralInfoSchema } from "../../schemas/update-general-info";
+import {
+  UpdateGeneralInfo,
+  UpdateGeneralInfoSchema,
+} from "../../schemas/update-general-info";
 
-type GeneralInfo = z.infer<typeof UpdateGeneralInfoSchema>;
 type Params = {
   params: Promise<{
     id: string;
@@ -13,7 +14,7 @@ export default async function updateCourseDetails(
   { params }: Params
 ) {
   const { id } = await params;
-  const data: GeneralInfo = await req.json();
+  const data: UpdateGeneralInfo = await req.json();
   const isValidData = UpdateGeneralInfoSchema.safeParse(data);
   try {
     if (!isValidData.success) {

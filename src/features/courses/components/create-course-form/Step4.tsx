@@ -79,11 +79,10 @@ const Step4 = ({ step }: Props) => {
         <AddSectionButton />
       </section>
 
-      {sectionGroups.length === 0 && (
-        <p className="text-center text-sm">No section group</p>
-      )}
-
       <section className="grow">
+        {sectionGroups.length === 0 && (
+          <p className="text-center text-sm">No section group</p>
+        )}
         <SectionGroups />
       </section>
 

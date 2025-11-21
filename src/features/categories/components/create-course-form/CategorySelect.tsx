@@ -23,7 +23,7 @@ const CategorySelect = ({ register }: Props) => {
       <select
         id="categories"
         {...register("category.id")}
-        defaultValue={categories[0].id}
+        defaultValue={categories[0]?.id}
         className="outline-0 text-sm focus:ring-1 focus:ring-purple-500 shadow-sm p-2 rounded-sm"
       >
         {categories?.map((category) => {

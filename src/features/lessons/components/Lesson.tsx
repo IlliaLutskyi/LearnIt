@@ -12,7 +12,10 @@ import Quiz from "../../quizzes/components/create-course-form/Quiz";
 import LessonMenu from "./LessonMenu";
 import { motion } from "framer-motion";
 import { fadeInOutWithShiftVariants } from "@/features/animations/fade-in-out-with-shift";
-
+import { convertTableToHtml } from "@/utils/convertTableToHtml";
+import StarterKit from "@tiptap/starter-kit";
+import Image from "@tiptap/extension-image";
+import { generateHTML } from "@tiptap/react";
 type Props = {
   lesson: DbLesson;
 };
@@ -65,13 +68,31 @@ const Lesson = ({ lesson }: Props) => {
             key={lesson.order}
           />
         )}
-        {(lesson.contentType === "Table" ||
-          lesson.contentType === "Text" ||
-          lesson.contentType === "Markdown") && (
+        {lesson.contentType === "Text" && (
           <div
             className="mx-auto prose prose-sm w-full whitespace-pre-wrap break-words"
             dangerouslySetInnerHTML={{
-              __html: lesson.content!,
+              __html: lesson.content
+                ? generateHTML(JSON.parse(lesson.content), [StarterKit, Image])
+                : "",
+            }}
+          />
+        )}
+        {lesson.contentType === "Table" && (
+          <div
+            className="mx-auto prose prose-sm w-full whitespace-pre-wrap break-words"
+            dangerouslySetInnerHTML={{
+              __html: lesson.content
+                ? convertTableToHtml(JSON.parse(lesson.content))
+                : "",
+            }}
+          />
+        )}
+        {lesson.contentType === "Markdown" && (
+          <div
+            className="mx-auto prose prose-sm w-full whitespace-pre-wrap break-words"
+            dangerouslySetInnerHTML={{
+              __html: lesson.content || "",
             }}
           />
         )}

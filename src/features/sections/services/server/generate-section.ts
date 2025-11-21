@@ -19,7 +19,7 @@ export async function generateSection(req: Request) {
         { status: 400 }
       );
     const prompt = `Based on this description ${data.prompt} generate a section with title ${data.title}. Return the section in a JSON format. The response has to be valid json and be like this example:
-    {
+ {
   "title": "Introduction to Web Development",
   "lessons": [
     {
@@ -39,13 +39,13 @@ export async function generateSection(req: Request) {
       "order": 2,
       "title": "Basic HTML Structure",
       "contentType": "Markdown",
-      "content": "<h1>Basic HTML Structure</h1><p>HTML is the foundation of all websites. It defines <strong>what</strong appears on the screen, not how it looks.</p><p>Every HTML page follows this structure:</p><pre><code>&lt;!DOCTYPE html&gt;\n&lt;html&gt;\n  &lt;head&gt;\n    &lt;title&gt;My First Page&lt;/title&gt;\n  &lt;/head&gt;\n  &lt;body&gt;\n    &lt;h1&gt;Hello World!&lt;/h1&gt;\n    &lt;p&gt;This is my first webpage.&lt;/p&gt;\n  &lt;/body&gt;\n&lt;/html&gt;</code></pre><p>The <strong>doctype</strong> tells the browser this is HTML5. The <strong>head</strong> contains metadata. The <strong>body</strong> contains everything visible to the user.</p>"
+      "content": "<h1>Basic HTML Structure</h1><p>HTML is the foundation of all websites. It defines <strong>what</strong> appears on the screen, not how it looks.</p><p>Every HTML page follows this structure:</p><pre><code>&lt;!DOCTYPE html&gt;\n&lt;html&gt;\n  &lt;head&gt;\n    &lt;title&gt;My First Page&lt;/title&gt;\n  &lt;/head&gt;\n  &lt;body&gt;\n    &lt;h1&gt;Hello World!&lt;/h1&gt;\n    &lt;p&gt;This is my first webpage.&lt;/p&gt;\n  &lt;/body&gt;\n&lt;/html&gt;</code></pre><p>The <strong>doctype</strong> tells the browser this is HTML5. The <strong>head</strong> contains metadata. The <strong>body</strong> contains everything visible to the user.</p>"
     },
     {
       "order": 3,
       "title": "Common HTML Elements (Table)",
       "contentType": "Table",
-      "content": "<table><tr><th>Tag</th><th>Purpose</th></tr><tr><td>&lt;h1&gt; - &lt;h6&gt;</td><td>Headings of different sizes</td></tr><tr><td>&lt;p&gt;</td><td>Paragraph text</td></tr><tr><td>&lt;a&gt;</td><td>Links to other pages</td></tr><tr><td>&lt;img&gt;</td><td>Displays an image</td></tr><tr><td>&lt;ul&gt;&lt;li&gt;</td><td>Unordered list</td></tr></table>"
+      "content": "[{\"Tag\":\"h1 - h6\",\"Purpose\":\"Headings of different sizes\",\"__rowNum__\":0},{\"Tag\":\"p\",\"Purpose\":\"Paragraph text\",\"__rowNum__\":1},{\"Tag\":\"a\",\"Purpose\":\"Links to other pages\",\"__rowNum__\":2},{\"Tag\":\"img\",\"Purpose\":\"Displays an image\",\"__rowNum__\":3},{\"Tag\":\"ul / li\",\"Purpose\":\"Unordered list\",\"__rowNum__\":4}]"
     },
     {
       "order": 4,
@@ -71,7 +71,7 @@ export async function generateSection(req: Request) {
       "order": 6,
       "title": "CSS Properties (Intermediate Table)",
       "contentType": "Table",
-      "content": "<table><tr><th>Property</th><th>Description</th><th>Example</th></tr><tr><td>color</td><td>Sets text color</td><td>color: red;</td></tr><tr><td>padding</td><td>Inner spacing inside an element</td><td>padding: 20px;</td></tr><tr><td>margin</td><td>Outer spacing outside an element</td><td>margin: 10px;</td></tr><tr><td>border</td><td>Outline around an element</td><td>border: 1px solid black;</td></tr><tr><td>display</td><td>Defines layout behavior</td><td>display: flex;</td></tr></table>"
+      "content": "[{\"Property\":\"color\",\"Description\":\"Sets text color\",\"Example\":\"color: red;\",\"__rowNum__\":0},{\"Property\":\"padding\",\"Description\":\"Inner spacing inside an element\",\"Example\":\"padding: 20px;\",\"__rowNum__\":1},{\"Property\":\"margin\",\"Description\":\"Outer spacing outside an element\",\"Example\":\"margin: 10px;\",\"__rowNum__\":2},{\"Property\":\"border\",\"Description\":\"Outline around an element\",\"Example\":\"border: 1px solid black;\",\"__rowNum__\":3},{\"Property\":\"display\",\"Description\":\"Defines layout behavior\",\"Example\":\"display: flex;\",\"__rowNum__\":4}]"
     },
     {
       "order": 7,
@@ -109,6 +109,7 @@ export async function generateSection(req: Request) {
     }
   ]
 }
+
 `;
     const response = await ai.models.generateContent({
       model: "gemini-2.5-pro",

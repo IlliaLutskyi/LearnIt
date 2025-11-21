@@ -1,10 +1,8 @@
 "use client";
-
 import { CreateLesson } from "@/types/create-course";
 import xlsx from "xlsx";
 import { DragEvent, useRef, useState } from "react";
 import { toast } from "sonner";
-import dompurify from "dompurify";
 import { UseFormSetValue } from "react-hook-form";
 
 type Props = {
@@ -28,10 +26,9 @@ const TableOption = ({ setValue }: Props) => {
       const workbook = xlsx.read(buffer, { type: "buffer" });
       const worksheet = workbook.Sheets[workbook.SheetNames[0]];
 
-      const unsafeHtml = xlsx.utils.sheet_to_html(worksheet);
-      const html = dompurify.sanitize(unsafeHtml);
+      const json = xlsx.utils.sheet_to_json(worksheet);
 
-      setValue("content", html);
+      setValue("content", JSON.stringify(json));
       setUploadStatus("complete");
     };
     reader.readAsArrayBuffer(file);
@@ -48,10 +45,9 @@ const TableOption = ({ setValue }: Props) => {
       const workbook = xlsx.read(buffer, { type: "buffer" });
       const worksheet = workbook.Sheets[workbook.SheetNames[0]];
 
-      const unsafeHtml = xlsx.utils.sheet_to_html(worksheet);
-      const html = dompurify.sanitize(unsafeHtml);
+      const json = xlsx.utils.sheet_to_json(worksheet);
 
-      setValue("content", html);
+      setValue("content", JSON.stringify(json));
       setUploadStatus("complete");
     };
     reader.readAsArrayBuffer(file);

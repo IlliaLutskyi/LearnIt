@@ -7,3 +7,5 @@ export const UpdateGeneralInfoSchema = z.object({
     id: z.number(),
   }),
 });
+
+export type UpdateGeneralInfo = z.infer<typeof UpdateGeneralInfoSchema>;

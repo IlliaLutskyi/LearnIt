@@ -10,11 +10,13 @@ import { Skill } from "./skill";
 import { Step } from "./step";
 import { ContentType } from "./content-type";
 import { CreateLesson } from "./create-lesson";
+import { Row } from "./table";
 export type {
   CreateLesson,
   Step,
   Answer,
   Quiz,
+  Row,
   ContentType,
   Lesson,
   Section,

@@ -11,6 +11,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { CreateQuiz, CreateQuizSchema } from "../../schemas/create-quiz";
 import { formEmergenceVariants } from "@/features/animations/form-emergence";
 import { motion, AnimatePresence } from "framer-motion";
+import { ta } from "zod/v4/locales";
 type Props = {
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -38,7 +39,6 @@ const CreateQuizForm = ({ isOpen, setIsOpen, lesson, onSave }: Props) => {
     control,
     name: "answers",
   });
-
   useEffect(() => {
     if (lesson && lesson.quiz) {
       setValue("title", lesson.title);
@@ -54,11 +54,9 @@ const CreateQuizForm = ({ isOpen, setIsOpen, lesson, onSave }: Props) => {
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
       const target = e.target as HTMLElement;
-      if (target.id === "create-quiz-anchor") return;
-      if (
-        formRef.current &&
-        !formRef.current.contains(target.closest("form"))
-      ) {
+      if (!target.isConnected) return;
+      if (target.id == "create-quiz-anchor") return;
+      if (formRef.current && !formRef.current.contains(target)) {
         setIsOpen(false);
       }
     }
@@ -136,7 +134,6 @@ const CreateQuizForm = ({ isOpen, setIsOpen, lesson, onSave }: Props) => {
                 />
               </div>
             </section>
-
             <button
               type="submit"
               className="bg-purple-500 self-end text-white text-sm p-2 rounded-sm hover:bg-purple-700   hover:scale-95 focus:scale-95 duration-500 mt-2"

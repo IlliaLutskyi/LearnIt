@@ -117,7 +117,7 @@ export async function generateLesson(req: Request) {
       model: "gemini-2.5-pro",
       contents: prompt,
     });
-    console.log(response.text);
+
     const lesson = extractFromJSON(response.text);
     return Response.json(
       {

@@ -8,3 +8,5 @@ export const CreateGeneralInfoSchema = z.object({
     .max(10000, "Description is too long"),
   category: z.object({ id: z.string() }),
 });
+
+export type CreateGeneralInfo = z.infer<typeof CreateGeneralInfoSchema>;

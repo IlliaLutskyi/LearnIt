@@ -37,9 +37,9 @@ const Answers = <T extends FieldValues>({
     <Table>
       <TableHeader>
         <TableRow>
-          <TableHead>Answer</TableHead>
-          <TableHead>IsCorrect</TableHead>
-          <TableHead>Actions</TableHead>
+          <TableHead className="text-center">Answer</TableHead>
+          <TableHead className="text-center">IsCorrect</TableHead>
+          <TableHead className="text-center">Actions</TableHead>
         </TableRow>
       </TableHeader>
 
@@ -63,11 +63,13 @@ const Answers = <T extends FieldValues>({
                 />
               </TableCell>
 
-              <TableCell>
+              <TableCell className="text-center align-middle">
                 <button
                   type="button"
-                  onClick={() => remove(index)}
-                  className="bg-red-500 text-white p-2 rounded-sm hover:bg-red-600  hover:scale-95 focus:scale-95 duration-500"
+                  onClick={() => {
+                    remove(index);
+                  }}
+                  className="m-auto bg-red-500 text-white p-2 rounded-sm hover:bg-red-600 hover:scale-95 focus:scale-95 duration-500"
                 >
                   <CiTrash />
                 </button>

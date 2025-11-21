@@ -18,7 +18,7 @@ import {
 } from "@dnd-kit/sortable";
 import { useAppSelector } from "@/lib/hooks";
 import BlurBackground from "../common/BlurBackground";
-import Lesson from "../../features/lessons/components/Lesson";
+import Lesson from "@/features/lessons/components/Lesson";
 import { toggleEditCourseContentForm } from "@/lib/slices/edit-course-content-form-slice";
 import { useDispatch } from "react-redux";
 import { AnimatePresence, motion } from "framer-motion";

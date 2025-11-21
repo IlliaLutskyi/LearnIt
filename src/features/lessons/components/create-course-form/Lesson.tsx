@@ -14,10 +14,12 @@ import { Lesson as TLesson } from "@/types/create-course";
 import StarterKit from "@tiptap/starter-kit";
 import Image from "@tiptap/extension-image";
 import { generateHTML } from "@tiptap/react";
+import { convertTableToHtml } from "@/utils/convertTableToHtml";
 type Props = {
   lesson: TLesson;
 };
 const Lesson = ({ lesson }: Props) => {
+  console.log(lesson.content ? JSON.parse(lesson.content) : "");
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id: lesson.order });
   const style = {
@@ -56,15 +58,26 @@ const Lesson = ({ lesson }: Props) => {
             <div
               className="mx-auto prose prose-sm w-full whitespace-pre-wrap break-words"
               dangerouslySetInnerHTML={{
-                __html: generateHTML(JSON.parse(lesson.content || ""), [
-                  StarterKit,
-                  Image,
-                ]),
+                __html: lesson.content
+                  ? generateHTML(JSON.parse(lesson.content), [
+                      StarterKit,
+                      Image,
+                    ])
+                  : "",
               }}
             />
           )}
-          {(lesson.contentType === "Table" ||
-            lesson.contentType === "Markdown") && (
+          {lesson.contentType === "Table" && (
+            <div
+              className="mx-auto prose prose-sm w-full whitespace-pre-wrap break-words"
+              dangerouslySetInnerHTML={{
+                __html: lesson.content
+                  ? convertTableToHtml(JSON.parse(lesson.content))
+                  : "",
+              }}
+            />
+          )}
+          {lesson.contentType === "Markdown" && (
             <div
               className="mx-auto prose prose-sm w-full whitespace-pre-wrap break-words"
               dangerouslySetInnerHTML={{
