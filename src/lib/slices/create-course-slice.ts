@@ -53,56 +53,14 @@ export const CourseSlice = createSlice({
     setCategory: (state, action: PayloadAction<string>) => {
       state.category = action.payload;
     },
-    addSkill: (state) => {
-      const maxId =
-        state.skills.length > 0
-          ? Math.max(...state.skills.map((skill) => skill.id))
-          : 0;
-      state.skills.push({ id: maxId + 1, content: `Skill ${maxId + 1}` });
+    addSkills: (state, action: PayloadAction<Skill[]>) => {
+      state.skills = action.payload;
     },
 
-    editSkill: (
-      state,
-      action: PayloadAction<{ id: number; content: string }>
-    ) => {
-      const skill = state.skills.find(
-        (skill) => skill.id === action.payload.id
-      );
-      if (!skill) return;
-      skill.content = action.payload.content;
+    addPrerequisites: (state, action: PayloadAction<Prerequisite[]>) => {
+      state.prerequisites = action.payload;
     },
-    deleteSkill: (state, action: PayloadAction<number>) => {
-      state.skills = state.skills.filter(
-        (skill) => skill.id !== action.payload
-      );
-    },
-    addPrerequisite: (state) => {
-      const maxId =
-        state.prerequisites.length > 0
-          ? Math.max(
-              ...state.prerequisites.map((prerequisite) => prerequisite.id)
-            )
-          : 0;
-      state.prerequisites.push({
-        id: maxId + 1,
-        content: `Prerequisite ${maxId + 1}`,
-      });
-    },
-    editPrerequite: (
-      state,
-      action: PayloadAction<{ id: number; content: string }>
-    ) => {
-      const prerequisite = state.prerequisites.find(
-        (prerequisite) => prerequisite.id === action.payload.id
-      );
-      if (!prerequisite) return;
-      prerequisite.content = action.payload.content;
-    },
-    deletePrerequite: (state, action: PayloadAction<number>) => {
-      state.prerequisites = state.prerequisites.filter(
-        (prerequisite) => prerequisite.id !== action.payload
-      );
-    },
+
     createSectionGroup: (state) => {
       const maxOrder =
         state.sectionGroups.length > 0
@@ -163,11 +121,14 @@ export const CourseSlice = createSlice({
         (sectionGroup) =>
           sectionGroup.order === action.payload.sectionGroupOrder
       );
+
       if (!sectionGroup) return;
+
       const maxOrder =
         sectionGroup.sections.length > 0
           ? Math.max(...sectionGroup.sections.map((section) => section.order))
           : 0;
+
       const section: Section = {
         title: action.payload.title
           ? action.payload.title
@@ -176,9 +137,18 @@ export const CourseSlice = createSlice({
         slug: action.payload.title
           ? createSlug(action.payload.title)
           : `section-${maxOrder + 1}`,
-        lessons: action.payload.lessons ? action.payload.lessons : [],
+        lessons: action.payload.lessons
+          ? action.payload.lessons.map((lesson) => {
+              return {
+                ...lesson,
+                sectionGroupOrder: action.payload.sectionGroupOrder,
+                sectionOrder: maxOrder + 1,
+              };
+            })
+          : [],
         sectionGroupOrder: action.payload.sectionGroupOrder,
       };
+
       sectionGroup.sections.push(section);
     },
     shiftSection: (
@@ -334,9 +304,9 @@ export const CourseSlice = createSlice({
             : 0;
 
         section.lessons.push({
-          sectionGroupId: action.payload.sectionGroupOrder,
+          sectionGroupOrder: action.payload.sectionGroupOrder,
           order: maxOrder + 1,
-          sectionId: action.payload.sectionOrder,
+          sectionOrder: action.payload.sectionOrder,
           contentType: "Quiz",
           title: action.payload.title,
           quiz: action.payload.quiz,
@@ -424,10 +394,10 @@ export const CourseSlice = createSlice({
             : 0;
 
         section.lessons.push({
-          sectionGroupId: action.payload.sectionGroupOrder,
+          sectionGroupOrder: action.payload.sectionGroupOrder,
           order: maxOrder + 1,
           videoSource: action.payload.videoSource,
-          sectionId: action.payload.sectionOrder,
+          sectionOrder: action.payload.sectionOrder,
           content: action.payload.content ? action.payload.content : undefined,
           contentType: action.payload.contentType,
           title: action.payload.title,
@@ -439,14 +409,10 @@ export const CourseSlice = createSlice({
 
 export const {
   addSectionToSectionGroup,
-  addPrerequisite,
-  addSkill,
-  deleteSkill,
-  editSkill,
-  deletePrerequite,
-  editPrerequite,
+  addPrerequisites,
   setTitle,
   setDescription,
+  addSkills,
   setCategory,
   setNextStep,
   setPreviousStep,

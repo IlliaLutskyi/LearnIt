@@ -43,18 +43,18 @@ const LessonMenu = ({ lesson }: Props) => {
   const dispatch = useAppDispatch();
   const findSection = (): Section => {
     const sectionGroup = sectionGroups.find(
-      (sectionGroup) => sectionGroup.order === lesson.sectionId
+      (sectionGroup) => sectionGroup.order === lesson.sectionOrder
     );
     const section = sectionGroup?.sections.find(
-      (section) => section.order === lesson.sectionId
+      (section) => section.order === lesson.sectionOrder
     );
     return section as Section;
   };
   function handleDeleteLesson() {
     dispatch(
       deleteLesson({
-        sectionGroupOrder: lesson.sectionGroupId,
-        sectionOrder: lesson.sectionId,
+        sectionGroupOrder: lesson.sectionGroupOrder,
+        sectionOrder: lesson.sectionOrder,
         lessonId: lesson.order,
       })
     );

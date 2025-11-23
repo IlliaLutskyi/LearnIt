@@ -4,23 +4,48 @@ import api from "@/lib/axios";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { isAxiosError } from "axios";
-import { MdDelete } from "react-icons/md";
 import { useRouter } from "next/navigation";
 import { DbCourse, DbSkill } from "@/types";
-import Input from "@/components/common/Input";
 import { toggleEditCourseDetailForm } from "@/lib/slices/edit-course-detail-form-slice";
 import { useAppDispatch } from "@/lib/hooks";
-
+import Skill from "@/features/skills/components/create-course-form/Skill";
+import {
+  CreateOrUpdateSkills,
+  CreateOrUpdateSkillsSchema,
+} from "@/features/skills/schemas/create-or-update-skills-schema";
+import { useFieldArray, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 type Props = {
   course: DbCourse;
 };
 const SkillsTab = ({ course }: Props) => {
+  const {
+    register,
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(CreateOrUpdateSkillsSchema),
+    defaultValues: {
+      skills: course.skills || [],
+    },
+  });
+  const {
+    fields: skills,
+    append,
+    remove,
+  } = useFieldArray({
+    control,
+    name: "skills",
+  });
   const router = useRouter();
   const dispatch = useAppDispatch();
-  const [skills, setSkills] = useState<DbSkill[]>();
   const updateMustation = useMutation({
-    mutationFn: async () => {
-      const res = await api.patch("/skills", skills);
+    mutationFn: async (data: CreateOrUpdateSkills) => {
+      const res = await api.patch(
+        "/skills",
+        data.skills.map((s) => ({ ...s, courseId: course.id }))
+      );
       return res.data;
     },
     onSuccess: () => {
@@ -31,79 +56,22 @@ const SkillsTab = ({ course }: Props) => {
       if (isAxiosError(err)) return toast.error(err.response?.data.message);
     },
   });
-  const deleteMutation = useMutation({
-    mutationFn: async (id: number) => {
-      const res = await api.delete(`/skills/${id}`);
-      return res.data;
-    },
-    onSuccess: (_, id) => {
-      if (!skills) return;
-      setSkills((prev) => prev!.filter((skill) => skill.id !== id));
-      return toast.success("Skill deleted");
-    },
-    onError: (err) => {
-      if (isAxiosError(err)) return toast.error(err.response?.data.message);
-    },
-  });
-  const addMutation = useMutation({
-    mutationFn: async () => {
-      const res = await api.post("/skills", {
-        courseId: course.id,
-      });
-      return res.data;
-    },
-    onSuccess: (data) => {
-      if (!skills) return;
-      return setSkills((prev) => [
-        ...prev!,
-        { id: data.skill.id, content: data.skill.content },
-      ]);
-    },
-    onError: (err) => {
-      if (isAxiosError(err)) return toast.error(err.response?.data.message);
-    },
-  });
 
-  useEffect(() => {
-    if (!course) return;
-    setSkills(course.skills);
-  }, [course]);
-  function handleDeleteSkill(id: number) {
-    deleteMutation.mutate(id);
-  }
-
-  function handleAddSkill() {
-    addMutation.mutate();
-  }
-
-  function handleSkillChange(
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-    id: number
-  ) {
-    if (!skills) return;
-    const newSkills = skills.map((skill) => {
-      if (skill.id === id) {
-        return { ...skill, content: e.target.value };
-      }
-      return skill;
-    });
-    setSkills(newSkills);
-  }
-  function handleSkillSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    updateMustation.mutate();
+  function onSubmit(data: CreateOrUpdateSkills) {
+    updateMustation.mutate(data);
     dispatch(toggleEditCourseDetailForm());
   }
   return (
     <form
       className="flex flex-col gap-2 h-full"
       method="PATCH"
-      onSubmit={handleSkillSubmit}
+      onSubmit={handleSubmit(onSubmit)}
     >
       <h2 className="font-bold text-center text-lg">Learning Outcomes</h2>
       <button
+        type="button"
         className="self-end bg-purple-500 text-white px-4 py-2 text-sm hover:scale-95 focus:scale-95 rounded-sm hover:bg-purple-600 duration-300"
-        onClick={handleAddSkill}
+        onClick={() => append({ content: "" })}
       >
         Add Skill
       </button>
@@ -112,27 +80,18 @@ const SkillsTab = ({ course }: Props) => {
         className="grow flex flex-col gap-2 overflow-y-auto h-[20rem] py-4"
         id="styledScrollbar"
       >
-        {skills?.length === 0 && (
+        {skills.length === 0 && (
           <p className="text-center text-xs">No skills</p>
         )}
-        {skills &&
-          skills.map((skill) => (
-            <div key={skill.id} className="grid grid-cols-[5fr_1fr]">
-              <Input
-                multiline
-                value={skill.content}
-                onChange={(e) => handleSkillChange(e, skill.id)}
-                className="mx-auto w-3/4 outline-0 text-sm focus:ring-1 focus:ring-purple-500 shadow-sm p-2 rounded-sm h-[4rem] resize-none"
-              />
-              <button
-                type="button"
-                onClick={() => handleDeleteSkill(skill.id)}
-                className="text-red-500 m-auto text-lg"
-              >
-                <MdDelete />
-              </button>
-            </div>
-          ))}
+        {skills.map((skill, index) => (
+          <Skill
+            key={skill.id}
+            index={index}
+            register={register}
+            error={errors.skills?.[index]?.content?.message}
+            remove={remove}
+          />
+        ))}
       </div>
       <button
         type="submit"

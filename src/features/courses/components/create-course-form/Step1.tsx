@@ -9,16 +9,17 @@ import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { Step } from "@/types/create-course";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Navigation from "./Navigation";
-import { CreateGeneralInfoSchema } from "../../schemas/create-general-info-schema";
+import {
+  CreateGeneralInfo,
+  CreateGeneralInfoSchema,
+} from "../../schemas/create-general-info-schema";
 import { Input } from "@/components/common";
 import CategorySelect from "@/features/categories/components/create-course-form/CategorySelect";
 import { motion } from "framer-motion";
 import { fadeInVariants } from "@/features/animations/fade-in";
 
-type GeneralInfo = z.infer<typeof CreateGeneralInfoSchema>;
 type Props = {
   step: Step;
 };
@@ -45,7 +46,7 @@ const Step1 = ({ step }: Props) => {
     }
   }, []);
 
-  function onSubmit(data: GeneralInfo) {
+  function onSubmit(data: CreateGeneralInfo) {
     dispatch(setTitle(data.title));
     dispatch(setDescription(data.description));
     dispatch(setCategory(data.category.id));

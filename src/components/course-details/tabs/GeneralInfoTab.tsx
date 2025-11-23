@@ -15,6 +15,7 @@ import {
 } from "@/features/courses/schemas/create-general-info-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import CategorySelect from "@/features/categories/components/create-course-form/CategorySelect";
+
 type Props = {
   course: DbCourse;
 };
@@ -27,6 +28,10 @@ const GeneralInfoTab = ({ course }: Props) => {
     formState: { errors },
   } = useForm({
     resolver: zodResolver(CreateGeneralInfoSchema),
+    defaultValues: {
+      description: course.description,
+      title: course.title,
+    },
   });
 
   const updateMutation = useMutation({

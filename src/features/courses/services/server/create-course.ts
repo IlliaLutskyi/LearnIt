@@ -3,10 +3,19 @@ import { Course } from "@/types/create-course";
 import { CreateCourseSchema } from "@/features/courses/schemas/create-course-schema";
 import z from "zod";
 
-export default async function createCourse(req: Request) {
-  const course: Course & { userId: string } = await req.json();
+export default async function createCourse(
+  req: Request,
+  userId: number | undefined
+) {
+  const course: Course = await req.json();
   try {
     const validated = CreateCourseSchema.safeParse(course);
+
+    if (!userId)
+      return Response.json(
+        { message: "Login to create a course" },
+        { status: 400 }
+      );
 
     if (!validated.success) {
       return Response.json(
@@ -53,7 +62,7 @@ export default async function createCourse(req: Request) {
         },
         user: {
           connect: {
-            id: Number(course.userId),
+            id: userId,
           },
         },
         sectionGroups: {

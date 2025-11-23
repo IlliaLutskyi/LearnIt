@@ -29,7 +29,14 @@ export const CreateCourseSchema = z.object({
                     title: z.string().min(1, "Title is required"),
                     content: z.string().optional(),
                     videoSource: z.string().optional(),
-                    contentType: z.enum(["Video", "Text", "File", "Quiz"]),
+                    contentType: z.enum([
+                      "Video",
+                      "Text",
+                      "File",
+                      "Quiz",
+                      "Markdown",
+                      "Table",
+                    ]),
                     order: z.coerce.number(),
                     quiz: z
                       .object({

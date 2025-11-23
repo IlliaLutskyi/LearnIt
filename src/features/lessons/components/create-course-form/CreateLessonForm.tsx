@@ -24,6 +24,7 @@ type Props = {
 };
 const CreateLessonForm = ({ isOpen, setIsOpen, lesson, onSave }: Props) => {
   const formRef = useRef<HTMLFormElement>(null);
+  console.log(lesson);
   const {
     register,
     handleSubmit,
@@ -34,22 +35,13 @@ const CreateLessonForm = ({ isOpen, setIsOpen, lesson, onSave }: Props) => {
   } = useForm({
     resolver: zodResolver(CreateLessonSchema),
     defaultValues: {
-      contentType: "Text",
+      title: lesson ? lesson.title : "Lesson title",
+      content: lesson ? lesson.content || "" : "",
+      contentType: lesson ? lesson.contentType : "Video",
+      videoSource: lesson ? "Youtube" : undefined,
     },
   });
   const contentType = watch("contentType");
-
-  useEffect(() => {
-    if (lesson) {
-      setValue("title", lesson.title);
-      setValue("content", lesson.content || "");
-      setValue("contentType", lesson.contentType);
-      setValue(
-        "videoSource",
-        lesson.videoSource ? lesson.videoSource : undefined
-      );
-    }
-  }, [lesson, isOpen]);
 
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
@@ -93,6 +85,7 @@ const CreateLessonForm = ({ isOpen, setIsOpen, lesson, onSave }: Props) => {
             <h1 className="text-lg font-bold text-center">
               Create content for a lesson
             </h1>
+
             <section className="flex gap-4 items-center">
               <label className="text-xs" htmlFor="lessonType">
                 Content type:
@@ -107,6 +100,10 @@ const CreateLessonForm = ({ isOpen, setIsOpen, lesson, onSave }: Props) => {
                 <option value="Table">Excel Table</option>
                 <option value="Markdown">Markdown</option>
               </select>
+
+              <p className="text-red-500 text-xs">
+                {errors.contentType?.message}
+              </p>
             </section>
             <section className="grow flex flex-col gap-4">
               <div className="flex flex-col gap-2">

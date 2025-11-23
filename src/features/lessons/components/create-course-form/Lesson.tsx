@@ -19,7 +19,6 @@ type Props = {
   lesson: TLesson;
 };
 const Lesson = ({ lesson }: Props) => {
-  console.log(lesson.content ? JSON.parse(lesson.content) : "");
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id: lesson.order });
   const style = {

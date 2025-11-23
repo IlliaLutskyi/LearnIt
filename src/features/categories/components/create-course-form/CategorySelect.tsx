@@ -2,12 +2,11 @@
 import { useQuery } from "@tanstack/react-query";
 import { memo } from "react";
 import { getCategories } from "../../services/get-categories";
-import { UseFormRegister } from "react-hook-form";
-import { CreateGeneralInfoSchema } from "@/features/courses/schemas/create-general-info-schema";
-import z from "zod";
-type GeneralInfo = z.infer<typeof CreateGeneralInfoSchema>;
+import { FieldValues, Path, UseFormRegister } from "react-hook-form";
+import { CreateGeneralInfo } from "@/features/courses/schemas/create-general-info-schema";
+
 type Props = {
-  register: UseFormRegister<GeneralInfo>;
+  register: UseFormRegister<CreateGeneralInfo>;
 };
 const CategorySelect = ({ register }: Props) => {
   const { data: categories } = useQuery({

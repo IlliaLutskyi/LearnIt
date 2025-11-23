@@ -1,25 +1,51 @@
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-import { addSkill, setNextStep } from "@/lib/slices/create-course-slice";
-import { Step } from "@/types/create-course";
+import { addSkills, setNextStep } from "@/lib/slices/create-course-slice";
+import { Skill as TSkill, Step } from "@/types/create-course";
 import Navigation from "./Navigation";
 import Skill from "@/features/skills/components/create-course-form/Skill";
 import { useRef } from "react";
 import { motion } from "framer-motion";
 import { fadeInVariants } from "@/features/animations/fade-in";
+import {
+  CreateOrUpdateSkills,
+  CreateOrUpdateSkillsSchema,
+} from "@/features/skills/schemas/create-or-update-skills-schema";
+import { useFieldArray, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 type Props = {
   step: Step;
 };
 const Step3 = ({ step }: Props) => {
-  const { skills } = useAppSelector((state) => state.CreateCourse);
+  const { skills: initialSkills } = useAppSelector(
+    (state) => state.CreateCourse
+  );
+  const {
+    register,
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(CreateOrUpdateSkillsSchema),
+    defaultValues: { skills: initialSkills },
+  });
+
+  const {
+    fields: skills,
+    append,
+    remove,
+  } = useFieldArray({
+    control,
+    name: "skills",
+  });
   const scrollRef = useRef<HTMLDivElement>(null);
   const dispatch = useAppDispatch();
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
+  function onSubmit(data: CreateOrUpdateSkills) {
+    dispatch(addSkills(data.skills as TSkill[]));
     localStorage.setItem("skills", JSON.stringify(skills));
     dispatch(setNextStep({ nextStep: step.step + 1 }));
   }
   function handleAddSkill() {
-    dispatch(addSkill());
+    append({ content: "Skill" });
     if (scrollRef.current) {
       scrollRef.current.scrollTo({
         behavior: "smooth",
@@ -30,7 +56,7 @@ const Step3 = ({ step }: Props) => {
   return (
     <motion.form
       className="h-full flex flex-col gap-4 p-4"
-      onSubmit={handleSubmit}
+      onSubmit={handleSubmit(onSubmit)}
       variants={fadeInVariants}
       initial="hidden"
       animate="visible"
@@ -57,8 +83,14 @@ const Step3 = ({ step }: Props) => {
             <p className="text-center text-sm">No skills</p>
           )}
 
-          {skills.map((skill) => (
-            <Skill key={skill.id} skill={skill} />
+          {skills.map((skill, index) => (
+            <Skill
+              key={skill.id}
+              index={index}
+              register={register}
+              remove={remove}
+              error={errors.skills?.[index]?.content?.message}
+            />
           ))}
         </section>
       </div>

@@ -1,8 +1,8 @@
 import prisma from "@/lib/db";
 import {
-  UpdateGeneralInfo,
-  UpdateGeneralInfoSchema,
-} from "../../schemas/update-general-info";
+  CreateGeneralInfo,
+  CreateGeneralInfoSchema,
+} from "../../schemas/create-general-info-schema";
 
 type Params = {
   params: Promise<{
@@ -14,8 +14,8 @@ export default async function updateCourseDetails(
   { params }: Params
 ) {
   const { id } = await params;
-  const data: UpdateGeneralInfo = await req.json();
-  const isValidData = UpdateGeneralInfoSchema.safeParse(data);
+  const data: CreateGeneralInfo = await req.json();
+  const isValidData = CreateGeneralInfoSchema.safeParse(data);
   try {
     if (!isValidData.success) {
       return Response.json({ message: "Invalid data" }, { status: 400 });
@@ -40,7 +40,7 @@ export default async function updateCourseDetails(
       data: {
         category: {
           connect: {
-            id: data.category.id,
+            id: parseInt(data.category.id),
           },
         },
         description: data.description,

@@ -1,21 +1,52 @@
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-import React from "react";
-import { addPrerequisite, setNextStep } from "@/lib/slices/create-course-slice";
+import {
+  addPrerequisites,
+  setNextStep,
+} from "@/lib/slices/create-course-slice";
 import Prerequisite from "@/features/prerequisites/components/create-course-form/Prerequisite";
-import { Step } from "@/types/create-course";
+import type {
+  Prerequisite as TPrerequisite,
+  Step,
+} from "@/types/create-course";
 import Navigation from "./Navigation";
 import { motion } from "framer-motion";
 import { fadeInVariants } from "@/features/animations/fade-in";
+import { useFieldArray, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  CreateOrUpdatePrerequisites,
+  CreateOrUpdatePrerequisitesSchema,
+} from "@/features/prerequisites/schemas/create-or-update-prerequisete-schema";
+import { useRef } from "react";
 
 type Props = {
   step: Step;
 };
 const Step2 = ({ step }: Props) => {
-  const { prerequisites } = useAppSelector((state) => state.CreateCourse);
-  const scrollRef = React.useRef<HTMLDivElement>(null);
+  const { prerequisites: initialPrerequisites } = useAppSelector(
+    (state) => state.CreateCourse
+  );
+  const {
+    register,
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(CreateOrUpdatePrerequisitesSchema),
+    defaultValues: {
+      prerequisites: initialPrerequisites,
+    },
+  });
+  const {
+    fields: prerequisites,
+    append,
+    remove,
+  } = useFieldArray({ control, name: "prerequisites" });
+
+  const scrollRef = useRef<HTMLDivElement>(null);
   const dispatch = useAppDispatch();
   function handleAddPreriquisite() {
-    dispatch(addPrerequisite());
+    append({ content: "Prerequisite" });
     if (scrollRef.current) {
       scrollRef.current.scrollTo({
         behavior: "smooth",
@@ -23,21 +54,20 @@ const Step2 = ({ step }: Props) => {
       });
     }
   }
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    localStorage.setItem("prerequisites", JSON.stringify(prerequisites));
+  function onSubmit(data: CreateOrUpdatePrerequisites) {
+    dispatch(addPrerequisites(data.prerequisites as TPrerequisite[]));
+    localStorage.setItem("prerequisites", JSON.stringify(data.prerequisites));
     dispatch(setNextStep({ nextStep: step.step + 1 }));
   }
   return (
     <motion.form
       className="h-full flex flex-col gap-4 p-4"
-      onSubmit={handleSubmit}
+      onSubmit={handleSubmit(onSubmit)}
       variants={fadeInVariants}
       initial="hidden"
       animate="visible"
     >
       <h1 className="font-bold text-lg self-center">{step.title}</h1>
-
       <div className="grow flex flex-col gap-2">
         <section className="flex justify-end">
           <button
@@ -58,8 +88,14 @@ const Step2 = ({ step }: Props) => {
             <p className="text-center text-sm">No prerequisites</p>
           )}
 
-          {prerequisites.map((prerequisite) => (
-            <Prerequisite prerequisite={prerequisite} key={prerequisite.id} />
+          {prerequisites.map((prerequisite, index) => (
+            <Prerequisite
+              index={index}
+              register={register}
+              remove={remove}
+              error={errors.prerequisites?.[index]?.content?.message}
+              key={prerequisite.id}
+            />
           ))}
         </section>
       </div>

@@ -5,7 +5,7 @@ import { Section } from "./section";
 import { SectionGroup } from "./section-group";
 import { Course } from "./course";
 import { Category } from "./category";
-import { Prerequisite } from "./prerequisites";
+import { Prerequisite } from "./prerequisite";
 import { Skill } from "./skill";
 import { Step } from "./step";
 import { ContentType } from "./content-type";

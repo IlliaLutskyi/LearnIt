@@ -6,17 +6,17 @@ import { useAppDispatch } from "@/lib/hooks";
 import { useInView } from "react-intersection-observer";
 import { DbLesson } from "@/types";
 
+type Result = {
+  pick: number;
+  isCorrect: boolean;
+};
 const Explanation = lazy(() => import("./Explanation"));
 type Props = {
   lesson: DbLesson;
 };
 const Quiz = ({ lesson }: Props) => {
-  const [result, setResult] = useState<{
-    pick?: number;
-    isCorrect?: boolean;
-  }>();
+  const [result, setResult] = useState<Result>();
   const [isExplanationShown, setIsExplanationShown] = useState(false);
-
   const dispatch = useAppDispatch();
   const [ref, inView] = useInView();
 
@@ -26,14 +26,18 @@ const Quiz = ({ lesson }: Props) => {
 
   function handleCheck(pick: number) {
     if (result?.isCorrect !== undefined) return;
+
     const rightAnswer = lesson.quiz?.answers.find((answer) => answer.isCorrect);
+
     if (pick === rightAnswer?.id) {
       setResult({ isCorrect: true, pick: pick });
     } else {
       setResult({ isCorrect: false, pick: pick });
     }
+
     setIsExplanationShown(true);
   }
+
   return (
     <>
       <div ref={ref} id={`lesson-${lesson.id}`} />
@@ -68,13 +72,14 @@ const Quiz = ({ lesson }: Props) => {
                 : "";
 
             return (
-              <div
+              <button
                 key={answer.id}
+                aria-pressed={result?.pick === answer.id ? true : false}
                 className={`p-2 ring-1 ring-gray-400 hover:scale-95 duration-500 ${isRight} ${isWrong}`}
                 onClick={() => handleCheck(answer.id)}
               >
                 <p className="text-sm">{answer.content}</p>
-              </div>
+              </button>
             );
           })}
         </section>

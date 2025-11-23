@@ -1,24 +1,29 @@
-import { useAppDispatch } from "@/lib/hooks";
 import { MdDelete } from "react-icons/md";
-import {
-  deletePrerequite,
-  editPrerequite,
-} from "@/lib/slices/create-course-slice";
-import type { Prerequisite } from "@/types/create-course";
 import { Input } from "@/components/common";
 import { motion, useAnimation } from "framer-motion";
 import { fadeInOutWithShiftVariants } from "@/features/animations/fade-in-out-with-shift";
 import { useEffect } from "react";
-type Props = {
-  prerequisite: Prerequisite;
-};
-const Prerequisite = ({ prerequisite }: Props) => {
-  const controlls = useAnimation();
-  const dispatch = useAppDispatch();
+import {
+  FieldValues,
+  Path,
+  UseFieldArrayRemove,
+  UseFormRegister,
+} from "react-hook-form";
 
-  function handleDeletePreriquisite(id: number) {
-    dispatch(deletePrerequite(id));
-  }
+type Props<T extends FieldValues> = {
+  register: UseFormRegister<T>;
+  index: number;
+  remove: UseFieldArrayRemove;
+  error?: string;
+};
+const Prerequisite = <T extends FieldValues>({
+  register,
+  index,
+  remove,
+  error,
+}: Props<T>) => {
+  const controlls = useAnimation();
+
   useEffect(() => {
     async function inView() {
       await controlls.start("visible");
@@ -36,22 +41,16 @@ const Prerequisite = ({ prerequisite }: Props) => {
       <Input
         type="text"
         multiline
-        value={prerequisite.content}
         className="w-full outline-0 text-sm focus:ring-1 focus:ring-purple-500 shadow-sm p-2 rounded-sm"
-        onChange={(e) =>
-          dispatch(
-            editPrerequite({
-              id: prerequisite.id,
-              content: e.target.value,
-            })
-          )
-        }
+        register={register}
+        error={error}
+        field={`prerequisites.${index}.content` as Path<T>}
       />
       <button
         type="button"
         onClick={async () => {
           await controlls.start("exit");
-          handleDeletePreriquisite(prerequisite.id);
+          remove(index);
         }}
         className="text-red-500 m-auto text-lg"
       >

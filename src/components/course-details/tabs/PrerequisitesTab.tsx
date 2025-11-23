@@ -1,132 +1,99 @@
 "use client";
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import api from "@/lib/axios";
 import { toast } from "sonner";
 import { isAxiosError } from "axios";
-import { MdDelete } from "react-icons/md";
 import { useRouter } from "next/navigation";
-import { DbCourse, DbPrerequisite } from "@/types";
-import Input from "@/components/common/Input";
+import { DbCourse } from "@/types";
 import { useAppDispatch } from "@/lib/hooks";
 import { toggleEditCourseDetailForm } from "@/lib/slices/edit-course-detail-form-slice";
+import { useFieldArray, useForm } from "react-hook-form";
+import {
+  CreateOrUpdatePrerequisites,
+  CreateOrUpdatePrerequisitesSchema,
+} from "@/features/prerequisites/schemas/create-or-update-prerequisete-schema";
+import { zodResolver } from "@hookform/resolvers/zod";
+import Prerequisite from "@/features/prerequisites/components/create-course-form/Prerequisite";
 type Props = {
   course: DbCourse;
 };
 const PrerequisitesTab = ({ course }: Props) => {
   const router = useRouter();
   const dispatch = useAppDispatch();
-  const [prerequisites, setPrerequisites] = useState<DbPrerequisite[]>();
+
+  const {
+    register,
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(CreateOrUpdatePrerequisitesSchema),
+    defaultValues: {
+      prerequisites: course.prerequisites,
+    },
+  });
+
+  const {
+    fields: prerequisites,
+    append,
+    remove,
+  } = useFieldArray({ control, name: "prerequisites" });
+
   const updateMutation = useMutation({
-    mutationFn: async () => {
-      const res = await api.patch("/prerequisites", prerequisites);
+    mutationFn: async (data: CreateOrUpdatePrerequisites) => {
+      const res = await api.patch(
+        "/prerequisites",
+        data.prerequisites.map((p) => ({ ...p, courseId: course.id }))
+      );
       return res.data;
     },
     onSuccess: () => {
+      toast.success("Prerequisites updated successfully");
       router.refresh();
-      return toast.success("Prerequisites updated successfully");
+      dispatch(toggleEditCourseDetailForm());
     },
     onError: (err) => {
       if (isAxiosError(err)) return toast.error(err.response?.data.message);
     },
   });
-  const deleteMutation = useMutation({
-    mutationFn: async (id: number) => {
-      const res = await api.delete(`/prerequisites/${id}`);
-      return res.data;
-    },
-    onSuccess: (_, id) => {
-      if (!prerequisites) return;
-      setPrerequisites((prev) =>
-        prev!.filter((prerequisite) => prerequisite.id !== id)
-      );
-      return toast.success("Prerequisite deleted");
-    },
-    onError: (err) => {
-      if (isAxiosError(err)) return toast.error(err.response?.data.message);
-    },
-  });
-  const addMutation = useMutation<{ prerequisite: DbPrerequisite }>({
-    mutationFn: async () => {
-      const res = await api.post("/prerequisites", {
-        courseId: course.id,
-      });
-      return res.data;
-    },
-    onSuccess: (data) => {
-      if (!prerequisites) return;
-      return setPrerequisites((prev) => [
-        ...prev!,
-        { id: data.prerequisite.id, content: data.prerequisite.content },
-      ]);
-    },
-    onError: (err) => {
-      if (isAxiosError(err)) return toast.error(err.response?.data.message);
-    },
-  });
-  useEffect(() => {
-    if (!course) return;
-    setPrerequisites(course.prerequisites);
-  }, [course]);
-  function handlePreriquisiteChange(
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-    id: number
-  ) {
-    if (!prerequisites) return;
-    const newPrerequisites = prerequisites.map((preriquisite) => {
-      if (preriquisite.id === id) {
-        return { ...preriquisite, content: e.target.value };
-      }
-      return preriquisite;
-    });
-    setPrerequisites(newPrerequisites);
+
+  async function onSubmit(data: CreateOrUpdatePrerequisites) {
+    await updateMutation.mutateAsync(data);
   }
-  function handleDeletePreriquisite(id: number) {
-    deleteMutation.mutate(id);
-  }
-  function handleAddPreriquisite() {
-    addMutation.mutate();
-  }
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    updateMutation.mutate();
-    dispatch(toggleEditCourseDetailForm());
-  }
+
   return (
-    <form className="flex flex-col gap-2 h-full" onSubmit={handleSubmit}>
+    <form
+      className="flex flex-col gap-2 h-full"
+      onSubmit={handleSubmit(onSubmit)}
+    >
       <h2 className="font-bold text-center text-lg">Prerequisites</h2>
+
       <button
+        type="button"
         className="self-end bg-purple-500 text-white px-4 py-2 text-sm hover:scale-95 focus:scale-95 rounded-sm hover:bg-purple-600 duration-300"
-        onClick={handleAddPreriquisite}
+        onClick={async () => append({ content: "" })}
       >
         Add Prerequisite
       </button>
+
       <div
         className="grow flex flex-col gap-2 overflow-y-auto h-[20rem] py-4"
         id="styledScrollbar"
       >
-        {prerequisites?.length === 0 && (
+        {prerequisites.length === 0 && (
           <p className="text-center text-xs">No prerequisites</p>
         )}
-        {prerequisites &&
-          prerequisites.map((preriquisite) => (
-            <div key={preriquisite.id} className="grid grid-cols-[4fr_1fr]">
-              <Input
-                multiline
-                value={preriquisite.content}
-                onChange={(e) => handlePreriquisiteChange(e, preriquisite.id)}
-                className="mx-auto w-3/4 outline-0 text-sm focus:ring-1 focus:ring-purple-500 shadow-sm p-2 rounded-sm h-[4rem] resize-none"
-              />
-              <button
-                type="button"
-                onClick={() => handleDeletePreriquisite(preriquisite.id)}
-                className="text-red-500 m-auto text-lg"
-              >
-                <MdDelete />
-              </button>
-            </div>
-          ))}
+        {prerequisites.map((prerequisite, index) => (
+          <Prerequisite
+            register={register}
+            key={prerequisite.id}
+            index={index}
+            remove={remove}
+            error={errors.prerequisites?.[index]?.content?.message}
+          />
+        ))}
       </div>
+
       <button
         type="submit"
         className="self-end bg-purple-500 text-white p-2 text-sm hover:scale-95 focus:scale-95 rounded-sm hover:bg-purple-600 duration-300"

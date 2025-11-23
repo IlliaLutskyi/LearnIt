@@ -16,7 +16,7 @@ import {
 import { SiGooglegemini } from "react-icons/si";
 import { HiDotsVertical } from "react-icons/hi";
 import { lazy, memo, Suspense, useState } from "react";
-import { SectionGroup } from "@/types/create-course";
+import { Lesson, SectionGroup } from "@/types/create-course";
 import { LegacyAnimationControls } from "framer-motion";
 import { GenerateSection } from "../../schemas/generate-section";
 import { toast } from "sonner";

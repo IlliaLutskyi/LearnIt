@@ -1,5 +1,5 @@
 import { Category } from "./category";
-import { Prerequisite } from "./prerequisites";
+import { Prerequisite } from "./prerequisite";
 import { SectionGroup } from "./section-group";
 import { Skill } from "./skill";
 

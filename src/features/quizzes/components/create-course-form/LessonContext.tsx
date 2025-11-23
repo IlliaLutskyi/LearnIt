@@ -27,7 +27,7 @@ const LessonContext = ({ lesson, fields, append, remove }: Props) => {
   return (
     <button
       type="button"
-      className={`flex items-center justify-center text-md ${
+      className={`flex items-center justify-start text-md ${
         isActive
           ? "border-purple-600 border-[1px] bg-purple-50 text-purple-600 scale-95"
           : "border-gray-300 border-[1px] hover:border-purple-600 hover:text-purple-600 hover:bg-purple-50"

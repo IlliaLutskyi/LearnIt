@@ -1,21 +1,22 @@
 import prisma from "@/lib/db";
-import { Skill } from "@/types/create-course/skill";
+import { DbSkill } from "@/types";
 
 export default async function updateSkills(req: Request) {
-  const data: Skill[] = await req.json();
+  const data: DbSkill[] = await req.json();
   try {
-    await Promise.all(
-      data.map(async (skill) => {
-        await prisma.skill.update({
-          where: {
-            id: skill.id,
-          },
-          data: {
+    await prisma.course.update({
+      where: {
+        id: data[0].courseId,
+      },
+      data: {
+        skills: {
+          deleteMany: {},
+          create: data.map((skill) => ({
             content: skill.content,
-          },
-        });
-      })
-    );
+          })),
+        },
+      },
+    });
 
     return Response.json(
       { message: "Skills updated successfully" },

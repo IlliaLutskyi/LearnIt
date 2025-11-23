@@ -7,27 +7,29 @@ import Navigation from "./Navigation";
 import SetRating from "../../features/ratings/components/SetRating";
 import { useParams } from "next/navigation";
 import OnThisPageBar from "./OnThisPageBar";
-import EditButton from "./EditButton";
 import { useSession } from "next-auth/react";
-import EditContentForm from "./EditContentForm";
-import { motion, useScroll } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { getSection } from "@/features/sections/services/get-section";
 
+const EditButton = lazy(() => import("./EditButton"));
+const EditContentForm = lazy(() => import("./EditContentForm"));
 const Video = lazy(() => import("@/features/lessons/components/Video"));
 const Text = lazy(() => import("@/features/lessons/components/Text"));
 const Quiz = lazy(() => import("@/features/quizzes/components/Quiz"));
 
 const Content = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const { data: session } = useSession();
-  const { scrollYProgress } = useScroll({ container: containerRef });
   const params = useParams();
+  const { data: session } = useSession();
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ container: containerRef });
+  const clampedProgress = useTransform(scrollYProgress, (v) => Math.min(v, 1));
   const { data, isPending, isSuccess } = useQuery({
     queryKey: ["section", params.sectionSlug],
     queryFn: () =>
       getSection(params.courseSlug as string, params.sectionSlug as string),
     enabled: !!params.sectionSlug,
   });
+  const isContentLoaded = isSuccess && !isPending;
 
   return (
     <>
@@ -37,16 +39,19 @@ const Content = () => {
           className="relative grow flex flex-col gap-1 overflow-y-auto h-[90.5vh] max-sm:h-full"
           id="styledScrollbar"
         >
-          {isSuccess && !isPending && (
+          {isContentLoaded && (
             <motion.div
-              className="bg-pink-400 sticky top-0 p-1"
-              style={{ scaleX: scrollYProgress, originX: 0 }}
+              className="sticky top-0 bg-pink-400 p-1"
+              style={{
+                scaleX: clampedProgress,
+                originX: 0,
+              }}
             />
           )}
 
           {isPending && <Loader />}
 
-          {isSuccess && !isPending && (
+          {isContentLoaded && (
             <Suspense fallback={<Loader />}>
               <section className="mt-4 mx-4">
                 {data.section.lessons?.map((lesson) => {
@@ -61,22 +66,30 @@ const Content = () => {
             </Suspense>
           )}
 
-          {isSuccess && !isPending && (
+          {isContentLoaded && (
             <section className="flex flex-col gap-2 justify-end mb-4 mx-4">
               <SetRating sectionId={data.section.id} />
               <Navigation
                 nextSection={data.nextSection}
                 prevSection={data.prevSection}
               />
-              {session?.user && session.user.role === "Admin" && <EditButton />}
+              {session?.user && session.user.role === "Admin" && (
+                <Suspense>
+                  <EditButton />
+                </Suspense>
+              )}
             </section>
           )}
         </div>
 
-        {isSuccess && !isPending && <OnThisPageBar section={data.section} />}
+        {isContentLoaded && <OnThisPageBar section={data.section} />}
       </div>
 
-      {isSuccess && <EditContentForm section={data.section} />}
+      {isSuccess && (
+        <Suspense>
+          <EditContentForm section={data.section} />
+        </Suspense>
+      )}
     </>
   );
 };
