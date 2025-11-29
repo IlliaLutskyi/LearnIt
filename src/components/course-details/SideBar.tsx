@@ -7,14 +7,14 @@ const SideBar = () => {
   const { currentTab } = useAppSelector((state) => state.EditCourseDetail);
 
   return (
-    <aside className="flex flex-col gap-3 h-full bg-purple-950 p-4 justify-center rounded-bl-sm rounded-tl-sm">
+    <aside className="flex flex-col gap-2 h-full bg-sidebar-primary text-sidebar-primary-foreground p-4 justify-center rounded-bl-sm rounded-tl-sm">
       <button
         onClick={() => dispatch(setCurrentTab("general_info"))}
         type="button"
         className={`${
           currentTab === "general_info"
-            ? "bg-purple-600 text-white"
-            : "bg-white text-purple-600 hover:bg-purple-600 hover:text-white"
+            ? "bg-accent text-accent-foreground"
+            : "bg-background text-accent hover:bg-accent hover:text-accent-foreground"
         } p-2 text-xs rounded-full duration-400`}
       >
         General Info
@@ -24,8 +24,8 @@ const SideBar = () => {
         type="button"
         className={`${
           currentTab === "prerequisites"
-            ? "bg-purple-600 text-white"
-            : "bg-white text-purple-600 hover:bg-purple-600 hover:text-white"
+            ? "bg-accent text-accent-foreground"
+            : "bg-background text-accent hover:bg-accent hover:text-accent-foreground"
         } p-2 text-xs rounded-full duration-400`}
       >
         Prerequisites
@@ -35,8 +35,8 @@ const SideBar = () => {
         type="button"
         className={`${
           currentTab === "skills"
-            ? "bg-purple-600 text-white"
-            : "bg-white text-purple-600 hover:bg-purple-600 hover:text-white"
+            ? "bg-accent text-accent-foreground"
+            : "bg-background text-accent hover:bg-accent hover:text-accent-foreground"
         } p-2 text-xs rounded-full duration-400`}
       >
         Learning Outcomes

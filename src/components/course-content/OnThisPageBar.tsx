@@ -11,10 +11,10 @@ const OnThisPageBar = ({ section }: Props) => {
   const { currentLessonViewId } = useAppSelector((store) => store.CourseView);
   if (section.lessons && section.lessons.length < 1) return null;
   return (
-    <aside className="max-md:hidden flex flex-col gap-2 p-4 bg-purple-950 h-full">
-      <h1 className="text-lg font-bold text-white">In this section</h1>
+    <aside className="max-md:hidden flex flex-col gap-2 p-4 bg-sidebar-primary text-sidebar-primary-foreground h-full">
+      <h1 className="text-lg font-bold">In this section</h1>
       <div
-        className="flex flex-col gap-2  h-full text-white overflow-y-auto"
+        className="flex flex-col gap-2 h-full overflow-y-auto"
         id="scrollbar"
       >
         {section.lessons?.map((lesson) => {
@@ -24,8 +24,8 @@ const OnThisPageBar = ({ section }: Props) => {
               href={`#lesson-${lesson.id}`}
               className={`text-sm ${
                 lesson.id === currentLessonViewId
-                  ? "text-orange-300"
-                  : "hover:text-orange-300"
+                  ? "text-secondary-accent"
+                  : "hover:text-secondary-accent"
               } duration-500`}
             >
               <span className="m-1">{lesson.order}.</span> {lesson.title}

@@ -80,7 +80,7 @@ const Step1 = ({ step }: Props) => {
             defaultValue={title}
             register={register}
             error={errors.title?.message}
-            className="text-sm w-full p-2 shadow-sm rounded-md outline-none focus:ring-1 focus:ring-purple-500"
+            className="input-field"
           />
           <CategorySelect register={register} />
         </div>
@@ -93,7 +93,7 @@ const Step1 = ({ step }: Props) => {
             error={errors.description?.message}
             multiline={true}
             defaultValue={description}
-            className="shadow-md text-sm w-full h-[17rem] resize-none p-2 rounded-sm outline-none focus:ring-1 focus:ring-purple-500"
+            className="input-field h-[15rem] max-h-[20rem]"
           />
         </div>
       </section>

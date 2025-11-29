@@ -67,7 +67,7 @@ const GeneralInfoTab = ({ course }: Props) => {
             register={register}
             field="title"
             error={errors.title?.message}
-            className="text-sm w-full p-2 shadow-md rounded-sm outline-none focus:ring-1 focus:ring-purple-500"
+            className="input-field"
           />
           <CategorySelect register={register} />
         </div>
@@ -79,14 +79,14 @@ const GeneralInfoTab = ({ course }: Props) => {
             field="description"
             multiline={true}
             error={errors.description?.message}
-            className="text-sm w-full h-[15rem] resize-none p-2 shadow-md rounded-sm outline-none focus:ring-1 focus:ring-purple-500"
+            className="input-field h-[15rem] resize-none"
           />
         </div>
       </section>
 
       <button
         type="submit"
-        className="self-end bg-purple-500 text-white p-2 text-sm hover:scale-95 focus:scale-95 rounded-sm hover:bg-purple-600 duration-300"
+        className="self-end bg-accent text-accent-foreground p-2 text-sm hover:scale-95 focus:scale-95 rounded-sm duration-400"
       >
         Save
       </button>

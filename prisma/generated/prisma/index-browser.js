@@ -231,7 +231,8 @@ exports.ContentType = exports.$Enums.ContentType = {
   Text: 'Text',
   Quiz: 'Quiz',
   Markdown: 'Markdown',
-  Table: 'Table'
+  Table: 'Table',
+  Image: 'Image'
 };
 
 exports.VideoSource = exports.$Enums.VideoSource = {

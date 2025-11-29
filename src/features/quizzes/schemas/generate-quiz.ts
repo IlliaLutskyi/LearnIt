@@ -11,6 +11,6 @@ export const GenerateQuizSchema = z.object({
     .max(5, "Too many quizzes"),
   contents: z
     .array(z.object({ value: z.string() }))
-    .min(1, "At least one content is required"),
+    .min(1, "Select at least one context"),
 });
 export type GenerateQuiz = z.infer<typeof GenerateQuizSchema>;

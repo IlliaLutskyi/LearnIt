@@ -11,7 +11,7 @@ const AddSectionButton = () => {
   return (
     <button
       type="button"
-      className="flex items-center gap-4 bg-purple-500 self-end text-white text-sm p-2 rounded-sm hover:bg-purple-700  hover:scale-95 focus:scale-95 duration-500"
+      className="self-end flex items-center gap-4 bg-accent text-accent-foreground text-sm p-2 rounded-sm hover:scale-95 duration-400"
       onClick={handleAdd}
     >
       <FaPlus />

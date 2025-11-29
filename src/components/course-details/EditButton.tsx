@@ -22,7 +22,7 @@ const EditButton = ({ author }: Props) => {
   }
   return (
     <button
-      className="text-xs text-purple-500 hover:text-purple-700"
+      className="text-xs text-accent hover:text-secondary-accent duration-400"
       id="edit_form_anchor"
       onClick={handleFormOpening}
     >

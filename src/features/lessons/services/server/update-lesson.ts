@@ -39,7 +39,7 @@ export async function updateLesson(req: Request) {
     }
 
     return Response.json(
-      { lesson, message: "Lesson updated successfully" },
+      { message: "Lesson updated successfully" },
       { status: 200 }
     );
   } catch (err) {

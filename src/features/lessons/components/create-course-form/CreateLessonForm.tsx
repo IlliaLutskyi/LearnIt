@@ -1,8 +1,7 @@
 "use client";
-import { lazy, Suspense, useEffect, useRef } from "react";
-import { toast } from "sonner";
-import { Lesson } from "@/types/create-course";
-import { Loader, BlurBackground, Input } from "@/components/common";
+import { lazy, Suspense, useEffect, useState } from "react";
+import { ContentType, Lesson } from "@/types/create-course";
+import { Loader, Input } from "@/components/common";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -10,8 +9,11 @@ import {
   CreateLessonSchema,
 } from "@/features/lessons/schemas/create-lesson-schema";
 import { DbLesson } from "@/types";
-import { AnimatePresence, motion } from "framer-motion";
-import { formEmergenceVariants } from "@/features/animations/form-emergence";
+import { AnimatePresence } from "framer-motion";
+import ImageOption from "./lessonTypeOptions/ImageOption";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import { keyof, set } from "zod";
+
 const MarkdownOption = lazy(() => import("./lessonTypeOptions/MarkdownOption"));
 const TableOption = lazy(() => import("./lessonTypeOptions/TableOption"));
 const VideoOption = lazy(() => import("./lessonTypeOptions/VideoOption"));
@@ -23,8 +25,10 @@ type Props = {
   onSave?: (data: CreateLesson) => void;
 };
 const CreateLessonForm = ({ isOpen, setIsOpen, lesson, onSave }: Props) => {
-  const formRef = useRef<HTMLFormElement>(null);
-  console.log(lesson);
+  const [drafts, setDrafts] = useState<Partial<Record<ContentType, string>>>(
+    lesson ? { [lesson.contentType]: lesson.content || "" } : {}
+  );
+
   const {
     register,
     handleSubmit,
@@ -35,125 +39,128 @@ const CreateLessonForm = ({ isOpen, setIsOpen, lesson, onSave }: Props) => {
   } = useForm({
     resolver: zodResolver(CreateLessonSchema),
     defaultValues: {
-      title: lesson ? lesson.title : "Lesson title",
-      content: lesson ? lesson.content || "" : "",
-      contentType: lesson ? lesson.contentType : "Video",
-      videoSource: lesson ? "Youtube" : undefined,
+      title: lesson?.title || "",
+      content: lesson?.content || "",
+      contentType: lesson?.contentType || "Text",
+      videoSource: lesson?.videoSource || "Youtube",
     },
   });
   const contentType = watch("contentType");
+  const content = watch("content");
 
   useEffect(() => {
-    function handleClickOutside(e: MouseEvent) {
-      const target = e.target as HTMLElement;
-      if (target.id === "create-lesson-anchor") return;
-      if (
-        formRef.current &&
-        !formRef.current.contains(target.closest("form"))
-      ) {
-        setIsOpen(false);
-      }
+    if (!isOpen) return;
+
+    if (drafts[contentType]) {
+      setValue("content", drafts[contentType]);
     }
-    document.addEventListener("click", handleClickOutside);
-    return () => {
-      document.removeEventListener("click", handleClickOutside);
-    };
-  }, []);
+  }, [isOpen, contentType, drafts]);
+
+  function saveCurrentDraft() {
+    setDrafts({ ...drafts, [contentType]: content });
+    setValue("content", "");
+  }
 
   function onSubmit(data: CreateLesson) {
     if (onSave) onSave(data);
 
     reset();
-
+    setDrafts({});
     setIsOpen(false);
   }
 
   return (
     <AnimatePresence>
       {isOpen && (
-        <>
-          <BlurBackground />
-          <motion.form
-            ref={formRef}
-            variants={formEmergenceVariants}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-            className="flex flex-col gap-2 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 p-6 w-11/12 bg-white rounded-sm"
-            onSubmit={handleSubmit(onSubmit)}
-          >
-            <h1 className="text-lg font-bold text-center">
-              Create content for a lesson
-            </h1>
-
-            <section className="flex gap-4 items-center">
-              <label className="text-xs" htmlFor="lessonType">
-                Content type:
-              </label>
-              <select
-                id="lessonType"
-                className="outline-0 text-xs shadow-sm p-2 rounded-sm"
-                {...register("contentType")}
-              >
-                <option value="Text">Text</option>
-                <option value="Video">Video</option>
-                <option value="Table">Excel Table</option>
-                <option value="Markdown">Markdown</option>
-              </select>
-
-              <p className="text-red-500 text-xs">
-                {errors.contentType?.message}
-              </p>
-            </section>
-            <section className="grow flex flex-col gap-4">
-              <div className="flex flex-col gap-2">
-                <Input
-                  label="title"
-                  {...register("title")}
-                  error={errors.title?.message}
-                  placeholder="e.g. introduction"
-                  name="title"
-                  className="w-full text-sm outline-none focus:ring-1 focus:ring-purple-500 shadow-sm p-2 rounded-sm"
-                />
-              </div>
-
-              {contentType === "Text" && (
-                <Suspense fallback={<Loader />}>
-                  <TextOption
-                    content={watch("content")}
-                    setValue={setValue}
-                    error={errors.content?.message}
-                  />
-                </Suspense>
-              )}
-
-              {contentType === "Video" && (
-                <Suspense fallback={<Loader />}>
-                  <VideoOption
-                    register={register}
-                    error={errors.content?.message}
-                  />
-                </Suspense>
-              )}
-              {contentType === "Table" && (
-                <Suspense fallback={<Loader />}>
-                  <TableOption setValue={setValue} />
-                </Suspense>
-              )}
-              {contentType === "Markdown" && (
-                <Suspense fallback={<Loader />}>
-                  <MarkdownOption setValue={setValue} />
-                </Suspense>
-              )}
-            </section>
-            <button
-              type="submit"
-              className="bg-purple-500 p-2 rounded-md text-sm text-white self-end"
+        <Dialog open={isOpen} onOpenChange={setIsOpen}>
+          <DialogContent asChild className="w-11/12 p-6">
+            <form
+              className="flex flex-col gap-4"
+              onSubmit={handleSubmit(onSubmit)}
             >
-              Save
-            </button>
-          </motion.form>
-        </>
+              <DialogTitle className="text-center text-lg font-bold">
+                Create content for a lesson
+              </DialogTitle>
+
+              <section className="flex flex-col gap-1">
+                <label className="text-xs" htmlFor="lessonType">
+                  Content type
+                </label>
+                <select
+                  id="lessonType"
+                  className="input-field"
+                  {...register("contentType", {
+                    onChange: () => {
+                      saveCurrentDraft();
+                    },
+                  })}
+                >
+                  <option value="Text">Text</option>
+                  <option value="Video">Video</option>
+                  <option value="Table">Excel Table</option>
+                  <option value="Markdown">Markdown</option>
+                  <option value="Image">Image</option>
+                </select>
+
+                <p className="text-error text-xs">
+                  {errors.contentType?.message}
+                </p>
+              </section>
+              <section className="grow flex flex-col gap-4">
+                <div className="flex flex-col gap-2">
+                  <Input
+                    label="title"
+                    {...register("title")}
+                    error={errors.title?.message}
+                    placeholder="e.g. introduction"
+                    name="title"
+                    className="input-field"
+                  />
+                </div>
+
+                {contentType === "Text" && (
+                  <Suspense fallback={<Loader />}>
+                    <TextOption
+                      content={content}
+                      setValue={setValue}
+                      error={errors.content?.message}
+                    />
+                  </Suspense>
+                )}
+
+                {contentType === "Video" && (
+                  <Suspense fallback={<Loader />}>
+                    <VideoOption
+                      register={register}
+                      error={errors.content?.message}
+                    />
+                  </Suspense>
+                )}
+                {contentType === "Table" && (
+                  <Suspense fallback={<Loader />}>
+                    <TableOption setValue={setValue} />
+                  </Suspense>
+                )}
+                {contentType === "Markdown" && (
+                  <Suspense fallback={<Loader />}>
+                    <MarkdownOption setValue={setValue} />
+                  </Suspense>
+                )}
+                {contentType === "Image" && (
+                  <Suspense fallback={<Loader />}>
+                    <ImageOption setValue={setValue} />
+                  </Suspense>
+                )}
+              </section>
+              <button
+                type="submit"
+                className="bg-accent p-2 rounded-md text-sm text-accent-foreground self-end"
+              >
+                Save
+              </button>
+            </form>
+          </DialogContent>
+        </Dialog>
       )}
     </AnimatePresence>
   );

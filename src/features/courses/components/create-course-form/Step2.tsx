@@ -59,6 +59,7 @@ const Step2 = ({ step }: Props) => {
     localStorage.setItem("prerequisites", JSON.stringify(data.prerequisites));
     dispatch(setNextStep({ nextStep: step.step + 1 }));
   }
+
   return (
     <motion.form
       className="h-full flex flex-col gap-4 p-4"
@@ -72,7 +73,7 @@ const Step2 = ({ step }: Props) => {
         <section className="flex justify-end">
           <button
             type="button"
-            className="self-end mt-4 bg-purple-500 text-white text-sm px-4 py-2 hover:scale-95 focus:scale-95 rounded-sm hover:bg-purple-700 duration-500"
+            className="self-end mt-4 bg-accent text-accent-foreground text-sm px-4 py-2 hover:scale-95 rounded-sm duration-400"
             onClick={handleAddPreriquisite}
           >
             Add prerequisit
@@ -84,9 +85,14 @@ const Step2 = ({ step }: Props) => {
           className="flex flex-col gap-4 overflow-y-auto h-[20rem] p-3"
           id="scrollbar"
         >
-          {prerequisites.length === 0 && (
-            <p className="text-center text-sm">No prerequisites</p>
-          )}
+          {prerequisites.length === 0 &&
+            (errors.prerequisites?.message ? (
+              <p className="text-center text-sm text-error">
+                {errors.prerequisites.message}
+              </p>
+            ) : (
+              <p className="text-center text-sm">No prerequisites</p>
+            ))}
 
           {prerequisites.map((prerequisite, index) => (
             <Prerequisite

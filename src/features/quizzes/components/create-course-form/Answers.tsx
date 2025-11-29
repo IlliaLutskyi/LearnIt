@@ -51,7 +51,7 @@ const Answers = <T extends FieldValues>({
                 <Input
                   {...register(`answers.${index}.content` as Path<T>)}
                   error={errors.answers?.[index]?.content?.message}
-                  className="text-sm w-full p-2 shadow-md rounded-sm outline-none focus:ring-1 focus:ring-purple-500 h-[6rem]"
+                  className="input-field h-[6rem] max-h-[10rem]"
                   multiline={true}
                 />
               </TableCell>
@@ -69,7 +69,7 @@ const Answers = <T extends FieldValues>({
                   onClick={() => {
                     remove(index);
                   }}
-                  className="m-auto bg-red-500 text-white p-2 rounded-sm hover:bg-red-600 hover:scale-95 focus:scale-95 duration-500"
+                  className="m-auto bg-error text-white p-2 rounded-sm hover:scale-95 duration-400"
                 >
                   <CiTrash />
                 </button>

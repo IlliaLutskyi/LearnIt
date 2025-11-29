@@ -2,8 +2,8 @@
 import mammoth from "mammoth";
 import { toast } from "sonner";
 import { Editor } from "@tiptap/react";
-import { CreateLesson } from "@/types/create-course";
 import { UseFormSetValue } from "react-hook-form";
+import { CreateLesson } from "../../schemas/create-lesson-schema";
 type Props = {
   editor: Editor;
   setValue: UseFormSetValue<CreateLesson>;

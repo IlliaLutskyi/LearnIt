@@ -48,7 +48,7 @@ const SectionGroups = () => {
       onDragEnd={handleDragEnd}
     >
       <div
-        className="flex flex-col gap-2 overflow-y-auto h-[24rem] p-3"
+        className="flex flex-col gap-2 overflow-y-auto h-[24rem] p-2"
         id="scrollbar"
       >
         <SortableContext

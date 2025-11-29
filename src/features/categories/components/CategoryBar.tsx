@@ -29,8 +29,8 @@ const CategoryBar = ({ categories }: Props) => {
         <motion.button
           className={`${
             filter === "all"
-              ? "bg-amber-100 text-orange-400"
-              : "bg-purple-100 text-purple-500"
+              ? "bg-secondary-accent text-secondary-accent-foreground"
+              : "bg-card text-card-foreground shadow-sm"
           } text-xs font-semibold px-3 py-1 hover:scale-95 duration-500 rounded-sm`}
           variants={childVariants}
         >
@@ -46,8 +46,8 @@ const CategoryBar = ({ categories }: Props) => {
             <motion.button
               className={`${
                 isActive
-                  ? "bg-amber-100 text-orange-400"
-                  : "bg-purple-100 text-purple-500"
+                  ? "bg-secondary-accent text-secondary-accent-foreground"
+                  : "bg-card text-card-foreground shadow-sm"
               } text-xs font-semibold px-3 py-1 hover:scale-95 duration-500 rounded-sm`}
               variants={childVariants}
             >

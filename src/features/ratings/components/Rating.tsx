@@ -17,17 +17,17 @@ const Rating = ({ rating, starSize, isRateValueShown = false }: Props) => {
           <p key={star}>
             {rating >= star ? (
               <FaStar
-                className="text-orange-400"
+                className="text-secondary-accent"
                 size={starSize ? starSize : 15}
               />
             ) : rating >= star - 0.5 ? (
               <FaStarHalfAlt
-                className="text-orange-400"
+                className="text-secondary-accent"
                 size={starSize ? starSize : 15}
               />
             ) : (
               <CiStar
-                className="text-orange-400"
+                className="text-secondary-accent"
                 size={starSize ? starSize : 15}
               />
             )}

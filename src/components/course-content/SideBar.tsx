@@ -7,8 +7,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-import { IoMdClose } from "react-icons/io";
-import { IoMenu } from "react-icons/io5";
+import { IoClose, IoMenu } from "react-icons/io5";
 import SectionGroup from "@/features/sections/components/SectionGroup";
 import { DbSectionGroup } from "@/types";
 
@@ -18,35 +17,41 @@ type Props = {
 const Sidebar = ({ sectionGroups }: Props) => {
   return (
     <>
-      <div
-        className="max-sm:hidden p-4 bg-purple-950 max-sm:h-full h-[calc(100vh-3.5rem)] min-w-[200px] overflow-y-auto"
-        id="scrollbar"
-      >
-        <div className="flex flex-col gap-2 justify-center">
-          {sectionGroups.map((sectionGroup) => {
-            return (
-              <SectionGroup key={sectionGroup.id} sectionGroup={sectionGroup} />
-            );
-          })}
-        </div>
-      </div>
+      <DesktopSidebar sectionGroups={sectionGroups} />
       <MobileSidebar sectionGroups={sectionGroups} />
     </>
   );
 };
+
+const DesktopSidebar = ({ sectionGroups }: Props) => {
+  return (
+    <div
+      className="max-sm:hidden p-4 bg-sidebar-primary text-sidebar-primary-foreground h-[calc(100vh-48px)] min-w-[200px] overflow-y-auto"
+      id="scrollbar"
+    >
+      <div className="flex flex-col gap-2 justify-center">
+        {sectionGroups.map((sectionGroup) => {
+          return (
+            <SectionGroup key={sectionGroup.id} sectionGroup={sectionGroup} />
+          );
+        })}
+      </div>
+    </div>
+  );
+};
 const MobileSidebar = ({ sectionGroups }: Props) => {
   return (
-    <div className="sticky sm:hidden top-0 bg-purple-700 w-full h-10 text-white p-2 z-50">
+    <div className="sticky sm:hidden top-0 bg-accent text-accent-foreground w-full h-10 p-2 z-50">
       <Drawer direction="left">
         <DrawerTrigger>
           <IoMenu />
         </DrawerTrigger>
 
-        <DrawerContent className="bg-black">
+        <DrawerContent className="bg-sidebar-primary text-sidebar-primary-foreground">
           <DrawerTitle className="hidden">Sections List</DrawerTitle>
           <DrawerHeader>
             <DrawerClose>
-              <IoMdClose className="text-white" />
+              <IoClose />
             </DrawerClose>
           </DrawerHeader>
 

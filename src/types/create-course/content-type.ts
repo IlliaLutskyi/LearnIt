@@ -1,1 +1,12 @@
-export type ContentType = "Video" | "Text" | "Quiz" | "Table" | "Markdown";
+import z from "zod";
+
+export const ContentTypeSchema = z.enum([
+  "Video",
+  "Text",
+  "Quiz",
+  "Table",
+  "Markdown",
+  "Image",
+]);
+
+export type ContentType = z.infer<typeof ContentTypeSchema>;

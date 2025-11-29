@@ -36,13 +36,15 @@ const CourseDetails = async ({ params }: Props) => {
         }}
       />
       <section className="flex flex-col gap-4 px-8 py-2">
-        {course.skills.length > 0 && <Skills skills={course.skills} />}
         <div className="flex flex-col gap-2">
           <h2 className="font-bold text-lg">Prerequisites:</h2>
+
           {course.prerequisites.length > 0 && (
             <Prerequisites preriquisites={course.prerequisites} />
           )}
         </div>
+
+        {course.skills.length > 0 && <Skills skills={course.skills} />}
 
         <div className="flex flex-col gap-2">
           <h2 className="font-bold text-lg">Course content</h2>

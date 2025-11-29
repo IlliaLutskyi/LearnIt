@@ -2,7 +2,10 @@ import { Variants } from "framer-motion";
 export const fadeInOutWithShiftVariants: Variants = {
   hidden: {
     opacity: 0,
-    x: -10,
+    x: -30,
+    transition: {
+      duration: 0.3,
+    },
   },
   visible: {
     opacity: 1,
@@ -10,6 +13,9 @@ export const fadeInOutWithShiftVariants: Variants = {
   },
   exit: {
     opacity: 0,
-    x: -10,
+    x: -30,
+    transition: {
+      duration: 0.3,
+    },
   },
 };

@@ -121,7 +121,7 @@ const Rating = ({ sectionId }: Props) => {
               className="cursor-pointer p-2"
             >
               {star.isHovered || star.isClicked ? (
-                <FaStar className="text-purple-700" />
+                <FaStar className="text-accent" />
               ) : (
                 <CiStar />
               )}

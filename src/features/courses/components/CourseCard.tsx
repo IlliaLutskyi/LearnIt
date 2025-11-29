@@ -9,13 +9,13 @@ type Props = {
 const CourseCard = ({ course }: Props) => {
   return (
     <motion.div
-      className="flex flex-col gap-3 bg-white rounded-xl shadow-sm hover:shadow-lg hover:scale-105 duration-500 p-5"
+      className="flex flex-col gap-4 bg-card text-card-foreground rounded-xl shadow-md hover:shadow-lg hover:scale-105 duration-500 p-5"
       variants={childVariants}
       initial="hidden"
       animate="visible"
     >
       <div className="flex items-center justify-between">
-        <span className="self-start bg-purple-100 text-purple-600 text-xs font-semibold px-3 py-1 rounded-sm">
+        <span className="self-start border-[1px] border-secondary-accent text-secondary-accent text-xs font-semibold px-3 py-1 rounded-sm">
           {course?.category?.name}
         </span>
         <img
@@ -25,20 +25,23 @@ const CourseCard = ({ course }: Props) => {
         />
       </div>
 
-      <h2 className="text-lg font-semibold text-gray-800 line-clamp-1">
+      <h2 className="text-xl font-bold text-foreground line-clamp-1">
         {course.title}
       </h2>
 
-      <p className="text-sm text-gray-600 line-clamp-2">{course.description}</p>
+      <p className="text-sm text-muted-foreground line-clamp-2">
+        {course.description}
+      </p>
 
-      <div className="flex justify-between items-center text-xs text-gray-500 mt-auto">
+      <div className="flex justify-between items-center text-xs text-muted-foreground mt-auto">
         <span>
           {course.createdAt && new Date(course.createdAt).toLocaleDateString()}
         </span>
+
         <Link href={`/course/${course.slug}`}>
-          <span className="text-purple-600 font-medium hover:text-purple-800">
-            View Details →
-          </span>
+          <button className="bg-background text-foreground ring-1 ring-accent py-2 px-6 rounded-sm hover:scale-95 hover:bg-accent hover:text-accent-foreground duration-500">
+            View Details
+          </button>
         </Link>
       </div>
     </motion.div>

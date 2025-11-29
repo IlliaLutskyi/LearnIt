@@ -67,7 +67,7 @@ const Step3 = ({ step }: Props) => {
         <section className="flex justify-end">
           <button
             type="button"
-            className="self-end mt-4 bg-purple-500 text-white text-sm px-4 py-2 hover:scale-95 focus:scale-95 rounded-sm hover:bg-purple-700 duration-500"
+            className="self-end mt-4 bg-accent text-accent-foreground text-sm px-4 py-2 hover:scale-95 rounded-sm duration-400"
             onClick={handleAddSkill}
           >
             Add skill
@@ -79,9 +79,14 @@ const Step3 = ({ step }: Props) => {
           className="flex flex-col gap-4 overflow-y-auto h-[20rem] p-3"
           id="scrollbar"
         >
-          {skills.length === 0 && (
-            <p className="text-center text-sm">No skills</p>
-          )}
+          {skills.length === 0 &&
+            (errors.skills?.message ? (
+              <p className="text-center text-sm text-error">
+                {errors.skills.message}
+              </p>
+            ) : (
+              <p className="text-center text-sm">No skills</p>
+            ))}
 
           {skills.map((skill, index) => (
             <Skill

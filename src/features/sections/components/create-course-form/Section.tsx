@@ -37,7 +37,7 @@ const Section = ({ section }: Props) => {
 
   return (
     <div ref={setNodeRef} style={style}>
-      <Collapsible className="shadow-md rounded-sm p-4" open={isOpen}>
+      <Collapsible className="ring-1 ring-ring rounded-sm p-4" open={isOpen}>
         <motion.div
           className="flex justify-between"
           variants={fadeInOutWithShiftVariants}

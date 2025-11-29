@@ -1,23 +1,11 @@
 "use client";
-
 import { useEditor, EditorContent, generateHTML } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import { useEffect } from "react";
 import TextMenuBar from "./TextMenuBar";
-import { CreateLesson } from "@/types/create-course";
 import { UseFormSetValue } from "react-hook-form";
 import Image from "@tiptap/extension-image";
-// import Bold from "@tiptap/extension-bold";
-// import Italic from "@tiptap/extension-italic";
-// import Underline from "@tiptap/extension-underline";
-// import Strike from "@tiptap/extension-strike";
-// import Code from "@tiptap/extension-code";
-// import CodeBlock from "@tiptap/extension-code-block";
-// import Link from "@tiptap/extension-link";
-// import Headline from "@tiptap/extension-heading";
-// import BulletList from "@tiptap/extension-bullet-list";
-// import OrderedList from "@tiptap/extension-ordered-list";
-// import BlockQuote from "@tiptap/extension-blockquote";
+import { CreateLesson } from "@/features/lessons/schemas/create-lesson-schema";
 type Props = {
   content: string;
   setValue: UseFormSetValue<CreateLesson>;
@@ -33,12 +21,10 @@ const TextOption = ({ content, setValue, error }: Props) => {
     ],
     editorProps: {
       attributes: {
-        class: "prose prose-sm focus:outline-none h-full w-full",
+        class:
+          "prose prose-sm focus:outline-none h-full w-full whitespace-pre-wrap",
       },
     },
-    content: content
-      ? generateHTML(JSON.parse(content), [StarterKit, Image])
-      : null,
     immediatelyRender: true,
     autofocus: true,
   });
@@ -58,6 +44,16 @@ const TextOption = ({ content, setValue, error }: Props) => {
       editor.off("update", handleUpdate);
     };
   }, [editor]);
+
+  useEffect(() => {
+    if (content) {
+      editor.commands.setContent(
+        generateHTML(JSON.parse(content), [StarterKit, Image])
+      );
+    } else {
+      editor.commands.clearContent();
+    }
+  }, [content]);
 
   return (
     <div>

@@ -8,37 +8,35 @@ type Props = {
 };
 const Header = ({ course }: Props) => {
   return (
-    <div className="flex max-sm:flex-col gap-3 px-8 py-4 min-h-[300px] bg-purple-100">
+    <div className="grid grid-cols-1 sm:grid-cols-[4fr_1fr] gap-3 shadow-sm px-8 py-4 min-h-[300px]">
       <section className="flex flex-col gap-4">
         <div className="flex flex-col gap-2">
-          <h1 className="text-3xl font-bold text-gray-900">{course.title}</h1>
-          <p className="text-sm text-gray-800">{course.description}</p>
-          <Rating rating={4.5} />
+          <h1 className="text-3xl font-bold text-primary">{course.title}</h1>
+          <p className="text-sm text-muted-foreground">{course.description}</p>
         </div>
         <div className="mt-auto flex flex-col gap-2">
-          <span className="text-xs text-purple-800">
+          <Rating rating={4.5} />
+          <span className="text-xs text-accent">
             Created by: {course?.user?.name}
           </span>
-          <span className="text-xs text-purple-800">
+          <span className="text-xs text-accent">
             Created at:{" "}
             {course.createdAt &&
               new Date(course.createdAt).toLocaleDateString()}
           </span>
-          <span className="text-xs text-purple-800">
+          <span className="text-xs text-accent">
             Last updated:{" "}
             {course.updatedAt &&
               new Date(course.updatedAt).toLocaleDateString()}
           </span>
         </div>
       </section>
-      <section className="min-w-[200px] mt-auto ml-auto">
+
+      <section className="self-end">
         <Link
           href={`/course/${course.slug}/${course?.sectionGroups?.[0].slug}/${course?.sectionGroups?.[0]?.sections?.[0].slug}`}
         >
-          <button
-            className="w-full p-2 bg-purple-500 text-white rounded-xs hover:bg-purple- 
-          hover:scale-95 focus:scale-95 duration-500"
-          >
+          <button className="w-full p-2 bg-accent text-accent-foreground rounded-xs hover:scale-95 focus:scale-95 duration-400">
             Get started
           </button>
         </Link>

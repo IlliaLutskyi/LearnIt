@@ -70,7 +70,7 @@ const PrerequisitesTab = ({ course }: Props) => {
 
       <button
         type="button"
-        className="self-end bg-purple-500 text-white px-4 py-2 text-sm hover:scale-95 focus:scale-95 rounded-sm hover:bg-purple-600 duration-300"
+        className="self-end bg-accent text-accent-foreground px-4 py-2 text-sm hover:scale-95 focus:scale-95 rounded-sm duration-400"
         onClick={async () => append({ content: "" })}
       >
         Add Prerequisite
@@ -96,7 +96,7 @@ const PrerequisitesTab = ({ course }: Props) => {
 
       <button
         type="submit"
-        className="self-end bg-purple-500 text-white p-2 text-sm hover:scale-95 focus:scale-95 rounded-sm hover:bg-purple-600 duration-300"
+        className="self-end bg-accent text-accent-foreground p-2 text-sm hover:scale-95 focus:scale-95 rounded-sm duration-400"
       >
         Save
       </button>

@@ -10,8 +10,8 @@ const AdminBar = () => {
   const pathname = usePathname();
   const { data: session } = useSession();
   return (
-    <aside className="flex flex-col bg-white shadow-inner p-4 h-full overflow-y-auto">
-      <div className="flex items-center gap-4 p-4 border-b-[1px] border-gray-200">
+    <aside className="flex flex-col bg-sidebar-primary text-sidebar-primary-foreground shadow-inner p-4 h-full overflow-y-auto">
+      <div className="flex items-center gap-4 p-4 ring-1">
         <Avatar>
           <AvatarImage></AvatarImage>
           <AvatarFallback>{session?.user?.name.slice(0, 2)}</AvatarFallback>
@@ -27,7 +27,7 @@ const AdminBar = () => {
             <Link
               href="/admin/addCategory"
               className={`flex items-center gap-2 text-sm hover:underline ${
-                pathname === "/admin/addCategory" ? "text-purple-600" : ""
+                pathname === "/admin/addCategory" ? "text-secondary-accent" : ""
               }`}
             >
               <CiCirclePlus />

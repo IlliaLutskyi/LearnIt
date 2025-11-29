@@ -24,7 +24,6 @@ type Props = {
   lessons: TLesson[];
 };
 const Lessons = ({ lessons }: Props) => {
-  console.log("Lessons rendered");
   const dispatch = useAppDispatch();
   const sensors = useSensors(
     useSensor(PointerSensor),

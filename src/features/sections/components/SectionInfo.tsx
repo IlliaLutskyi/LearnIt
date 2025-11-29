@@ -16,20 +16,20 @@ const SectionInfo = ({ sectionGroup }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <motion.div
-      className="flex flex-col border-[1px] border-black ml-4"
+      className="flex flex-col ml-4"
       variants={fadeInOutWithShiftVariants}
       initial="hidden"
       whileInView={"visible"}
     >
       <button
-        className="flex gap-4 bg-purple-200 p-2 hover:bg-purple-300 duration-300"
+        className="flex gap-2 bg-accent duration-300 p-2 text-accent-foreground"
         onClick={() => setIsOpen(!isOpen)}
       >
         <p>
           {isOpen ? (
-            <MdOutlineKeyboardArrowUp className="text-black" size={20} />
+            <MdOutlineKeyboardArrowUp size={20} />
           ) : (
-            <MdOutlineKeyboardArrowDown className="text-black" size={20} />
+            <MdOutlineKeyboardArrowDown size={20} />
           )}
         </p>
 
@@ -37,7 +37,7 @@ const SectionInfo = ({ sectionGroup }: Props) => {
       </button>
 
       {isOpen && sectionGroup?.sections && (
-        <section className="flex flex-col gap-2 bg-purple-200 px-8 pb-2">
+        <section className="flex flex-col gap-3 bg-accent text-accent-foreground px-2 py-2">
           {sectionGroup.sections.map((section) => {
             if (!section.sectionRates) return null;
             const rating =
@@ -49,8 +49,8 @@ const SectionInfo = ({ sectionGroup }: Props) => {
                 key={section.id}
                 className="flex justify-between items-center"
               >
-                <p className="text-xs">
-                  <span className="m-1"> {section.order}.</span>
+                <p className="text-xs font-bold">
+                  <span className="m-1">{section.order}.</span>
                   {section.title}
                 </p>
 

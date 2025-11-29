@@ -22,14 +22,10 @@ const SectionGroup = ({ sectionGroup }: Props) => {
         className="flex justify-between items-baseline"
         onClick={() => setIsOpen(!isOpen)}
       >
-        <h1 className="text-md font-bold text-white hover:text-orange-300 duration-400 ">
+        <h1 className="text-md font-bold hover:text-secondary-accent duration-400">
           {sectionGroup.title}
         </h1>
-        {isOpen ? (
-          <FaArrowUp className="text-gray-400 hover:text-white duration-400" />
-        ) : (
-          <FaArrowDown className="text-gray-400 hover:text-white duration-400" />
-        )}
+        {isOpen ? <FaArrowUp /> : <FaArrowDown />}
       </div>
       <CollapsibleContent>
         <div className="ml-2 mt-2">

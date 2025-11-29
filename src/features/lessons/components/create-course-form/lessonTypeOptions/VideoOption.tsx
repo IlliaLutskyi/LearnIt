@@ -1,8 +1,7 @@
 "use client";
-import { CreateLesson } from "@/types/create-course";
 import Input from "@/components/common/Input";
 import { UseFormRegister } from "react-hook-form";
-import { error } from "console";
+import { CreateLesson } from "@/features/lessons/schemas/create-lesson-schema";
 
 type Props = {
   register: UseFormRegister<CreateLesson>;

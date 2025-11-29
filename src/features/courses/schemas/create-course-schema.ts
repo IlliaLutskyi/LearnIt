@@ -1,3 +1,4 @@
+import { ContentTypeSchema } from "@/types/create-course/content-type";
 import z from "zod";
 
 export const CreateCourseSchema = z.object({
@@ -29,14 +30,7 @@ export const CreateCourseSchema = z.object({
                     title: z.string().min(1, "Title is required"),
                     content: z.string().optional(),
                     videoSource: z.string().optional(),
-                    contentType: z.enum([
-                      "Video",
-                      "Text",
-                      "File",
-                      "Quiz",
-                      "Markdown",
-                      "Table",
-                    ]),
+                    contentType: ContentTypeSchema,
                     order: z.coerce.number(),
                     quiz: z
                       .object({

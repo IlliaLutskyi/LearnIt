@@ -41,7 +41,7 @@ const Prerequisite = <T extends FieldValues>({
       <Input
         type="text"
         multiline
-        className="w-full outline-0 text-sm focus:ring-1 focus:ring-purple-500 shadow-sm p-2 rounded-sm"
+        className="input-field max-h-[5rem]"
         register={register}
         error={error}
         field={`prerequisites.${index}.content` as Path<T>}
@@ -52,7 +52,7 @@ const Prerequisite = <T extends FieldValues>({
           await controlls.start("exit");
           remove(index);
         }}
-        className="text-red-500 m-auto text-lg"
+        className="text-error m-auto text-lg"
       >
         <MdDelete />
       </button>

@@ -38,7 +38,7 @@ const Input = <T extends FieldValues>({
             id={id}
           />
         )}
-        {error && <p className="text-xs text-red-500">{error}</p>}
+        {error && <p className="text-xs text-error">{error}</p>}
       </div>
     </div>
   );

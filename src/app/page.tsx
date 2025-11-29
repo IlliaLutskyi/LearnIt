@@ -1,6 +1,6 @@
-import Heading from "@/components/home/Heading";
+import Header from "@/components/home/Header";
 const Home = () => {
-  return <Heading />;
+  return <Header />;
 };
 
 export default Home;

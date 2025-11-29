@@ -63,19 +63,19 @@ const Quiz = ({ lesson }: Props) => {
           {lesson.quiz?.answers.map((answer) => {
             const isRight =
               result?.pick === answer.id && result?.isCorrect
-                ? "bg-green-300 ring-green-400"
+                ? "bg-success ring-ring-success text-success-foreground"
                 : "";
 
             const isWrong =
               result?.pick === answer.id && result?.isCorrect === false
-                ? "bg-red-300 ring-red-400"
+                ? "bg-error ring-ring-error text-error-foreground"
                 : "";
 
             return (
               <button
                 key={answer.id}
                 aria-pressed={result?.pick === answer.id ? true : false}
-                className={`p-2 ring-1 ring-gray-400 hover:scale-95 duration-500 ${isRight} ${isWrong}`}
+                className={`p-2 ring-1 hover:scale-95 ${isRight} ${isWrong} duration-400`}
                 onClick={() => handleCheck(answer.id)}
               >
                 <p className="text-sm">{answer.content}</p>

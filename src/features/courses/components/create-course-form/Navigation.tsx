@@ -17,7 +17,7 @@ const Navigation = ({ currentStep }: Props) => {
         <button
           type="button"
           onClick={() => dispatch(setNextStep({ nextStep: currentStep - 1 }))}
-          className="self-start mr-auto mt-4 bg-purple-500 text-white text-sm px-4 py-2 focus:scale-95 rounded-sm hover:bg-purple-700 duration-500"
+          className="self-start mr-auto mt-4 bg-accent text-accent-foreground text-sm px-4 py-2 hover:scale-95 rounded-sm duration-400"
         >
           Back
         </button>
@@ -28,7 +28,7 @@ const Navigation = ({ currentStep }: Props) => {
         onClick={() =>
           currentStep === steps.length && dispatch(toggleConfirmationForm(true))
         }
-        className="self-end ml-auto mt-4 bg-purple-500 text-white text-sm px-4 py-2 focus:scale-95 rounded-sm hover:bg-purple-700 duration-500"
+        className="self-end ml-auto mt-4 bg-accent text-accent-foreground text-sm px-4 py-2 hover:scale-95 rounded-sm duration-400"
       >
         {currentStep === steps.length
           ? isLoading

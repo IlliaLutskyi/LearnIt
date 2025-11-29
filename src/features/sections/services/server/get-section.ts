@@ -16,8 +16,12 @@ export default async function getSection(
         },
         slug: section_slug,
       },
+      orderBy: {
+        order: "asc",
+      },
       include: {
         lessons: {
+          orderBy: { order: "asc" },
           include: { quiz: { include: { answers: true } } },
         },
       },

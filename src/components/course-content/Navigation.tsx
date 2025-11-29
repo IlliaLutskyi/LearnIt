@@ -17,9 +17,9 @@ const Navigation = ({ nextSection, prevSection }: Props) => {
         className="w-full"
       >
         <button
-          className={`w-full flex flex-col items-start gap-2 text-xs text-purple-500 hover:text-purple-900 border-purple-500 border-[1px] p-8 rounded-2xl hover:border-purple-900 ${
+          className={`w-full flex flex-col items-start gap-2 text-xs text-accent border-accent hover:text-secondary-accent hover:border-secondary-accent border-[1px] p-8 rounded-2xl ${
             !prevSection && "hidden"
-          } duration-400`}
+          } duration-500`}
         >
           <span className="font-bold text-sm text-black">Back</span>
           <span className="text-sm line-clamp-1">
@@ -33,11 +33,12 @@ const Navigation = ({ nextSection, prevSection }: Props) => {
         className="w-full"
       >
         <button
-          className={`w-full flex flex-col items-end gap-2 text-xs text-purple-500 hover:text-purple-900 border-purple-500 border-[1px] p-8 rounded-2xl hover:border-purple-900 ${
+          className={`w-full flex flex-col items-end gap-2 text-xs text-accent border-accent hover:text-secondary-accent hover:border-secondary-accent border-[1px] p-8 rounded-2xl ${
             !nextSection && "hidden"
-          } duration-200`}
+          } duration-500`}
         >
-          <span className="font-bold text-sm text-black">Next</span>
+          <span className="font-bold text-sm text-foreground">Next</span>
+
           <span className="text-sm line-clamp-1">
             {nextSection?.title + " ->"}
           </span>

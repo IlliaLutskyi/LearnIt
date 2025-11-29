@@ -5,12 +5,13 @@ type Props = {
 };
 const Skills = ({ skills }: Props) => {
   return (
-    <div className="flex flex-col gap-4 p-5 border-[1px] border-purple-300 rounded-sm">
+    <div className="flex flex-col gap-4 p-5 border-[1px] border-accent rounded-sm">
       <h2 className="font-bold text-lg">What you'll learn</h2>
-      <section className="grid grid-cols-2 gap-4">
+
+      <section className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {skills.map((skill) => (
-          <div key={skill.id} className="flex items-center  gap-4">
-            <span className="text-purple-600 text-sm">
+          <div key={skill.id} className="flex items-center gap-4">
+            <span className="text-accent text-sm">
               <IoMdCheckmark />
             </span>
             <p className="text-sm">{skill.content}</p>

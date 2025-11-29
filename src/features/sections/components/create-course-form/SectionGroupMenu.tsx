@@ -9,14 +9,13 @@ import {
 } from "@/components/ui/menubar";
 import { useAppDispatch } from "@/lib/hooks";
 import {
-  addLessonToSection,
   addSectionToSectionGroup,
   deleteSectionGroup,
 } from "@/lib/slices/create-course-slice";
 import { SiGooglegemini } from "react-icons/si";
 import { HiDotsVertical } from "react-icons/hi";
 import { lazy, memo, Suspense, useState } from "react";
-import { Lesson, SectionGroup } from "@/types/create-course";
+import { SectionGroup } from "@/types/create-course";
 import { LegacyAnimationControls } from "framer-motion";
 import { GenerateSection } from "../../schemas/generate-section";
 import { toast } from "sonner";

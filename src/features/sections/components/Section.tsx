@@ -13,16 +13,16 @@ const Section = ({ section, sectionGroupSlug }: Props) => {
     <div
       className={`${
         section.slug === params.sectionSlug
-          ? "border-l-2 border-orange-400"
-          : "border-l-2 hover:border-orange-400 border-slate-200"
+          ? "border-l-2 border-secondary-accent"
+          : "border-l-2 hover:border-secondary-accent border-slate-200"
       } pl-4`}
     >
       <Link
         href={`/course/${params.courseSlug}/${sectionGroupSlug}/${section.slug}`}
         className={`text-sm ${
           params.sectionSlug === section.slug
-            ? "text-orange-300"
-            : "text-white hover:text-orange-300"
+            ? "text-secondary-accent"
+            : "hover:text-secondary-accent"
         } duration-400`}
       >
         {section.title}

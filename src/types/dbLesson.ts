@@ -1,4 +1,5 @@
 import { $Enums } from "../../prisma/generated/prisma";
+import { ContentType } from "./create-course";
 import { DbQuiz } from "./dbQuiz";
 
 export type DbLesson = {
@@ -7,8 +8,9 @@ export type DbLesson = {
   order: number;
   content: string | null;
   quiz: DbQuiz | null;
+  url?: string;
   videoSource: $Enums.VideoSource | null;
-  contentType: $Enums.ContentType;
+  contentType: ContentType;
   quizId?: number | null;
   sectionId?: number;
 };

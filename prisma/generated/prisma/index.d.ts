@@ -93,7 +93,8 @@ export const ContentType: {
   Text: 'Text',
   Quiz: 'Quiz',
   Markdown: 'Markdown',
-  Table: 'Table'
+  Table: 'Table',
+  Image: 'Image'
 };
 
 export type ContentType = (typeof ContentType)[keyof typeof ContentType]

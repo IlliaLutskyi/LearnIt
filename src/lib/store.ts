@@ -3,7 +3,6 @@ import CreateCourseReducer from "./slices/create-course-slice";
 import ConfirmationReducer from "./slices/confirmation-form-slice";
 import CourseViewReducer from "./slices/course-view-slice";
 import EditCourseDetailReducer from "./slices/edit-course-detail-form-slice";
-import EditCourseContentReducer from "./slices/edit-course-content-form-slice";
 export const makeStore = () => {
   return configureStore({
     reducer: {
@@ -11,7 +10,6 @@ export const makeStore = () => {
       ConfirmationForm: ConfirmationReducer,
       CourseView: CourseViewReducer,
       EditCourseDetail: EditCourseDetailReducer,
-      EditCourseContent: EditCourseContentReducer,
     },
   });
 };

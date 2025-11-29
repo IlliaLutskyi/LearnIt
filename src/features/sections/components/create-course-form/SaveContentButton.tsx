@@ -27,7 +27,7 @@ const SaveContentButton = () => {
   return (
     <button
       type="button"
-      className="self-start flex items-center gap-2 bg-purple-500 text-white text-sm p-2 hover:scale-95 rounded-sm hover:bg-purple-700 duration-500"
+      className="self-start flex items-center gap-2 bg-accent text-accent-foreground text-sm p-2 hover:scale-95 rounded-sm duration-400"
       onClick={isSaved ? handleClearStorage : handleSave}
     >
       {!isSaved && <IoMdSave />}

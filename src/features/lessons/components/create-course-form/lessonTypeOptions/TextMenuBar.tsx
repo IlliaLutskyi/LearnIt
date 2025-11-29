@@ -1,8 +1,8 @@
 "use client";
 import { Editor, useEditorState } from "@tiptap/react";
 import UploadDocButton from "../UploadDocButton";
-import { CreateLesson } from "@/types/create-course";
 import { UseFormSetValue } from "react-hook-form";
+import { CreateLesson } from "@/features/lessons/schemas/create-lesson-schema";
 type Props = {
   editor: Editor;
   setValue: UseFormSetValue<CreateLesson>;

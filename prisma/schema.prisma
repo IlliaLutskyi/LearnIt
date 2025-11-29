@@ -130,4 +130,5 @@ enum ContentType {
   Quiz
   Markdown
   Table
+  Image
 }
