@@ -36,14 +36,15 @@ const Section = ({ section }: Props) => {
   }, []);
 
   return (
-    <div ref={setNodeRef} style={style}>
+    <motion.div
+      ref={setNodeRef}
+      style={style}
+      variants={fadeInOutWithShiftVariants}
+      initial="hidden"
+      animate={controlls}
+    >
       <Collapsible className="ring-1 ring-ring rounded-sm p-4" open={isOpen}>
-        <motion.div
-          className="flex justify-between"
-          variants={fadeInOutWithShiftVariants}
-          initial="hidden"
-          animate={controlls}
-        >
+        <div className="flex justify-between">
           <button onClick={() => setIsOpen(!isOpen)} className="font-bold">
             {section.title}
           </button>
@@ -53,7 +54,7 @@ const Section = ({ section }: Props) => {
               <FaSort />
             </button>
           </section>
-        </motion.div>
+        </div>
         <CollapsibleContent>
           {section.lessons.length > 0 ? (
             <Suspense fallback={<Loader />}>
@@ -64,7 +65,7 @@ const Section = ({ section }: Props) => {
           )}
         </CollapsibleContent>
       </Collapsible>
-    </div>
+    </motion.div>
   );
 };
 

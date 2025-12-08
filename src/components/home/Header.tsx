@@ -2,9 +2,9 @@ import Link from "next/link";
 
 const Header = () => {
   return (
-    <div className="flex flex-col gap-4 mt-24 w-full border-b-2 pb-20">
+    <div className="flex flex-col gap-4 mt-24 w-full border-b-[1px] pb-20">
       <section className="flex flex-col gap-4">
-        <h1 className="text-3xl font-bold text-center">
+        <h1 className="text-3xl font-extrabold text-center">
           Welcome to our <span className="">LearnIt </span>
           platform
         </h1>

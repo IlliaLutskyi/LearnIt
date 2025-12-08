@@ -26,7 +26,7 @@ const Sidebar = ({ sectionGroups }: Props) => {
 const DesktopSidebar = ({ sectionGroups }: Props) => {
   return (
     <div
-      className="max-sm:hidden p-4 bg-sidebar-primary text-sidebar-primary-foreground h-[calc(100vh-48px)] min-w-[200px] overflow-y-auto"
+      className="hidden sm:block p-4 bg-sidebar-primary text-sidebar-primary-foreground h-[calc(100vh-48px)] min-w-[200px] overflow-y-auto"
       id="scrollbar"
     >
       <div className="flex flex-col gap-2 justify-center">
@@ -41,7 +41,7 @@ const DesktopSidebar = ({ sectionGroups }: Props) => {
 };
 const MobileSidebar = ({ sectionGroups }: Props) => {
   return (
-    <div className="sticky sm:hidden top-0 bg-accent text-accent-foreground w-full h-10 p-2 z-50">
+    <div className="sticky sm:hidden top-0 bg-navbar text-navbar-foreground w-full h-10 p-2 z-10">
       <Drawer direction="left">
         <DrawerTrigger>
           <IoMenu />

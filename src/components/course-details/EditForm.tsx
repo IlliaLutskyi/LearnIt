@@ -1,7 +1,6 @@
 "use client";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { memo } from "react";
-import { useSession } from "next-auth/react";
 import { toggleEditCourseDetailForm } from "@/lib/slices/edit-course-detail-form-slice";
 import GeneralInfoTab from "./tabs/GeneralInfoTab";
 import SkillsTab from "./tabs/SkillsTab";
@@ -14,13 +13,10 @@ type Props = {
   course: DbCourse;
 };
 const EditForm = ({ course }: Props) => {
-  const { data: session, status } = useSession();
   const { currentTab, isOpen } = useAppSelector(
     (store) => store.EditCourseDetail
   );
   const dispatch = useAppDispatch();
-
-  if (!session || status !== "authenticated") return null;
 
   return (
     <AnimatePresence>

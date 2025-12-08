@@ -3,7 +3,7 @@ import { useAppDispatch } from "@/lib/hooks";
 import { createSectionGroup } from "@/lib/slices/create-course-slice";
 import React from "react";
 import { FaPlus } from "react-icons/fa";
-const AddSectionButton = () => {
+const AddSectionGroupButton = () => {
   const dispatch = useAppDispatch();
   function handleAdd() {
     dispatch(createSectionGroup());
@@ -15,9 +15,9 @@ const AddSectionButton = () => {
       onClick={handleAdd}
     >
       <FaPlus />
-      <span>Add sectionGroup</span>
+      <span>Add section group</span>
     </button>
   );
 };
 
-export default AddSectionButton;
+export default AddSectionGroupButton;

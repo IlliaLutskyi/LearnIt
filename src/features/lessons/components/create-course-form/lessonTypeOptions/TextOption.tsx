@@ -1,20 +1,21 @@
 "use client";
-import { useEditor, EditorContent, generateHTML } from "@tiptap/react";
-import StarterKit from "@tiptap/starter-kit";
+import { useEditor, EditorContent } from "@tiptap/react";
 import { useEffect } from "react";
 import TextMenuBar from "./TextMenuBar";
-import { UseFormSetValue } from "react-hook-form";
 import Image from "@tiptap/extension-image";
 import { CreateLesson } from "@/features/lessons/schemas/create-lesson-schema";
+import { UseFormSetValue } from "react-hook-form";
+import { extensions } from "@/features/lessons/lib/tiptap-extensions";
 type Props = {
+  isOpen: boolean;
   content: string;
   setValue: UseFormSetValue<CreateLesson>;
   error: string | undefined;
 };
-const TextOption = ({ content, setValue, error }: Props) => {
+const TextOption = ({ isOpen, content, setValue, error }: Props) => {
   const editor = useEditor({
     extensions: [
-      StarterKit,
+      ...extensions,
       Image.configure({
         allowBase64: true,
       }),
@@ -22,7 +23,7 @@ const TextOption = ({ content, setValue, error }: Props) => {
     editorProps: {
       attributes: {
         class:
-          "prose prose-sm focus:outline-none h-full w-full whitespace-pre-wrap",
+          "prose prose-sm bg-background **:text-foreground focus:outline-none h-full w-full whitespace-pre-wrap",
       },
     },
     immediatelyRender: true,
@@ -46,14 +47,10 @@ const TextOption = ({ content, setValue, error }: Props) => {
   }, [editor]);
 
   useEffect(() => {
-    if (content) {
-      editor.commands.setContent(
-        generateHTML(JSON.parse(content), [StarterKit, Image])
-      );
-    } else {
-      editor.commands.clearContent();
+    if (content && isOpen) {
+      editor.commands.setContent(content);
     }
-  }, [content]);
+  }, [isOpen]);
 
   return (
     <div>

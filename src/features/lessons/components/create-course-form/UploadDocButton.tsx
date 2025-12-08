@@ -40,7 +40,7 @@ const UploadDocButton = ({ editor, setValue }: Props) => {
   return (
     <div>
       <label htmlFor="docs">
-        <span className="bg-gray-100 p-1 rounded-sm text-xs hover:bg-gray-200 duration-400">
+        <span className="bg-card p-1 text-card-foreground rounded-sm text-xs hover:bg-accent duration-400">
           Upload document
         </span>
       </label>

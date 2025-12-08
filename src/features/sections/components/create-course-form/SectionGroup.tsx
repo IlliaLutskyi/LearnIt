@@ -1,11 +1,7 @@
 "use client";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible";
+import { Collapsible, CollapsibleContent } from "@/components/ui/collapsible";
 import { FaSort } from "react-icons/fa";
 import Sections from "./Sections";
 import SectionGroupMenu from "./SectionGroupMenu";
@@ -33,14 +29,15 @@ const SectionGroup = ({ sectionGroup }: Props) => {
     inView();
   });
   return (
-    <div ref={setNodeRef} style={style}>
+    <motion.div
+      ref={setNodeRef}
+      style={style}
+      initial="hidden"
+      animate={controlls}
+      variants={fadeInOutWithShiftVariants}
+    >
       <Collapsible className="ring-1 ring-ring rounded-sm p-4" open={isOpen}>
-        <motion.div
-          className="flex justify-between"
-          initial="hidden"
-          animate={controlls}
-          variants={fadeInOutWithShiftVariants}
-        >
+        <div className="flex justify-between">
           <button onClick={() => setIsOpen(!isOpen)} className="font-bold">
             {sectionGroup.title}
           </button>
@@ -54,7 +51,7 @@ const SectionGroup = ({ sectionGroup }: Props) => {
               <FaSort />
             </button>
           </section>
-        </motion.div>
+        </div>
         <CollapsibleContent>
           {sectionGroup.sections.length > 0 ? (
             <Sections
@@ -66,7 +63,7 @@ const SectionGroup = ({ sectionGroup }: Props) => {
           )}
         </CollapsibleContent>
       </Collapsible>
-    </div>
+    </motion.div>
   );
 };
 

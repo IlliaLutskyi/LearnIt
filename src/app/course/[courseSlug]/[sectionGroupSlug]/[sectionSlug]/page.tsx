@@ -21,7 +21,7 @@ const Course = async ({ params }: Props) => {
     return <h1 className="text-center font-bold">Course not found</h1>;
 
   return (
-    <div className="grid grid-cols-[1fr_5fr] h-full max-sm:block">
+    <div className="block sm:grid grid-cols-[1fr_5fr] h-full">
       <Sidebar sectionGroups={sectionGroups} />
       <Content />
     </div>

@@ -43,7 +43,7 @@ const TextMenuBar = ({ editor, setValue }: Props) => {
         onClick={() => editor.chain().focus().toggleBold().run()}
         disabled={!editorState.canBold}
         type="button"
-        className="bg-gray-100 p-1 rounded-sm text-xs hover:bg-gray-200 duration-400"
+        className="bg-card p-1 text-card-foreground rounded-sm text-xs hover:bg-accent duration-400"
       >
         Bold
       </button>
@@ -51,7 +51,7 @@ const TextMenuBar = ({ editor, setValue }: Props) => {
         onClick={() => editor.chain().focus().toggleItalic().run()}
         disabled={!editorState.canItalic}
         type="button"
-        className="bg-gray-100 p-1 rounded-sm text-xs hover:bg-gray-200 duration-400"
+        className="bg-card p-1 text-card-foreground rounded-sm text-xs hover:bg-accent duration-400"
       >
         Italic
       </button>
@@ -59,7 +59,7 @@ const TextMenuBar = ({ editor, setValue }: Props) => {
         onClick={() => editor.chain().focus().toggleStrike().run()}
         disabled={!editorState.canStrike}
         type="button"
-        className="bg-gray-100 p-1 rounded-sm text-xs hover:bg-gray-200 duration-400"
+        className="bg-card p-1 text-card-foreground rounded-sm text-xs hover:bg-accent duration-400"
       >
         Strike
       </button>
@@ -67,97 +67,97 @@ const TextMenuBar = ({ editor, setValue }: Props) => {
         onClick={() => editor.chain().focus().toggleCode().run()}
         disabled={!editorState.canCode}
         type="button"
-        className="bg-gray-100 p-1 rounded-sm text-xs hover:bg-gray-200 duration-400"
+        className="bg-card p-1 text-card-foreground rounded-sm text-xs hover:bg-accent duration-400"
       >
         Code
       </button>
       <button
         onClick={() => editor.chain().focus().unsetAllMarks().run()}
         type="button"
-        className="bg-gray-100 p-1 rounded-sm text-xs hover:bg-gray-200 duration-400"
+        className="bg-card p-1 text-card-foreground rounded-sm text-xs hover:bg-accent duration-400"
       >
         Clear marks
       </button>
       <button
         onClick={() => editor.chain().focus().clearNodes().run()}
         type="button"
-        className="bg-gray-100 p-1 rounded-sm text-xs hover:bg-gray-200 duration-400"
+        className="bg-card p-1 text-card-foreground rounded-sm text-xs hover:bg-accent duration-400"
       >
         Clear nodes
       </button>
       <button
         onClick={() => editor.chain().focus().setParagraph().run()}
         type="button"
-        className="bg-gray-100 p-1 rounded-sm text-xs hover:bg-gray-200 duration-400"
+        className="bg-card p-1 text-card-foreground rounded-sm text-xs hover:bg-accent duration-400"
       >
         Paragraph
       </button>
       <button
         onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
-        className="bg-gray-100 p-1 rounded-sm text-xs hover:bg-gray-200 duration-400"
+        className="bg-card p-1 text-card-foreground rounded-sm text-xs hover:bg-accent duration-400"
         type="button"
       >
         H1
       </button>
       <button
         onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
-        className="bg-gray-100 p-1 rounded-sm text-xs hover:bg-gray-200 duration-400"
+        className="bg-card p-1 text-card-foreground rounded-sm text-xs hover:bg-accent duration-400"
         type="button"
       >
         H2
       </button>
       <button
         onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
-        className="bg-gray-100 p-1 rounded-sm text-xs hover:bg-gray-200 duration-400"
+        className="bg-card p-1 text-card-foreground rounded-sm text-xs hover:bg-accent duration-400"
         type="button"
       >
         H3
       </button>
       <button
         onClick={() => editor.chain().focus().toggleHeading({ level: 4 }).run()}
-        className="bg-gray-100 p-1 rounded-sm text-xs hover:bg-gray-200 duration-400"
+        className="bg-card p-1 text-card-foreground rounded-sm text-xs hover:bg-accent duration-400"
         type="button"
       >
         H4
       </button>
       <button
         onClick={() => editor.chain().focus().toggleHeading({ level: 5 }).run()}
-        className="bg-gray-100 p-1 rounded-sm text-xs hover:bg-gray-200 duration-400"
+        className="bg-card p-1 text-card-foreground rounded-sm text-xs hover:bg-accent duration-400"
         type="button"
       >
         H5
       </button>
       <button
         onClick={() => editor.chain().focus().toggleHeading({ level: 6 }).run()}
-        className="bg-gray-100 p-1 rounded-sm text-xs hover:bg-gray-200 duration-400"
+        className="bg-card p-1 text-card-foreground rounded-sm text-xs hover:bg-accent duration-400"
         type="button"
       >
         H6
       </button>
       <button
         onClick={() => editor.chain().focus().toggleBulletList().run()}
-        className="bg-gray-100 p-1 rounded-sm text-xs hover:bg-gray-200 duration-400"
+        className="bg-card p-1 text-card-foreground rounded-sm text-xs hover:bg-accent duration-400"
         type="button"
       >
         Bullet list
       </button>
       <button
         onClick={() => editor.chain().focus().toggleOrderedList().run()}
-        className="bg-gray-100 p-1 rounded-sm text-xs hover:bg-gray-200 duration-400"
+        className="bg-card p-1 text-card-foreground rounded-sm text-xs hover:bg-accent duration-400"
         type="button"
       >
         Ordered list
       </button>
       <button
         onClick={() => editor.chain().focus().toggleCodeBlock().run()}
-        className="bg-gray-100 p-1 rounded-sm text-xs hover:bg-gray-200 duration-400"
+        className="bg-card p-1 text-card-foreground rounded-sm text-xs hover:bg-accent duration-400"
         type="button"
       >
         Code block
       </button>
       <button
         onClick={() => editor.chain().focus().toggleBlockquote().run()}
-        className="bg-gray-100 p-1 rounded-sm text-xs hover:bg-gray-200 duration-400"
+        className="bg-card p-1 text-card-foreground rounded-sm text-xs hover:bg-accent duration-400"
         type="button"
       >
         Blockquote
@@ -165,14 +165,14 @@ const TextMenuBar = ({ editor, setValue }: Props) => {
       <button
         onClick={() => editor.chain().focus().setHorizontalRule().run()}
         type="button"
-        className="bg-gray-100 p-1 rounded-sm text-xs hover:bg-gray-200 duration-400"
+        className="bg-card p-1 text-card-foreground rounded-sm text-xs hover:bg-accent duration-400"
       >
         Horizontal rule
       </button>
       <button
         onClick={() => editor.chain().focus().setHardBreak().run()}
         type="button"
-        className="bg-gray-100 p-1 rounded-sm text-xs hover:bg-gray-200 duration-400"
+        className="bg-card p-1 text-card-foreground rounded-sm text-xs hover:bg-accent duration-400"
       >
         Hard break
       </button>
@@ -180,7 +180,7 @@ const TextMenuBar = ({ editor, setValue }: Props) => {
       <button
         onClick={() => editor.chain().focus().undo().run()}
         disabled={!editorState.canUndo}
-        className="bg-gray-100 p-1 rounded-sm text-xs hover:bg-gray-200 duration-400"
+        className="bg-card p-1 text-card-foreground rounded-sm text-xs hover:bg-accent duration-400"
         type="button"
       >
         Undo
@@ -188,7 +188,7 @@ const TextMenuBar = ({ editor, setValue }: Props) => {
       <button
         onClick={() => editor.chain().focus().redo().run()}
         disabled={!editorState.canRedo}
-        className="bg-gray-100 p-1 rounded-sm text-xs hover:bg-gray-200 duration-400"
+        className="bg-card p-1 text-card-foreground rounded-sm text-xs hover:bg-accent duration-400"
         type="button"
       >
         Redo

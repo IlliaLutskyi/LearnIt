@@ -19,6 +19,7 @@ import { Input } from "@/components/common";
 import CategorySelect from "@/features/categories/components/create-course-form/CategorySelect";
 import { motion } from "framer-motion";
 import { fadeInVariants } from "@/features/animations/fade-in";
+import { isJsonValid } from "@/utils/isJsonValid";
 
 type Props = {
   step: Step;
@@ -38,7 +39,7 @@ const Step1 = ({ step }: Props) => {
 
   useEffect(() => {
     const generalInfo = localStorage.getItem("generalInfo");
-    if (generalInfo) {
+    if (generalInfo && isJsonValid(generalInfo)) {
       const { title, description, category } = JSON.parse(generalInfo);
       setValue("title", title);
       setValue("description", description);

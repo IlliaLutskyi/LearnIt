@@ -3,8 +3,8 @@ import {
   GenerateLesson,
   GenerateLessonSchema,
 } from "../../schemas/generate-lesson-schema";
-import { ai } from "@/lib/ai";
-import { extractFromJSON } from "@/utils/exractFromJSON";
+import { ai, ai_model } from "@/lib/ai";
+import { isJsonValid } from "@/utils/isJsonValid";
 
 export async function generateLesson(req: Request) {
   const data: GenerateLesson = await req.json();
@@ -16,109 +16,34 @@ export async function generateLesson(req: Request) {
         { message: z.prettifyError(error) },
         { status: 400 }
       );
-    const prompt = `Based on this description ${data.prompt}, generate lesson and return the lesson in a JSON format. The response has to be valid json and be like this example: 
-    {
-   "type": "doc",
-  "content": [
-     {
-      "type": "heading",
-      "attrs": { "level": 1 },
-      "content": [{ "type": "text", "text": "Tiptap Text Formatting Example" }]
-    },
-    {
-      "type": "paragraph",
-      "content": [
-        { "type": "text", "text": "This is " },
-        { "type": "text", "marks": [{ "type": "bold" }], "text": "bold" },
-        { "type": "text", "text": ", " },
-        { "type": "text", "marks": [{ "type": "italic" }], "text": "italic" },
-        { "type": "text", "text": ", " },
-        { "type": "text", "marks": [{ "type": "underline" }], "text": "underlined" },
-        { "type": "text", "text": ", " },
-        { "type": "text", "marks": [{ "type": "strike" }], "text": "strikethrough" },
-        { "type": "text", "text": ", and " },
-        { "type": "text", "marks": [{ "type": "code" }], "text": "inline code" },
-        { "type": "text", "text": "." }
-      ]
-    },
-    {
-      "type": "paragraph",
-      "content": [
-        { "type": "text", "text": "You can also include " },
-        {
-          "type": "text",
-          "marks": [
-            {
-              "type": "link",
-              "attrs": { "href": "https://tiptap.dev", "target": "_blank" }
-            }
-          ],
-          "text": "links"
-        },
-        { "type": "text", "text": " to websites." }
-      ]
-    },
-    {
-      "type": "heading",
-      "attrs": { "level": 2 },
-      "content": [{ "type": "text", "text": "Lists" }]
-    },
-    {
-      "type": "bulletList",
-      "content": [
-        {
-          "type": "listItem",
-          "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "Bullet item 1" }] }]
-        },
-        {
-          "type": "listItem",
-          "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "Bullet item 2" }] }]
-        }
-      ]
-    },
-    {
-      "type": "orderedList",
-      "attrs": { "start": 1 },
-      "content": [
-        {
-          "type": "listItem",
-          "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "Numbered item 1" }] }]
-        },
-        {
-          "type": "listItem",
-          "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "Numbered item 2" }] }]
-        }
-      ]
-    },
-    {
-      "type": "blockquote",
-      "content": [
-        { "type": "paragraph", "content": [{ "type": "text", "text": "This is a blockquote." }] }
-      ]
-    },
-    {
-      "type": "codeBlock",
-      "attrs": { "language": "javascript" },
-      "content": [
-        { "type": "text", "text": "console.log('Hello from a code block!');" }
-      ]
-    },
-    {
-      "type": "paragraph",
-      "content": [
-        { "type": "text", "text": "Finally, here's some " },
-        { "type": "text", "marks": [{ "type": "highlight" }], "text": "highlighted text" },
-        { "type": "text", "text": " if you have the highlight extension." }
-      ]
-    }
-  ]
-}`;
+    const prompt = `You are a lesson generator assistant. Based on this description "${data.prompt}", generate a lesson and return the lesson in a JSON format. Response examples: 
+    1. {"content":"<h1>Project Retrospective: Q4 2025</h1><p>This document summarizes key findings. We saw **strong** growth in Q4, despite a *slowdown* in November. Data is available at <a href=\"https://analytics.example.com/q4\" target=\"_blank\" rel=\"nofollow\">the analytics dashboard</a>. <br>The team is ready for the next phase.</p><h2>Action Items</h2><ol><li>Finalize the budget for Q1 2026.</li><li>Begin hiring for new roles:<ul><li>Frontend Developer</li><li>Backend Architect</li></ul></li><li><p>Schedule the training session on this topic:</p><p>Using the <code>new_feature_branch</code> for development work.</p></li></ol><blockquote><p>The success of the project was largely due to the consistent application of agile principles and effective communication across all teams.</p><p>— CEO's Quarterly Address</p></blockquote><h3>Technical Review</h3><p>There was a minor bug in the utility library that was addressed:</p><pre><code class=\"language-typescript\">interface User {\n id: number;\n name: string;\n // Bug fix: email was optional but should be required\n email: string; \n}</code></pre><hr><p>This document is complete. Please note the <del>minor error</del> has been resolved, and the final code is certified.</p>"}
+    `;
+
     const response = await ai.models.generateContent({
-      model: "gemini-2.5-pro",
+      model: ai_model,
       contents: prompt,
+      config: {
+        responseMimeType: "application/json",
+        responseSchema: {
+          type: "object",
+          properties: {
+            content: {
+              type: "string",
+              description:
+                "The tiptap based html content with StarterKit and Link extensions",
+            },
+          },
+        },
+      },
     });
 
-    const lesson = extractFromJSON(response.text);
+    const lesson = isJsonValid(response.text || "")
+      ? JSON.parse(response.text!)
+      : undefined;
+
+    console.log(lesson);
+
     return Response.json(
       {
         lesson: lesson,

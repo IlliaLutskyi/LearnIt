@@ -15,7 +15,7 @@ import {
 import { SiGooglegemini } from "react-icons/si";
 import { HiDotsVertical } from "react-icons/hi";
 import { lazy, memo, Suspense, useState } from "react";
-import { SectionGroup } from "@/types/create-course";
+import { Section, SectionGroup } from "@/types/create-course";
 import { LegacyAnimationControls } from "framer-motion";
 import { GenerateSection } from "../../schemas/generate-section";
 import { toast } from "sonner";
@@ -45,13 +45,12 @@ const SectionGroupMenu = ({ sectionGroup, controlls }: Props) => {
       addSectionToSectionGroup({ sectionGroupOrder: sectionGroup.order })
     );
   }
-  function onSaveSection(data: GenerateSection & { section: string }) {
-    const section = JSON.parse(data.section);
+  function onSaveSection(data: GenerateSection & { section: Section }) {
     dispatch(
       addSectionToSectionGroup({
         sectionGroupOrder: sectionGroup.order,
-        title: section.title,
-        lessons: section.lessons,
+        title: data.section.title,
+        lessons: data.section.lessons || [],
       })
     );
     toast.success("Section generated");

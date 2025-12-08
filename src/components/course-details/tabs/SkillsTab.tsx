@@ -15,6 +15,7 @@ import {
 } from "@/features/skills/schemas/create-or-update-skills-schema";
 import { useFieldArray, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { DialogTitle } from "@/components/ui/dialog";
 type Props = {
   course: DbCourse;
 };
@@ -67,7 +68,10 @@ const SkillsTab = ({ course }: Props) => {
       method="PATCH"
       onSubmit={handleSubmit(onSubmit)}
     >
-      <h2 className="font-bold text-center text-lg">Learning Outcomes</h2>
+      <DialogTitle className="font-bold text-center text-lg">
+        Learning Outcomes
+      </DialogTitle>
+
       <button
         type="button"
         className="self-end bg-accent text-accent-foreground px-4 py-2 text-sm hover:scale-95 focus:scale-95 rounded-sm duration-400"

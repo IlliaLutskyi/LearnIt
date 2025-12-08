@@ -1,7 +1,7 @@
 "use client";
 import { useQuery } from "@tanstack/react-query";
 import { memo } from "react";
-import { getCategories } from "../../services/get-categories";
+import { getCategories } from "../../queries/get-categories";
 import { FieldValues, Path, UseFormRegister } from "react-hook-form";
 import { CreateGeneralInfo } from "@/features/courses/schemas/create-general-info-schema";
 

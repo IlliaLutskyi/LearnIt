@@ -12,8 +12,10 @@ import { DbLesson } from "@/types";
 import { AnimatePresence } from "framer-motion";
 import ImageOption from "./lessonTypeOptions/ImageOption";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
-import { keyof, set } from "zod";
 
+const HighlightedCodeOption = lazy(
+  () => import("./lessonTypeOptions/HighlightedCodeOption")
+);
 const MarkdownOption = lazy(() => import("./lessonTypeOptions/MarkdownOption"));
 const TableOption = lazy(() => import("./lessonTypeOptions/TableOption"));
 const VideoOption = lazy(() => import("./lessonTypeOptions/VideoOption"));
@@ -39,6 +41,7 @@ const CreateLessonForm = ({ isOpen, setIsOpen, lesson, onSave }: Props) => {
   } = useForm({
     resolver: zodResolver(CreateLessonSchema),
     defaultValues: {
+      codeStyle: lesson?.codeStyle,
       title: lesson?.title || "",
       content: lesson?.content || "",
       contentType: lesson?.contentType || "Text",
@@ -47,6 +50,7 @@ const CreateLessonForm = ({ isOpen, setIsOpen, lesson, onSave }: Props) => {
   });
   const contentType = watch("contentType");
   const content = watch("content");
+  const codeStyle = watch("codeStyle");
 
   useEffect(() => {
     if (!isOpen) return;
@@ -100,6 +104,7 @@ const CreateLessonForm = ({ isOpen, setIsOpen, lesson, onSave }: Props) => {
                   <option value="Table">Excel Table</option>
                   <option value="Markdown">Markdown</option>
                   <option value="Image">Image</option>
+                  <option value="HighlightedCode">Highlighted Code</option>
                 </select>
 
                 <p className="text-error text-xs">
@@ -121,6 +126,7 @@ const CreateLessonForm = ({ isOpen, setIsOpen, lesson, onSave }: Props) => {
                 {contentType === "Text" && (
                   <Suspense fallback={<Loader />}>
                     <TextOption
+                      isOpen={isOpen}
                       content={content}
                       setValue={setValue}
                       error={errors.content?.message}
@@ -149,6 +155,16 @@ const CreateLessonForm = ({ isOpen, setIsOpen, lesson, onSave }: Props) => {
                 {contentType === "Image" && (
                   <Suspense fallback={<Loader />}>
                     <ImageOption setValue={setValue} />
+                  </Suspense>
+                )}
+                {contentType === "HighlightedCode" && (
+                  <Suspense fallback={<Loader />}>
+                    <HighlightedCodeOption
+                      codeStyle={codeStyle}
+                      content={content}
+                      register={register}
+                      error={errors.content?.message}
+                    />
                   </Suspense>
                 )}
               </section>

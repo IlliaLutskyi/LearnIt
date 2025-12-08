@@ -32,7 +32,7 @@ const GenerateLessonForm = ({ isOpen, setIsOpen, onSave }: Props) => {
       return res.data;
     },
     onSuccess: (data, variables) => {
-      if (onSave) onSave({ content: data.lesson, ...variables });
+      if (onSave) onSave({ content: data.lesson.content, ...variables });
       setIsOpen(false);
     },
     onError: (error) => {
@@ -56,7 +56,7 @@ const GenerateLessonForm = ({ isOpen, setIsOpen, onSave }: Props) => {
                 AI Generator
               </DialogTitle>
 
-              <section className="flex items-center gap-4">
+              <section className="flex flex-col gap-1">
                 <label className="text-xs" htmlFor="lessonType">
                   Content type:
                 </label>

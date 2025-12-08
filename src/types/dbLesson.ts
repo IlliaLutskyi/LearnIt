@@ -10,6 +10,7 @@ export type DbLesson = {
   quiz: DbQuiz | null;
   url?: string;
   videoSource: $Enums.VideoSource | null;
+  codeStyle?: string;
   contentType: ContentType;
   quizId?: number | null;
   sectionId?: number;

@@ -40,7 +40,7 @@ const Login = () => {
     <form
       method="POST"
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col gap-4 sm:w-1/2 w-3/4 p-4 shadow-inner mx-auto mt-[5rem] rounded-sm min-h-[400px] bg-slate-100"
+      className="flex flex-col gap-4 sm:w-1/2 w-3/4 p-4 shadow-inner mx-auto mt-20 rounded-sm min-h-[400px] bg-card text-card-foreground"
     >
       <h1 className="text-xl font-bold text-center">Login</h1>
       <section className="grow flex flex-col gap-2">
@@ -49,22 +49,25 @@ const Login = () => {
           register={register}
           field="email"
           error={errors.email?.message}
-          className="text-sm w-full p-2 shadow-inner rounded-sm outline-none focus:ring-1 focus:ring-purple-500 bg-white"
+          className="input-field"
         />
         <Input
+          type="password"
           label="Password"
           register={register}
           field="password"
-          type="password"
           error={errors.password?.message}
-          className="text-sm w-full p-2 shadow-inner rounded-sm outline-none focus:ring-1 focus:ring-purple-500 bg-white"
+          className="input-field"
         />
       </section>
 
-      <section className="relative border-t-[1px] border-purple-300">
+      <section className="relative border-t-[1px] border-ring">
         <p className="text-sm text-center mt-8 flex gap-2 justify-center">
           Don&apos;t have an account?
-          <Link href="/auth/signup" className="text-purple-500 hover:underline">
+          <Link
+            href="/auth/signup"
+            className="text-secondary-accent hover:underline"
+          >
             Signup
           </Link>
         </p>
@@ -73,7 +76,7 @@ const Login = () => {
       <button
         type="submit"
         disabled={loading}
-        className="self-end bg-purple-500 hover:scale-95 duration-500 text-white p-2 rounded-sm"
+        className="self-end bg-accent text-accent-foreground text-sm hover:scale-95 p-2 rounded-sm duration-400"
       >
         {loading ? "Submitting..." : "Submit"}
       </button>

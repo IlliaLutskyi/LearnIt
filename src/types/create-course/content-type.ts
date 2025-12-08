@@ -7,6 +7,7 @@ export const ContentTypeSchema = z.enum([
   "Table",
   "Markdown",
   "Image",
+  "HighlightedCode",
 ]);
 
 export type ContentType = z.infer<typeof ContentTypeSchema>;

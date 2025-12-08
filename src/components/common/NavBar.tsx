@@ -15,11 +15,11 @@ import { IoClose, IoMenu } from "react-icons/io5";
 const Navbar = () => {
   const { data: session, status } = useSession();
   return (
-    <nav className="flex justify-between items-center w-full bg-navbar text-navbar-foreground h-12 py-4 px-8">
+    <nav className="flex justify-between items-center w-full bg-navbar text-navbar-foreground h-12 py-4 px-6">
       <Link href="/" className="text-2xl font-bold">
         LearnIt
       </Link>
-      <ul className="max-sm:hidden flex items-center justify-center gap-6 max-sm:gap-2">
+      <ul className="hidden sm:flex items-center justify-center sm:gap-6">
         <li>
           <Link
             href="/"
@@ -76,7 +76,7 @@ const Navbar = () => {
 const MobileNavbar = () => {
   const { data: session, status } = useSession();
   return (
-    <div className="sm:hidden">
+    <div className="sm:hidden block">
       <Drawer direction="left">
         <DrawerTrigger>
           <IoMenu size={20} />
@@ -145,7 +145,7 @@ const DesktopSidebar = () => {
   const { data: session, status } = useSession();
   return (
     <section>
-      <ul className="flex max-sm:flex-col items-center justify-around gap-6 max-sm:gap-2">
+      <ul className="flex flex-col items-center justify-around gap-6">
         <li>
           <Link
             href="/"

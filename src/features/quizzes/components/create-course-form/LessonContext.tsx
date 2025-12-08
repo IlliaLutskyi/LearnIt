@@ -29,8 +29,8 @@ const LessonContext = ({ lesson, fields, append, remove }: Props) => {
       type="button"
       className={`flex items-center justify-start text-md ${
         isActive
-          ? "border-accent ring-1 bg-purple-50 text-accent scale-95"
-          : "ring-1 hover:ring-accent hover:text-accent hover:bg-purple-50"
+          ? "border-accent ring-1 text-accent scale-95"
+          : "ring-1 hover:ring-accent hover:text-accent"
       } p-2 rounded-sm duration-400`}
       onClick={handleSelect}
     >

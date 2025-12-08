@@ -3,7 +3,7 @@ import { useFieldArray, useForm } from "react-hook-form";
 import { Input, Loader } from "@/components/common";
 import { GenerateQuiz, GenerateQuizSchema } from "../../schemas/generate-quiz";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Lesson } from "@/types/create-course";
+import { Lesson, Quiz } from "@/types/create-course";
 import LessonContext from "./LessonContext";
 import { useMutation } from "@tanstack/react-query";
 import api from "@/lib/axios";
@@ -15,7 +15,9 @@ type Props = {
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   lessons: Lesson[];
-  onSave?: (data: GenerateQuiz & { quizzes: string }) => void;
+  onSave?: (
+    data: GenerateQuiz & { quizzes: (Quiz & { title: string })[] }
+  ) => void;
 };
 const GenerateQuizForm = ({ isOpen, setIsOpen, onSave, lessons }: Props) => {
   const mutation = useMutation({
@@ -56,7 +58,7 @@ const GenerateQuizForm = ({ isOpen, setIsOpen, onSave, lessons }: Props) => {
     <AnimatePresence>
       {isOpen && (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
-          <DialogContent asChild className="w-1/2">
+          <DialogContent asChild className="w-1/2 p-4">
             <form
               onSubmit={handleSubmit(onSubmit)}
               className="flex flex-col gap-4"
@@ -91,7 +93,7 @@ const GenerateQuizForm = ({ isOpen, setIsOpen, onSave, lessons }: Props) => {
                     based on
                   </label>
                   <div
-                    className="flex flex-col gap-2 overflow-y-auto max-h-[200px]"
+                    className="flex flex-col gap-4 overflow-y-auto max-h-[200px] p-4"
                     id="scrollbar"
                   >
                     {lessons.length == 0 && (
@@ -99,6 +101,7 @@ const GenerateQuizForm = ({ isOpen, setIsOpen, onSave, lessons }: Props) => {
                         No context created yet
                       </p>
                     )}
+
                     {lessons.map((lesson) => {
                       if (lesson.contentType === "Text") {
                         return (
@@ -113,6 +116,7 @@ const GenerateQuizForm = ({ isOpen, setIsOpen, onSave, lessons }: Props) => {
                       }
                       return null;
                     })}
+
                     {errors.contents?.message && (
                       <p className="text-xs text-error">
                         {errors.contents.message}

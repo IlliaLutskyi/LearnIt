@@ -4,18 +4,14 @@ import { Loader } from "@/components/common";
 import { setCurrentLessonViewId } from "@/lib/slices/course-view-slice";
 import { useAppDispatch } from "@/lib/hooks";
 import { useInView } from "react-intersection-observer";
-import { DbLesson } from "@/types";
+import { DbAnswer, DbLesson } from "@/types";
 
-type Result = {
-  pick: number;
-  isCorrect: boolean;
-};
 const Explanation = lazy(() => import("./Explanation"));
 type Props = {
   lesson: DbLesson;
 };
 const Quiz = ({ lesson }: Props) => {
-  const [result, setResult] = useState<Result>();
+  const [selection, setSelection] = useState<DbAnswer>();
   const [isExplanationShown, setIsExplanationShown] = useState(false);
   const dispatch = useAppDispatch();
   const [ref, inView] = useInView();
@@ -24,16 +20,10 @@ const Quiz = ({ lesson }: Props) => {
     if (inView) dispatch(setCurrentLessonViewId(lesson.id));
   }, [inView]);
 
-  function handleCheck(pick: number) {
-    if (result?.isCorrect !== undefined) return;
+  function handleCheck(answer: DbAnswer) {
+    if (selection) return;
 
-    const rightAnswer = lesson.quiz?.answers.find((answer) => answer.isCorrect);
-
-    if (pick === rightAnswer?.id) {
-      setResult({ isCorrect: true, pick: pick });
-    } else {
-      setResult({ isCorrect: false, pick: pick });
-    }
+    setSelection(answer);
 
     setIsExplanationShown(true);
   }
@@ -62,21 +52,20 @@ const Quiz = ({ lesson }: Props) => {
         <section className="flex flex-col gap-2">
           {lesson.quiz?.answers.map((answer) => {
             const isRight =
-              result?.pick === answer.id && result?.isCorrect
+              selection?.isCorrect && selection.id === answer.id
                 ? "bg-success ring-ring-success text-success-foreground"
                 : "";
 
             const isWrong =
-              result?.pick === answer.id && result?.isCorrect === false
+              selection?.isCorrect === false && selection.id === answer.id
                 ? "bg-error ring-ring-error text-error-foreground"
                 : "";
 
             return (
               <button
                 key={answer.id}
-                aria-pressed={result?.pick === answer.id ? true : false}
                 className={`p-2 ring-1 hover:scale-95 ${isRight} ${isWrong} duration-400`}
-                onClick={() => handleCheck(answer.id)}
+                onClick={() => handleCheck(answer)}
               >
                 <p className="text-sm">{answer.content}</p>
               </button>

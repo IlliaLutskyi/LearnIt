@@ -15,11 +15,11 @@ import {
   editLesson,
   editQuiz,
 } from "@/lib/slices/create-course-slice";
-import { Section } from "@/types/create-course/section";
 import { Lesson } from "@/types/create-course";
 import { CreateLesson } from "../../schemas/create-lesson-schema";
 import { CreateQuiz } from "@/features/quizzes/schemas/create-quiz";
 import { toast } from "sonner";
+import { LegacyAnimationControls } from "framer-motion";
 const CreateLessonForm = lazy(() => import("./CreateLessonForm"));
 const RenameForm = lazy(
   () => import("@/features/sections/components/create-course-form/RenameForm")
@@ -31,26 +31,27 @@ const CreateQuizForm = lazy(
 
 type Props = {
   lesson: Lesson;
+  controlls: LegacyAnimationControls;
 };
-const LessonMenu = ({ lesson }: Props) => {
+const LessonMenu = ({ lesson, controlls }: Props) => {
   const [isEditLessonOpen, setIsEditLessonOpen] = useState(false);
   const [isRenameSectionOpen, setIsRenameSectionOpen] = useState(false);
   const [isEditQuizOpen, setIsEditQuizOpen] = useState(false);
 
-  const sectionGroups = useAppSelector(
-    (state) => state.CreateCourse.sectionGroups
-  );
+  const { sectionGroups } = useAppSelector((state) => state.CreateCourse);
   const dispatch = useAppDispatch();
-  const findSection = (): Section => {
+  const findSection = () => {
     const sectionGroup = sectionGroups.find(
-      (sectionGroup) => sectionGroup.order === lesson.sectionOrder
+      (sectionGroup) => sectionGroup.order == lesson.sectionGroupOrder
     );
     const section = sectionGroup?.sections.find(
-      (section) => section.order === lesson.sectionOrder
+      (section) => section.order == lesson.sectionOrder
     );
-    return section as Section;
+    return section;
   };
-  function handleDeleteLesson() {
+  async function handleDeleteLesson() {
+    await controlls.start("exit");
+
     dispatch(
       deleteLesson({
         sectionGroupOrder: lesson.sectionGroupOrder,
@@ -68,6 +69,8 @@ const LessonMenu = ({ lesson }: Props) => {
   function onSaveLesson(data: CreateLesson) {
     const section = findSection();
 
+    if (!section) return toast.error("Section not found");
+
     dispatch(
       editLesson({
         sectionGroupOrder: section.sectionGroupOrder,
@@ -76,6 +79,7 @@ const LessonMenu = ({ lesson }: Props) => {
         content: data.content,
         contentType: data.contentType,
         title: data.title,
+        codeStyle: data.codeStyle,
         videoSource: data.videoSource,
       })
     );
@@ -83,6 +87,9 @@ const LessonMenu = ({ lesson }: Props) => {
   }
   function onSaveQuiz(data: CreateQuiz) {
     const section = findSection();
+
+    if (!section) return toast.error("Section not found");
+
     dispatch(
       editQuiz({
         sectionOrder: section.order,

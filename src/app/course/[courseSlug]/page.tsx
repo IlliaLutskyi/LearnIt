@@ -4,6 +4,9 @@ import Prerequisites from "@/features/prerequisites/components/Prerequisites";
 import Skills from "@/features/skills/components/Skills";
 import { lazy, Suspense } from "react";
 import { getCourse } from "@/features/courses/services/get-course";
+import { authOptions } from "@/app/api/auth/[...nextauth]/options";
+import { getServerSession } from "next-auth";
+import { isAdmin, isAuthor } from "@/features/users/permissions";
 const EditForm = lazy(() => import("@/components/course-details/EditForm"));
 const EditButton = lazy(() => import("@/components/course-details/EditButton"));
 
@@ -14,6 +17,7 @@ type Props = {
 };
 const CourseDetails = async ({ params }: Props) => {
   const { courseSlug } = await params;
+  const session = await getServerSession(authOptions);
   if (!courseSlug)
     return <h1 className="text-center font-bold m-4">Course not found</h1>;
 
@@ -50,13 +54,15 @@ const CourseDetails = async ({ params }: Props) => {
           <h2 className="font-bold text-lg">Course content</h2>
           <AboutSections sectionGroups={course.sectionGroups} />
         </div>
-
-        <Suspense>
-          <section className="flex justify-end">
-            <EditButton author={course.user} />
-            <EditForm course={course} />
-          </section>
-        </Suspense>
+        {(isAdmin(session?.user) ||
+          isAuthor(course.user.id, session?.user)) && (
+          <Suspense>
+            <section className="flex justify-end">
+              <EditButton />
+              <EditForm course={course} />
+            </section>
+          </Suspense>
+        )}
       </section>
     </div>
   );

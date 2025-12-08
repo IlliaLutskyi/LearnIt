@@ -1,13 +1,14 @@
 "use client";
 
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-import { toggleConfirmationForm } from "@/lib/slices/confirmation-form-slice";
 import { setNextStep } from "@/lib/slices/create-course-slice";
+import { Dispatch } from "react";
 
 type Props = {
   currentStep: number;
+  setIsPreviewOpen?: Dispatch<React.SetStateAction<boolean>>;
 };
-const Navigation = ({ currentStep }: Props) => {
+const Navigation = ({ currentStep, setIsPreviewOpen }: Props) => {
   const steps = useAppSelector((store) => store.CreateCourse.steps);
   const isLoading = useAppSelector((store) => store.ConfirmationForm.isLoading);
   const dispatch = useAppDispatch();
@@ -25,9 +26,10 @@ const Navigation = ({ currentStep }: Props) => {
 
       <button
         type="submit"
-        onClick={() =>
-          currentStep === steps.length && dispatch(toggleConfirmationForm(true))
-        }
+        onClick={() => {
+          if (currentStep === steps.length && setIsPreviewOpen)
+            setIsPreviewOpen(true);
+        }}
         className="self-end ml-auto mt-4 bg-accent text-accent-foreground text-sm px-4 py-2 hover:scale-95 rounded-sm duration-400"
       >
         {currentStep === steps.length

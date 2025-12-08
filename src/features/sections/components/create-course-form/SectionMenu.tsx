@@ -13,16 +13,16 @@ import {
   addQuizToSection,
   deleteSection,
 } from "@/lib/slices/create-course-slice";
-import { ContentType, Quiz, Section } from "@/types/create-course";
+import { Quiz, Section } from "@/types/create-course";
 import { lazy, memo, Suspense, useState } from "react";
 import { SiGooglegemini } from "react-icons/si";
 import { HiDotsVertical } from "react-icons/hi";
 import { LegacyAnimationControls } from "framer-motion";
 import { CreateLesson } from "@/features/lessons/schemas/create-lesson-schema";
 import { CreateQuiz } from "@/features/quizzes/schemas/create-quiz";
-
 import { toast } from "sonner";
 import { GenerateQuiz } from "@/features/quizzes/schemas/generate-quiz";
+import { GenerateLesson } from "@/features/lessons/schemas/generate-lesson-schema";
 const CreateLessonForm = lazy(
   () =>
     import("@/features/lessons/components/create-course-form/CreateLessonForm")
@@ -82,18 +82,11 @@ const SectionMenu = ({ section, controlls }: Props) => {
       addLessonToSection({
         sectionGroupOrder: section.sectionGroupOrder,
         sectionOrder: section.order,
-        content: data.content,
-        contentType: data.contentType,
-        title: data.title,
-        videoSource: data.videoSource,
+        ...data,
       })
     );
   }
-  function onSaveGenerateLesson(data: {
-    content: string;
-    title: string;
-    contentType: ContentType;
-  }) {
+  function onSaveGenerateLesson(data: { content: string } & GenerateLesson) {
     dispatch(
       addLessonToSection({
         sectionGroupOrder: section.sectionGroupOrder,
@@ -105,9 +98,10 @@ const SectionMenu = ({ section, controlls }: Props) => {
     );
     return toast.message("Lesson added");
   }
-  function onSaveGenerateQuiz(data: GenerateQuiz & { quizzes: string }) {
-    const quizzes = JSON.parse(data.quizzes) as (Quiz & { title: string })[];
-    quizzes.forEach((quiz) => {
+  function onSaveGenerateQuiz(
+    data: GenerateQuiz & { quizzes: (Quiz & { title: string })[] }
+  ) {
+    data.quizzes.forEach((quiz) => {
       dispatch(
         addQuizToSection({
           quiz: {

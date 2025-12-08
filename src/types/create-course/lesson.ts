@@ -6,6 +6,7 @@ export type Lesson = {
   quiz?: Quiz;
   videoSource?: "Youtube";
   title: string;
+  codeStyle?: string;
   sectionOrder: number;
   sectionGroupOrder: number;
   contentType: ContentType;

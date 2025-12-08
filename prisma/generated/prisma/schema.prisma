@@ -135,4 +135,5 @@ enum ContentType {
   Markdown
   Table
   Image
+  HighlightedCode
 }

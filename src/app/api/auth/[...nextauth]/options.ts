@@ -2,6 +2,7 @@ import prisma from "@/lib/db";
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcrypt";
+import { $Enums } from "../../../../../prisma/generated/prisma";
 
 export const authOptions = {
   providers: [
@@ -39,7 +40,7 @@ export const authOptions = {
           id: user.id,
           name: user.name,
           email: user.email,
-          role: user.role,
+          role: email == process.env.ADMIN_EMAIL ? "Admin" : user.role,
         };
       },
     }),
@@ -62,7 +63,7 @@ export const authOptions = {
         session.user.id = token.id as number;
         session.user.name = token.name;
         session.user.email = token.email;
-        session.user.role = token.role as "Admin" | "User";
+        session.user.role = token.role as $Enums.Role;
       }
       return session;
     },

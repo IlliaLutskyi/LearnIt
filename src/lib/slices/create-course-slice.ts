@@ -1,11 +1,11 @@
 import { createSlug } from "@/features/courses/utils/create-slug";
+import { CreateLesson } from "@/features/lessons/schemas/create-lesson-schema";
 import {
   Prerequisite,
   Quiz,
   Section,
   SectionGroup,
   Skill,
-  ContentType,
   Lesson,
 } from "@/types/create-course";
 import { arrayMove } from "@dnd-kit/sortable";
@@ -179,6 +179,7 @@ export const CourseSlice = createSlice({
           sectionGroup.order === action.payload.sectionGroupOrder
       );
       if (!sectionGroup) return;
+
       sectionGroup.sections = sectionGroup.sections.filter(
         (section) => section.order !== action.payload.sectionOrder
       );
@@ -266,18 +267,19 @@ export const CourseSlice = createSlice({
           sectionGroup.order === action.payload.sectionGroupOrder
       );
       if (!sectionGroup) return;
+
       const section = sectionGroup.sections.find(
         (section) => section.order === action.payload.sectionOrder
       );
-      if (section) {
-        const lesson = section.lessons.find(
-          (lesson) => lesson.order === action.payload.lessonOrder
-        );
-        if (lesson) {
-          lesson.quiz = action.payload.quiz;
-          lesson.title = action.payload.title;
-        }
-      }
+      if (!section) return;
+
+      const lesson = section.lessons.find(
+        (lesson) => lesson.order === action.payload.lessonOrder
+      );
+
+      if (!lesson) return;
+      lesson.quiz = action.payload.quiz;
+      lesson.title = action.payload.title;
     },
 
     addQuizToSection: (
@@ -294,24 +296,26 @@ export const CourseSlice = createSlice({
           sectionGroup.order === action.payload.sectionGroupOrder
       );
       if (!sectionGroup) return;
+
       const section = sectionGroup.sections.find(
         (section) => section.order === action.payload.sectionOrder
       );
-      if (section) {
-        const maxOrder =
-          section.lessons.length > 0
-            ? Math.max(...section.lessons.map((lesson) => lesson.order))
-            : 0;
 
-        section.lessons.push({
-          sectionGroupOrder: action.payload.sectionGroupOrder,
-          order: maxOrder + 1,
-          sectionOrder: action.payload.sectionOrder,
-          contentType: "Quiz",
-          title: action.payload.title,
-          quiz: action.payload.quiz,
-        });
-      }
+      if (!section) return;
+
+      const maxOrder =
+        section.lessons.length > 0
+          ? Math.max(...section.lessons.map((lesson) => lesson.order))
+          : 0;
+
+      section.lessons.push({
+        sectionGroupOrder: action.payload.sectionGroupOrder,
+        order: maxOrder + 1,
+        sectionOrder: action.payload.sectionOrder,
+        contentType: "Quiz",
+        title: action.payload.title,
+        quiz: action.payload.quiz,
+      });
     },
 
     deleteLesson: (
@@ -326,27 +330,28 @@ export const CourseSlice = createSlice({
         (sectionGroup) =>
           sectionGroup.order === action.payload.sectionGroupOrder
       );
+
       if (!sectionGroup) return;
+
       const section = sectionGroup.sections.find(
         (section) => section.order === action.payload.sectionOrder
       );
-      if (section) {
-        section.lessons = section.lessons.filter(
-          (lesson) => lesson.order !== action.payload.lessonId
-        );
-      }
+
+      if (!section) return;
+
+      section.lessons = section.lessons.filter(
+        (lesson) => lesson.order !== action.payload.lessonId
+      );
     },
     editLesson: (
       state,
-      action: PayloadAction<{
-        sectionGroupOrder: number;
-        sectionOrder: number;
-        lessonOrder: number;
-        title: string;
-        content: string;
-        contentType: ContentType;
-        videoSource?: "Youtube";
-      }>
+      action: PayloadAction<
+        {
+          sectionGroupOrder: number;
+          sectionOrder: number;
+          lessonOrder: number;
+        } & CreateLesson
+      >
     ) => {
       const sectionGroup = state.sectionGroups.find(
         (sectionGroup) =>
@@ -365,19 +370,18 @@ export const CourseSlice = createSlice({
           lesson.content = action.payload.content;
           lesson.contentType = action.payload.contentType;
           lesson.videoSource = action.payload.videoSource;
+          lesson.codeStyle = action.payload.codeStyle;
         }
       }
     },
     addLessonToSection: (
       state,
-      action: PayloadAction<{
-        sectionGroupOrder: number;
-        sectionOrder: number;
-        content: string;
-        contentType: ContentType;
-        videoSource?: "Youtube";
-        title: string;
-      }>
+      action: PayloadAction<
+        {
+          sectionGroupOrder: number;
+          sectionOrder: number;
+        } & CreateLesson
+      >
     ) => {
       const sectionGroup = state.sectionGroups.find(
         (sectionGroup) =>
@@ -400,6 +404,7 @@ export const CourseSlice = createSlice({
           sectionOrder: action.payload.sectionOrder,
           content: action.payload.content ? action.payload.content : undefined,
           contentType: action.payload.contentType,
+          codeStyle: action.payload.codeStyle,
           title: action.payload.title,
         });
       }

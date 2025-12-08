@@ -11,11 +11,16 @@ import {
   GenerateSectionSchema,
 } from "../../schemas/generate-section";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import { Section } from "@/types/create-course";
 
 type Props = {
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  onSave?: (data: GenerateSection & { section: string }) => void;
+  onSave?: (
+    data: GenerateSection & {
+      section: Section;
+    }
+  ) => void;
 };
 
 const GenerateSectionForm = ({ isOpen, setIsOpen, onSave }: Props) => {

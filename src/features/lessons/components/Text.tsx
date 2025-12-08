@@ -3,10 +3,6 @@ import { setCurrentLessonViewId } from "@/lib/slices/course-view-slice";
 import { DbLesson } from "@/types";
 import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
-import { generateHTML } from "@tiptap/react";
-import Image from "@tiptap/extension-image";
-import StarterKit from "@tiptap/starter-kit";
-import { Lesson } from "@/types/create-course";
 type Props = {
   lesson: DbLesson;
 };
@@ -24,9 +20,7 @@ const Text = ({ lesson }: Props) => {
       <div
         className="content"
         dangerouslySetInnerHTML={{
-          __html: lesson.content
-            ? generateHTML(JSON.parse(lesson.content), [StarterKit, Image])
-            : "",
+          __html: lesson.content || "",
         }}
       />
     </div>

@@ -91,6 +91,7 @@
   --chart-3: oklch(0.398 0.07 227.392);
   --chart-4: oklch(82.901% 0.17115 81.038);
   --chart-5: oklch(0.769 0.188 70.08);
+
   --navbar: var(--color-purple-700);
   --navbar-foreground: oklch(0.985 0 0);
 
@@ -150,6 +151,7 @@
   --chart-3: oklch(0.769 0.188 70.08);
   --chart-4: oklch(0.627 0.265 303.9);
   --chart-5: oklch(0.645 0.246 16.439);
+
   --navbar: var(--color-purple-800);
   --navbar-foreground: oklch(0.985 0 0);
 
@@ -193,9 +195,9 @@
 
 @layer utilities {
   .content {
-    @apply prose prose-sm *:text-foreground prose-pre:bg-card prose-pre:ring-1 whitespace-pre-wrap break-words;
+    @apply prose prose-sm **:text-foreground prose-pre:bg-card prose-pre:ring-1 whitespace-pre-wrap break-words;
   }
   .input-field {
-    @apply text-sm w-full p-2 ring-1 ring-input rounded-sm outline-none focus:ring-1 focus:ring-accent;
+    @apply text-sm w-full p-2 ring-1 ring-input rounded-sm outline-none focus:ring-1 focus:ring-accent bg-background text-foreground;
   }
 }

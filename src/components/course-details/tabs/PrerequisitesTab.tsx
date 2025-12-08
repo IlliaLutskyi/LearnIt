@@ -14,6 +14,7 @@ import {
 } from "@/features/prerequisites/schemas/create-or-update-prerequisete-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Prerequisite from "@/features/prerequisites/components/create-course-form/Prerequisite";
+import { DialogTitle } from "@/components/ui/dialog";
 type Props = {
   course: DbCourse;
 };
@@ -66,7 +67,9 @@ const PrerequisitesTab = ({ course }: Props) => {
       className="flex flex-col gap-2 h-full"
       onSubmit={handleSubmit(onSubmit)}
     >
-      <h2 className="font-bold text-center text-lg">Prerequisites</h2>
+      <DialogTitle className="font-bold text-center text-lg">
+        Prerequisites
+      </DialogTitle>
 
       <button
         type="button"

@@ -7,7 +7,7 @@ import { useEffect } from "react";
 import Loader from "@/components/common/Loader";
 import { useSearchParams } from "next/navigation";
 import { DbCourse } from "@/types";
-import { getCategories } from "@/features/categories/services/get-categories";
+import { getCategories } from "@/features/categories/queries/get-categories";
 import CourseGrid from "@/features/courses/components/CourseGrid";
 const PAGE_SIZE = 10;
 const Courses = () => {
@@ -55,14 +55,15 @@ const Courses = () => {
   return (
     <div className="flex flex-col gap-4 m-4">
       <h1 className="text-2xl font-bold text-center">Courses</h1>
+      <main className="flex flex-col gap-4">
+        <CategoryBar categories={categories} />
 
-      <CategoryBar categories={categories} />
+        <CourseGrid courses={data.pages.flatMap((page) => page)} />
 
-      <CourseGrid courses={data.pages.flatMap((page) => page)} />
+        {(isFetchingNextPage || isLoading) && <Loader />}
 
-      {(isFetchingNextPage || isLoading) && <Loader />}
-
-      <div ref={ref} />
+        <div ref={ref} />
+      </main>
     </div>
   );
 };

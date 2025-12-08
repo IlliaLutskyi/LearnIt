@@ -1,7 +1,6 @@
-import api from "@/lib/axios";
-import { DbCategory } from "@/types";
+import prisma from "@/lib/db";
 
-export async function getCategories(): Promise<DbCategory[] | undefined> {
-  const res = await api.get("/categories");
-  return res.data?.categories;
+export async function getCategories() {
+  const categories = await prisma.category.findMany();
+  return categories;
 }

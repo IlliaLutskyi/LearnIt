@@ -10,32 +10,29 @@ const AdminBar = () => {
   const pathname = usePathname();
   const { data: session } = useSession();
   return (
-    <aside className="flex flex-col bg-sidebar-primary text-sidebar-primary-foreground shadow-inner p-4 h-full overflow-y-auto">
-      <div className="flex items-center gap-4 p-4 ring-1">
+    <aside className="flex flex-col gap-4 bg-sidebar-primary text-sidebar-primary-foreground shadow-inner max-w-[250px] h-[calc(100vh-48px)]">
+      <section className="flex items-center gap-4 p-4">
         <Avatar>
           <AvatarImage></AvatarImage>
           <AvatarFallback>{session?.user?.name.slice(0, 2)}</AvatarFallback>
         </Avatar>
-        <section>
+        <div>
           <h1 className="text-sm">{session?.user?.name}</h1>
           <p className="text-xs">{session?.user?.email}</p>
-        </section>
-      </div>
-      <div>
-        <ul className="flex flex-col gap-2 items-center justify-center h-full p-4">
-          <li>
-            <Link
-              href="/admin/addCategory"
-              className={`flex items-center gap-2 text-sm hover:underline ${
-                pathname === "/admin/addCategory" ? "text-secondary-accent" : ""
-              }`}
-            >
-              <CiCirclePlus />
-              Add Category
-            </Link>
-          </li>
-        </ul>
-      </div>
+        </div>
+      </section>
+
+      <section className="flex flex-col items-center gap-2 h-full p-4 overflow-y-auto">
+        <Link
+          href="/admin/addCategory"
+          className={`flex items-center gap-2 text-sm hover:underline ${
+            pathname === "/admin/addCategory" ? "text-secondary-accent" : ""
+          }`}
+        >
+          <CiCirclePlus />
+          Add category
+        </Link>
+      </section>
     </aside>
   );
 };

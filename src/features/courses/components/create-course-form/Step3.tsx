@@ -19,6 +19,7 @@ const Step3 = ({ step }: Props) => {
   const { skills: initialSkills } = useAppSelector(
     (state) => state.CreateCourse
   );
+
   const {
     register,
     handleSubmit,

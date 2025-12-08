@@ -8,26 +8,20 @@ import SetRating from "../../features/ratings/components/SetRating";
 import { useParams } from "next/navigation";
 import OnThisPageBar from "./OnThisPageBar";
 import { useSession } from "next-auth/react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 import { getSection } from "@/features/sections/services/get-section";
 import Image from "@/features/lessons/components/Image";
-
+const HighlightedCode = lazy(
+  () => import("@/features/lessons/components/HighlightedCode")
+);
 const EditContentForm = lazy(() => import("./EditContentForm"));
 const Video = lazy(() => import("@/features/lessons/components/Video"));
 const Text = lazy(() => import("@/features/lessons/components/Text"));
 const Quiz = lazy(() => import("@/features/quizzes/components/Quiz"));
 
 const Content = () => {
-  const { data: session } = useSession();
-
-  const [isEditFormOpen, setIsEditFormOpen] = useState(false);
-
   const params = useParams();
-
-  const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ container: containerRef });
-  const clampedProgress = useTransform(scrollYProgress, (v) => Math.min(v, 1));
-
+  const { data: session } = useSession();
   const { data, isPending, isSuccess } = useQuery({
     queryKey: ["section", params.sectionSlug],
     queryFn: () =>
@@ -36,19 +30,27 @@ const Content = () => {
   });
 
   const isContentLoaded = isSuccess && !isPending;
+
+  const [isEditFormOpen, setIsEditFormOpen] = useState(false);
+
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ container: containerRef });
+  const clampedProgress = useTransform(scrollYProgress, (v) => Math.min(v, 1));
+  const springProgress = useSpring(clampedProgress);
+
   return (
-    <>
-      <div className="grid max-md:grid-cols-1 grid-cols-[4fr_1fr]">
+    <main>
+      <div className="grid grid-cols-1 sm:grid-cols-[4fr_1fr]">
         <section
           ref={containerRef}
-          className="relative grow flex flex-col gap-1 overflow-y-auto h-[90.5vh] max-sm:h-full"
-          id="styledScrollbar"
+          className="grow flex flex-col gap-2 sm:overflow-y-auto sm:h-[calc(100vh-48px)]"
+          id="scrollbar"
         >
           {isContentLoaded && (
             <motion.div
-              className="sticky top-0 bg-pink-400 p-1"
+              className="sm:sticky fixed sm:top-0 top-10 bg-pink-400 w-full p-1 z-10"
               style={{
-                scaleX: clampedProgress,
+                scaleX: springProgress,
                 originX: 0,
               }}
             />
@@ -66,8 +68,11 @@ const Content = () => {
                     return <Video key={lesson.id} lesson={lesson} />;
                   if (lesson.contentType === "Quiz")
                     return <Quiz key={lesson.id} lesson={lesson} />;
-                  if (lesson.contentType == "Image")
+                  if (lesson.contentType === "Image")
                     return <Image key={lesson.id} lesson={lesson} />;
+                  if (lesson.contentType === "HighlightedCode") {
+                    return <HighlightedCode key={lesson.id} lesson={lesson} />;
+                  }
                 })}
               </section>
             </Suspense>
@@ -106,7 +111,7 @@ const Content = () => {
           />
         </Suspense>
       )}
-    </>
+    </main>
   );
 };
 

@@ -9,7 +9,7 @@ type Props = {
 const CourseGrid = ({ courses }: Props) => {
   return (
     <motion.div
-      className="grid max-sm:grid-cols-1 max-md:grid-cols-2 grid-cols-3 gap-6"
+      className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"
       variants={parentVariants}
       initial="hidden"
       animate="visible"

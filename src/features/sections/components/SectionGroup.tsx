@@ -1,6 +1,5 @@
 "use client";
-import { FaArrowDown } from "react-icons/fa";
-import { FaArrowUp } from "react-icons/fa";
+import { FaArrowDown, FaArrowUp } from "react-icons/fa";
 import { Collapsible, CollapsibleContent } from "@/components/ui/collapsible";
 import { useEffect, useState } from "react";
 import Section from "./Section";
@@ -13,20 +12,22 @@ type Props = {
 const SectionGroup = ({ sectionGroup }: Props) => {
   const params = useParams();
   const [isOpen, setIsOpen] = useState(sectionGroup.order === 1 ? true : false);
+
   useEffect(() => {
     if (params.sectionGroupSlug == sectionGroup.slug) setIsOpen(true);
   }, [params.sectionGroupSlug]);
+
   return (
     <Collapsible open={isOpen}>
-      <div
-        className="flex justify-between items-baseline"
+      <button
+        className="flex justify-between items-center gap-4"
         onClick={() => setIsOpen(!isOpen)}
       >
-        <h1 className="text-md font-bold hover:text-secondary-accent duration-400">
+        <p className="text-md font-bold hover:text-secondary-accent duration-400">
           {sectionGroup.title}
-        </h1>
+        </p>
         {isOpen ? <FaArrowUp /> : <FaArrowDown />}
-      </div>
+      </button>
       <CollapsibleContent>
         <div className="ml-2 mt-2">
           {sectionGroup.sections &&

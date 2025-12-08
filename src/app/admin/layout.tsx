@@ -12,10 +12,10 @@ export default function AdminLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="grid grid-cols-[1fr_4fr] min-h-screen">
+    <div className="grid grid-cols-[1fr_4fr] max-h-screen">
       <AdminBar />
 
-      <main className="bg-slate-200 px-4">{children}</main>
+      <main>{children}</main>
     </div>
   );
 }

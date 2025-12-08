@@ -9,9 +9,9 @@ const Step3 = lazy(() => import("./Step3"));
 const Step4 = lazy(() => import("./Step4"));
 
 const MultiStepForm = () => {
-  const steps = useAppSelector((store) => store.CreateCourse.steps);
+  const { steps } = useAppSelector((store) => store.CreateCourse);
   return (
-    <div className="grid grid-cols-[1fr_7fr] gap-4 max-sm:w-[95%] min-h-[500px] w-5/6 mx-auto mt-[2rem] bg-card text-card-foreground rounded-sm shadow-xl">
+    <div className="grid grid-cols-[1fr_7fr] gap-4 sm:w-5/6 w-[95%] min-h-[500px] mx-auto mt-8 bg-card text-card-foreground rounded-sm shadow-xl">
       <section className="flex flex-col justify-center items-center gap-4 px-4 bg-sidebar-primary text-sidebar-primary-foreground rounded-bl-md rounded-tl-md">
         {steps.map((step) => (
           <div className="flex items-center gap-4" key={step.step}>

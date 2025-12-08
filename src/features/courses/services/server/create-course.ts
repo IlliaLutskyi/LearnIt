@@ -35,27 +35,28 @@ export default async function createCourse(
         { status: 400 }
       );
     }
+
     const processedSectionGroups = await Promise.all(
-      course.sectionGroups.map(async (sectionGroup) => ({
+      course.sectionGroups.map(async (sectionGroup, sgi) => ({
         title: sectionGroup.title,
         slug: sectionGroup.slug,
-        order: sectionGroup.order,
+        order: sgi + 1,
         sections: {
           create: await Promise.all(
-            sectionGroup.sections.map(async (section) => ({
+            sectionGroup.sections.map(async (section, si) => ({
               title: section.title,
               slug: section.slug,
-              order: section.order,
+              order: si + 1,
               lessons: {
                 create: await Promise.all(
-                  section.lessons.map(async (lesson) => ({
+                  section.lessons.map(async (lesson, li) => ({
                     title: lesson.title,
                     content:
                       lesson.contentType === "Image" && lesson.content
                         ? await optimizeImage(lesson.content)
                         : lesson.content,
                     contentType: lesson.contentType,
-                    order: lesson.order,
+                    order: li + 1,
                     videoSource: lesson.videoSource,
                     quiz: lesson.quiz
                       ? {

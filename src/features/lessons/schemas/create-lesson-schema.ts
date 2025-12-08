@@ -6,5 +6,6 @@ export const CreateLessonSchema = z.object({
   content: z.string().min(1, { message: "Content is required" }),
   contentType: ContentTypeSchema,
   videoSource: z.enum(["Youtube"]).optional(),
+  codeStyle: z.string().optional(),
 });
 export type CreateLesson = z.infer<typeof CreateLessonSchema>;

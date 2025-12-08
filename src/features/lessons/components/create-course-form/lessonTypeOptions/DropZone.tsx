@@ -2,8 +2,10 @@ import { DragEvent, useRef, useState } from "react";
 import { toast } from "sonner";
 type Props = {
   onLoad: (buffer: ArrayBuffer, file: File) => void;
+  error?: string;
+  label?: string;
 };
-const DropZone = ({ onLoad }: Props) => {
+const DropZone = ({ onLoad, error, label }: Props) => {
   const [uploadStatus, setUploadStatus] = useState<
     "idle" | "loading" | "complete"
   >("idle");
@@ -48,12 +50,14 @@ const DropZone = ({ onLoad }: Props) => {
     reader.readAsArrayBuffer(file);
   }
   return (
-    <div>
-      <section
-        onDrop={handleDropFile}
-        onDragEnter={(e) => e.preventDefault()}
-        onDragOver={(e) => e.preventDefault()}
-      >
+    <section
+      className="flex flex-col gap-2"
+      onDrop={handleDropFile}
+      onDragEnter={(e) => e.preventDefault()}
+      onDragOver={(e) => e.preventDefault()}
+    >
+      <div className="flex flex-col gap-1">
+        <label className="text-xs">{label}</label>
         <button
           type="button"
           onClick={() => inputRef.current?.click()}
@@ -66,15 +70,16 @@ const DropZone = ({ onLoad }: Props) => {
           {uploadStatus == "complete" && "Upload completed, you can save now"}
           {uploadStatus == "idle" && "Click to upload or drag and drop a file"}
         </button>
+      </div>
 
-        <input
-          ref={inputRef}
-          type="file"
-          className="hidden"
-          onChange={handleFileUpload}
-        />
-      </section>
-    </div>
+      <input
+        ref={inputRef}
+        type="file"
+        className="hidden"
+        onChange={handleFileUpload}
+      />
+      <p className="text-xs text-error">{error}</p>
+    </section>
   );
 };
 

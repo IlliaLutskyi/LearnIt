@@ -1,8 +1,8 @@
 "use client";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-import AddSectionButton from "@/features/sections/components/create-course-form/AddSectionButton";
+import AddSectionGroupButton from "@/features/sections/components/create-course-form/AddSectionButton";
 import SectionGroups from "@/features/sections/components/create-course-form/SectionGroups";
-import { lazy, Suspense, useEffect } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import SaveContentButton from "@/features/sections/components/create-course-form/SaveContentButton";
 import { loadContent } from "@/lib/slices/create-course-slice";
 import { Step } from "@/types/create-course";
@@ -17,13 +17,13 @@ import api from "@/lib/axios";
 import { isAxiosError } from "axios";
 import { toast } from "sonner";
 import { useSession } from "next-auth/react";
-const ConfirmationForm = lazy(
-  () => import("../../../../components/common/ConfirmationForm")
-);
+const Preview = lazy(() => import("./Preview"));
+
 type Props = {
   step: Step;
 };
 const Step4 = ({ step }: Props) => {
+  const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const {
     sectionGroups,
     category,
@@ -35,7 +35,8 @@ const Step4 = ({ step }: Props) => {
   } = useAppSelector((state) => state.CreateCourse);
   const { data: session } = useSession();
   const dispatch = useAppDispatch();
-  async function handleCreate() {
+  console.log(sectionGroups);
+  async function handleSave() {
     dispatch(setIsLoading(true));
     dispatch(toggleConfirmationForm(false));
     try {
@@ -76,7 +77,7 @@ const Step4 = ({ step }: Props) => {
       <h1 className="text-lg font-bold self-center">{step.title}</h1>
       <section className="flex gap-4 items-center justify-between">
         <SaveContentButton />
-        <AddSectionButton />
+        <AddSectionGroupButton />
       </section>
 
       <section className="grow">
@@ -86,12 +87,13 @@ const Step4 = ({ step }: Props) => {
         <SectionGroups />
       </section>
 
-      <Navigation currentStep={step.step} />
+      <Navigation currentStep={step.step} setIsPreviewOpen={setIsPreviewOpen} />
 
       <Suspense>
-        <ConfirmationForm
-          onYes={handleCreate}
-          warning="Are you sure everything is correct?"
+        <Preview
+          isOpen={isPreviewOpen}
+          setIsOpen={setIsPreviewOpen}
+          onSave={handleSave}
         />
       </Suspense>
     </motion.div>

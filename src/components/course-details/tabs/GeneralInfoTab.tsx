@@ -15,6 +15,7 @@ import {
 } from "@/features/courses/schemas/create-general-info-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import CategorySelect from "@/features/categories/components/create-course-form/CategorySelect";
+import { DialogTitle } from "@/components/ui/dialog";
 
 type Props = {
   course: DbCourse;
@@ -57,7 +58,9 @@ const GeneralInfoTab = ({ course }: Props) => {
       className="flex flex-col gap-2 h-full"
       onSubmit={handleSubmit(onSubmit)}
     >
-      <h2 className="font-bold text-center text-lg">General information</h2>
+      <DialogTitle className="font-bold text-center text-lg">
+        General information
+      </DialogTitle>
 
       <section className="grow flex flex-col gap-2">
         <div className="grid sm:grid-cols-2 grid-cols-1 gap-2">
