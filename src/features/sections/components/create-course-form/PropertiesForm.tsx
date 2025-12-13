@@ -1,47 +1,54 @@
 "use client";
 import { useAppDispatch } from "@/lib/hooks";
-import { editSection } from "@/lib/slices/create-course-slice";
-import { Section } from "@/types/create-course";
-import z from "zod";
+import { SectionGroup } from "@/types/create-course";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Input } from "@/components/common";
 import { AnimatePresence } from "framer-motion";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import {
+  SectionGroupProperties,
+  SectionGroupPropertiesSchema,
+} from "../../schemas/section-group-properties";
+import { setProperties } from "@/lib/slices/create-course-slice";
 import { toast } from "sonner";
-
-const DataSchema = z.object({
-  title: z.string().min(1, "Title is required").max(100, "Title is too long"),
-});
-type Data = z.infer<typeof DataSchema>;
 
 type Props = {
   isOpen: boolean;
-  section: Section;
+  sectionGroup: SectionGroup;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
-const RenameForm = ({ isOpen, section, setIsOpen }: Props) => {
+const SectionGroupPropertiesFrom = ({
+  isOpen,
+  sectionGroup,
+  setIsOpen,
+}: Props) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({
-    resolver: zodResolver(DataSchema),
-    defaultValues: { title: section.title },
+    resolver: zodResolver(SectionGroupPropertiesSchema),
+    defaultValues: {
+      title: sectionGroup.title,
+      showSectionsOnly: sectionGroup.showSectionsOnly
+        ? sectionGroup.showSectionsOnly
+        : false,
+    },
   });
 
   const dispatch = useAppDispatch();
 
-  function onSubmit(data: Data) {
+  function onSubmit(data: SectionGroupProperties) {
     dispatch(
-      editSection({
-        sectionGroupOrder: section.sectionGroupOrder,
+      setProperties({
         title: data.title,
-        sectionOrder: section.order,
+        showSectionsOnly: data.showSectionsOnly,
+        sectionGroupOrder: sectionGroup.order,
       })
     );
 
-    toast.success("Section renamed");
+    toast.message("Properties updated");
 
     setIsOpen(false);
   }
@@ -56,7 +63,7 @@ const RenameForm = ({ isOpen, section, setIsOpen }: Props) => {
               className="flex flex-col gap-4"
             >
               <DialogTitle className="text-center text-lg font-bold">
-                Rename Section
+                Properties
               </DialogTitle>
 
               <Input
@@ -67,6 +74,23 @@ const RenameForm = ({ isOpen, section, setIsOpen }: Props) => {
                 error={errors.title?.message}
                 className="input-field"
               />
+
+              <section className="flex flex-col gap-2">
+                <h2 className="text-xs">Display options:</h2>
+                <label
+                  htmlFor="showSectionsOnly"
+                  className="has-checked:bg-accent/40 has-checked:text-accent-foreground flex justify-between p-2 ring-1 ring-accent rounded-sm"
+                >
+                  <span className="text-xs">Show sections only</span>
+
+                  <input
+                    type="checkbox"
+                    id="showSectionsOnly"
+                    className="checked:accent-accent accent-foreground"
+                    {...register("showSectionsOnly")}
+                  />
+                </label>
+              </section>
 
               <button className="self-end bg-accent p-2 rounded-md text-sm text-accent-foreground hover:scale-95 duration-400">
                 Save
@@ -79,4 +103,4 @@ const RenameForm = ({ isOpen, section, setIsOpen }: Props) => {
   );
 };
 
-export default RenameForm;
+export default SectionGroupPropertiesFrom;

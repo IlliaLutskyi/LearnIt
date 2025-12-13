@@ -2,9 +2,9 @@ import { optimizeImage } from "@/utils/optimizeImage";
 import prisma from "@/lib/db";
 
 export async function UpdateCategory(req: Request, categoryId?: string) {
-  const data = await req.formData();
-  const name = data.get("name") as string;
-  const image = data.get("image") as File;
+  const formData = await req.formData();
+  const name = formData.get("name") as string;
+  const image = formData.get("image") as File;
 
   try {
     if (!categoryId)
@@ -19,15 +19,15 @@ export async function UpdateCategory(req: Request, categoryId?: string) {
         { status: 400 }
       );
 
-    const base64 = Buffer.from(await image.arrayBuffer()).toString("base64");
-    const optimizedImage = await optimizeImage(base64);
+    const buffer = Buffer.from(await image.arrayBuffer());
+    const optimizedImage = await optimizeImage(buffer);
 
     await prisma.category.update({
       where: {
         id: Number(categoryId),
       },
       data: {
-        name,
+        name: name.toLowerCase(),
         image: optimizedImage,
       },
     });

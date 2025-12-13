@@ -21,9 +21,6 @@ import { CreateQuiz } from "@/features/quizzes/schemas/create-quiz";
 import { toast } from "sonner";
 import { LegacyAnimationControls } from "framer-motion";
 const CreateLessonForm = lazy(() => import("./CreateLessonForm"));
-const RenameForm = lazy(
-  () => import("@/features/sections/components/create-course-form/RenameForm")
-);
 const CreateQuizForm = lazy(
   () =>
     import("@/features/quizzes/components/create-course-form/CreateQuizForm")
@@ -35,7 +32,6 @@ type Props = {
 };
 const LessonMenu = ({ lesson, controlls }: Props) => {
   const [isEditLessonOpen, setIsEditLessonOpen] = useState(false);
-  const [isRenameSectionOpen, setIsRenameSectionOpen] = useState(false);
   const [isEditQuizOpen, setIsEditQuizOpen] = useState(false);
 
   const { sectionGroups } = useAppSelector((state) => state.CreateCourse);
@@ -142,11 +138,7 @@ const LessonMenu = ({ lesson, controlls }: Props) => {
           setIsOpen={setIsEditLessonOpen}
           lesson={lesson}
         />
-        <RenameForm
-          isOpen={isRenameSectionOpen}
-          section={findSection()}
-          setIsOpen={setIsRenameSectionOpen}
-        />
+
         <CreateQuizForm
           isOpen={isEditQuizOpen}
           setIsOpen={setIsEditQuizOpen}

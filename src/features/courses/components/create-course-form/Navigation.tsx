@@ -1,5 +1,6 @@
 "use client";
 
+import { Loader } from "@/components/common";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { setNextStep } from "@/lib/slices/create-course-slice";
 import { Dispatch } from "react";
@@ -32,11 +33,15 @@ const Navigation = ({ currentStep, setIsPreviewOpen }: Props) => {
         }}
         className="self-end ml-auto mt-4 bg-accent text-accent-foreground text-sm px-4 py-2 hover:scale-95 rounded-sm duration-400"
       >
-        {currentStep === steps.length
-          ? isLoading
-            ? "Loading"
-            : "Create"
-          : "Next"}
+        {currentStep === steps.length ? (
+          isLoading ? (
+            <Loader />
+          ) : (
+            "Create"
+          )
+        ) : (
+          "Next"
+        )}
       </button>
     </div>
   );

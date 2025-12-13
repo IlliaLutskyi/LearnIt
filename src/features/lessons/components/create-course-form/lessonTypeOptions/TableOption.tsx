@@ -12,8 +12,8 @@ type Props = {
 const TableOption = ({ setValue }: Props) => {
   return (
     <DropZone
-      onLoad={(buffer) => {
-        const workbook = xlsx.read(buffer, { type: "buffer" });
+      onLoad={async (file) => {
+        const workbook = xlsx.read(file, { type: "file" });
         const worksheet = workbook.Sheets[workbook.SheetNames[0]];
 
         const json = xlsx.utils.sheet_to_json(worksheet);

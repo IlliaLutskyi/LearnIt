@@ -12,10 +12,23 @@ type Props = {
 const SectionGroup = ({ sectionGroup }: Props) => {
   const params = useParams();
   const [isOpen, setIsOpen] = useState(sectionGroup.order === 1 ? true : false);
-
   useEffect(() => {
     if (params.sectionGroupSlug == sectionGroup.slug) setIsOpen(true);
   }, [params.sectionGroupSlug]);
+
+  if (sectionGroup.showSectionsOnly)
+    return (
+      <div>
+        {sectionGroup.sections &&
+          sectionGroup.sections.map((section) => (
+            <Section
+              key={section.id}
+              section={section}
+              sectionGroupSlug={sectionGroup.slug}
+            />
+          ))}
+      </div>
+    );
 
   return (
     <Collapsible open={isOpen}>
@@ -23,7 +36,7 @@ const SectionGroup = ({ sectionGroup }: Props) => {
         className="flex justify-between items-center gap-4"
         onClick={() => setIsOpen(!isOpen)}
       >
-        <p className="text-md font-bold hover:text-secondary-accent duration-400">
+        <p className="text-md line-clamp-1 hover:line-clamp-none font-bold hover:text-secondary-accent duration-400">
           {sectionGroup.title}
         </p>
         {isOpen ? <FaArrowUp /> : <FaArrowDown />}

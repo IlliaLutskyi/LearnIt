@@ -31,7 +31,7 @@ const LessonPreview = ({ lesson }: Props) => {
       )}
       {lesson.contentType === "Table" && (
         <div
-          className="conent mx-auto"
+          className="content mx-auto"
           dangerouslySetInnerHTML={{
             __html:
               lesson.content && isJsonValid(lesson.content)

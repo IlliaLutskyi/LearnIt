@@ -23,9 +23,17 @@ const Signup = () => {
   async function onSubmit(data: User) {
     setLoading(true);
     try {
-      const res = await api.post("/auth/signup", data, {
-        withCredentials: true,
-      });
+      const res = await api.post(
+        "/auth/signup",
+        {
+          name: data.name.trimStart().trimEnd(),
+          email: data.email.trimStart().trimEnd(),
+          password: data.password.trimStart().trimEnd(),
+        },
+        {
+          withCredentials: true,
+        }
+      );
       toast.success(res.data.message, { duration: 5000 });
       router.push("/auth/login");
     } catch (err) {

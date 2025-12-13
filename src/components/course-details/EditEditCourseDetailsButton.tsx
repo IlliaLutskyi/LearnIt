@@ -3,7 +3,7 @@ import { useAppDispatch } from "@/lib/hooks";
 import { toggleEditCourseDetailForm } from "@/lib/slices/edit-course-detail-form-slice";
 import React from "react";
 
-const EditButton = () => {
+const EditCourseDetailButton = () => {
   const dispatch = useAppDispatch();
 
   function handleFormOpening() {
@@ -20,4 +20,4 @@ const EditButton = () => {
   );
 };
 
-export default EditButton;
+export default EditCourseDetailButton;

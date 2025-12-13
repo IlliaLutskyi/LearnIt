@@ -21,7 +21,7 @@ const Navigation = ({ nextSection, prevSection }: Props) => {
             !prevSection && "hidden"
           } duration-500`}
         >
-          <span className="font-bold text-sm text-black">Back</span>
+          <span className="font-bold text-sm text-foreground">Back</span>
           <span className="text-sm line-clamp-1">
             {"<- " + prevSection?.title}
           </span>

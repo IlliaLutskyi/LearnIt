@@ -45,7 +45,10 @@ const SectionInfo = ({ sectionGroup }: Props) => {
               section.sectionRates.length;
 
             return (
-              <div
+              <motion.div
+                variants={fadeInOutWithShiftVariants}
+                initial="hidden"
+                whileInView={"visible"}
                 key={section.id}
                 className="flex justify-between items-center"
               >
@@ -55,7 +58,7 @@ const SectionInfo = ({ sectionGroup }: Props) => {
                 </p>
 
                 <Rating rating={rating} starSize={10} />
-              </div>
+              </motion.div>
             );
           })}
         </section>

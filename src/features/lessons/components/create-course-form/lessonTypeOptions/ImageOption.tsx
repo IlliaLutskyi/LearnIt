@@ -8,8 +8,8 @@ type Props = {
 const ImageOption = ({ setValue }: Props) => {
   return (
     <DropZone
-      onLoad={(buffer, file) => {
-        const string = Buffer.from(buffer).toString("base64");
+      onLoad={async (file) => {
+        const string = Buffer.from(await file.arrayBuffer()).toString("base64");
         const base64 = `data:${file.type};base64,${string}`;
         setValue("content", base64);
       }}

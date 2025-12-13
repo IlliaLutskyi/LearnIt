@@ -8,7 +8,6 @@ export type DbLesson = {
   order: number;
   content: string | null;
   quiz: DbQuiz | null;
-  url?: string;
   videoSource: $Enums.VideoSource | null;
   codeStyle?: string;
   contentType: ContentType;

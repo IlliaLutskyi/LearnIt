@@ -60,7 +60,7 @@ const Content = () => {
 
           {isContentLoaded && (
             <Suspense fallback={<Loader />}>
-              <section className="mt-4 mx-4">
+              <section className="mt-4 mx-2">
                 {data.section.lessons?.map((lesson) => {
                   if (lesson.contentType === "Text")
                     return <Text key={lesson.id} lesson={lesson} />;

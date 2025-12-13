@@ -1,6 +1,6 @@
 import Input from "./Input";
 import Loader from "./Loader";
 import BlurBackground from "./BlurBackground";
-import Navbar from "./Navbar";
+import Navbar from "../home/Navbar";
 
 export { Input, Loader, BlurBackground, Navbar };

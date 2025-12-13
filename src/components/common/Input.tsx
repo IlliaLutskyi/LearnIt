@@ -21,7 +21,7 @@ const Input = <T extends FieldValues>({
   const id = useId();
   return (
     <div className={divClassName ? divClassName : "flex flex-col gap-1"}>
-      <label htmlFor={id} className="text-xs">
+      <label htmlFor={id ? props.id : id} className="text-xs">
         {label ? label[0].toUpperCase() + label.slice(1) : ""}
       </label>
       <div className="flex flex-col gap-1">

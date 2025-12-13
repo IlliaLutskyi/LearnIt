@@ -4,6 +4,7 @@ import { SectionGroup } from "./section-group";
 import { Skill } from "./skill";
 
 export type Course = {
+  poster: string;
   title: string;
   slug: string;
   category: Category;

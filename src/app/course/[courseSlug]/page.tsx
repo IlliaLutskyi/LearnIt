@@ -7,8 +7,12 @@ import { getCourse } from "@/features/courses/services/get-course";
 import { authOptions } from "@/app/api/auth/[...nextauth]/options";
 import { getServerSession } from "next-auth";
 import { isAdmin, isAuthor } from "@/features/users/permissions";
-const EditForm = lazy(() => import("@/components/course-details/EditForm"));
-const EditButton = lazy(() => import("@/components/course-details/EditButton"));
+const EditCourseDetailsForm = lazy(
+  () => import("@/components/course-details/EditCourseDetailsForm")
+);
+const EditEditCourseDetailsButton = lazy(
+  () => import("@/components/course-details/EditEditCourseDetailsButton")
+);
 
 type Props = {
   params: Promise<{
@@ -18,6 +22,7 @@ type Props = {
 const CourseDetails = async ({ params }: Props) => {
   const { courseSlug } = await params;
   const session = await getServerSession(authOptions);
+
   if (!courseSlug)
     return <h1 className="text-center font-bold m-4">Course not found</h1>;
 
@@ -43,23 +48,27 @@ const CourseDetails = async ({ params }: Props) => {
         <div className="flex flex-col gap-2">
           <h2 className="font-bold text-lg">Prerequisites:</h2>
 
-          {course.prerequisites.length > 0 && (
-            <Prerequisites preriquisites={course.prerequisites} />
-          )}
+          <Prerequisites preriquisites={course.prerequisites} />
         </div>
 
-        {course.skills.length > 0 && <Skills skills={course.skills} />}
+        <div className="flex flex-col gap-4 p-5 border-[1px] border-accent rounded-sm">
+          <h2 className="font-bold text-lg">What you'll learn</h2>
+
+          <Skills skills={course.skills} />
+        </div>
 
         <div className="flex flex-col gap-2">
           <h2 className="font-bold text-lg">Course content</h2>
+
           <AboutSections sectionGroups={course.sectionGroups} />
         </div>
+
         {(isAdmin(session?.user) ||
           isAuthor(course.user.id, session?.user)) && (
           <Suspense>
             <section className="flex justify-end">
-              <EditButton />
-              <EditForm course={course} />
+              <EditEditCourseDetailsButton />
+              <EditCourseDetailsForm course={course} />
             </section>
           </Suspense>
         )}

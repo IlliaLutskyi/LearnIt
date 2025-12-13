@@ -14,13 +14,39 @@ const PreviewSidebar = ({
   setCurrentSection,
 }: Props) => {
   return (
-    <aside className="flex flex-col gap-4 items-center bg-sidebar-primary text-sidebar-primary-foreground rounded-br-sm rounded-tr-sm">
+    <aside className="flex flex-col bg-sidebar-primary text-sidebar-primary-foreground rounded-br-sm rounded-tr-sm p-4">
       {sectionGroups.map((sectionGroup) => {
         const [isOpen, setIsOpen] = useState(
           sectionGroup.order === 1 ? true : false
         );
+
+        if (sectionGroup.showSectionsOnly)
+          return sectionGroup.sections.map((section) => (
+            <div
+              className={`${
+                section.slug === currentSection?.slug
+                  ? "border-l-2 border-secondary-accent"
+                  : "border-l-2 hover:border-secondary-accent border-slate-200"
+              } pl-4`}
+              key={section.order}
+            >
+              <button
+                onClick={() => {
+                  setCurrentSection(section);
+                }}
+                className={`text-sm text-start ${
+                  currentSection?.slug === section.slug
+                    ? "text-secondary-accent"
+                    : "hover:text-secondary-accent"
+                } duration-400`}
+              >
+                {section.title}
+              </button>
+            </div>
+          ));
+
         return (
-          <Collapsible open={isOpen} className="p-4" key={sectionGroup.order}>
+          <Collapsible open={isOpen} key={sectionGroup.order} className="mt-2">
             <button
               className="flex justify-between items-center hover:text-secondary-accent duration-400 gap-4 font-bold"
               onClick={() => setIsOpen(!isOpen)}
@@ -43,7 +69,7 @@ const PreviewSidebar = ({
                     onClick={() => {
                       setCurrentSection(section);
                     }}
-                    className={`text-sm ${
+                    className={`text-sm text-start ${
                       currentSection?.slug === section.slug
                         ? "text-secondary-accent"
                         : "hover:text-secondary-accent"

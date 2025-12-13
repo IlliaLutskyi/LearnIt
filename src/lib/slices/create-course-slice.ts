@@ -1,5 +1,6 @@
 import { createSlug } from "@/features/courses/utils/create-slug";
 import { CreateLesson } from "@/features/lessons/schemas/create-lesson-schema";
+import { SectionGroupProperties } from "@/features/sections/schemas/section-group-properties";
 import {
   Prerequisite,
   Quiz,
@@ -13,17 +14,23 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 type Step = { step: number; title: string; active: boolean };
 type CourseStates = {
+  poster: string;
+  title: string;
+  slug: string;
+  category: string;
+  description: string;
   steps: Step[];
   prerequisites: Prerequisite[];
   skills: Skill[];
-  slug: string;
-  title: string;
-  category: string;
-  description: string;
   sectionGroups: SectionGroup[];
 };
 
 const initialState: CourseStates = {
+  poster: "",
+  title: "",
+  slug: "",
+  category: "",
+  description: "",
   steps: [
     { step: 1, title: "Genereral Information", active: true },
     { step: 2, title: "Set up prerequisites", active: false },
@@ -32,10 +39,6 @@ const initialState: CourseStates = {
   ],
   prerequisites: [],
   skills: [],
-  slug: "",
-  title: "",
-  category: "",
-  description: "",
   sectionGroups: [],
 };
 
@@ -46,6 +49,9 @@ export const CourseSlice = createSlice({
     setTitle: (state, action: PayloadAction<string>) => {
       state.title = action.payload;
       state.slug = createSlug(action.payload);
+    },
+    setPoster: (state, action: PayloadAction<string>) => {
+      state.poster = action.payload;
     },
     setDescription: (state, action: PayloadAction<string>) => {
       state.description = action.payload;
@@ -72,6 +78,7 @@ export const CourseSlice = createSlice({
         title: `SectionGroup ${maxOrder + 1}`,
         slug: `sectionGroup-${maxOrder + 1}`,
         sections: [],
+        showSectionsOnly: false,
         order: maxOrder + 1,
       });
     },
@@ -90,9 +97,11 @@ export const CourseSlice = createSlice({
         (sectionGroup) => sectionGroup.order !== action.payload
       );
     },
-    renameSectionGroup: (
+    setProperties: (
       state,
-      action: PayloadAction<{ sectionGroupOrder: number; title: string }>
+      action: PayloadAction<
+        { sectionGroupOrder: number } & SectionGroupProperties
+      >
     ) => {
       const sectionGroup = state.sectionGroups.find(
         (sectionGroup) =>
@@ -101,6 +110,7 @@ export const CourseSlice = createSlice({
       if (!sectionGroup) return;
       sectionGroup.title = action.payload.title;
       sectionGroup.slug = createSlug(action.payload.title);
+      sectionGroup.showSectionsOnly = action.payload.showSectionsOnly;
     },
 
     loadContent: (state) => {
@@ -413,6 +423,7 @@ export const CourseSlice = createSlice({
 });
 
 export const {
+  setPoster,
   addSectionToSectionGroup,
   addPrerequisites,
   setTitle,
@@ -424,8 +435,8 @@ export const {
   editSection,
   addLessonToSection,
   deleteSection,
-  renameSectionGroup,
   shiftSection,
+  setProperties,
   deleteSectionGroup,
   shiftLessons,
   loadContent,

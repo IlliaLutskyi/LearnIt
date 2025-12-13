@@ -26,7 +26,7 @@ const GeneralInfoTab = ({ course }: Props) => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isDirty },
   } = useForm({
     resolver: zodResolver(CreateGeneralInfoSchema),
     defaultValues: {
@@ -49,8 +49,10 @@ const GeneralInfoTab = ({ course }: Props) => {
     },
   });
 
-  function onSubmit(data: CreateGeneralInfo) {
-    updateMutation.mutate(data);
+  async function onSubmit(data: CreateGeneralInfo) {
+    if (!isDirty) return;
+
+    await updateMutation.mutateAsync(data);
     dispatch(toggleEditCourseDetailForm());
   }
   return (

@@ -4,6 +4,7 @@ import {
   setDescription,
   setCategory,
   setNextStep,
+  setPoster,
 } from "@/lib/slices/create-course-slice";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { Step } from "@/types/create-course";
@@ -20,6 +21,7 @@ import CategorySelect from "@/features/categories/components/create-course-form/
 import { motion } from "framer-motion";
 import { fadeInVariants } from "@/features/animations/fade-in";
 import { isJsonValid } from "@/utils/isJsonValid";
+import DropZone from "@/features/lessons/components/create-course-form/lessonTypeOptions/DropZone";
 
 type Props = {
   step: Step;
@@ -30,31 +32,51 @@ const Step1 = ({ step }: Props) => {
     formState: { errors },
     handleSubmit,
     setValue,
+    watch,
   } = useForm({ resolver: zodResolver(CreateGeneralInfoSchema) });
 
   const dispatch = useAppDispatch();
-  const { title, description, category } = useAppSelector(
+  const { title, description, category, poster } = useAppSelector(
     (state) => state.CreateCourse
   );
 
   useEffect(() => {
     const generalInfo = localStorage.getItem("generalInfo");
     if (generalInfo && isJsonValid(generalInfo)) {
-      const { title, description, category } = JSON.parse(generalInfo);
+      const { title, description, category, poster } = JSON.parse(generalInfo);
+      setValue("poster", poster);
       setValue("title", title);
       setValue("description", description);
       dispatch(setCategory(category));
     }
   }, []);
 
-  function onSubmit(data: CreateGeneralInfo) {
+  const posterValue = watch("poster");
+  function showPreview(inputRef: React.RefObject<HTMLInputElement | null>) {
+    return (
+      <div
+        className="flex flex-col gap-1 h-full"
+        onClick={() => inputRef?.current?.click()}
+      >
+        <p className="text-xs">Poster</p>
+        <img
+          src={posterValue}
+          className="w-full h-full object-cover rounded-sm"
+          alt="Poster image"
+        />
+      </div>
+    );
+  }
+  async function onSubmit(data: CreateGeneralInfo) {
     dispatch(setTitle(data.title));
+    dispatch(setPoster(data.poster));
     dispatch(setDescription(data.description));
     dispatch(setCategory(data.category.id));
 
     localStorage.setItem(
       "generalInfo",
       JSON.stringify({
+        poster: data.poster,
         title: data.title,
         description: data.description,
         category: category,
@@ -72,20 +94,36 @@ const Step1 = ({ step }: Props) => {
     >
       <h1 className="text-lg font-bold self-center">{step.title}</h1>
 
-      <section className="grow flex flex-col gap-2">
-        <div className="grid sm:grid-cols-2 grid-cols-1 gap-2">
-          <Input
-            label="course title"
-            type="text"
-            field="title"
-            defaultValue={title}
-            register={register}
-            error={errors.title?.message}
-            className="input-field"
-          />
-          <CategorySelect register={register} />
-        </div>
-        <div>
+      <section className="grow grid grid-cols-[1fr_3fr] items-center gap-2 ">
+        <DropZone
+          message="Poster"
+          onLoad={async (file) => {
+            const base64 = Buffer.from(await file.arrayBuffer()).toString(
+              "base64"
+            );
+
+            const image = `data:${file.type};base64,${base64}`;
+
+            setValue("poster", image);
+          }}
+          error={errors.poster?.message}
+          previewComponent={posterValue ? showPreview : undefined}
+        />
+
+        <div className="flex flex-col gap-2 h-full">
+          <div className="grid sm:grid-cols-2 grid-cols-1 gap-2">
+            <Input
+              label="course title"
+              type="text"
+              field="title"
+              defaultValue={title}
+              register={register}
+              error={errors.title?.message}
+              className="input-field"
+            />
+            <CategorySelect register={register} />
+          </div>
+
           <Input
             label="description"
             type="text"
@@ -94,7 +132,7 @@ const Step1 = ({ step }: Props) => {
             error={errors.description?.message}
             multiline={true}
             defaultValue={description}
-            className="input-field h-[15rem] max-h-[20rem]"
+            className="input-field h-[17rem] resize-none"
           />
         </div>
       </section>

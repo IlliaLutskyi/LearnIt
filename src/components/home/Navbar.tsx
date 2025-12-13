@@ -2,7 +2,7 @@
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import React from "react";
-import DarkModeToggle from "./DarkModeToggle";
+import DarkModeToggle from "../common/DarkModeToggle";
 import {
   Drawer,
   DrawerClose,
@@ -11,14 +11,16 @@ import {
   DrawerTrigger,
 } from "../ui/drawer";
 import { IoClose, IoMenu } from "react-icons/io5";
+import SearchBar from "./SearchBar";
 
 const Navbar = () => {
   const { data: session, status } = useSession();
   return (
-    <nav className="flex justify-between items-center w-full bg-navbar text-navbar-foreground h-12 py-4 px-6">
+    <nav className="flex justify-between items-center gap-4 w-full bg-navbar text-navbar-foreground h-12 py-4 px-6">
       <Link href="/" className="text-2xl font-bold">
         LearnIt
       </Link>
+      <SearchBar />
       <ul className="hidden sm:flex items-center justify-center sm:gap-6">
         <li>
           <Link

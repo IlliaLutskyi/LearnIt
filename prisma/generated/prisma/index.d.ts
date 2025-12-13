@@ -126,7 +126,7 @@ export const ContentType: typeof $Enums.ContentType
  * ```
  *
  *
- * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client).
+ * Read more in our [docs](https://pris.ly/d/client).
  */
 export class PrismaClient<
   ClientOptions extends Prisma.PrismaClientOptions = Prisma.PrismaClientOptions,
@@ -147,7 +147,7 @@ export class PrismaClient<
    * ```
    *
    *
-   * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client).
+   * Read more in our [docs](https://pris.ly/d/client).
    */
 
   constructor(optionsArg ?: Prisma.Subset<ClientOptions, Prisma.PrismaClientOptions>);
@@ -170,7 +170,7 @@ export class PrismaClient<
    * const result = await prisma.$executeRaw`UPDATE User SET cool = ${true} WHERE email = ${'user@email.com'};`
    * ```
    *
-   * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/raw-database-access).
+   * Read more in our [docs](https://pris.ly/d/raw-queries).
    */
   $executeRaw<T = unknown>(query: TemplateStringsArray | Prisma.Sql, ...values: any[]): Prisma.PrismaPromise<number>;
 
@@ -182,7 +182,7 @@ export class PrismaClient<
    * const result = await prisma.$executeRawUnsafe('UPDATE User SET cool = $1 WHERE email = $2 ;', true, 'user@email.com')
    * ```
    *
-   * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/raw-database-access).
+   * Read more in our [docs](https://pris.ly/d/raw-queries).
    */
   $executeRawUnsafe<T = unknown>(query: string, ...values: any[]): Prisma.PrismaPromise<number>;
 
@@ -193,7 +193,7 @@ export class PrismaClient<
    * const result = await prisma.$queryRaw`SELECT * FROM User WHERE id = ${1} OR email = ${'user@email.com'};`
    * ```
    *
-   * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/raw-database-access).
+   * Read more in our [docs](https://pris.ly/d/raw-queries).
    */
   $queryRaw<T = unknown>(query: TemplateStringsArray | Prisma.Sql, ...values: any[]): Prisma.PrismaPromise<T>;
 
@@ -205,7 +205,7 @@ export class PrismaClient<
    * const result = await prisma.$queryRawUnsafe('SELECT * FROM User WHERE id = $1 OR email = $2;', 1, 'user@email.com')
    * ```
    *
-   * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/raw-database-access).
+   * Read more in our [docs](https://pris.ly/d/raw-queries).
    */
   $queryRawUnsafe<T = unknown>(query: string, ...values: any[]): Prisma.PrismaPromise<T>;
 
@@ -390,8 +390,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 7.0.1
-   * Query Engine version: f09f2815f091dbba658cdcd2264306d88bb5bda6
+   * Prisma Client JS version: 7.1.0
+   * Query Engine version: ab635e6b9d606fa5c8fb8b1a7f909c3c3c1c98ba
    */
   export type PrismaVersion = {
     client: string
@@ -1672,7 +1672,7 @@ export namespace Prisma {
      *  { emit: 'stdout', level: 'error' }
      * 
      * ```
-     * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/logging#the-log-option).
+     * Read more in our [docs](https://pris.ly/d/logging).
      */
     log?: (LogLevel | LogDefinition)[]
     /**
@@ -1708,6 +1708,22 @@ export namespace Prisma {
      * ```
      */
     omit?: Prisma.GlobalOmitConfig
+    /**
+     * SQL commenter plugins that add metadata to SQL queries as comments.
+     * Comments follow the sqlcommenter format: https://google.github.io/sqlcommenter/
+     * 
+     * @example
+     * ```
+     * const prisma = new PrismaClient({
+     *   adapter,
+     *   comments: [
+     *     traceContext(),
+     *     queryInsights(),
+     *   ],
+     * })
+     * ```
+     */
+    comments?: runtime.SqlCommenterPlugin[]
   }
   export type GlobalOmitConfig = {
     user?: UserOmit
@@ -3180,6 +3196,7 @@ export namespace Prisma {
 
   export type CourseMinAggregateOutputType = {
     id: number | null
+    poster: string | null
     title: string | null
     slug: string | null
     description: string | null
@@ -3191,6 +3208,7 @@ export namespace Prisma {
 
   export type CourseMaxAggregateOutputType = {
     id: number | null
+    poster: string | null
     title: string | null
     slug: string | null
     description: string | null
@@ -3202,6 +3220,7 @@ export namespace Prisma {
 
   export type CourseCountAggregateOutputType = {
     id: number
+    poster: number
     title: number
     slug: number
     description: number
@@ -3227,6 +3246,7 @@ export namespace Prisma {
 
   export type CourseMinAggregateInputType = {
     id?: true
+    poster?: true
     title?: true
     slug?: true
     description?: true
@@ -3238,6 +3258,7 @@ export namespace Prisma {
 
   export type CourseMaxAggregateInputType = {
     id?: true
+    poster?: true
     title?: true
     slug?: true
     description?: true
@@ -3249,6 +3270,7 @@ export namespace Prisma {
 
   export type CourseCountAggregateInputType = {
     id?: true
+    poster?: true
     title?: true
     slug?: true
     description?: true
@@ -3347,6 +3369,7 @@ export namespace Prisma {
 
   export type CourseGroupByOutputType = {
     id: number
+    poster: string
     title: string
     slug: string
     description: string
@@ -3377,6 +3400,7 @@ export namespace Prisma {
 
   export type CourseSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    poster?: boolean
     title?: boolean
     slug?: boolean
     description?: boolean
@@ -3394,6 +3418,7 @@ export namespace Prisma {
 
   export type CourseSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    poster?: boolean
     title?: boolean
     slug?: boolean
     description?: boolean
@@ -3407,6 +3432,7 @@ export namespace Prisma {
 
   export type CourseSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    poster?: boolean
     title?: boolean
     slug?: boolean
     description?: boolean
@@ -3420,6 +3446,7 @@ export namespace Prisma {
 
   export type CourseSelectScalar = {
     id?: boolean
+    poster?: boolean
     title?: boolean
     slug?: boolean
     description?: boolean
@@ -3429,7 +3456,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type CourseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "slug" | "description" | "categoryId" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["course"]>
+  export type CourseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "poster" | "title" | "slug" | "description" | "categoryId" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["course"]>
   export type CourseInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     sectionGroups?: boolean | Course$sectionGroupsArgs<ExtArgs>
     prerequisites?: boolean | Course$prerequisitesArgs<ExtArgs>
@@ -3458,6 +3485,7 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
+      poster: string
       title: string
       slug: string
       description: string
@@ -3894,6 +3922,7 @@ export namespace Prisma {
    */
   interface CourseFieldRefs {
     readonly id: FieldRef<"Course", 'Int'>
+    readonly poster: FieldRef<"Course", 'String'>
     readonly title: FieldRef<"Course", 'String'>
     readonly slug: FieldRef<"Course", 'String'>
     readonly description: FieldRef<"Course", 'String'>
@@ -5493,6 +5522,7 @@ export namespace Prisma {
     id: number | null
     title: string | null
     slug: string | null
+    showSectionsOnly: boolean | null
     order: number | null
     courseId: number | null
   }
@@ -5501,6 +5531,7 @@ export namespace Prisma {
     id: number | null
     title: string | null
     slug: string | null
+    showSectionsOnly: boolean | null
     order: number | null
     courseId: number | null
   }
@@ -5509,6 +5540,7 @@ export namespace Prisma {
     id: number
     title: number
     slug: number
+    showSectionsOnly: number
     order: number
     courseId: number
     _all: number
@@ -5531,6 +5563,7 @@ export namespace Prisma {
     id?: true
     title?: true
     slug?: true
+    showSectionsOnly?: true
     order?: true
     courseId?: true
   }
@@ -5539,6 +5572,7 @@ export namespace Prisma {
     id?: true
     title?: true
     slug?: true
+    showSectionsOnly?: true
     order?: true
     courseId?: true
   }
@@ -5547,6 +5581,7 @@ export namespace Prisma {
     id?: true
     title?: true
     slug?: true
+    showSectionsOnly?: true
     order?: true
     courseId?: true
     _all?: true
@@ -5642,6 +5677,7 @@ export namespace Prisma {
     id: number
     title: string
     slug: string
+    showSectionsOnly: boolean
     order: number
     courseId: number
     _count: SectionGroupCountAggregateOutputType | null
@@ -5669,6 +5705,7 @@ export namespace Prisma {
     id?: boolean
     title?: boolean
     slug?: boolean
+    showSectionsOnly?: boolean
     order?: boolean
     courseId?: boolean
     sections?: boolean | SectionGroup$sectionsArgs<ExtArgs>
@@ -5680,6 +5717,7 @@ export namespace Prisma {
     id?: boolean
     title?: boolean
     slug?: boolean
+    showSectionsOnly?: boolean
     order?: boolean
     courseId?: boolean
     course?: boolean | CourseDefaultArgs<ExtArgs>
@@ -5689,6 +5727,7 @@ export namespace Prisma {
     id?: boolean
     title?: boolean
     slug?: boolean
+    showSectionsOnly?: boolean
     order?: boolean
     courseId?: boolean
     course?: boolean | CourseDefaultArgs<ExtArgs>
@@ -5698,11 +5737,12 @@ export namespace Prisma {
     id?: boolean
     title?: boolean
     slug?: boolean
+    showSectionsOnly?: boolean
     order?: boolean
     courseId?: boolean
   }
 
-  export type SectionGroupOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "slug" | "order" | "courseId", ExtArgs["result"]["sectionGroup"]>
+  export type SectionGroupOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "slug" | "showSectionsOnly" | "order" | "courseId", ExtArgs["result"]["sectionGroup"]>
   export type SectionGroupInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     sections?: boolean | SectionGroup$sectionsArgs<ExtArgs>
     course?: boolean | CourseDefaultArgs<ExtArgs>
@@ -5725,6 +5765,7 @@ export namespace Prisma {
       id: number
       title: string
       slug: string
+      showSectionsOnly: boolean
       order: number
       courseId: number
     }, ExtArgs["result"]["sectionGroup"]>
@@ -6155,6 +6196,7 @@ export namespace Prisma {
     readonly id: FieldRef<"SectionGroup", 'Int'>
     readonly title: FieldRef<"SectionGroup", 'String'>
     readonly slug: FieldRef<"SectionGroup", 'String'>
+    readonly showSectionsOnly: FieldRef<"SectionGroup", 'Boolean'>
     readonly order: FieldRef<"SectionGroup", 'Int'>
     readonly courseId: FieldRef<"SectionGroup", 'Int'>
   }
@@ -14407,6 +14449,7 @@ export namespace Prisma {
 
   export const CourseScalarFieldEnum: {
     id: 'id',
+    poster: 'poster',
     title: 'title',
     slug: 'slug',
     description: 'description',
@@ -14432,6 +14475,7 @@ export namespace Prisma {
     id: 'id',
     title: 'title',
     slug: 'slug',
+    showSectionsOnly: 'showSectionsOnly',
     order: 'order',
     courseId: 'courseId'
   };
@@ -14600,6 +14644,13 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+  /**
    * Reference to a field of type 'ContentType'
    */
   export type EnumContentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ContentType'>
@@ -14624,13 +14675,6 @@ export namespace Prisma {
    * Reference to a field of type 'VideoSource[]'
    */
   export type ListEnumVideoSourceFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'VideoSource[]'>
-    
-
-
-  /**
-   * Reference to a field of type 'Boolean'
-   */
-  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
@@ -14716,6 +14760,7 @@ export namespace Prisma {
     OR?: CourseWhereInput[]
     NOT?: CourseWhereInput | CourseWhereInput[]
     id?: IntFilter<"Course"> | number
+    poster?: StringFilter<"Course"> | string
     title?: StringFilter<"Course"> | string
     slug?: StringFilter<"Course"> | string
     description?: StringFilter<"Course"> | string
@@ -14732,6 +14777,7 @@ export namespace Prisma {
 
   export type CourseOrderByWithRelationInput = {
     id?: SortOrder
+    poster?: SortOrder
     title?: SortOrder
     slug?: SortOrder
     description?: SortOrder
@@ -14753,6 +14799,7 @@ export namespace Prisma {
     AND?: CourseWhereInput | CourseWhereInput[]
     OR?: CourseWhereInput[]
     NOT?: CourseWhereInput | CourseWhereInput[]
+    poster?: StringFilter<"Course"> | string
     description?: StringFilter<"Course"> | string
     categoryId?: IntFilter<"Course"> | number
     userId?: IntFilter<"Course"> | number
@@ -14767,6 +14814,7 @@ export namespace Prisma {
 
   export type CourseOrderByWithAggregationInput = {
     id?: SortOrder
+    poster?: SortOrder
     title?: SortOrder
     slug?: SortOrder
     description?: SortOrder
@@ -14786,6 +14834,7 @@ export namespace Prisma {
     OR?: CourseScalarWhereWithAggregatesInput[]
     NOT?: CourseScalarWhereWithAggregatesInput | CourseScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"Course"> | number
+    poster?: StringWithAggregatesFilter<"Course"> | string
     title?: StringWithAggregatesFilter<"Course"> | string
     slug?: StringWithAggregatesFilter<"Course"> | string
     description?: StringWithAggregatesFilter<"Course"> | string
@@ -14849,6 +14898,7 @@ export namespace Prisma {
     id?: IntFilter<"SectionGroup"> | number
     title?: StringFilter<"SectionGroup"> | string
     slug?: StringFilter<"SectionGroup"> | string
+    showSectionsOnly?: BoolFilter<"SectionGroup"> | boolean
     order?: IntFilter<"SectionGroup"> | number
     courseId?: IntFilter<"SectionGroup"> | number
     sections?: SectionListRelationFilter
@@ -14859,6 +14909,7 @@ export namespace Prisma {
     id?: SortOrder
     title?: SortOrder
     slug?: SortOrder
+    showSectionsOnly?: SortOrder
     order?: SortOrder
     courseId?: SortOrder
     sections?: SectionOrderByRelationAggregateInput
@@ -14872,6 +14923,7 @@ export namespace Prisma {
     NOT?: SectionGroupWhereInput | SectionGroupWhereInput[]
     title?: StringFilter<"SectionGroup"> | string
     slug?: StringFilter<"SectionGroup"> | string
+    showSectionsOnly?: BoolFilter<"SectionGroup"> | boolean
     order?: IntFilter<"SectionGroup"> | number
     courseId?: IntFilter<"SectionGroup"> | number
     sections?: SectionListRelationFilter
@@ -14882,6 +14934,7 @@ export namespace Prisma {
     id?: SortOrder
     title?: SortOrder
     slug?: SortOrder
+    showSectionsOnly?: SortOrder
     order?: SortOrder
     courseId?: SortOrder
     _count?: SectionGroupCountOrderByAggregateInput
@@ -14898,6 +14951,7 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"SectionGroup"> | number
     title?: StringWithAggregatesFilter<"SectionGroup"> | string
     slug?: StringWithAggregatesFilter<"SectionGroup"> | string
+    showSectionsOnly?: BoolWithAggregatesFilter<"SectionGroup"> | boolean
     order?: IntWithAggregatesFilter<"SectionGroup"> | number
     courseId?: IntWithAggregatesFilter<"SectionGroup"> | number
   }
@@ -15369,6 +15423,7 @@ export namespace Prisma {
   }
 
   export type CourseCreateInput = {
+    poster: string
     title: string
     slug: string
     description: string
@@ -15383,6 +15438,7 @@ export namespace Prisma {
 
   export type CourseUncheckedCreateInput = {
     id?: number
+    poster: string
     title: string
     slug: string
     description: string
@@ -15396,6 +15452,7 @@ export namespace Prisma {
   }
 
   export type CourseUpdateInput = {
+    poster?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
@@ -15410,6 +15467,7 @@ export namespace Prisma {
 
   export type CourseUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
+    poster?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
@@ -15424,6 +15482,7 @@ export namespace Prisma {
 
   export type CourseCreateManyInput = {
     id?: number
+    poster: string
     title: string
     slug: string
     description: string
@@ -15434,6 +15493,7 @@ export namespace Prisma {
   }
 
   export type CourseUpdateManyMutationInput = {
+    poster?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
@@ -15443,6 +15503,7 @@ export namespace Prisma {
 
   export type CourseUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
+    poster?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
@@ -15498,6 +15559,7 @@ export namespace Prisma {
   export type SectionGroupCreateInput = {
     title: string
     slug: string
+    showSectionsOnly?: boolean
     order: number
     sections?: SectionCreateNestedManyWithoutSectionGroupInput
     course: CourseCreateNestedOneWithoutSectionGroupsInput
@@ -15507,6 +15569,7 @@ export namespace Prisma {
     id?: number
     title: string
     slug: string
+    showSectionsOnly?: boolean
     order: number
     courseId: number
     sections?: SectionUncheckedCreateNestedManyWithoutSectionGroupInput
@@ -15515,6 +15578,7 @@ export namespace Prisma {
   export type SectionGroupUpdateInput = {
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
+    showSectionsOnly?: BoolFieldUpdateOperationsInput | boolean
     order?: IntFieldUpdateOperationsInput | number
     sections?: SectionUpdateManyWithoutSectionGroupNestedInput
     course?: CourseUpdateOneRequiredWithoutSectionGroupsNestedInput
@@ -15524,6 +15588,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
+    showSectionsOnly?: BoolFieldUpdateOperationsInput | boolean
     order?: IntFieldUpdateOperationsInput | number
     courseId?: IntFieldUpdateOperationsInput | number
     sections?: SectionUncheckedUpdateManyWithoutSectionGroupNestedInput
@@ -15533,6 +15598,7 @@ export namespace Prisma {
     id?: number
     title: string
     slug: string
+    showSectionsOnly?: boolean
     order: number
     courseId: number
   }
@@ -15540,6 +15606,7 @@ export namespace Prisma {
   export type SectionGroupUpdateManyMutationInput = {
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
+    showSectionsOnly?: BoolFieldUpdateOperationsInput | boolean
     order?: IntFieldUpdateOperationsInput | number
   }
 
@@ -15547,6 +15614,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
+    showSectionsOnly?: BoolFieldUpdateOperationsInput | boolean
     order?: IntFieldUpdateOperationsInput | number
     courseId?: IntFieldUpdateOperationsInput | number
   }
@@ -16098,6 +16166,7 @@ export namespace Prisma {
 
   export type CourseCountOrderByAggregateInput = {
     id?: SortOrder
+    poster?: SortOrder
     title?: SortOrder
     slug?: SortOrder
     description?: SortOrder
@@ -16115,6 +16184,7 @@ export namespace Prisma {
 
   export type CourseMaxOrderByAggregateInput = {
     id?: SortOrder
+    poster?: SortOrder
     title?: SortOrder
     slug?: SortOrder
     description?: SortOrder
@@ -16126,6 +16196,7 @@ export namespace Prisma {
 
   export type CourseMinOrderByAggregateInput = {
     id?: SortOrder
+    poster?: SortOrder
     title?: SortOrder
     slug?: SortOrder
     description?: SortOrder
@@ -16181,6 +16252,11 @@ export namespace Prisma {
     id?: SortOrder
   }
 
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type SectionListRelationFilter = {
     every?: SectionWhereInput
     some?: SectionWhereInput
@@ -16200,6 +16276,7 @@ export namespace Prisma {
     id?: SortOrder
     title?: SortOrder
     slug?: SortOrder
+    showSectionsOnly?: SortOrder
     order?: SortOrder
     courseId?: SortOrder
   }
@@ -16214,6 +16291,7 @@ export namespace Prisma {
     id?: SortOrder
     title?: SortOrder
     slug?: SortOrder
+    showSectionsOnly?: SortOrder
     order?: SortOrder
     courseId?: SortOrder
   }
@@ -16222,6 +16300,7 @@ export namespace Prisma {
     id?: SortOrder
     title?: SortOrder
     slug?: SortOrder
+    showSectionsOnly?: SortOrder
     order?: SortOrder
     courseId?: SortOrder
   }
@@ -16230,6 +16309,14 @@ export namespace Prisma {
     id?: SortOrder
     order?: SortOrder
     courseId?: SortOrder
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type LessonListRelationFilter = {
@@ -16485,11 +16572,6 @@ export namespace Prisma {
     lessonId?: SortOrder
   }
 
-  export type BoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
   export type QuizScalarRelationFilter = {
     is?: QuizWhereInput
     isNot?: QuizWhereInput
@@ -16524,14 +16606,6 @@ export namespace Prisma {
   export type AnswerSumOrderByAggregateInput = {
     id?: SortOrder
     quizId?: SortOrder
-  }
-
-  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type PrerequisitCountOrderByAggregateInput = {
@@ -16956,6 +17030,10 @@ export namespace Prisma {
     connect?: SectionWhereUniqueInput | SectionWhereUniqueInput[]
   }
 
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
+  }
+
   export type SectionUpdateManyWithoutSectionGroupNestedInput = {
     create?: XOR<SectionCreateWithoutSectionGroupInput, SectionUncheckedCreateWithoutSectionGroupInput> | SectionCreateWithoutSectionGroupInput[] | SectionUncheckedCreateWithoutSectionGroupInput[]
     connectOrCreate?: SectionCreateOrConnectWithoutSectionGroupInput | SectionCreateOrConnectWithoutSectionGroupInput[]
@@ -17218,10 +17296,6 @@ export namespace Prisma {
     connect?: QuizWhereUniqueInput
   }
 
-  export type BoolFieldUpdateOperationsInput = {
-    set?: boolean
-  }
-
   export type QuizUpdateOneRequiredWithoutAnswersNestedInput = {
     create?: XOR<QuizCreateWithoutAnswersInput, QuizUncheckedCreateWithoutAnswersInput>
     connectOrCreate?: QuizCreateOrConnectWithoutAnswersInput
@@ -17397,6 +17471,19 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
   export type NestedStringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -17500,19 +17587,6 @@ export namespace Prisma {
     _max?: NestedEnumVideoSourceNullableFilter<$PrismaModel>
   }
 
-  export type NestedBoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
-  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
-  }
-
   export type SectionRatingCreateWithoutUserInput = {
     rate?: number
     createdAt?: Date | string
@@ -17539,6 +17613,7 @@ export namespace Prisma {
   }
 
   export type CourseCreateWithoutUserInput = {
+    poster: string
     title: string
     slug: string
     description: string
@@ -17552,6 +17627,7 @@ export namespace Prisma {
 
   export type CourseUncheckedCreateWithoutUserInput = {
     id?: number
+    poster: string
     title: string
     slug: string
     description: string
@@ -17622,6 +17698,7 @@ export namespace Prisma {
     OR?: CourseScalarWhereInput[]
     NOT?: CourseScalarWhereInput | CourseScalarWhereInput[]
     id?: IntFilter<"Course"> | number
+    poster?: StringFilter<"Course"> | string
     title?: StringFilter<"Course"> | string
     slug?: StringFilter<"Course"> | string
     description?: StringFilter<"Course"> | string
@@ -17634,6 +17711,7 @@ export namespace Prisma {
   export type SectionGroupCreateWithoutCourseInput = {
     title: string
     slug: string
+    showSectionsOnly?: boolean
     order: number
     sections?: SectionCreateNestedManyWithoutSectionGroupInput
   }
@@ -17642,6 +17720,7 @@ export namespace Prisma {
     id?: number
     title: string
     slug: string
+    showSectionsOnly?: boolean
     order: number
     sections?: SectionUncheckedCreateNestedManyWithoutSectionGroupInput
   }
@@ -17755,6 +17834,7 @@ export namespace Prisma {
     id?: IntFilter<"SectionGroup"> | number
     title?: StringFilter<"SectionGroup"> | string
     slug?: StringFilter<"SectionGroup"> | string
+    showSectionsOnly?: BoolFilter<"SectionGroup"> | boolean
     order?: IntFilter<"SectionGroup"> | number
     courseId?: IntFilter<"SectionGroup"> | number
   }
@@ -17860,6 +17940,7 @@ export namespace Prisma {
   }
 
   export type CourseCreateWithoutCategoryInput = {
+    poster: string
     title: string
     slug: string
     description: string
@@ -17873,6 +17954,7 @@ export namespace Prisma {
 
   export type CourseUncheckedCreateWithoutCategoryInput = {
     id?: number
+    poster: string
     title: string
     slug: string
     description: string
@@ -17938,6 +18020,7 @@ export namespace Prisma {
   }
 
   export type CourseCreateWithoutSectionGroupsInput = {
+    poster: string
     title: string
     slug: string
     description: string
@@ -17951,6 +18034,7 @@ export namespace Prisma {
 
   export type CourseUncheckedCreateWithoutSectionGroupsInput = {
     id?: number
+    poster: string
     title: string
     slug: string
     description: string
@@ -18006,6 +18090,7 @@ export namespace Prisma {
   }
 
   export type CourseUpdateWithoutSectionGroupsInput = {
+    poster?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
@@ -18019,6 +18104,7 @@ export namespace Prisma {
 
   export type CourseUncheckedUpdateWithoutSectionGroupsInput = {
     id?: IntFieldUpdateOperationsInput | number
+    poster?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
@@ -18089,6 +18175,7 @@ export namespace Prisma {
   export type SectionGroupCreateWithoutSectionsInput = {
     title: string
     slug: string
+    showSectionsOnly?: boolean
     order: number
     course: CourseCreateNestedOneWithoutSectionGroupsInput
   }
@@ -18097,6 +18184,7 @@ export namespace Prisma {
     id?: number
     title: string
     slug: string
+    showSectionsOnly?: boolean
     order: number
     courseId: number
   }
@@ -18166,6 +18254,7 @@ export namespace Prisma {
   export type SectionGroupUpdateWithoutSectionsInput = {
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
+    showSectionsOnly?: BoolFieldUpdateOperationsInput | boolean
     order?: IntFieldUpdateOperationsInput | number
     course?: CourseUpdateOneRequiredWithoutSectionGroupsNestedInput
   }
@@ -18174,6 +18263,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
+    showSectionsOnly?: BoolFieldUpdateOperationsInput | boolean
     order?: IntFieldUpdateOperationsInput | number
     courseId?: IntFieldUpdateOperationsInput | number
   }
@@ -18418,6 +18508,7 @@ export namespace Prisma {
   }
 
   export type CourseCreateWithoutPrerequisitesInput = {
+    poster: string
     title: string
     slug: string
     description: string
@@ -18431,6 +18522,7 @@ export namespace Prisma {
 
   export type CourseUncheckedCreateWithoutPrerequisitesInput = {
     id?: number
+    poster: string
     title: string
     slug: string
     description: string
@@ -18459,6 +18551,7 @@ export namespace Prisma {
   }
 
   export type CourseUpdateWithoutPrerequisitesInput = {
+    poster?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
@@ -18472,6 +18565,7 @@ export namespace Prisma {
 
   export type CourseUncheckedUpdateWithoutPrerequisitesInput = {
     id?: IntFieldUpdateOperationsInput | number
+    poster?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
@@ -18484,6 +18578,7 @@ export namespace Prisma {
   }
 
   export type CourseCreateWithoutSkillsInput = {
+    poster: string
     title: string
     slug: string
     description: string
@@ -18497,6 +18592,7 @@ export namespace Prisma {
 
   export type CourseUncheckedCreateWithoutSkillsInput = {
     id?: number
+    poster: string
     title: string
     slug: string
     description: string
@@ -18525,6 +18621,7 @@ export namespace Prisma {
   }
 
   export type CourseUpdateWithoutSkillsInput = {
+    poster?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
@@ -18538,6 +18635,7 @@ export namespace Prisma {
 
   export type CourseUncheckedUpdateWithoutSkillsInput = {
     id?: IntFieldUpdateOperationsInput | number
+    poster?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
@@ -18659,6 +18757,7 @@ export namespace Prisma {
 
   export type CourseCreateManyUserInput = {
     id?: number
+    poster: string
     title: string
     slug: string
     description: string
@@ -18691,6 +18790,7 @@ export namespace Prisma {
   }
 
   export type CourseUpdateWithoutUserInput = {
+    poster?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
@@ -18704,6 +18804,7 @@ export namespace Prisma {
 
   export type CourseUncheckedUpdateWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
+    poster?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
@@ -18717,6 +18818,7 @@ export namespace Prisma {
 
   export type CourseUncheckedUpdateManyWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
+    poster?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
@@ -18729,6 +18831,7 @@ export namespace Prisma {
     id?: number
     title: string
     slug: string
+    showSectionsOnly?: boolean
     order: number
   }
 
@@ -18745,6 +18848,7 @@ export namespace Prisma {
   export type SectionGroupUpdateWithoutCourseInput = {
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
+    showSectionsOnly?: BoolFieldUpdateOperationsInput | boolean
     order?: IntFieldUpdateOperationsInput | number
     sections?: SectionUpdateManyWithoutSectionGroupNestedInput
   }
@@ -18753,6 +18857,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
+    showSectionsOnly?: BoolFieldUpdateOperationsInput | boolean
     order?: IntFieldUpdateOperationsInput | number
     sections?: SectionUncheckedUpdateManyWithoutSectionGroupNestedInput
   }
@@ -18761,6 +18866,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
+    showSectionsOnly?: BoolFieldUpdateOperationsInput | boolean
     order?: IntFieldUpdateOperationsInput | number
   }
 
@@ -18794,6 +18900,7 @@ export namespace Prisma {
 
   export type CourseCreateManyCategoryInput = {
     id?: number
+    poster: string
     title: string
     slug: string
     description: string
@@ -18803,6 +18910,7 @@ export namespace Prisma {
   }
 
   export type CourseUpdateWithoutCategoryInput = {
+    poster?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
@@ -18816,6 +18924,7 @@ export namespace Prisma {
 
   export type CourseUncheckedUpdateWithoutCategoryInput = {
     id?: IntFieldUpdateOperationsInput | number
+    poster?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
@@ -18829,6 +18938,7 @@ export namespace Prisma {
 
   export type CourseUncheckedUpdateManyWithoutCategoryInput = {
     id?: IntFieldUpdateOperationsInput | number
+    poster?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string

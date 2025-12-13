@@ -35,11 +35,12 @@ export default async function createCourse(
         { status: 400 }
       );
     }
-
+    const optimizeedPoster = await optimizeImage(course.poster);
     const processedSectionGroups = await Promise.all(
       course.sectionGroups.map(async (sectionGroup, sgi) => ({
         title: sectionGroup.title,
         slug: sectionGroup.slug,
+        showSectionsOnly: sectionGroup.showSectionsOnly,
         order: sgi + 1,
         sections: {
           create: await Promise.all(
@@ -85,6 +86,7 @@ export default async function createCourse(
 
     await prisma.course.create({
       data: {
+        poster: optimizeedPoster,
         title: course.title,
         slug: course.slug,
         description: course.description,

@@ -1,11 +1,21 @@
-import { DragEvent, useRef, useState } from "react";
+import React, { DragEvent, useRef, useState } from "react";
 import { toast } from "sonner";
 type Props = {
-  onLoad: (buffer: ArrayBuffer, file: File) => void;
+  onLoad?: (file: File) => void;
+  previewComponent?: (
+    inputRef: React.RefObject<HTMLInputElement | null>
+  ) => React.ReactNode;
+  message?: string;
   error?: string;
   label?: string;
 };
-const DropZone = ({ onLoad, error, label }: Props) => {
+const DropZone = ({
+  onLoad,
+  error,
+  label,
+  message = "Click to upload or drag and drop a file",
+  previewComponent,
+}: Props) => {
   const [uploadStatus, setUploadStatus] = useState<
     "idle" | "loading" | "complete"
   >("idle");
@@ -22,8 +32,7 @@ const DropZone = ({ onLoad, error, label }: Props) => {
     const reader = new FileReader();
 
     reader.onload = () => {
-      const buffer = reader.result as ArrayBuffer;
-      onLoad(buffer, file);
+      onLoad?.(file);
       setUploadStatus("complete");
     };
 
@@ -40,45 +49,53 @@ const DropZone = ({ onLoad, error, label }: Props) => {
     const reader = new FileReader();
 
     reader.onload = () => {
-      const buffer = reader.result as ArrayBuffer;
-
-      onLoad(buffer, file);
+      onLoad?.(file);
 
       setUploadStatus("complete");
     };
 
     reader.readAsArrayBuffer(file);
   }
+
   return (
     <section
-      className="flex flex-col gap-2"
+      className="h-full"
       onDrop={handleDropFile}
       onDragEnter={(e) => e.preventDefault()}
       onDragOver={(e) => e.preventDefault()}
     >
-      <div className="flex flex-col gap-1">
-        <label className="text-xs">{label}</label>
-        <button
-          type="button"
-          onClick={() => inputRef.current?.click()}
-          className={`w-full border-[1px] rounded-sm h-[15rem] text-sm ${
-            uploadStatus === "complete"
-              ? "border-green-500 text-green-500"
-              : "text-purple-400 border-purple-400 hover:border-purple-700 hover:text-purple-700"
-          } duration-200`}
-        >
-          {uploadStatus == "complete" && "Upload completed, you can save now"}
-          {uploadStatus == "idle" && "Click to upload or drag and drop a file"}
-        </button>
-      </div>
+      {previewComponent ? (
+        previewComponent(inputRef)
+      ) : (
+        <div className="flex flex-col gap-1 h-full">
+          <label htmlFor="file-upload" className="text-xs">
+            {label}
+          </label>
+
+          <button
+            type="button"
+            onClick={() => inputRef.current?.click()}
+            className={`grow w-full p-2 border-[1px] rounded-sm min-h-[15rem] text-sm ${
+              uploadStatus === "complete"
+                ? "border-success text-success"
+                : "text-accent border-accent hover:border-secondary-accent hover:text-secondary-accent"
+            } duration-400`}
+          >
+            {uploadStatus == "complete" && "Upload completed, you can save now"}
+            {uploadStatus == "idle" && message}
+          </button>
+
+          <p className="text-xs text-error">{error}</p>
+        </div>
+      )}
 
       <input
+        id="file-upload"
         ref={inputRef}
         type="file"
         className="hidden"
         onChange={handleFileUpload}
       />
-      <p className="text-xs text-error">{error}</p>
     </section>
   );
 };

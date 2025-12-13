@@ -20,6 +20,7 @@ model User {
 
 model Course{
   id Int @id @default(autoincrement())
+  poster String
   title String @unique
   slug String @unique
   description String
@@ -45,6 +46,7 @@ model SectionGroup{
   id Int @id @default(autoincrement())
   title String 
   slug String
+  showSectionsOnly Boolean @default(false)
   sections Section[]
   order Int 
   courseId Int

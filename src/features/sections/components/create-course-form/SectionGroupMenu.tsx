@@ -19,23 +19,26 @@ import { Section, SectionGroup } from "@/types/create-course";
 import { LegacyAnimationControls } from "framer-motion";
 import { GenerateSection } from "../../schemas/generate-section";
 import { toast } from "sonner";
+
+const PropertiesForm = lazy(() => import("./PropertiesForm"));
+
 const RenameForm = lazy(() => import("./RenameForm"));
 const GenerateSectionForm = lazy(() => import("./GenerateSectionForm"));
+
 type Props = {
   sectionGroup: SectionGroup;
   controlls: LegacyAnimationControls;
 };
 const SectionGroupMenu = ({ sectionGroup, controlls }: Props) => {
   const dispatch = useAppDispatch();
-  const [isRenameSectionGroupFormOpen, setIsRenameSectionGroupFormOpen] =
-    useState(false);
+  const [isPropertiesFormOpen, setIsPropertiesFormOpen] = useState(false);
   const [isGenerateSectionOpen, setIsGenerateSectionOpen] = useState(false);
   async function handleDeleteSectionGroup() {
     await controlls.start("exit");
     dispatch(deleteSectionGroup(sectionGroup.order));
   }
   function handleRenameSectionGroup() {
-    setIsRenameSectionGroupFormOpen(true);
+    setIsPropertiesFormOpen(true);
   }
   function handleGenerateSection() {
     setIsGenerateSectionOpen(true);
@@ -65,7 +68,7 @@ const SectionGroupMenu = ({ sectionGroup, controlls }: Props) => {
           <MenubarContent>
             <MenubarItem onClick={handleAddSection}>Add Section</MenubarItem>
             <MenubarItem onClick={handleRenameSectionGroup} id="rename-anchor">
-              Rename Section Group
+              Properties
             </MenubarItem>
             <MenubarItem
               onClick={handleGenerateSection}
@@ -81,10 +84,10 @@ const SectionGroupMenu = ({ sectionGroup, controlls }: Props) => {
         </MenubarMenu>
       </Menubar>
       <Suspense>
-        <RenameForm
-          isOpen={isRenameSectionGroupFormOpen}
+        <PropertiesForm
+          isOpen={isPropertiesFormOpen}
           sectionGroup={sectionGroup}
-          setIsOpen={setIsRenameSectionGroupFormOpen}
+          setIsOpen={setIsPropertiesFormOpen}
         />
         <GenerateSectionForm
           isOpen={isGenerateSectionOpen}

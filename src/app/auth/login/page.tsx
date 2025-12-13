@@ -23,9 +23,9 @@ const Login = () => {
     setLoading(true);
     try {
       const result = await signIn("credentials", {
-        email: data.email,
+        email: data.email.trimStart().trimEnd(),
         redirect: false,
-        password: data.password,
+        password: data.password.trimStart().trimEnd(),
       });
       if (result?.error) return toast.error(result.error, { duration: 5000 });
       toast.success("Login successful", { duration: 5000 });

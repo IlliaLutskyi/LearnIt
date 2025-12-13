@@ -22,8 +22,8 @@ const HighlightedCodeOption = ({
           Code Style
         </label>
         <select
-          {...register("codeStyle")}
           id="code_style"
+          {...register("codeStyle")}
           className="input-field"
         >
           {Object.keys(styles).map((style) => (

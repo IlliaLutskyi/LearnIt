@@ -23,7 +23,23 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 const AddOrEditCategoryForm = () => {
+  const dispatch = useAppDispatch();
+
+  const { isOpen, category } = useAppSelector(
+    (store) => store.AddOrEditCategoryForm
+  );
+
   const router = useRouter();
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors, isSubmitting, isDirty },
+    reset,
+  } = useForm({
+    resolver: zodResolver(CreateCategorySchema),
+  });
+
   const addMutation = useMutation({
     mutationFn: async (data: FormData) => {
       const res = await api.post("/categories", data);
@@ -61,19 +77,6 @@ const AddOrEditCategoryForm = () => {
       if (isAxiosError(err)) return toast.error(err.response?.data.message);
     },
   });
-  const { isOpen, category } = useAppSelector(
-    (store) => store.AddOrEditCategoryForm
-  );
-  const dispatch = useAppDispatch();
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    formState: { errors, isSubmitting },
-    reset,
-  } = useForm({
-    resolver: zodResolver(CreateCategorySchema),
-  });
 
   useEffect(() => {
     if (category) {
@@ -82,9 +85,11 @@ const AddOrEditCategoryForm = () => {
   }, [category]);
 
   async function onSubmit(data: CreateCategory) {
+    if (!isDirty) return;
+
     const formData = new FormData();
 
-    formData.append("name", data.name);
+    formData.append("name", data.name.toLowerCase());
     formData.append("image", data.image);
 
     if (category) {
@@ -122,7 +127,7 @@ const AddOrEditCategoryForm = () => {
                   className="input-field"
                 />
                 <DropZone
-                  onLoad={(_, file) => setValue("image", file)}
+                  onLoad={(file) => setValue("image", file)}
                   error={errors.image?.message}
                   label="Poster Image"
                 />

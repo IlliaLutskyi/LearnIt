@@ -1,3 +1,4 @@
+import { optimizeImage } from "@/utils/optimizeImage";
 import prisma from "@/lib/db";
 export default async function createCategory(req: Request) {
   const data = await req.formData();
@@ -20,14 +21,13 @@ export default async function createCategory(req: Request) {
     if (isDuplicate)
       return Response.json({ message: "Category already exists" });
 
-    const arrayBuffer = await image.arrayBuffer();
-    const buffer = Buffer.from(arrayBuffer);
-    const base64 = `data:image/png;base64,${buffer.toString("base64")}`;
+    const buffer = Buffer.from(await image.arrayBuffer());
+    const optimizedImage = await optimizeImage(buffer);
 
     await prisma.category.create({
       data: {
         name: name.toLowerCase(),
-        image: base64,
+        image: optimizedImage,
       },
     });
 
