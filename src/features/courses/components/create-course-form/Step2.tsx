@@ -14,9 +14,9 @@ import { fadeInVariants } from "@/features/animations/fade-in";
 import { useFieldArray, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
-  CreateOrUpdatePrerequisites,
-  CreateOrUpdatePrerequisitesSchema,
-} from "@/features/prerequisites/schemas/create-or-update-prerequisete-schema";
+  CreatePrerequisites,
+  CreatePrerequisitesSchema,
+} from "@/features/prerequisites/schemas/create-prerequisite-schema";
 import { useRef } from "react";
 
 type Props = {
@@ -32,7 +32,7 @@ const Step2 = ({ step }: Props) => {
     control,
     formState: { errors },
   } = useForm({
-    resolver: zodResolver(CreateOrUpdatePrerequisitesSchema),
+    resolver: zodResolver(CreatePrerequisitesSchema),
     defaultValues: {
       prerequisites: initialPrerequisites,
     },
@@ -54,7 +54,7 @@ const Step2 = ({ step }: Props) => {
       });
     }
   }
-  function onSubmit(data: CreateOrUpdatePrerequisites) {
+  function onSubmit(data: CreatePrerequisites) {
     dispatch(addPrerequisites(data.prerequisites as TPrerequisite[]));
     localStorage.setItem("prerequisites", JSON.stringify(data.prerequisites));
     dispatch(setNextStep({ nextStep: step.step + 1 }));

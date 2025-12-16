@@ -168,9 +168,10 @@ const CreateLessonForm = ({ isOpen, setIsOpen, lesson, onSave }: Props) => {
                   </Suspense>
                 )}
               </section>
+
               <button
                 type="submit"
-                className="bg-accent p-2 rounded-md text-sm text-accent-foreground self-end"
+                className="self-end bg-accent text-accent-foreground text-sm hover:scale-95 p-2 rounded-sm duration-400"
               >
                 Save
               </button>

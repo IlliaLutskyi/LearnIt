@@ -13,27 +13,64 @@ import { useAppDispatch } from "@/lib/hooks";
 import { toggleConfirmationForm } from "@/lib/slices/confirmation-form-slice";
 import { DbLesson } from "@/types";
 import { CreateLesson } from "@/features/lessons/schemas/create-lesson-schema";
-import CreateQuizForm from "@/features/quizzes/components/create-course-form/CreateQuizForm";
 import { CreateQuiz } from "@/features/quizzes/schemas/create-quiz";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import api from "@/lib/axios";
+import { toast } from "sonner";
+import { useParams } from "next/navigation";
+import { isAxiosError } from "axios";
 
 const CreateLessonForm = lazy(
   () =>
     import("@/features/lessons/components/create-course-form/CreateLessonForm")
 );
-// const RenameForm = lazy(
-//   () => import("@/features/sections/components/create-course-form/RenameForm")
-// );
-// const CreateQuizForm = lazy(
-//   () => import("@/features/quizes/components/create-course-form/CreateQuizForm")
-// );
+const CreateQuizForm = lazy(
+  () =>
+    import("@/features/quizzes/components/create-course-form/CreateQuizForm")
+);
 
 type Props = {
   lesson: DbLesson;
 };
 const LessonMenu = ({ lesson }: Props) => {
+  const query = useQueryClient();
+  const params = useParams();
   const dispatch = useAppDispatch();
+
   const [isEditLessonOpen, setIsEditLessonOpen] = useState(false);
   const [isEditQuizOpen, setIsEditQuizOpen] = useState(false);
+
+  const lessonMutation = useMutation({
+    mutationFn: async (data: CreateLesson) => {
+      const res = await api.patch(`/lessons/${lesson.id}`, data);
+      return res.data;
+    },
+    onSuccess: (res) => {
+      toast.success(res.message);
+      return query.refetchQueries({
+        queryKey: ["section", params.sectionSlug],
+      });
+    },
+    onError: (err) => {
+      if (isAxiosError(err)) return toast.error(err.response?.data.message);
+    },
+  });
+
+  const quizMutation = useMutation({
+    mutationFn: async (data: CreateQuiz) => {
+      const res = await api.patch(`/quizzes/${lesson?.quiz?.id}`, data);
+      return res.data;
+    },
+    onSuccess: (res) => {
+      toast.success(res.message);
+      return query.refetchQueries({
+        queryKey: ["section", params.sectionSlug],
+      });
+    },
+    onError: (err) => {
+      if (isAxiosError(err)) return toast.error(err.response?.data.message);
+    },
+  });
   function handleDeleteLesson() {
     dispatch(toggleConfirmationForm(true));
   }
@@ -44,11 +81,11 @@ const LessonMenu = ({ lesson }: Props) => {
     setIsEditQuizOpen(true);
   }
   async function onSaveLesson(data: CreateLesson) {
-    return;
+    await lessonMutation.mutateAsync(data);
   }
 
   async function onSaveQuiz(data: CreateQuiz) {
-    return;
+    await quizMutation.mutateAsync(data);
   }
   return (
     <>
@@ -57,17 +94,13 @@ const LessonMenu = ({ lesson }: Props) => {
           <MenubarTrigger>
             <HiDotsVertical />
           </MenubarTrigger>
-          <MenubarContent>
+
+          <MenubarContent className="pointer-events-auto">
             <MenubarItem
               onClick={
                 lesson.contentType === "Quiz"
                   ? handleEditQuiz
                   : handleEditLesson
-              }
-              id={
-                lesson.contentType === "Quiz"
-                  ? "create-quiz-anchor"
-                  : "create-lesson-anchor"
               }
             >
               {lesson.contentType === "Quiz" ? "Edit quiz" : "Edit lesson"}
@@ -80,6 +113,7 @@ const LessonMenu = ({ lesson }: Props) => {
           </MenubarContent>
         </MenubarMenu>
       </Menubar>
+
       <Suspense>
         <CreateLessonForm
           isOpen={isEditLessonOpen}

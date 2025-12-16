@@ -1,11 +1,3 @@
-import Image from "next/image";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "../ui/carousel";
 const Content = () => {
   return (
     <main className="flex flex-col gap-4 pb-20">

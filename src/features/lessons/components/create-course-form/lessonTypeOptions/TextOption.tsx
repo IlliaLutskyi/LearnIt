@@ -34,9 +34,9 @@ const TextOption = ({ isOpen, content, setValue, error }: Props) => {
     if (!editor) return;
 
     const handleUpdate = () => {
-      const json = editor.getJSON();
+      const html = editor.getHTML();
 
-      setValue("content", JSON.stringify(json));
+      setValue("content", html);
     };
 
     editor.on("update", handleUpdate);
@@ -44,13 +44,13 @@ const TextOption = ({ isOpen, content, setValue, error }: Props) => {
     return () => {
       editor.off("update", handleUpdate);
     };
-  }, [editor]);
+  }, [editor, setValue]);
 
   useEffect(() => {
     if (content && isOpen) {
       editor.commands.setContent(content);
     }
-  }, [isOpen]);
+  }, [isOpen, content, editor]);
 
   return (
     <div>

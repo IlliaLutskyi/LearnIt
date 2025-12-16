@@ -1,6 +1,5 @@
 import api from "@/lib/axios";
 import { DbCourse } from "@/types";
-import { isAxiosError } from "axios";
 
 export async function searchCourse(
   keyword: string,

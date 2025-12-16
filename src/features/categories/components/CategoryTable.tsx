@@ -8,14 +8,11 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { DbCategory } from "@/types";
-import { useState } from "react";
 import CategoryMenu from "./CategoryMenu";
 type Props = {
   categories: DbCategory[] | undefined;
 };
 const CategoryTable = ({ categories }: Props) => {
-  const [isOpen, setIsOpen] = useState(false);
-
   return (
     <Table>
       <TableHeader>

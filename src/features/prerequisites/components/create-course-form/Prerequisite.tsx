@@ -29,7 +29,7 @@ const Prerequisite = <T extends FieldValues>({
       await controlls.start("visible");
     }
     inView();
-  }, []);
+  }, [controlls]);
   return (
     <motion.div
       className="grid grid-cols-[1fr_10fr_1fr]"

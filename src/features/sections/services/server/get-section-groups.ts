@@ -18,12 +18,12 @@ export async function getSectionGroups(course_slug: string) {
               slug: true,
               order: true,
               id: true,
-              lessons: false,
             },
           },
         },
       },
     },
   });
+
   return course?.sectionGroups;
 }

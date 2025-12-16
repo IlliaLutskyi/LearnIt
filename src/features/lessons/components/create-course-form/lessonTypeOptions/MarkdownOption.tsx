@@ -11,7 +11,7 @@ const MarkdownOption = ({ setValue }: Props) => {
   return (
     <DropZone
       onLoad={async (file) => {
-        const text = new TextDecoder("utf-8").decode(file);
+        const text = new TextDecoder("utf-8").decode(await file.arrayBuffer());
 
         const unsafeHtml = await marked.parse(text);
         const html = dompurify.sanitize(unsafeHtml);

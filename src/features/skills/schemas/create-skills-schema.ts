@@ -1,6 +1,6 @@
 import z from "zod";
 
-export const CreateOrUpdateSkillsSchema = z.object({
+export const CreateSkillsSchema = z.object({
   skills: z
     .array(
       z.object({
@@ -14,4 +14,4 @@ export const CreateOrUpdateSkillsSchema = z.object({
     .min(1, "At least one skill is required"),
 });
 
-export type CreateOrUpdateSkills = z.infer<typeof CreateOrUpdateSkillsSchema>;
+export type CreateSkills = z.infer<typeof CreateSkillsSchema>;

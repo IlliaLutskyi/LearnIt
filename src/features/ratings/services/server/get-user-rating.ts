@@ -11,14 +11,17 @@ export default async function getUserRating(
         { status: 400 }
       );
 
-    const rating = await prisma.sectionRating.findFirst({
+    const section = await prisma.sectionRating.findFirst({
       where: {
         userId: Number(userId),
         sectionId: Number(sectionId),
       },
     });
-    return Response.json({ rating: rating?.rate }, { status: 200 });
+    return Response.json({ rating: section?.rate }, { status: 200 });
   } catch (err) {
-    return Response.json({ message: "Something went wrong" }, { status: 500 });
+    return Response.json(
+      { message: "Something went wrong", err: err },
+      { status: 500 }
+    );
   }
 }

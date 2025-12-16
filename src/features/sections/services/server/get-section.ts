@@ -1,144 +1,141 @@
+import { authOptions } from "@/app/api/auth/[...nextauth]/options";
 import prisma from "@/lib/db";
+import { getServerSession } from "next-auth";
 
-export default async function getSection(
-  section_slug: string,
-  course_slug: string
-) {
-  try {
-    if (!section_slug || !course_slug)
-      return Response.json({ message: "Slug is missing" }, { status: 400 });
-    const section = await prisma.section.findFirst({
-      where: {
-        sectionGroup: {
-          course: {
-            slug: course_slug,
-          },
-        },
-        slug: section_slug,
-      },
-      orderBy: {
-        order: "asc",
-      },
-      include: {
-        lessons: {
-          orderBy: { order: "asc" },
-          include: { quiz: { include: { answers: true } } },
+export async function getSection(course_slug: string, section_slug: string) {
+  const session = await getServerSession(authOptions);
+
+  const section = await prisma.section.findFirst({
+    where: {
+      slug: section_slug,
+      sectionGroup: {
+        course: {
+          slug: course_slug,
         },
       },
-    });
+    },
+    include: {
+      lessons: {
+        orderBy: { order: "asc" },
+        include: { quiz: { include: { answers: true } } },
+      },
+      sectionRates: {
+        where: {
+          userId: session?.user.id,
+        },
+      },
+    },
+    orderBy: {
+      order: "asc",
+    },
+  });
 
-    if (!section)
-      return Response.json({ message: "Section not found" }, { status: 404 });
+  if (!section) return { section: null, nextSection: null, prevSection: null };
 
-    let nextSection = await prisma.section.findFirst({
+  let nextSection = await prisma.section.findFirst({
+    where: {
+      sectionGroupId: section.sectionGroupId,
+      order: section.order + 1,
+    },
+    select: {
+      slug: true,
+      title: true,
+      sectionGroup: {
+        select: {
+          slug: true,
+        },
+      },
+    },
+  });
+
+  // if there is no next section, find the next section group
+  if (!nextSection) {
+    const currentSectionGroup = await prisma.sectionGroup.findUnique({
       where: {
-        sectionGroupId: section.sectionGroupId,
-        order: section.order + 1,
+        id: section.sectionGroupId,
       },
       select: {
-        slug: true,
-        title: true,
-        sectionGroup: {
-          select: {
-            slug: true,
-          },
-        },
-      },
-    });
-    // if there is no next section, find the next section group
-    if (!nextSection) {
-      const currentSectionGroup = await prisma.sectionGroup.findUnique({
-        where: {
-          id: section.sectionGroupId,
-        },
-        select: {
-          order: true,
-          courseId: true,
-        },
-      });
-      if (currentSectionGroup) {
-        nextSection = await prisma.section.findFirst({
-          where: {
-            sectionGroup: {
-              courseId: currentSectionGroup.courseId,
-              order: currentSectionGroup.order + 1,
-            },
-            order: 1,
-          },
-          select: {
-            slug: true,
-            title: true,
-            sectionGroup: {
-              select: {
-                slug: true,
-              },
-            },
-          },
-        });
-      }
-    }
-
-    let prevSection = await prisma.section.findFirst({
-      where: {
-        sectionGroupId: section.sectionGroupId,
-        order: section.order - 1,
-      },
-      select: {
-        slug: true,
-        title: true,
-        sectionGroup: {
-          select: {
-            slug: true,
-          },
-        },
+        order: true,
+        courseId: true,
       },
     });
 
-    // if there is no previous section, find the previous section group
-    if (!prevSection) {
-      const currentSectionGroup = await prisma.sectionGroup.findUnique({
+    if (currentSectionGroup) {
+      nextSection = await prisma.section.findFirst({
         where: {
-          id: section.sectionGroupId,
+          order: 1,
+          sectionGroup: {
+            courseId: currentSectionGroup.courseId,
+            order: currentSectionGroup.order + 1,
+          },
         },
         select: {
-          order: true,
-          courseId: true,
-          _count: {
+          slug: true,
+          title: true,
+          sectionGroup: {
             select: {
-              sections: true,
+              slug: true,
             },
           },
         },
       });
-      if (currentSectionGroup) {
-        prevSection = await prisma.section.findFirst({
-          where: {
-            sectionGroup: {
-              courseId: currentSectionGroup.courseId,
-              order: currentSectionGroup.order - 1,
-            },
-            order: currentSectionGroup._count.sections,
-          },
-          select: {
-            slug: true,
-            title: true,
-            sectionGroup: {
-              select: {
-                slug: true,
-              },
-            },
-          },
-        });
-      }
     }
-    return Response.json(
-      { section, nextSection, prevSection },
-      { status: 200 }
-    );
-  } catch (err) {
-    return Response.json(
-      { message: "Unable to load section" },
-      { status: 500 }
-    );
   }
+
+  let prevSection = await prisma.section.findFirst({
+    where: {
+      sectionGroupId: section.sectionGroupId,
+      order: section.order - 1,
+    },
+    select: {
+      slug: true,
+      title: true,
+      sectionGroup: {
+        select: {
+          slug: true,
+        },
+      },
+    },
+  });
+
+  // if there is no previous section, find the previous section group
+  if (!prevSection) {
+    const currentSectionGroup = await prisma.sectionGroup.findUnique({
+      where: {
+        id: section.sectionGroupId,
+      },
+      select: {
+        order: true,
+        courseId: true,
+        _count: {
+          select: {
+            sections: true,
+          },
+        },
+      },
+    });
+
+    if (currentSectionGroup) {
+      prevSection = await prisma.section.findFirst({
+        where: {
+          order: currentSectionGroup._count.sections,
+          sectionGroup: {
+            courseId: currentSectionGroup.courseId,
+            order: currentSectionGroup.order - 1,
+          },
+        },
+        select: {
+          slug: true,
+          title: true,
+          sectionGroup: {
+            select: {
+              slug: true,
+            },
+          },
+        },
+      });
+    }
+  }
+
+  return { section, nextSection, prevSection };
 }

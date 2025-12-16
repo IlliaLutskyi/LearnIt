@@ -8,7 +8,16 @@ import { GenerateQuiz } from "../../schemas/generate-quiz";
 type Props = {
   lesson: Lesson;
   fields: FieldArrayWithId<GenerateQuiz, "contents", "id">[];
-  append: UseFieldArrayAppend<GenerateQuiz, "contents">;
+  append: UseFieldArrayAppend<
+    {
+      answersQuantity: unknown;
+      quizzesQuantity: unknown;
+      contents: {
+        value: string;
+      }[];
+    },
+    "contents"
+  >;
   remove: UseFieldArrayRemove;
 };
 const LessonContext = ({ lesson, fields, append, remove }: Props) => {
@@ -17,6 +26,7 @@ const LessonContext = ({ lesson, fields, append, remove }: Props) => {
     const itemIndex = fields.findIndex(
       (field) => field.value === lesson.content
     );
+
     if (isActive && itemIndex !== -1) {
       remove(itemIndex);
     } else {

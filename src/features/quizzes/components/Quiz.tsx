@@ -18,7 +18,7 @@ const Quiz = ({ lesson }: Props) => {
 
   useEffect(() => {
     if (inView) dispatch(setCurrentLessonViewId(lesson.id));
-  }, [inView]);
+  }, [inView, dispatch, lesson.id]);
 
   function handleCheck(answer: DbAnswer) {
     if (selection) return;
@@ -29,7 +29,7 @@ const Quiz = ({ lesson }: Props) => {
   }
 
   return (
-    <>
+    <article>
       <div ref={ref} id={`lesson-${lesson.id}`} />
 
       <div
@@ -73,7 +73,7 @@ const Quiz = ({ lesson }: Props) => {
           })}
         </section>
       </div>
-    </>
+    </article>
   );
 };
 

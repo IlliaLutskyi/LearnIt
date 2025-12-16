@@ -1,21 +1,19 @@
 "use client";
-import { ChangeEvent, useEffect, useState } from "react";
 import api from "@/lib/axios";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { isAxiosError } from "axios";
 import { useRouter } from "next/navigation";
-import { DbCourse, DbSkill } from "@/types";
+import { DbCourse } from "@/types";
 import { toggleEditCourseDetailForm } from "@/lib/slices/edit-course-detail-form-slice";
 import { useAppDispatch } from "@/lib/hooks";
 import Skill from "@/features/skills/components/create-course-form/Skill";
 import {
-  CreateOrUpdateSkills,
-  CreateOrUpdateSkillsSchema,
-} from "@/features/skills/schemas/create-or-update-skills-schema";
+  CreateSkills,
+  CreateSkillsSchema,
+} from "@/features/skills/schemas/create-skills-schema";
 import { useFieldArray, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { DialogTitle } from "@/components/ui/dialog";
 type Props = {
   course: DbCourse;
 };
@@ -26,7 +24,7 @@ const SkillsTab = ({ course }: Props) => {
     control,
     formState: { errors },
   } = useForm({
-    resolver: zodResolver(CreateOrUpdateSkillsSchema),
+    resolver: zodResolver(CreateSkillsSchema),
     defaultValues: {
       skills: course.skills || [],
     },
@@ -42,7 +40,7 @@ const SkillsTab = ({ course }: Props) => {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const updateMustation = useMutation({
-    mutationFn: async (data: CreateOrUpdateSkills) => {
+    mutationFn: async (data: CreateSkills) => {
       const res = await api.patch(
         "/skills",
         data.skills.map((s) => ({ ...s, courseId: course.id }))
@@ -58,7 +56,7 @@ const SkillsTab = ({ course }: Props) => {
     },
   });
 
-  function onSubmit(data: CreateOrUpdateSkills) {
+  function onSubmit(data: CreateSkills) {
     updateMustation.mutate(data);
     dispatch(toggleEditCourseDetailForm());
   }
@@ -68,9 +66,7 @@ const SkillsTab = ({ course }: Props) => {
       method="PATCH"
       onSubmit={handleSubmit(onSubmit)}
     >
-      <DialogTitle className="font-bold text-center text-lg">
-        Learning Outcomes
-      </DialogTitle>
+      <h1 className="font-bold text-center text-lg">Learning Outcomes</h1>
 
       <button
         type="button"

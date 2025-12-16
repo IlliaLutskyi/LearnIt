@@ -1,17 +1,17 @@
 "use client";
 import api from "@/lib/axios";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { DbSection } from "@/types";
+import { useMutation } from "@tanstack/react-query";
 import { isAxiosError, isCancel } from "axios";
-import { useSession } from "next-auth/react";
 import { useEffect, useRef, useState } from "react";
 import { CiStar } from "react-icons/ci";
 import { FaStar } from "react-icons/fa";
 import { toast } from "sonner";
 
 type Props = {
-  sectionId: number | null;
+  section: DbSection;
 };
-const Rating = ({ sectionId }: Props) => {
+const SetRating = ({ section }: Props) => {
   const [stars, setStars] = useState([
     { number: 1, isHovered: false, isClicked: false },
     { number: 2, isHovered: false, isClicked: false },
@@ -21,35 +21,25 @@ const Rating = ({ sectionId }: Props) => {
   ]);
 
   const controller = useRef<AbortController>(null);
-  const { data: sectionRating } = useQuery({
-    queryKey: ["sectionRating", sectionId],
-    queryFn: async () => {
-      const res = await api.get(`/sections/ratings/${sectionId}`, {
-        withCredentials: true,
-      });
-      return res.data;
-    },
-    enabled: !!sectionId,
-  });
+
   const mutation = useMutation({
-    mutationFn: async (rating: number) => {
-      if (!sectionId) return;
+    mutationFn: async (rate: number) => {
+      if (!section) return;
 
       controller.current = new AbortController();
 
       const res = await api.post(
-        `/sections/ratings`,
+        `/sections/${section.id}/rate`,
         {
-          sectionId,
-
-          rating,
+          rate,
         },
         { signal: controller.current.signal, withCredentials: true }
       );
       return res.data;
     },
-    onSuccess: (data) => {
-      toast.success(data.message);
+    onSuccess: (data, rate) => {
+      selectStar(rate);
+      return toast.success(data.message);
     },
 
     onError: (err: unknown) => {
@@ -60,18 +50,21 @@ const Rating = ({ sectionId }: Props) => {
   });
 
   useEffect(() => {
-    if (sectionRating && sectionRating.rating) {
-      setStars(
-        stars.map((s) => {
-          if (s.number <= sectionRating.rating) {
-            return { ...s, isClicked: true };
-          } else {
-            return { ...s, isClicked: false };
-          }
-        })
-      );
-    }
-  }, [sectionRating]);
+    if (!section.sectionRates || section.sectionRates.length === 0) return;
+
+    setStars((prev) => {
+      return prev.map((s) => {
+        if (
+          section.sectionRates?.[0].rate &&
+          s.number <= section.sectionRates[0].rate
+        ) {
+          return { ...s, isClicked: true };
+        } else {
+          return { ...s, isClicked: false };
+        }
+      });
+    });
+  }, [section]);
 
   function highlightStars(star: number) {
     setStars(
@@ -114,7 +107,6 @@ const Rating = ({ sectionId }: Props) => {
               onMouseLeave={() => unhighlightStars()}
               onClick={() => {
                 controller.current?.abort();
-                selectStar(star.number);
                 mutation.mutate(star.number);
               }}
               key={star.number}
@@ -132,4 +124,4 @@ const Rating = ({ sectionId }: Props) => {
     </div>
   );
 };
-export default Rating;
+export default SetRating;

@@ -17,7 +17,7 @@ const Image = ({ lesson }: Props) => {
     if (inView) {
       dispatch(setCurrentLessonViewId(lesson.id));
     }
-  }, [inView]);
+  }, [inView, dispatch, lesson.id]);
 
   return (
     <>

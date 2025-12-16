@@ -9,16 +9,13 @@ import { Step } from "@/types/create-course";
 import Navigation from "./Navigation";
 import { fadeInVariants } from "@/features/animations/fade-in";
 import { motion } from "framer-motion";
-import {
-  setIsLoading,
-  toggleConfirmationForm,
-} from "@/lib/slices/confirmation-form-slice";
+import { setIsLoading } from "@/lib/slices/confirmation-form-slice";
 import api from "@/lib/axios";
 import { isAxiosError } from "axios";
 import { toast } from "sonner";
 import { useMutation } from "@tanstack/react-query";
 import { CreateCourse } from "../../schemas/create-course-schema";
-const Preview = lazy(() => import("./Preview"));
+const Preview = lazy(() => import("./preview/Preview"));
 
 type Props = {
   step: Step;
@@ -78,7 +75,7 @@ const Step4 = ({ step }: Props) => {
 
   useEffect(() => {
     dispatch(loadContent());
-  }, []);
+  }, [dispatch]);
 
   return (
     <motion.div

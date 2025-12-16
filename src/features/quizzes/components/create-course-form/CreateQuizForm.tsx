@@ -19,7 +19,7 @@ const CreateQuizForm = ({ isOpen, setIsOpen, lesson, onSave }: Props) => {
   const {
     control,
     register,
-    formState: { errors },
+    formState: { errors, isDirty },
     setValue,
     reset,
     handleSubmit,
@@ -45,9 +45,11 @@ const CreateQuizForm = ({ isOpen, setIsOpen, lesson, onSave }: Props) => {
         lesson.quiz.explanation ? lesson.quiz.explanation : ""
       );
     }
-  }, [isOpen, lesson]);
+  }, [setValue, isOpen, lesson]);
 
   function onSubmit(data: CreateQuiz) {
+    if (!isDirty) return;
+
     if (onSave) onSave(data);
 
     reset();
@@ -116,7 +118,7 @@ const CreateQuizForm = ({ isOpen, setIsOpen, lesson, onSave }: Props) => {
               </section>
               <button
                 type="submit"
-                className="bg-accent self-end text-accent-foreground text-sm p-2 mt-2 rounded-sm hover:scale-95 duration-400"
+                className="self-end bg-accent text-accent-foreground text-sm p-2 mt-2 rounded-sm hover:scale-95 duration-400"
               >
                 Save
               </button>

@@ -4,6 +4,12 @@ import { DbPrerequisite } from "@/types";
 export default async function updatePrerequisites(req: Request) {
   const data: DbPrerequisite[] = await req.json();
   try {
+    if (data.length === 0)
+      return Response.json(
+        { message: "At least one prerequisite is required" },
+        { status: 400 }
+      );
+
     await prisma.course.update({
       where: {
         id: data[0].courseId,

@@ -36,7 +36,7 @@ const Step1 = ({ step }: Props) => {
   } = useForm({ resolver: zodResolver(CreateGeneralInfoSchema) });
 
   const dispatch = useAppDispatch();
-  const { title, description, category, poster } = useAppSelector(
+  const { title, description, category } = useAppSelector(
     (state) => state.CreateCourse
   );
 
@@ -47,9 +47,9 @@ const Step1 = ({ step }: Props) => {
       setValue("poster", poster);
       setValue("title", title);
       setValue("description", description);
-      dispatch(setCategory(category));
+      setValue("category", { id: category });
     }
-  }, []);
+  }, [setValue]);
 
   const posterValue = watch("poster");
   function showPreview(inputRef: React.RefObject<HTMLInputElement | null>) {

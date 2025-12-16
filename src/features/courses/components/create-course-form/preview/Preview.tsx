@@ -1,3 +1,4 @@
+"use client";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { useAppSelector } from "@/lib/hooks";
 import { convertLessonUrl } from "@/features/lessons/utils/convertLessonUrl";

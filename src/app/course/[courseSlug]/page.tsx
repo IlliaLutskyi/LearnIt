@@ -52,7 +52,7 @@ const CourseDetails = async ({ params }: Props) => {
         </div>
 
         <div className="flex flex-col gap-4 p-5 border-[1px] border-accent rounded-sm">
-          <h2 className="font-bold text-lg">What you'll learn</h2>
+          <h2 className="font-bold text-lg">What you&apos;ll learn</h2>
 
           <Skills skills={course.skills} />
         </div>

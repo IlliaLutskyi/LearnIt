@@ -6,7 +6,7 @@ import { toggleEditCourseDetailForm } from "@/lib/slices/edit-course-detail-form
 import SideBar from "./SideBar";
 import { DbCourse } from "@/types";
 import { AnimatePresence } from "framer-motion";
-import { Dialog, DialogContent } from "../ui/dialog";
+import { Dialog, DialogContent, DialogTitle } from "../ui/dialog";
 import { Loader } from "../common";
 
 const GeneralInfoTab = lazy(() => import("./tabs/GeneralInfoTab"));
@@ -31,6 +31,8 @@ const EditCourseDetailForm = ({ course }: Props) => {
         >
           <DialogContent className="w-5/6" showCloseButton={false}>
             <div className="grid grid-cols-[1fr_5fr]">
+              <DialogTitle className="hidden">Edit Course Details</DialogTitle>
+
               <SideBar />
 
               <Suspense fallback={<Loader />}>

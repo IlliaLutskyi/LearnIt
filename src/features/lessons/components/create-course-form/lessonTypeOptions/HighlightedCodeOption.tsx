@@ -39,10 +39,10 @@ const HighlightedCodeOption = ({
           label="Code"
           {...register("content")}
           error={error}
-          className="input-field h-[10rem] resize-none"
+          className="input-field h-[11rem] resize-none"
           multiline
         />
-        <div className="flex flex-col gap-1 overflow-auto max-h-[12rem]">
+        <div className="flex flex-col gap-1 overflow-y-auto max-h-[12rem]">
           <label className="text-xs">Preview</label>
           {content && (
             <SyntaxHighlighter style={styles[codeStyle as keyof typeof styles]}>

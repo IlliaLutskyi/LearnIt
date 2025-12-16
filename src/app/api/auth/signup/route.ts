@@ -31,6 +31,12 @@ export async function POST(req: Request) {
       { status: 201 }
     );
   } catch (err) {
-    return Response.json({ message: "Could not create user" }, { status: 500 });
+    return Response.json(
+      {
+        message: "Could not create user",
+        err: err,
+      },
+      { status: 500 }
+    );
   }
 }

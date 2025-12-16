@@ -108,17 +108,13 @@ const LessonMenu = ({ lesson, controlls }: Props) => {
           <MenubarTrigger>
             <HiDotsVertical />
           </MenubarTrigger>
+
           <MenubarContent>
             <MenubarItem
               onClick={
                 lesson.contentType === "Quiz"
                   ? handleEditQuiz
                   : handleEditLesson
-              }
-              id={
-                lesson.contentType === "Quiz"
-                  ? "create-quiz-anchor"
-                  : "create-lesson-anchor"
               }
             >
               {lesson.contentType === "Quiz" ? "Edit quiz" : "Edit lesson"}
@@ -131,6 +127,7 @@ const LessonMenu = ({ lesson, controlls }: Props) => {
           </MenubarContent>
         </MenubarMenu>
       </Menubar>
+
       <Suspense>
         <CreateLessonForm
           isOpen={isEditLessonOpen}

@@ -6,7 +6,7 @@ type Props = {
 };
 const Suggestions = ({ courses }: Props) => {
   return (
-    <div className="absolute -bottom-14 left-0 w-full flex flex-col gap-2 p-4 bg-card text-card-foreground ring-1 ring-input rounded-sm">
+    <div className="absolute top-10 left-0 w-full flex flex-col gap-2 p-4 bg-card text-card-foreground ring-1 ring-input rounded-sm z-50">
       {courses.map((course) => {
         return <Course key={course.id} course={course} />;
       })}

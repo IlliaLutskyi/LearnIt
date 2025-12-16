@@ -1,6 +1,6 @@
 import z from "zod";
 
-export const CreateOrUpdatePrerequisitesSchema = z.object({
+export const CreatePrerequisitesSchema = z.object({
   prerequisites: z
     .array(
       z.object({
@@ -10,6 +10,4 @@ export const CreateOrUpdatePrerequisitesSchema = z.object({
     )
     .min(1, "At least one prerequisite is required"),
 });
-export type CreateOrUpdatePrerequisites = z.infer<
-  typeof CreateOrUpdatePrerequisitesSchema
->;
+export type CreatePrerequisites = z.infer<typeof CreatePrerequisitesSchema>;

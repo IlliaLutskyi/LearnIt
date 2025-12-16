@@ -12,6 +12,7 @@ import {
 } from "../ui/drawer";
 import { IoClose, IoMenu } from "react-icons/io5";
 import SearchBar from "./SearchBar";
+import { isAdmin } from "@/features/users/permissions";
 
 const Navbar = () => {
   const { data: session, status } = useSession();
@@ -77,6 +78,7 @@ const Navbar = () => {
 
 const MobileNavbar = () => {
   const { data: session, status } = useSession();
+
   return (
     <div className="sm:hidden block">
       <Drawer direction="left">
@@ -116,7 +118,7 @@ const MobileNavbar = () => {
                 </Link>
               </li>
             )}
-            {session?.user && session.user.role === "Admin" && (
+            {isAdmin(session?.user) && (
               <li>
                 <Link
                   href="/admin"
@@ -126,7 +128,7 @@ const MobileNavbar = () => {
                 </Link>
               </li>
             )}
-            {session?.user && session.user.role === "Admin" && (
+            {isAdmin(session?.user) && (
               <li>
                 <Link
                   href={"/create-course"}
@@ -143,60 +145,60 @@ const MobileNavbar = () => {
     </div>
   );
 };
-const DesktopSidebar = () => {
-  const { data: session, status } = useSession();
-  return (
-    <section>
-      <ul className="flex flex-col items-center justify-around gap-6">
-        <li>
-          <Link
-            href="/"
-            className="hover:text-secondary-accent duration-400 text-sm"
-          >
-            Home
-          </Link>
-        </li>
-        <li>
-          <Link
-            href="/courses"
-            className="hover:text-secondary-accent duration-400 text-sm"
-          >
-            Courses
-          </Link>
-        </li>
-        {!session?.user && status !== "loading" && (
-          <li>
-            <Link
-              href="/auth/login"
-              className="hover:text-secondary-accent duration-400 text-sm"
-            >
-              Login
-            </Link>
-          </li>
-        )}
-        {session?.user && session.user.role === "Admin" && (
-          <li>
-            <Link
-              href="/admin"
-              className="hover:text-secondary-accent duration-400 text-sm"
-            >
-              Admin
-            </Link>
-          </li>
-        )}
-        {session?.user && session.user.role === "Admin" && (
-          <li>
-            <Link
-              href={"/create-course"}
-              className="hover:text-secondary-accent duration-400 text-sm"
-            >
-              Create course
-            </Link>
-          </li>
-        )}
-      </ul>
-      <DarkModeToggle />
-    </section>
-  );
-};
+// const DesktopSidebar = () => {
+//   const { data: session, status } = useSession();
+//   return (
+//     <section>
+//       <ul className="flex flex-col items-center justify-around gap-6">
+//         <li>
+//           <Link
+//             href="/"
+//             className="hover:text-secondary-accent duration-400 text-sm"
+//           >
+//             Home
+//           </Link>
+//         </li>
+//         <li>
+//           <Link
+//             href="/courses"
+//             className="hover:text-secondary-accent duration-400 text-sm"
+//           >
+//             Courses
+//           </Link>
+//         </li>
+//         {!session?.user && status !== "loading" && (
+//           <li>
+//             <Link
+//               href="/auth/login"
+//               className="hover:text-secondary-accent duration-400 text-sm"
+//             >
+//               Login
+//             </Link>
+//           </li>
+//         )}
+//         {session?.user && session.user.role === "Admin" && (
+//           <li>
+//             <Link
+//               href="/admin"
+//               className="hover:text-secondary-accent duration-400 text-sm"
+//             >
+//               Admin
+//             </Link>
+//           </li>
+//         )}
+//         {session?.user && session.user.role === "Admin" && (
+//           <li>
+//             <Link
+//               href={"/create-course"}
+//               className="hover:text-secondary-accent duration-400 text-sm"
+//             >
+//               Create course
+//             </Link>
+//           </li>
+//         )}
+//       </ul>
+//       <DarkModeToggle />
+//     </section>
+//   );
+// };
 export default Navbar;

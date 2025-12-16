@@ -30,7 +30,7 @@ const Login = () => {
       if (result?.error) return toast.error(result.error, { duration: 5000 });
       toast.success("Login successful", { duration: 5000 });
       router.refresh();
-    } catch (err) {
+    } catch {
       toast.error("Login failed, please try again", { duration: 5000 });
     } finally {
       setLoading(false);

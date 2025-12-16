@@ -9,6 +9,7 @@ import {
   PointerSensor,
   useSensor,
   useSensors,
+  DragEndEvent,
 } from "@dnd-kit/core";
 import {
   SortableContext,
@@ -28,7 +29,7 @@ const SectionGroups = () => {
     useSensor(TouchSensor),
     useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates })
   );
-  const handleDragEnd = (event: any) => {
+  const handleDragEnd = (event: DragEndEvent) => {
     const { over, active } = event;
 
     if (over?.id !== active?.id) {
@@ -36,7 +37,7 @@ const SectionGroups = () => {
         (section) => section.order === active.id
       );
       const newIndex = sectionGroups.findIndex(
-        (section) => section.order === over.id
+        (section) => section.order === over?.id
       );
       dispatch(shiftSectionGroup({ newIndex, oldIndex }));
     }
@@ -53,7 +54,6 @@ const SectionGroups = () => {
       >
         <SortableContext
           items={sectionGroups.map((sectionGroup) => sectionGroup.order)}
-          key={"sectionGroups"}
           strategy={verticalListSortingStrategy}
         >
           {sectionGroups.map((sectionGroup) => {

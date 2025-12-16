@@ -76,6 +76,7 @@ model Lesson{
   sectionId Int
   section Section @relation(fields: [sectionId],references: [id])
 }
+
 model Quiz{
   id Int @id() @default(autoincrement())
   answers Answer[]
@@ -106,6 +107,7 @@ model Skill{
   courseId Int
   course Course @relation(fields: [courseId],references: [id])
 }
+
 model SectionRating{
   id Int @id() @default(autoincrement())
   rate Int @default(0)
@@ -117,6 +119,7 @@ model SectionRating{
   updatedAt DateTime @updatedAt
   @@unique([userId,sectionId])
 }
+
 enum Role {
   Admin
   User

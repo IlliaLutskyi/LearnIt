@@ -38,7 +38,7 @@ export async function UpdateCategory(req: Request, categoryId?: string) {
     );
   } catch (err) {
     return Response.json(
-      { message: "Unable to update category" },
+      { message: "Unable to update category", err: err },
       { status: 500 }
     );
   }

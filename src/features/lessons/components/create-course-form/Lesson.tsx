@@ -31,28 +31,33 @@ const Lesson = ({ lesson }: Props) => {
       await controlls.start("visible");
     }
     inView();
-  }, []);
+  }, [controlls]);
 
   return (
     <motion.div
-      ref={setNodeRef}
-      style={style}
       animate={controlls}
       initial="hidden"
       variants={fadeInOutWithShiftVariants}
     >
-      <Collapsible className="ring-1 ring-ring rounded-sm p-4">
+      <Collapsible
+        className="ring-1 ring-ring rounded-sm p-4"
+        ref={setNodeRef}
+        style={style}
+      >
         <div className="flex justify-between">
           <CollapsibleTrigger>
             <h1 className="font-bold">{lesson.title}</h1>
           </CollapsibleTrigger>
+
           <section className="flex gap-2">
             <LessonMenu lesson={lesson} controlls={controlls} />
+
             <button {...attributes} {...listeners}>
               <FaSort />
             </button>
           </section>
         </div>
+
         <CollapsibleContent>
           <LessonPreview lesson={lesson} />
         </CollapsibleContent>

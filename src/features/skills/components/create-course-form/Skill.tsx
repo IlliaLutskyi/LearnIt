@@ -27,7 +27,7 @@ const Skill = <T extends FieldValues>({
       await controlls.start("visible");
     }
     inView();
-  }, []);
+  }, [controlls]);
 
   return (
     <motion.div

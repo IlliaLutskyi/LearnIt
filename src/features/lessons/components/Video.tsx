@@ -14,7 +14,7 @@ const Video = ({ lesson }: Props) => {
 
   useEffect(() => {
     if (inView) dispatch(setCurrentLessonViewId(lesson.id));
-  }, [inView]);
+  }, [inView, dispatch, lesson.id]);
 
   if (!lesson.content || !lesson.videoSource) return null;
 

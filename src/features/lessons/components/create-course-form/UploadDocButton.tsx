@@ -11,7 +11,9 @@ type Props = {
 const UploadDocButton = ({ editor, setValue }: Props) => {
   async function handleFileConvert(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files![0];
+
     if (!file) return;
+
     try {
       const result = await mammoth.convertToHtml(
         {
@@ -29,9 +31,11 @@ const UploadDocButton = ({ editor, setValue }: Props) => {
       );
 
       setValue("content", result.value!);
+
       editor.commands.setContent(result.value!);
+
       toast.success("File was converted successfully", { duration: 5000 });
-    } catch (err) {
+    } catch {
       return toast.error("File must be in docx or doc format", {
         duration: 5000,
       });

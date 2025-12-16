@@ -16,7 +16,7 @@ export async function DeleteCategory(categopryId?: string) {
     );
   } catch (err) {
     return Response.json(
-      { message: "Unable to delete category" },
+      { message: "Unable to delete category", err: err },
       { status: 500 }
     );
   }

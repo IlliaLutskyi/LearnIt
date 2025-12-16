@@ -1,4 +1,3 @@
-import { ImageSchema } from "@/features/lessons/schemas/image-schema";
 import z from "zod";
 
 export const CreateGeneralInfoSchema = z.object({

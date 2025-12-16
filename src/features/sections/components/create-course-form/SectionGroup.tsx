@@ -30,13 +30,16 @@ const SectionGroup = ({ sectionGroup }: Props) => {
   });
   return (
     <motion.div
-      ref={setNodeRef}
-      style={style}
       initial="hidden"
       animate={controlls}
       variants={fadeInOutWithShiftVariants}
     >
-      <Collapsible className="ring-1 ring-ring rounded-sm p-4" open={isOpen}>
+      <Collapsible
+        className="ring-1 ring-ring rounded-sm p-4"
+        open={isOpen}
+        ref={setNodeRef}
+        style={style}
+      >
         <div className="flex justify-between">
           <button onClick={() => setIsOpen(!isOpen)} className="font-bold">
             {sectionGroup.title}

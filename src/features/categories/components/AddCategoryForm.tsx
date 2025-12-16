@@ -82,7 +82,7 @@ const AddOrEditCategoryForm = () => {
     if (category) {
       setValue("name", category.name);
     }
-  }, [category]);
+  }, [category, setValue]);
 
   async function onSubmit(data: CreateCategory) {
     if (!isDirty) return;

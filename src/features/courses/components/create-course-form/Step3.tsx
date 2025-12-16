@@ -7,9 +7,9 @@ import { useRef } from "react";
 import { motion } from "framer-motion";
 import { fadeInVariants } from "@/features/animations/fade-in";
 import {
-  CreateOrUpdateSkills,
-  CreateOrUpdateSkillsSchema,
-} from "@/features/skills/schemas/create-or-update-skills-schema";
+  CreateSkills,
+  CreateSkillsSchema,
+} from "@/features/skills/schemas/create-skills-schema";
 import { useFieldArray, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 type Props = {
@@ -26,7 +26,7 @@ const Step3 = ({ step }: Props) => {
     control,
     formState: { errors },
   } = useForm({
-    resolver: zodResolver(CreateOrUpdateSkillsSchema),
+    resolver: zodResolver(CreateSkillsSchema),
     defaultValues: { skills: initialSkills },
   });
 
@@ -40,7 +40,7 @@ const Step3 = ({ step }: Props) => {
   });
   const scrollRef = useRef<HTMLDivElement>(null);
   const dispatch = useAppDispatch();
-  function onSubmit(data: CreateOrUpdateSkills) {
+  function onSubmit(data: CreateSkills) {
     dispatch(addSkills(data.skills as TSkill[]));
     localStorage.setItem("skills", JSON.stringify(skills));
     dispatch(setNextStep({ nextStep: step.step + 1 }));

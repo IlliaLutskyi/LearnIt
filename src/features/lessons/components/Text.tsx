@@ -12,12 +12,12 @@ const Text = ({ lesson }: Props) => {
 
   useEffect(() => {
     if (inView) dispatch(setCurrentLessonViewId(lesson.id));
-  }, [inView]);
+  }, [inView, dispatch, lesson.id]);
 
   return (
     <div>
       <div ref={ref} id={`lesson-${lesson.id}`} />
-      <div
+      <article
         className="content"
         dangerouslySetInnerHTML={{
           __html: lesson.content || "",

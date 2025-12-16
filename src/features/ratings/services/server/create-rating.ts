@@ -1,33 +1,37 @@
 import prisma from "@/lib/db";
 
-type Data = { sectionId: number; rating: number };
-
-export default async function createRating(
+export default async function createRate(
   req: Request,
+  params: Promise<{ id: string }>,
   userId: number | undefined
 ) {
   try {
-    const data: Data = await req.json();
+    const data: { rate: number } = await req.json();
+    const { id } = await params;
 
-    if (!data.sectionId || !data.rating || !userId)
+    if (!id)
+      return Response.json({ message: "Missing section ID" }, { status: 400 });
+    if (!data.rate)
+      return Response.json({ message: "Missing rating" }, { status: 400 });
+    if (!userId)
       return Response.json(
-        { message: "Something went wrong" },
+        { message: "You need to log in first" },
         { status: 400 }
       );
 
-    const rating = await prisma.sectionRating.findFirst({
+    const rate = await prisma.sectionRating.findFirst({
       where: {
         userId: userId,
-        sectionId: data.sectionId,
+        sectionId: Number(id),
       },
     });
 
-    if (!rating) {
+    if (!rate) {
       await prisma.sectionRating.create({
         data: {
           userId: userId,
-          sectionId: data.sectionId,
-          rate: data.rating,
+          sectionId: Number(id),
+          rate: data.rate,
         },
       });
     } else {
@@ -35,11 +39,11 @@ export default async function createRating(
         where: {
           userId_sectionId: {
             userId: userId,
-            sectionId: data.sectionId,
+            sectionId: Number(id),
           },
         },
         data: {
-          rate: data.rating,
+          rate: data.rate,
         },
       });
     }
@@ -49,6 +53,9 @@ export default async function createRating(
       { status: 200 }
     );
   } catch (err) {
-    return Response.json({ message: "Something went wrong" }, { status: 500 });
+    return Response.json(
+      { message: "Something went wrong", err: err },
+      { status: 500 }
+    );
   }
 }

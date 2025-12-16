@@ -22,7 +22,6 @@ import { toast } from "sonner";
 
 const PropertiesForm = lazy(() => import("./PropertiesForm"));
 
-const RenameForm = lazy(() => import("./RenameForm"));
 const GenerateSectionForm = lazy(() => import("./GenerateSectionForm"));
 
 type Props = {

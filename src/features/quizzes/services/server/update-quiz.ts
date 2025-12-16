@@ -2,11 +2,15 @@ import prisma from "@/lib/db";
 import { CreateQuiz, CreateQuizSchema } from "../../schemas/create-quiz";
 import z from "zod";
 
-export async function updateQuiz(req: Request) {
-  const data: CreateQuiz & { id: string } = await req.json();
+export async function updateQuiz(
+  req: Request,
+  params: Promise<{ id: string }>
+) {
   try {
-    const { success: isValidData, error } = CreateQuizSchema.safeParse(data);
+    const data: CreateQuiz = await req.json();
+    const { id } = await params;
 
+    const { success: isValidData, error } = CreateQuizSchema.safeParse(data);
     if (!isValidData) {
       return Response.json(
         {
@@ -15,15 +19,18 @@ export async function updateQuiz(req: Request) {
         { status: 400 }
       );
     }
+
     const quiz = await prisma.quiz.update({
       where: {
-        id: Number(data.id),
+        id: Number(id),
       },
       data: {
         question: data.question,
         explanation: data.explanation,
+
         answers: {
           deleteMany: {},
+
           create: data.answers.map((answer) => ({
             content: answer.content,
             isCorrect: answer.isCorrect,
@@ -31,6 +38,7 @@ export async function updateQuiz(req: Request) {
         },
       },
     });
+
     if (!quiz) {
       return Response.json(
         {
@@ -39,6 +47,7 @@ export async function updateQuiz(req: Request) {
         { status: 404 }
       );
     }
+
     return Response.json(
       { message: "Quiz updated successfully" },
       { status: 200 }

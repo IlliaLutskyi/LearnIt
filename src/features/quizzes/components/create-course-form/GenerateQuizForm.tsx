@@ -109,7 +109,7 @@ const GenerateQuizForm = ({ isOpen, setIsOpen, onSave, lessons }: Props) => {
                             key={lesson.order}
                             lesson={lesson}
                             fields={fields}
-                            append={append as any}
+                            append={append}
                             remove={remove}
                           />
                         );

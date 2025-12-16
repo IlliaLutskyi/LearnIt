@@ -8,6 +8,7 @@ import {
   PointerSensor,
   useSensor,
   useSensors,
+  DragEndEvent,
 } from "@dnd-kit/core";
 import {
   SortableContext,
@@ -29,7 +30,7 @@ const Sections = ({ sections }: Props) => {
     useSensor(TouchSensor),
     useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates })
   );
-  const handleDragEnd = (event: any) => {
+  const handleDragEnd = (event: DragEndEvent) => {
     const { over, active } = event;
 
     if (over?.id !== active?.id) {
@@ -39,7 +40,7 @@ const Sections = ({ sections }: Props) => {
         (section) => section.order === active.id
       );
       const newIndex = sections.findIndex(
-        (section) => section.order === over.id
+        (section) => section.order === over?.id
       );
 
       dispatch(

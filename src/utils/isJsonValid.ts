@@ -3,7 +3,7 @@ export function isJsonValid(json: string) {
     JSON.parse(json);
 
     return true;
-  } catch (e) {
+  } catch {
     return false;
   }
 }

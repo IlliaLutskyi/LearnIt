@@ -9,12 +9,11 @@ import { useAppDispatch } from "@/lib/hooks";
 import { toggleEditCourseDetailForm } from "@/lib/slices/edit-course-detail-form-slice";
 import { useFieldArray, useForm } from "react-hook-form";
 import {
-  CreateOrUpdatePrerequisites,
-  CreateOrUpdatePrerequisitesSchema,
-} from "@/features/prerequisites/schemas/create-or-update-prerequisete-schema";
+  CreatePrerequisites,
+  CreatePrerequisitesSchema,
+} from "@/features/prerequisites/schemas/create-prerequisite-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Prerequisite from "@/features/prerequisites/components/create-course-form/Prerequisite";
-import { DialogTitle } from "@/components/ui/dialog";
 type Props = {
   course: DbCourse;
 };
@@ -28,7 +27,7 @@ const PrerequisitesTab = ({ course }: Props) => {
     handleSubmit,
     formState: { errors },
   } = useForm({
-    resolver: zodResolver(CreateOrUpdatePrerequisitesSchema),
+    resolver: zodResolver(CreatePrerequisitesSchema),
     defaultValues: {
       prerequisites: course.prerequisites,
     },
@@ -41,7 +40,7 @@ const PrerequisitesTab = ({ course }: Props) => {
   } = useFieldArray({ control, name: "prerequisites" });
 
   const updateMutation = useMutation({
-    mutationFn: async (data: CreateOrUpdatePrerequisites) => {
+    mutationFn: async (data: CreatePrerequisites) => {
       const res = await api.patch(
         "/prerequisites",
         data.prerequisites.map((p) => ({ ...p, courseId: course.id }))
@@ -58,7 +57,7 @@ const PrerequisitesTab = ({ course }: Props) => {
     },
   });
 
-  async function onSubmit(data: CreateOrUpdatePrerequisites) {
+  async function onSubmit(data: CreatePrerequisites) {
     await updateMutation.mutateAsync(data);
   }
 
@@ -67,9 +66,7 @@ const PrerequisitesTab = ({ course }: Props) => {
       className="flex flex-col gap-2 h-full"
       onSubmit={handleSubmit(onSubmit)}
     >
-      <DialogTitle className="font-bold text-center text-lg">
-        Prerequisites
-      </DialogTitle>
+      <h1 className="font-bold text-center text-lg">Prerequisites</h1>
 
       <button
         type="button"

@@ -5,9 +5,14 @@ import {
 import prisma from "@/lib/db";
 import z from "zod";
 
-export async function updateLesson(req: Request) {
-  const data: CreateLesson & { id: string } = await req.json();
+export async function updateLesson(
+  req: Request,
+  params: Promise<{ id: string }>
+) {
   try {
+    const data: CreateLesson = await req.json();
+    const { id } = await params;
+
     const { success: isValidData, error } = CreateLessonSchema.safeParse(data);
 
     if (!isValidData) {
@@ -18,9 +23,10 @@ export async function updateLesson(req: Request) {
         { status: 400 }
       );
     }
+
     const lesson = await prisma.lesson.update({
       where: {
-        id: Number(data.id),
+        id: Number(id),
       },
       data: {
         title: data.title,
@@ -29,12 +35,13 @@ export async function updateLesson(req: Request) {
         videoSource: data.videoSource,
       },
     });
+
     if (!lesson) {
       return Response.json(
         {
           message: "Lesson not found",
         },
-        { status: 500 }
+        { status: 404 }
       );
     }
 
