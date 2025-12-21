@@ -36,6 +36,7 @@ export default async function createCourse(
       );
     }
     const optimizeedPoster = await optimizeImage(course.poster);
+
     const processedSectionGroups = await Promise.all(
       course.sectionGroups.map(async (sectionGroup, sgi) => ({
         title: sectionGroup.title,
@@ -57,6 +58,7 @@ export default async function createCourse(
                         ? await optimizeImage(lesson.content)
                         : lesson.content,
                     contentType: lesson.contentType,
+                    codeStyle: lesson.codeStyle,
                     order: li + 1,
                     videoSource: lesson.videoSource,
                     quiz: lesson.quiz

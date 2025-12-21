@@ -1,14 +1,21 @@
 import { useState } from "react";
-import { Input, Loader } from "../common";
+import { Loader } from "../common";
 import { IoIosSearch } from "react-icons/io";
-import Suggestions from "./Suggestions";
+import Suggestion from "./Suggestion";
 import { useQuery } from "@tanstack/react-query";
 import { searchCourse } from "@/features/courses/queries/seach-course";
-import { isAxiosError } from "axios";
+import {
+  CommandDialog,
+  CommandEmpty,
+  CommandInput,
+  CommandList,
+} from "../ui/command";
+import { AnimatePresence } from "framer-motion";
 const SearchBar = () => {
   const [keyword, setKeyword] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
 
-  const { data, error, isLoading, isSuccess } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ["courses", keyword],
     queryFn: async ({ signal }) => {
       return await searchCourse(keyword, signal, { limit: 5 });
@@ -17,35 +24,47 @@ const SearchBar = () => {
   });
 
   return (
-    <div className="grow relative">
-      <label htmlFor="searchbar" className="absolute top-3 right-2">
-        <IoIosSearch size={20} className="text-foreground" />
-      </label>
+    <div className="flex items-center">
+      <button onClick={() => setIsOpen(true)}>
+        <IoIosSearch size={20} className="text-accent-foreground" />
+      </button>
+      <AnimatePresence>
+        {isOpen && (
+          <CommandDialog
+            open={isOpen}
+            onOpenChange={setIsOpen}
+            className="sm:w-1/2 w-5/6"
+          >
+            <CommandInput
+              placeholder="Type a course name"
+              onValueChange={(search) => setKeyword(search)}
+              value={keyword}
+            />
 
-      <Input
-        id="searchbar"
-        onChange={(e) => setKeyword(e.target.value)}
-        className="input-field"
-        placeholder="Search..."
-      />
+            <CommandList>
+              {!data && (
+                <CommandEmpty>
+                  {isLoading ? <Loader /> : "No results found."}
+                </CommandEmpty>
+              )}
 
-      {isSuccess && keyword && !isLoading && (
-        <Suggestions courses={data.courses} />
-      )}
-
-      {isLoading && (
-        <div className="absolute -bottom-14 left-0 w-full grid place-content-center p-4 bg-card text-card-foreground ring-1 ring-input rounded-sm">
-          <Loader />
-        </div>
-      )}
-
-      {!isSuccess && keyword && !isLoading && (
-        <div className="absolute -bottom-14 left-0 w-full grid place-content-center p-4 bg-card text-card-foreground ring-1 ring-input rounded-sm">
-          <p className="text-sm">
-            {isAxiosError(error) && error.response?.data?.message}
-          </p>
-        </div>
-      )}
+              {data && (
+                <section className="flex flex-col gap-4 p-4">
+                  {data?.courses.map((course) => {
+                    return (
+                      <Suggestion
+                        course={course}
+                        setIsOpen={setIsOpen}
+                        key={course.id}
+                      />
+                    );
+                  })}
+                </section>
+              )}
+            </CommandList>
+          </CommandDialog>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

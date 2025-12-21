@@ -62,9 +62,7 @@ const Step4 = ({ step }: Props) => {
       title,
       slug,
       description,
-      category: {
-        id: category,
-      },
+      category,
       prerequisites,
       sectionGroups,
       skills,

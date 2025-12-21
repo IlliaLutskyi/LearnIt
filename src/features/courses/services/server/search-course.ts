@@ -20,6 +20,7 @@ export async function searchCourse(req: Request) {
         id: true,
         title: true,
         slug: true,
+        poster: true,
         description: true,
         category: {
           select: {

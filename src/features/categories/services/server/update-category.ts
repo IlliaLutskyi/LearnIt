@@ -1,34 +1,35 @@
 import { optimizeImage } from "@/utils/optimizeImage";
 import prisma from "@/lib/db";
 
-export async function UpdateCategory(req: Request, categoryId?: string) {
+export async function UpdateCategory(
+  req: Request,
+  params: Promise<{ id: string }>
+) {
   const formData = await req.formData();
   const name = formData.get("name") as string;
   const image = formData.get("image") as File;
-
+  const { id } = await params;
   try {
-    if (!categoryId)
+    let optimizedImage;
+
+    if (!id)
       return Response.json(
         { message: "Category ID is missing" },
         { status: 400 }
       );
 
-    if (!name || !image)
-      return Response.json(
-        { message: "All fields are required" },
-        { status: 400 }
-      );
-
-    const buffer = Buffer.from(await image.arrayBuffer());
-    const optimizedImage = await optimizeImage(buffer);
+    if (image) {
+      const buffer = Buffer.from(await image.arrayBuffer());
+      optimizedImage = await optimizeImage(buffer);
+    }
 
     await prisma.category.update({
       where: {
-        id: Number(categoryId),
+        id: Number(id),
       },
       data: {
-        name: name.toLowerCase(),
-        image: optimizedImage,
+        ...(optimizedImage && { image: optimizedImage }),
+        ...(name && { name: name.toLowerCase() }),
       },
     });
 

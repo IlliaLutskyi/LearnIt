@@ -6,9 +6,7 @@ export const CreateCourseSchema = z.object({
   title: z.string().min(1, "Title is required"),
   description: z.string().min(1, "Description is required").max(10000),
   slug: z.string().min(1, "Slug is required"),
-  category: z.object({
-    id: z.coerce.string(),
-  }),
+  category: z.string().min(1, "Category is required"),
   prerequisites: z
     .array(z.object({ content: z.string() }))
     .min(1, "At least one prerequisite is required"),

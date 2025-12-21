@@ -36,6 +36,7 @@ const Step1 = ({ step }: Props) => {
   } = useForm({ resolver: zodResolver(CreateGeneralInfoSchema) });
 
   const dispatch = useAppDispatch();
+
   const { title, description, category } = useAppSelector(
     (state) => state.CreateCourse
   );
@@ -47,31 +48,32 @@ const Step1 = ({ step }: Props) => {
       setValue("poster", poster);
       setValue("title", title);
       setValue("description", description);
-      setValue("category", { id: category });
+      setValue("category", category);
     }
   }, [setValue]);
 
   const posterValue = watch("poster");
   function showPreview(inputRef: React.RefObject<HTMLInputElement | null>) {
     return (
-      <div
+      <button
+        type="button"
         className="flex flex-col gap-1 h-full"
         onClick={() => inputRef?.current?.click()}
       >
-        <p className="text-xs">Poster</p>
+        <p className="text-xs text-left">Poster</p>
         <img
           src={posterValue}
           className="w-full h-full object-cover rounded-sm"
           alt="Poster image"
         />
-      </div>
+      </button>
     );
   }
   async function onSubmit(data: CreateGeneralInfo) {
     dispatch(setTitle(data.title));
     dispatch(setPoster(data.poster));
     dispatch(setDescription(data.description));
-    dispatch(setCategory(data.category.id));
+    dispatch(setCategory(data.category));
 
     localStorage.setItem(
       "generalInfo",
@@ -94,7 +96,7 @@ const Step1 = ({ step }: Props) => {
     >
       <h1 className="text-lg font-bold self-center">{step.title}</h1>
 
-      <section className="grow grid grid-cols-[1fr_3fr] items-center gap-2 ">
+      <section className="grow grid grid-cols-[1fr_3fr] items-center gap-2">
         <DropZone
           message="Poster"
           onLoad={async (file) => {
@@ -121,7 +123,10 @@ const Step1 = ({ step }: Props) => {
               error={errors.title?.message}
               className="input-field"
             />
-            <CategorySelect register={register} />
+            <CategorySelect
+              register={register}
+              error={errors.category?.message}
+            />
           </div>
 
           <Input

@@ -8,6 +8,7 @@ import { DbCourse } from "@/types";
 import { AnimatePresence } from "framer-motion";
 import { Dialog, DialogContent, DialogTitle } from "../ui/dialog";
 import { Loader } from "../common";
+import DeleteCourseTab from "./tabs/DeleteCourseTab";
 
 const GeneralInfoTab = lazy(() => import("./tabs/GeneralInfoTab"));
 const PrerequisitesTab = lazy(() => import("./tabs/PrerequisitesTab"));
@@ -40,10 +41,16 @@ const EditCourseDetailForm = ({ course }: Props) => {
                   {currentTab === "general_info" && (
                     <GeneralInfoTab course={course} />
                   )}
+
                   {currentTab === "prerequisites" && (
                     <PrerequisitesTab course={course} />
                   )}
+
                   {currentTab === "skills" && <SkillsTab course={course} />}
+
+                  {currentTab === "delete_course" && (
+                    <DeleteCourseTab course={course} />
+                  )}
                 </section>
               </Suspense>
             </div>

@@ -7,7 +7,7 @@ export const CreateGeneralInfoSchema = z.object({
     .string()
     .min(1, "Description is required")
     .max(10000, "Description is too long"),
-  category: z.object({ id: z.string() }),
+  category: z.string().min(1, "Category is required"),
 });
 
 export type CreateGeneralInfo = z.infer<typeof CreateGeneralInfoSchema>;

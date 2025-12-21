@@ -7,11 +7,9 @@ type Params = {
   }>;
 };
 export async function PATCH(req: Request, { params }: Params) {
-  const { id } = await params;
-  return await UpdateCategory(req, id);
+  return await UpdateCategory(req, params);
 }
 
 export async function DELETE(_: Request, { params }: Params) {
-  const { id } = await params;
-  return await DeleteCategory(id);
+  return await DeleteCategory(params);
 }

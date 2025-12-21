@@ -7,8 +7,9 @@ import { CreateGeneralInfo } from "@/features/courses/schemas/create-general-inf
 
 type Props = {
   register: UseFormRegister<CreateGeneralInfo>;
+  error?: string;
 };
-const CategorySelect = ({ register }: Props) => {
+const CategorySelect = ({ register, error }: Props) => {
   const { data: categories } = useQuery({
     queryKey: ["categories"],
     queryFn: getCategories,
@@ -19,12 +20,7 @@ const CategorySelect = ({ register }: Props) => {
       <label htmlFor="categories" className="text-xs">
         Category
       </label>
-      <select
-        id="categories"
-        {...register("category.id")}
-        defaultValue={categories[0]?.id}
-        className="input-field"
-      >
+      <select id="categories" {...register("category")} className="input-field">
         {categories?.map((category) => {
           return (
             <option value={category.id} key={category.id}>
@@ -33,6 +29,7 @@ const CategorySelect = ({ register }: Props) => {
           );
         })}
       </select>
+      <p className="text-xs text-error">{error}</p>
     </div>
   );
 };

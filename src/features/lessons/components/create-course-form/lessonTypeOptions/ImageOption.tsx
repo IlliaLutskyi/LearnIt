@@ -11,7 +11,11 @@ const ImageOption = ({ setValue }: Props) => {
       onLoad={async (file) => {
         const string = Buffer.from(await file.arrayBuffer()).toString("base64");
         const base64 = `data:${file.type};base64,${string}`;
-        setValue("content", base64);
+        setValue("content", base64, {
+          shouldDirty: true,
+          shouldTouch: true,
+          shouldValidate: true,
+        });
       }}
     />
   );

@@ -7,6 +7,7 @@ import { getCourse } from "@/features/courses/services/get-course";
 import { authOptions } from "@/app/api/auth/[...nextauth]/options";
 import { getServerSession } from "next-auth";
 import { isAdmin, isAuthor } from "@/features/users/permissions";
+import { Loader } from "@/components/common";
 const EditCourseDetailsForm = lazy(
   () => import("@/components/course-details/EditCourseDetailsForm")
 );
@@ -31,49 +32,40 @@ const CourseDetails = async ({ params }: Props) => {
     return <h1 className="text-center font-bold m-4">Course not found</h1>;
 
   return (
-    <div className="flex flex-col gap-2">
-      <Header
-        course={{
-          title: course.title,
-          slug: course.slug,
-          sectionGroups: course.sectionGroups,
-          description: course.description,
-          updatedAt: course.updatedAt,
-          user: course.user,
-          id: course.id,
-          createdAt: course.createdAt,
-        }}
-      />
-      <section className="flex flex-col gap-4 px-8 py-2">
-        <div className="flex flex-col gap-2">
-          <h2 className="font-bold text-lg">Prerequisites:</h2>
+    <Suspense fallback={<Loader />}>
+      <div className="flex flex-col gap-2">
+        <Header course={course} />
+        <section className="flex flex-col gap-4 px-8 py-2">
+          <div className="flex flex-col gap-2">
+            <h2 className="font-bold text-lg">Prerequisites:</h2>
 
-          <Prerequisites preriquisites={course.prerequisites} />
-        </div>
+            <Prerequisites preriquisites={course.prerequisites} />
+          </div>
 
-        <div className="flex flex-col gap-4 p-5 border-[1px] border-accent rounded-sm">
-          <h2 className="font-bold text-lg">What you&apos;ll learn</h2>
+          <div className="flex flex-col gap-4 p-5 border-[1px] border-accent rounded-sm">
+            <h2 className="font-bold text-lg">What you&apos;ll learn</h2>
 
-          <Skills skills={course.skills} />
-        </div>
+            <Skills skills={course.skills} />
+          </div>
 
-        <div className="flex flex-col gap-2">
-          <h2 className="font-bold text-lg">Course content</h2>
+          <div className="flex flex-col gap-2">
+            <h2 className="font-bold text-lg">Course content</h2>
 
-          <AboutSections sectionGroups={course.sectionGroups} />
-        </div>
+            <AboutSections sectionGroups={course.sectionGroups} />
+          </div>
 
-        {(isAdmin(session?.user) ||
-          isAuthor(course.user.id, session?.user)) && (
-          <Suspense>
-            <section className="flex justify-end">
-              <EditEditCourseDetailsButton />
-              <EditCourseDetailsForm course={course} />
-            </section>
-          </Suspense>
-        )}
-      </section>
-    </div>
+          {(isAdmin(session?.user) ||
+            isAuthor(course.user.id, session?.user)) && (
+            <Suspense>
+              <section className="flex justify-end">
+                <EditEditCourseDetailsButton />
+                <EditCourseDetailsForm course={course} />
+              </section>
+            </Suspense>
+          )}
+        </section>
+      </div>
+    </Suspense>
   );
 };
 

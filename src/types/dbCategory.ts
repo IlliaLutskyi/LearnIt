@@ -1,5 +1,5 @@
 export type DbCategory = {
   id: number;
-  name: string;
+  name?: string;
   image?: string;
 };

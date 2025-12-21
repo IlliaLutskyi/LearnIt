@@ -17,9 +17,12 @@ import { CreateQuiz } from "@/features/quizzes/schemas/create-quiz";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import api from "@/lib/axios";
 import { toast } from "sonner";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { isAxiosError } from "axios";
 
+const ConfirmationForm = lazy(
+  () => import("@/components/common/ConfirmationForm")
+);
 const CreateLessonForm = lazy(
   () =>
     import("@/features/lessons/components/create-course-form/CreateLessonForm")
@@ -33,8 +36,7 @@ type Props = {
   lesson: DbLesson;
 };
 const LessonMenu = ({ lesson }: Props) => {
-  const query = useQueryClient();
-  const params = useParams();
+  const router = useRouter();
   const dispatch = useAppDispatch();
 
   const [isEditLessonOpen, setIsEditLessonOpen] = useState(false);
@@ -47,9 +49,21 @@ const LessonMenu = ({ lesson }: Props) => {
     },
     onSuccess: (res) => {
       toast.success(res.message);
-      return query.refetchQueries({
-        queryKey: ["section", params.sectionSlug],
-      });
+      return router.refresh();
+    },
+    onError: (err) => {
+      if (isAxiosError(err)) return toast.error(err.response?.data.message);
+    },
+  });
+
+  const deleteLessonMutation = useMutation({
+    mutationFn: async () => {
+      const res = await api.delete(`/lessons/${lesson.id}`);
+      return res.data;
+    },
+    onSuccess: (res) => {
+      toast.success(res.message);
+      return router.refresh();
     },
     onError: (err) => {
       if (isAxiosError(err)) return toast.error(err.response?.data.message);
@@ -63,15 +77,13 @@ const LessonMenu = ({ lesson }: Props) => {
     },
     onSuccess: (res) => {
       toast.success(res.message);
-      return query.refetchQueries({
-        queryKey: ["section", params.sectionSlug],
-      });
+      return router.refresh();
     },
     onError: (err) => {
       if (isAxiosError(err)) return toast.error(err.response?.data.message);
     },
   });
-  function handleDeleteLesson() {
+  function openConformationForm() {
     dispatch(toggleConfirmationForm(true));
   }
   function handleEditLesson() {
@@ -82,6 +94,10 @@ const LessonMenu = ({ lesson }: Props) => {
   }
   async function onSaveLesson(data: CreateLesson) {
     await lessonMutation.mutateAsync(data);
+  }
+
+  async function handleDeleteLesson() {
+    await deleteLessonMutation.mutateAsync();
   }
 
   async function onSaveQuiz(data: CreateQuiz) {
@@ -107,7 +123,7 @@ const LessonMenu = ({ lesson }: Props) => {
             </MenubarItem>
             <MenubarSeparator />
 
-            <MenubarItem onClick={handleDeleteLesson}>
+            <MenubarItem onClick={openConformationForm}>
               Delete {lesson.contentType === "Quiz" ? "quiz" : "lesson"}
             </MenubarItem>
           </MenubarContent>
@@ -127,6 +143,7 @@ const LessonMenu = ({ lesson }: Props) => {
           lesson={lesson}
           onSave={onSaveQuiz}
         />
+        <ConfirmationForm onYes={handleDeleteLesson} warning="Are you sure?" />
       </Suspense>
     </>
   );

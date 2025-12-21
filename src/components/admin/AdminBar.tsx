@@ -1,7 +1,6 @@
 "use client";
 import Link from "next/link";
 import React from "react";
-import { CiCirclePlus } from "react-icons/ci";
 import { usePathname } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
@@ -13,7 +12,7 @@ const AdminBar = () => {
     <aside className="flex flex-col gap-4 bg-sidebar-primary text-sidebar-primary-foreground shadow-inner max-w-[250px] h-[calc(100vh-48px)]">
       <section className="flex items-center gap-4 p-4">
         <Avatar>
-          <AvatarImage></AvatarImage>
+          {/* <AvatarImage src={session?.user?.image}></AvatarImage> */}
           <AvatarFallback>{session?.user?.name.slice(0, 2)}</AvatarFallback>
         </Avatar>
         <div>
@@ -22,14 +21,13 @@ const AdminBar = () => {
         </div>
       </section>
 
-      <section className="flex flex-col items-center gap-2 h-full p-4 overflow-y-auto">
+      <section className="flex flex-col items-center gap-2 h-full p-2 overflow-y-auto">
         <Link
-          href="/admin/addCategory"
+          href="/admin/add-category"
           className={`flex items-center gap-2 text-sm hover:underline ${
             pathname === "/admin/addCategory" ? "text-secondary-accent" : ""
           }`}
         >
-          <CiCirclePlus />
           Add category
         </Link>
       </section>

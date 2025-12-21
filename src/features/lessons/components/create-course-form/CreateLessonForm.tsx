@@ -12,6 +12,7 @@ import { DbLesson } from "@/types";
 import { AnimatePresence } from "framer-motion";
 import ImageOption from "./lessonTypeOptions/ImageOption";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import { isDirty } from "zod/v3";
 
 const HighlightedCodeOption = lazy(
   () => import("./lessonTypeOptions/HighlightedCodeOption")
@@ -34,7 +35,7 @@ const CreateLessonForm = ({ isOpen, setIsOpen, lesson, onSave }: Props) => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isDirty },
     setValue,
     watch,
     reset,
@@ -48,6 +49,7 @@ const CreateLessonForm = ({ isOpen, setIsOpen, lesson, onSave }: Props) => {
       videoSource: lesson?.videoSource || "Youtube",
     },
   });
+
   const contentType = watch("contentType");
   const content = watch("content");
   const codeStyle = watch("codeStyle");
@@ -66,6 +68,8 @@ const CreateLessonForm = ({ isOpen, setIsOpen, lesson, onSave }: Props) => {
   }
 
   function onSubmit(data: CreateLesson) {
+    if (!isDirty) return;
+
     if (onSave) onSave(data);
 
     reset();

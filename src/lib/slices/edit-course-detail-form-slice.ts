@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-type Tabs = "general_info" | "prerequisites" | "skills";
+type Tabs = "general_info" | "prerequisites" | "skills" | "delete_course";
 type initialState = {
   isOpen: boolean;
   currentTab: Tabs;

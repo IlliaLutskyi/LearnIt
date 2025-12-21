@@ -1,14 +1,15 @@
 import prisma from "@/lib/db";
 
-export async function DeleteCategory(categopryId?: string) {
+export async function DeleteCategory(params: Promise<{ id: string }>) {
+  const { id } = await params;
   try {
-    if (!categopryId)
+    if (!id)
       return Response.json(
         { message: "Category ID is missing" },
         { status: 400 }
       );
 
-    await prisma.category.delete({ where: { id: Number(categopryId) } });
+    await prisma.category.delete({ where: { id: Number(id) } });
 
     return Response.json(
       { message: "Category deleted successfully" },

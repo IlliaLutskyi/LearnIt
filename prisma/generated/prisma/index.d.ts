@@ -390,8 +390,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 7.1.0
-   * Query Engine version: ab635e6b9d606fa5c8fb8b1a7f909c3c3c1c98ba
+   * Prisma Client JS version: 7.2.0
+   * Query Engine version: 0c8ef2ce45c83248ab3df073180d5eda9e8be7a3
    */
   export type PrismaVersion = {
     client: string
@@ -7827,6 +7827,7 @@ export namespace Prisma {
     content: string | null
     order: number | null
     quizId: number | null
+    codeStyle: string | null
     contentType: $Enums.ContentType | null
     videoSource: $Enums.VideoSource | null
     sectionId: number | null
@@ -7838,6 +7839,7 @@ export namespace Prisma {
     content: string | null
     order: number | null
     quizId: number | null
+    codeStyle: string | null
     contentType: $Enums.ContentType | null
     videoSource: $Enums.VideoSource | null
     sectionId: number | null
@@ -7849,6 +7851,7 @@ export namespace Prisma {
     content: number
     order: number
     quizId: number
+    codeStyle: number
     contentType: number
     videoSource: number
     sectionId: number
@@ -7876,6 +7879,7 @@ export namespace Prisma {
     content?: true
     order?: true
     quizId?: true
+    codeStyle?: true
     contentType?: true
     videoSource?: true
     sectionId?: true
@@ -7887,6 +7891,7 @@ export namespace Prisma {
     content?: true
     order?: true
     quizId?: true
+    codeStyle?: true
     contentType?: true
     videoSource?: true
     sectionId?: true
@@ -7898,6 +7903,7 @@ export namespace Prisma {
     content?: true
     order?: true
     quizId?: true
+    codeStyle?: true
     contentType?: true
     videoSource?: true
     sectionId?: true
@@ -7996,6 +8002,7 @@ export namespace Prisma {
     content: string | null
     order: number
     quizId: number | null
+    codeStyle: string | null
     contentType: $Enums.ContentType
     videoSource: $Enums.VideoSource | null
     sectionId: number
@@ -8026,6 +8033,7 @@ export namespace Prisma {
     content?: boolean
     order?: boolean
     quizId?: boolean
+    codeStyle?: boolean
     contentType?: boolean
     videoSource?: boolean
     sectionId?: boolean
@@ -8039,6 +8047,7 @@ export namespace Prisma {
     content?: boolean
     order?: boolean
     quizId?: boolean
+    codeStyle?: boolean
     contentType?: boolean
     videoSource?: boolean
     sectionId?: boolean
@@ -8051,6 +8060,7 @@ export namespace Prisma {
     content?: boolean
     order?: boolean
     quizId?: boolean
+    codeStyle?: boolean
     contentType?: boolean
     videoSource?: boolean
     sectionId?: boolean
@@ -8063,12 +8073,13 @@ export namespace Prisma {
     content?: boolean
     order?: boolean
     quizId?: boolean
+    codeStyle?: boolean
     contentType?: boolean
     videoSource?: boolean
     sectionId?: boolean
   }
 
-  export type LessonOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "content" | "order" | "quizId" | "contentType" | "videoSource" | "sectionId", ExtArgs["result"]["lesson"]>
+  export type LessonOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "content" | "order" | "quizId" | "codeStyle" | "contentType" | "videoSource" | "sectionId", ExtArgs["result"]["lesson"]>
   export type LessonInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     quiz?: boolean | Lesson$quizArgs<ExtArgs>
     section?: boolean | SectionDefaultArgs<ExtArgs>
@@ -8092,6 +8103,7 @@ export namespace Prisma {
       content: string | null
       order: number
       quizId: number | null
+      codeStyle: string | null
       contentType: $Enums.ContentType
       videoSource: $Enums.VideoSource | null
       sectionId: number
@@ -8525,6 +8537,7 @@ export namespace Prisma {
     readonly content: FieldRef<"Lesson", 'String'>
     readonly order: FieldRef<"Lesson", 'Int'>
     readonly quizId: FieldRef<"Lesson", 'Int'>
+    readonly codeStyle: FieldRef<"Lesson", 'String'>
     readonly contentType: FieldRef<"Lesson", 'ContentType'>
     readonly videoSource: FieldRef<"Lesson", 'VideoSource'>
     readonly sectionId: FieldRef<"Lesson", 'Int'>
@@ -14500,6 +14513,7 @@ export namespace Prisma {
     content: 'content',
     order: 'order',
     quizId: 'quizId',
+    codeStyle: 'codeStyle',
     contentType: 'contentType',
     videoSource: 'videoSource',
     sectionId: 'sectionId'
@@ -15028,6 +15042,7 @@ export namespace Prisma {
     content?: StringNullableFilter<"Lesson"> | string | null
     order?: IntFilter<"Lesson"> | number
     quizId?: IntNullableFilter<"Lesson"> | number | null
+    codeStyle?: StringNullableFilter<"Lesson"> | string | null
     contentType?: EnumContentTypeFilter<"Lesson"> | $Enums.ContentType
     videoSource?: EnumVideoSourceNullableFilter<"Lesson"> | $Enums.VideoSource | null
     sectionId?: IntFilter<"Lesson"> | number
@@ -15041,6 +15056,7 @@ export namespace Prisma {
     content?: SortOrderInput | SortOrder
     order?: SortOrder
     quizId?: SortOrderInput | SortOrder
+    codeStyle?: SortOrderInput | SortOrder
     contentType?: SortOrder
     videoSource?: SortOrderInput | SortOrder
     sectionId?: SortOrder
@@ -15057,6 +15073,7 @@ export namespace Prisma {
     content?: StringNullableFilter<"Lesson"> | string | null
     order?: IntFilter<"Lesson"> | number
     quizId?: IntNullableFilter<"Lesson"> | number | null
+    codeStyle?: StringNullableFilter<"Lesson"> | string | null
     contentType?: EnumContentTypeFilter<"Lesson"> | $Enums.ContentType
     videoSource?: EnumVideoSourceNullableFilter<"Lesson"> | $Enums.VideoSource | null
     sectionId?: IntFilter<"Lesson"> | number
@@ -15070,6 +15087,7 @@ export namespace Prisma {
     content?: SortOrderInput | SortOrder
     order?: SortOrder
     quizId?: SortOrderInput | SortOrder
+    codeStyle?: SortOrderInput | SortOrder
     contentType?: SortOrder
     videoSource?: SortOrderInput | SortOrder
     sectionId?: SortOrder
@@ -15089,6 +15107,7 @@ export namespace Prisma {
     content?: StringNullableWithAggregatesFilter<"Lesson"> | string | null
     order?: IntWithAggregatesFilter<"Lesson"> | number
     quizId?: IntNullableWithAggregatesFilter<"Lesson"> | number | null
+    codeStyle?: StringNullableWithAggregatesFilter<"Lesson"> | string | null
     contentType?: EnumContentTypeWithAggregatesFilter<"Lesson"> | $Enums.ContentType
     videoSource?: EnumVideoSourceNullableWithAggregatesFilter<"Lesson"> | $Enums.VideoSource | null
     sectionId?: IntWithAggregatesFilter<"Lesson"> | number
@@ -15684,6 +15703,7 @@ export namespace Prisma {
     content?: string | null
     order: number
     quizId?: number | null
+    codeStyle?: string | null
     contentType: $Enums.ContentType
     videoSource?: $Enums.VideoSource | null
     quiz?: QuizCreateNestedOneWithoutLessonInput
@@ -15696,6 +15716,7 @@ export namespace Prisma {
     content?: string | null
     order: number
     quizId?: number | null
+    codeStyle?: string | null
     contentType: $Enums.ContentType
     videoSource?: $Enums.VideoSource | null
     sectionId: number
@@ -15707,6 +15728,7 @@ export namespace Prisma {
     content?: NullableStringFieldUpdateOperationsInput | string | null
     order?: IntFieldUpdateOperationsInput | number
     quizId?: NullableIntFieldUpdateOperationsInput | number | null
+    codeStyle?: NullableStringFieldUpdateOperationsInput | string | null
     contentType?: EnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType
     videoSource?: NullableEnumVideoSourceFieldUpdateOperationsInput | $Enums.VideoSource | null
     quiz?: QuizUpdateOneWithoutLessonNestedInput
@@ -15719,6 +15741,7 @@ export namespace Prisma {
     content?: NullableStringFieldUpdateOperationsInput | string | null
     order?: IntFieldUpdateOperationsInput | number
     quizId?: NullableIntFieldUpdateOperationsInput | number | null
+    codeStyle?: NullableStringFieldUpdateOperationsInput | string | null
     contentType?: EnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType
     videoSource?: NullableEnumVideoSourceFieldUpdateOperationsInput | $Enums.VideoSource | null
     sectionId?: IntFieldUpdateOperationsInput | number
@@ -15731,6 +15754,7 @@ export namespace Prisma {
     content?: string | null
     order: number
     quizId?: number | null
+    codeStyle?: string | null
     contentType: $Enums.ContentType
     videoSource?: $Enums.VideoSource | null
     sectionId: number
@@ -15741,6 +15765,7 @@ export namespace Prisma {
     content?: NullableStringFieldUpdateOperationsInput | string | null
     order?: IntFieldUpdateOperationsInput | number
     quizId?: NullableIntFieldUpdateOperationsInput | number | null
+    codeStyle?: NullableStringFieldUpdateOperationsInput | string | null
     contentType?: EnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType
     videoSource?: NullableEnumVideoSourceFieldUpdateOperationsInput | $Enums.VideoSource | null
   }
@@ -15751,6 +15776,7 @@ export namespace Prisma {
     content?: NullableStringFieldUpdateOperationsInput | string | null
     order?: IntFieldUpdateOperationsInput | number
     quizId?: NullableIntFieldUpdateOperationsInput | number | null
+    codeStyle?: NullableStringFieldUpdateOperationsInput | string | null
     contentType?: EnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType
     videoSource?: NullableEnumVideoSourceFieldUpdateOperationsInput | $Enums.VideoSource | null
     sectionId?: IntFieldUpdateOperationsInput | number
@@ -16431,6 +16457,7 @@ export namespace Prisma {
     content?: SortOrder
     order?: SortOrder
     quizId?: SortOrder
+    codeStyle?: SortOrder
     contentType?: SortOrder
     videoSource?: SortOrder
     sectionId?: SortOrder
@@ -16449,6 +16476,7 @@ export namespace Prisma {
     content?: SortOrder
     order?: SortOrder
     quizId?: SortOrder
+    codeStyle?: SortOrder
     contentType?: SortOrder
     videoSource?: SortOrder
     sectionId?: SortOrder
@@ -16460,6 +16488,7 @@ export namespace Prisma {
     content?: SortOrder
     order?: SortOrder
     quizId?: SortOrder
+    codeStyle?: SortOrder
     contentType?: SortOrder
     videoSource?: SortOrder
     sectionId?: SortOrder
@@ -18121,6 +18150,7 @@ export namespace Prisma {
     content?: string | null
     order: number
     quizId?: number | null
+    codeStyle?: string | null
     contentType: $Enums.ContentType
     videoSource?: $Enums.VideoSource | null
     quiz?: QuizCreateNestedOneWithoutLessonInput
@@ -18132,6 +18162,7 @@ export namespace Prisma {
     content?: string | null
     order: number
     quizId?: number | null
+    codeStyle?: string | null
     contentType: $Enums.ContentType
     videoSource?: $Enums.VideoSource | null
     quiz?: QuizUncheckedCreateNestedOneWithoutLessonInput
@@ -18219,6 +18250,7 @@ export namespace Prisma {
     content?: StringNullableFilter<"Lesson"> | string | null
     order?: IntFilter<"Lesson"> | number
     quizId?: IntNullableFilter<"Lesson"> | number | null
+    codeStyle?: StringNullableFilter<"Lesson"> | string | null
     contentType?: EnumContentTypeFilter<"Lesson"> | $Enums.ContentType
     videoSource?: EnumVideoSourceNullableFilter<"Lesson"> | $Enums.VideoSource | null
     sectionId?: IntFilter<"Lesson"> | number
@@ -18386,6 +18418,7 @@ export namespace Prisma {
     content?: string | null
     order: number
     quizId?: number | null
+    codeStyle?: string | null
     contentType: $Enums.ContentType
     videoSource?: $Enums.VideoSource | null
     section: SectionCreateNestedOneWithoutLessonsInput
@@ -18397,6 +18430,7 @@ export namespace Prisma {
     content?: string | null
     order: number
     quizId?: number | null
+    codeStyle?: string | null
     contentType: $Enums.ContentType
     videoSource?: $Enums.VideoSource | null
     sectionId: number
@@ -18449,6 +18483,7 @@ export namespace Prisma {
     content?: NullableStringFieldUpdateOperationsInput | string | null
     order?: IntFieldUpdateOperationsInput | number
     quizId?: NullableIntFieldUpdateOperationsInput | number | null
+    codeStyle?: NullableStringFieldUpdateOperationsInput | string | null
     contentType?: EnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType
     videoSource?: NullableEnumVideoSourceFieldUpdateOperationsInput | $Enums.VideoSource | null
     section?: SectionUpdateOneRequiredWithoutLessonsNestedInput
@@ -18460,6 +18495,7 @@ export namespace Prisma {
     content?: NullableStringFieldUpdateOperationsInput | string | null
     order?: IntFieldUpdateOperationsInput | number
     quizId?: NullableIntFieldUpdateOperationsInput | number | null
+    codeStyle?: NullableStringFieldUpdateOperationsInput | string | null
     contentType?: EnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType
     videoSource?: NullableEnumVideoSourceFieldUpdateOperationsInput | $Enums.VideoSource | null
     sectionId?: IntFieldUpdateOperationsInput | number
@@ -18984,6 +19020,7 @@ export namespace Prisma {
     content?: string | null
     order: number
     quizId?: number | null
+    codeStyle?: string | null
     contentType: $Enums.ContentType
     videoSource?: $Enums.VideoSource | null
   }
@@ -19001,6 +19038,7 @@ export namespace Prisma {
     content?: NullableStringFieldUpdateOperationsInput | string | null
     order?: IntFieldUpdateOperationsInput | number
     quizId?: NullableIntFieldUpdateOperationsInput | number | null
+    codeStyle?: NullableStringFieldUpdateOperationsInput | string | null
     contentType?: EnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType
     videoSource?: NullableEnumVideoSourceFieldUpdateOperationsInput | $Enums.VideoSource | null
     quiz?: QuizUpdateOneWithoutLessonNestedInput
@@ -19012,6 +19050,7 @@ export namespace Prisma {
     content?: NullableStringFieldUpdateOperationsInput | string | null
     order?: IntFieldUpdateOperationsInput | number
     quizId?: NullableIntFieldUpdateOperationsInput | number | null
+    codeStyle?: NullableStringFieldUpdateOperationsInput | string | null
     contentType?: EnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType
     videoSource?: NullableEnumVideoSourceFieldUpdateOperationsInput | $Enums.VideoSource | null
     quiz?: QuizUncheckedUpdateOneWithoutLessonNestedInput
@@ -19023,6 +19062,7 @@ export namespace Prisma {
     content?: NullableStringFieldUpdateOperationsInput | string | null
     order?: IntFieldUpdateOperationsInput | number
     quizId?: NullableIntFieldUpdateOperationsInput | number | null
+    codeStyle?: NullableStringFieldUpdateOperationsInput | string | null
     contentType?: EnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType
     videoSource?: NullableEnumVideoSourceFieldUpdateOperationsInput | $Enums.VideoSource | null
   }

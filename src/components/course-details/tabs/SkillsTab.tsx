@@ -77,7 +77,7 @@ const SkillsTab = ({ course }: Props) => {
       </button>
 
       <div
-        className="grow flex flex-col gap-2 overflow-y-auto h-[20rem] py-4"
+        className="grow flex flex-col gap-2 overflow-y-auto h-[20rem] p-4"
         id="styledScrollbar"
       >
         {skills.length === 0 && (

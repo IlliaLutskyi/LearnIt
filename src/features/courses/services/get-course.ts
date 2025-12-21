@@ -6,6 +6,7 @@ export async function getCourse(slug: string) {
     select: {
       id: true,
       title: true,
+      poster: true,
       slug: true,
       category: true,
       description: true,
@@ -31,7 +32,13 @@ export async function getCourse(slug: string) {
                 },
               },
             },
+            orderBy: {
+              order: "asc",
+            },
           },
+        },
+        orderBy: {
+          order: "asc",
         },
       },
       user: {

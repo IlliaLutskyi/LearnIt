@@ -50,7 +50,7 @@ model SectionGroup{
   sections Section[]
   order Int 
   courseId Int
-  course Course @relation(fields: [courseId],references: [id])
+  course Course @relation(fields: [courseId],references: [id], onDelete: Cascade)
 }
 
 model Section{
@@ -61,7 +61,7 @@ model Section{
   order Int 
   sectionRates SectionRating[]
   sectionGroupId Int
-  sectionGroup SectionGroup @relation(fields: [sectionGroupId],references: [id])
+  sectionGroup SectionGroup @relation(fields: [sectionGroupId],references: [id], onDelete: Cascade)
 }
 
 model Lesson{
@@ -71,10 +71,11 @@ model Lesson{
   quiz Quiz?
   order Int
   quizId Int?
+  codeStyle String?
   contentType ContentType
   videoSource VideoSource? 
   sectionId Int
-  section Section @relation(fields: [sectionId],references: [id])
+  section Section @relation(fields: [sectionId],references: [id],onDelete: Cascade)
 }
 
 model Quiz{
@@ -83,13 +84,13 @@ model Quiz{
   question String 
   explanation String? 
   lessonId Int @unique
-  lesson Lesson @relation(fields: [lessonId],references: [id])
+  lesson Lesson @relation(fields: [lessonId],references: [id],onDelete: Cascade)
 }
 
 model Answer{
   id Int @id() @default(autoincrement())
   quizId Int
-  quiz Quiz  @relation(fields: [quizId],references: [id])
+  quiz Quiz  @relation(fields: [quizId],references: [id],onDelete: Cascade)
   content String
   isCorrect Boolean
 }
@@ -98,23 +99,23 @@ model Prerequisit{
   id Int @id() @default(autoincrement())
   content String 
   courseId Int
-  course Course @relation(fields: [courseId],references: [id])
+  course Course @relation(fields: [courseId],references: [id],onDelete: Cascade)
 }
 
 model Skill{
   id Int @id() @default(autoincrement())
   content String
   courseId Int
-  course Course @relation(fields: [courseId],references: [id])
+  course Course @relation(fields: [courseId],references: [id],onDelete: Cascade)
 }
 
 model SectionRating{
   id Int @id() @default(autoincrement())
   rate Int @default(0)
   userId Int
-  user User @relation(fields: [userId],references: [id])
+  user User @relation(fields: [userId],references: [id],onDelete: Cascade)
   sectionId Int
-  section Section @relation(fields: [sectionId],references: [id])
+  section Section @relation(fields: [sectionId],references: [id],onDelete: Cascade)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   @@unique([userId,sectionId])

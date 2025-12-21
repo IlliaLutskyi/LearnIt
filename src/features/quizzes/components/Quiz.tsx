@@ -29,7 +29,7 @@ const Quiz = ({ lesson }: Props) => {
   }
 
   return (
-    <article>
+    <article id={`lesson-${lesson.id}`}>
       <div ref={ref} id={`lesson-${lesson.id}`} />
 
       <div

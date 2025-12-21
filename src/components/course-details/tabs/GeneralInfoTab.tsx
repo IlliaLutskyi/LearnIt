@@ -15,6 +15,9 @@ import {
 } from "@/features/courses/schemas/create-general-info-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import CategorySelect from "@/features/categories/components/create-course-form/CategorySelect";
+import DropZone from "@/features/lessons/components/create-course-form/lessonTypeOptions/DropZone";
+import { useEffect } from "react";
+import { Loader } from "@/components/common";
 
 type Props = {
   course: DbCourse;
@@ -25,17 +28,17 @@ const GeneralInfoTab = ({ course }: Props) => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isDirty },
+    setValue,
+    watch,
+    formState: { errors, isDirty, dirtyFields },
   } = useForm({
     resolver: zodResolver(CreateGeneralInfoSchema),
-    defaultValues: {
-      description: course.description,
-      title: course.title,
-    },
   });
 
+  const poster = watch("poster");
+
   const updateMutation = useMutation({
-    mutationFn: async (data: CreateGeneralInfo) => {
+    mutationFn: async (data: Partial<CreateGeneralInfo>) => {
       const res = await api.patch(`/courses/${course.id}`, data);
       return res.data;
     },
@@ -48,12 +51,47 @@ const GeneralInfoTab = ({ course }: Props) => {
     },
   });
 
+  function showPreview(inputRef: React.RefObject<HTMLInputElement | null>) {
+    return (
+      <button
+        type="button"
+        className="flex flex-col gap-1 h-full"
+        onClick={() => inputRef?.current?.click()}
+      >
+        <p className="text-xs text-left">Poster</p>
+        <img
+          src={poster}
+          className="w-full h-full object-cover rounded-sm"
+          alt="Poster image"
+        />
+      </button>
+    );
+  }
+
+  useEffect(() => {
+    setValue("poster", course.poster);
+    setValue("description", course.description);
+    setValue("title", course.title);
+    setValue("category", String(course.category.id));
+  }, [course]);
+
+  console.log("dirtyFields", dirtyFields);
   async function onSubmit(data: CreateGeneralInfo) {
     if (!isDirty) return;
 
-    await updateMutation.mutateAsync(data);
+    const generalInfo: Partial<CreateGeneralInfo> = {};
+
+    for (const [info, dirty] of Object.entries(dirtyFields)) {
+      if (dirty) {
+        generalInfo[info as keyof CreateGeneralInfo] =
+          data[info as keyof CreateGeneralInfo];
+      }
+    }
+
+    await updateMutation.mutateAsync(generalInfo);
     dispatch(toggleEditCourseDetailForm());
   }
+
   return (
     <form
       className="flex flex-col gap-2 h-full"
@@ -61,36 +99,58 @@ const GeneralInfoTab = ({ course }: Props) => {
     >
       <h1 className="font-bold text-center text-lg">General information</h1>
 
-      <section className="grow flex flex-col gap-2">
-        <div className="grid sm:grid-cols-2 grid-cols-1 gap-2">
-          <Input
-            label="Course title"
-            type="text"
-            register={register}
-            field="title"
-            error={errors.title?.message}
-            className="input-field"
-          />
-          <CategorySelect register={register} />
-        </div>
+      <section className="grid grid-cols-[1fr_4fr] gap-2">
         <div>
-          <Input
-            label="description"
-            type="text"
-            register={register}
-            field="description"
-            multiline={true}
-            error={errors.description?.message}
-            className="input-field h-[15rem] resize-none"
+          <DropZone
+            previewComponent={showPreview}
+            onLoad={async (file) => {
+              const buffer = Buffer.from(await file.arrayBuffer());
+              const base64 = `data:${file.type};base64,${buffer.toString(
+                "base64"
+              )}`;
+
+              setValue("poster", base64, {
+                shouldDirty: true,
+                shouldTouch: true,
+                shouldValidate: true,
+              });
+            }}
           />
+        </div>
+
+        <div className="grow flex flex-col gap-2">
+          <div className="grid sm:grid-cols-2 grid-cols-1 gap-2">
+            <Input
+              label="Course title"
+              {...register("title")}
+              error={errors.title?.message}
+              className="input-field"
+            />
+
+            <CategorySelect
+              register={register}
+              error={errors.category?.message}
+            />
+          </div>
+
+          <div>
+            <Input
+              label="description"
+              {...register("description")}
+              multiline={true}
+              error={errors.description?.message}
+              className="input-field h-[15rem] resize-none"
+            />
+          </div>
         </div>
       </section>
 
       <button
         type="submit"
+        disabled={updateMutation.isPending}
         className="self-end bg-accent text-accent-foreground p-2 text-sm hover:scale-95 focus:scale-95 rounded-sm duration-400"
       >
-        Save
+        {updateMutation.isPending ? <Loader /> : "Save"}
       </button>
     </form>
   );

@@ -21,57 +21,59 @@ const Navbar = () => {
       <Link href="/" className="text-2xl font-bold">
         LearnIt
       </Link>
-      <SearchBar />
-      <ul className="hidden sm:flex items-center justify-center sm:gap-6">
-        <li>
-          <Link
-            href="/"
-            className="hover:text-secondary-accent duration-400 text-sm"
-          >
-            Home
-          </Link>
-        </li>
-        <li>
-          <Link
-            href="/courses"
-            className="hover:text-secondary-accent duration-400 text-sm"
-          >
-            Courses
-          </Link>
-        </li>
-        {!session?.user && status !== "loading" && (
+      <section className="flex items-center justify-center gap-6">
+        <SearchBar />
+        <ul className="hidden sm:flex items-center justify-center sm:gap-6">
           <li>
             <Link
-              href="/auth/login"
+              href="/"
               className="hover:text-secondary-accent duration-400 text-sm"
             >
-              Login
+              Home
             </Link>
           </li>
-        )}
-        {session?.user && session.user.role === "Admin" && (
           <li>
             <Link
-              href="/admin"
+              href="/courses"
               className="hover:text-secondary-accent duration-400 text-sm"
             >
-              Admin
+              Courses
             </Link>
           </li>
-        )}
-        {session?.user && session.user.role === "Admin" && (
-          <li>
-            <Link
-              href={"/create-course"}
-              className="hover:text-secondary-accent duration-400 text-sm"
-            >
-              Create course
-            </Link>
-          </li>
-        )}
-        <DarkModeToggle />
-      </ul>
-      <MobileNavbar />
+          {!session?.user && status !== "loading" && (
+            <li>
+              <Link
+                href="/auth/login"
+                className="hover:text-secondary-accent duration-400 text-sm"
+              >
+                Login
+              </Link>
+            </li>
+          )}
+          {session?.user && session.user.role === "Admin" && (
+            <li>
+              <Link
+                href="/admin"
+                className="hover:text-secondary-accent duration-400 text-sm"
+              >
+                Admin
+              </Link>
+            </li>
+          )}
+          {session?.user && session.user.role === "Admin" && (
+            <li>
+              <Link
+                href={"/create-course"}
+                className="hover:text-secondary-accent duration-400 text-sm"
+              >
+                Create course
+              </Link>
+            </li>
+          )}
+          <DarkModeToggle />
+        </ul>
+        <MobileNavbar />
+      </section>
     </nav>
   );
 };

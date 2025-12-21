@@ -7,9 +7,13 @@ type Props = {
 };
 const HighlightedCode = ({ lesson }: Props) => {
   return (
-    <SyntaxHighlighter style={styles[lesson.codeStyle as keyof typeof styles]}>
-      {lesson.content || ""}
-    </SyntaxHighlighter>
+    <div id={`lesson-${lesson.id}`}>
+      <SyntaxHighlighter
+        style={styles[lesson.codeStyle as keyof typeof styles]}
+      >
+        {lesson.content || ""}
+      </SyntaxHighlighter>
+    </div>
   );
 };
 

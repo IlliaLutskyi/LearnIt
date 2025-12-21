@@ -11,7 +11,11 @@ type Props = {
 const ConfirmationForm = ({ warning, onYes }: Props) => {
   const isOpen = useAppSelector((store) => store.ConfirmationForm.isOpen);
   const dispatch = useAppDispatch();
-  function handleClose() {
+  function handleNo() {
+    dispatch(toggleConfirmationForm(false));
+  }
+  function handleYes() {
+    onYes?.();
     dispatch(toggleConfirmationForm(false));
   }
 
@@ -31,14 +35,14 @@ const ConfirmationForm = ({ warning, onYes }: Props) => {
 
                 <section className="flex justify-between items-end">
                   <button
-                    onClick={handleClose}
-                    className="px-3 py-2 text-error ring-1 ring-ring-error hover:bg-red-error hover:text-error-foreground text-sm hover:scale-95 duration-500 focus:scale-95 rounded-sm"
+                    onClick={handleNo}
+                    className="px-3 py-2 text-success ring-1 ring-success hover:bg-success hover:text-success-foreground text-sm hover:scale-95 duration-500 focus:scale-95 rounded-sm"
                   >
                     No
                   </button>
                   <button
-                    onClick={onYes}
-                    className="px-3 py-2 text-success-foreground text-sm ring-1 ring-ring-seccess hover:bg-success hover:text-success-foreground hover:scale-95 duration-500 focus:scale-95 rounded-sm"
+                    onClick={handleYes}
+                    className="px-3 py-2 text-success-foreground text-sm ring-1 ring-ring-seccess hover:bg-error hover:text-error-foreground hover:scale-95 duration-500 focus:scale-95 rounded-sm"
                   >
                     Yes
                   </button>

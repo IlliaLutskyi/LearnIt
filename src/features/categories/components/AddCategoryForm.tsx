@@ -21,6 +21,10 @@ import { useMutation } from "@tanstack/react-query";
 import api from "@/lib/axios";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import {
+  UpdateCategory,
+  UpdateCategorySchema,
+} from "../schemas/update-category-schema";
 
 const AddOrEditCategoryForm = () => {
   const dispatch = useAppDispatch();
@@ -34,10 +38,12 @@ const AddOrEditCategoryForm = () => {
     register,
     handleSubmit,
     setValue,
-    formState: { errors, isSubmitting, isDirty },
+    formState: { errors, isSubmitting, isDirty, dirtyFields },
     reset,
   } = useForm({
-    resolver: zodResolver(CreateCategorySchema),
+    resolver: zodResolver(
+      category ? UpdateCategorySchema : CreateCategorySchema
+    ),
   });
 
   const addMutation = useMutation({
@@ -60,7 +66,7 @@ const AddOrEditCategoryForm = () => {
 
   const editMutation = useMutation({
     mutationFn: async (data: FormData) => {
-      const res = await api.patch(`/categories/${category?.id}`, data);
+      const res = await api.patch(`/categories/${category?.id || ""}`, data);
       return res.data;
     },
     onSuccess: (data) => {
@@ -79,22 +85,28 @@ const AddOrEditCategoryForm = () => {
   });
 
   useEffect(() => {
-    if (category) {
-      setValue("name", category.name);
-    }
+    if (!category) return;
+
+    setValue("name", category.name || "");
   }, [category, setValue]);
 
-  async function onSubmit(data: CreateCategory) {
+  async function onSubmit(data: CreateCategory | UpdateCategory) {
     if (!isDirty) return;
 
-    const formData = new FormData();
-
-    formData.append("name", data.name.toLowerCase());
-    formData.append("image", data.image);
-
     if (category) {
+      const formData = new FormData();
+
+      for (const [key, value] of Object.entries(dirtyFields)) {
+        if (value)
+          formData.append(key, data[key as keyof CreateCategory] || "");
+      }
+
       await editMutation.mutateAsync(formData);
     } else {
+      const formData = new FormData();
+
+      formData.append("name", data.name.toLowerCase());
+      formData.append("image", data.image!);
       await addMutation.mutateAsync(formData);
     }
   }
@@ -105,8 +117,9 @@ const AddOrEditCategoryForm = () => {
         <Dialog
           open={isOpen}
           onOpenChange={() => {
-            dispatch(toggleAddOrEditCategoryForm());
             dispatch(setCategory(undefined));
+            reset();
+            dispatch(toggleAddOrEditCategoryForm());
           }}
         >
           <DialogContent className="w-1/2 p-4">

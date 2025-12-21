@@ -16,7 +16,11 @@ const MarkdownOption = ({ setValue }: Props) => {
         const unsafeHtml = await marked.parse(text);
         const html = dompurify.sanitize(unsafeHtml);
 
-        setValue("content", html);
+        setValue("content", html, {
+          shouldDirty: true,
+          shouldTouch: true,
+          shouldValidate: true,
+        });
       }}
     />
   );

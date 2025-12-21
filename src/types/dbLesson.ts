@@ -11,6 +11,6 @@ export type DbLesson = {
   videoSource: $Enums.VideoSource | null;
   codeStyle?: string;
   contentType: ContentType;
-  quizId?: number | null;
+  quizId?: number;
   sectionId?: number;
 };

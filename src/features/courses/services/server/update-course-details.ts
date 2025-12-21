@@ -1,8 +1,5 @@
 import prisma from "@/lib/db";
-import {
-  CreateGeneralInfo,
-  CreateGeneralInfoSchema,
-} from "../../schemas/create-general-info-schema";
+import { CreateGeneralInfo } from "../../schemas/create-general-info-schema";
 
 type Params = {
   params: Promise<{
@@ -14,42 +11,24 @@ export default async function updateCourseDetails(
   { params }: Params
 ) {
   const { id } = await params;
-  const data: CreateGeneralInfo = await req.json();
-  const isValidData = CreateGeneralInfoSchema.safeParse(data);
+  const data: Partial<CreateGeneralInfo> = await req.json();
+
   try {
-    if (!isValidData.success) {
-      return Response.json({ message: "Invalid data" }, { status: 400 });
-    }
-    const exists = await prisma.course.findFirst({
-      where: {
-        title: data.title,
-      },
-    });
-
-    if (exists) {
-      return Response.json(
-        { message: "Title already exists" },
-        { status: 400 }
-      );
-    }
-
     const course = await prisma.course.update({
       where: {
         id: Number(id),
       },
       data: {
-        category: {
-          connect: {
-            id: parseInt(data.category.id),
+        ...(data.title && { title: data.title }),
+        ...(data.description && { description: data.description }),
+        ...(data.poster && { poster: data.poster }),
+        ...(data.category && {
+          category: {
+            connect: {
+              id: Number(data.category),
+            },
           },
-        },
-        description: data.description,
-        title: data.title,
-        slug: data.title
-          .toLowerCase()
-          .trim()
-          .replace(/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~`\s]+/g, "-")
-          .replace(/^-+|-+$/g, ""),
+        }),
       },
     });
 

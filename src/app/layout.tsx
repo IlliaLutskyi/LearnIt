@@ -4,13 +4,15 @@ import { Toaster } from "@/components/ui/sonner";
 import ReactQuery from "@/components/providers/ReactQuery";
 import SessionWraper from "@/components/providers/SessionWraper";
 import { Navbar } from "@/components/common";
-
+import { JetBrains_Mono } from "next/font/google";
 import "../styles/globals.css";
 
 export const metadata: Metadata = {
   title: "LearnIt",
 };
-
+export const jetbrains_mono = JetBrains_Mono({
+  subsets: ["latin"],
+});
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -21,7 +23,9 @@ export default function RootLayout({
       <SessionWraper>
         <ReactQuery>
           <StoreProvider>
-            <body className="flex flex-col min-h-screen">
+            <body
+              className={`flex flex-col min-h-screen ${jetbrains_mono.className}`}
+            >
               <Navbar />
               <main className="grow">{children}</main>
               <Toaster position="top-center" />

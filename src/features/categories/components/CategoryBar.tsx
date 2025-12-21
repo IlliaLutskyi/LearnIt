@@ -39,7 +39,7 @@ const CategoryBar = ({ categories }: Props) => {
       </Link>
 
       {categories.map((category) => {
-        const isActive = filter == category.name.trim();
+        const isActive = filter == category?.name?.trim();
 
         return (
           <Link href={`?filter=${category.name}`} key={category.id}>
@@ -51,7 +51,9 @@ const CategoryBar = ({ categories }: Props) => {
               } text-xs font-semibold px-3 py-1 hover:scale-95 duration-500 rounded-sm`}
               variants={childVariants}
             >
-              {category.name.slice(0, 1).toUpperCase() + category.name.slice(1)}
+              {category.name &&
+                category.name.slice(0, 1).toUpperCase() +
+                  category.name.slice(1)}
             </motion.button>
           </Link>
         );

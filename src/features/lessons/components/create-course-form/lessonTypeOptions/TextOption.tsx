@@ -36,7 +36,11 @@ const TextOption = ({ isOpen, content, setValue, error }: Props) => {
     const handleUpdate = () => {
       const html = editor.getHTML();
 
-      setValue("content", html);
+      setValue("content", html, {
+        shouldDirty: true,
+        shouldTouch: true,
+        shouldValidate: true,
+      });
     };
 
     editor.on("update", handleUpdate);
@@ -47,10 +51,10 @@ const TextOption = ({ isOpen, content, setValue, error }: Props) => {
   }, [editor, setValue]);
 
   useEffect(() => {
-    if (content && isOpen) {
-      editor.commands.setContent(content);
+    if (isOpen) {
+      editor.commands.setContent(content || "");
     }
-  }, [isOpen, content, editor]);
+  }, [isOpen, editor]);
 
   return (
     <div>

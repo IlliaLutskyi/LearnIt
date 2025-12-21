@@ -37,7 +37,7 @@ const SectionInfo = ({ sectionGroup }: Props) => {
       </button>
 
       {isOpen && sectionGroup?.sections && (
-        <section className="flex flex-col gap-3 bg-accent text-accent-foreground px-2 py-2">
+        <section className="flex flex-col gap-3 p-2">
           {sectionGroup.sections.map((section) => {
             if (!section.sectionRates) return null;
             const rating =

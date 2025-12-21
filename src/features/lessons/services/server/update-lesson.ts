@@ -33,6 +33,7 @@ export async function updateLesson(
         content: data.content,
         contentType: data.contentType,
         videoSource: data.videoSource,
+        codeStyle: data.codeStyle,
       },
     });
 
@@ -50,9 +51,12 @@ export async function updateLesson(
       { status: 200 }
     );
   } catch (err) {
+    console.error(err instanceof Error ? err.message : err);
+
     return Response.json(
       {
         message: err instanceof Error ? err.message : "Unable to update lesson",
+        err: err,
       },
       { status: 500 }
     );

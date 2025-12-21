@@ -7,9 +7,10 @@ import { DbUser } from "./dbUser";
 export type DbCourse = {
   id: number;
   title: string;
+  poster: string;
   description: string;
   slug: string;
-  category?: DbCategory;
+  category: DbCategory;
   user?: DbUser;
   sectionGroups?: DbSectionGroup[];
   prerequisites?: DbPrerequisite[];

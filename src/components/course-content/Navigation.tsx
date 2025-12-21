@@ -13,13 +13,13 @@ const Navigation = ({ nextSection, prevSection }: Props) => {
   return (
     <div className="flex gap-2">
       <Link
-        href={`/course/${params.courseSlug}/${prevSection?.sectionGroup.slug}/${prevSection?.slug}`}
-        className="w-full"
+        href={`/course/${params.courseSlug}/${
+          prevSection?.sectionGroup.slug || ""
+        }/${prevSection?.slug || ""}`}
+        className={`mr-auto w-1/2 ${!prevSection && "hidden"}`}
       >
         <button
-          className={`w-full flex flex-col items-start gap-2 text-xs text-accent border-accent hover:text-secondary-accent hover:border-secondary-accent border-[1px] p-8 rounded-2xl ${
-            !prevSection && "hidden"
-          } duration-500`}
+          className={`w-full flex flex-col items-start gap-2 text-xs text-accent border-accent hover:text-secondary-accent hover:border-secondary-accent border-[1px] p-8 rounded-2xl duration-400`}
         >
           <span className="font-bold text-sm text-foreground">Back</span>
           <span className="text-sm line-clamp-1">
@@ -29,13 +29,13 @@ const Navigation = ({ nextSection, prevSection }: Props) => {
       </Link>
 
       <Link
-        href={`/course/${params.courseSlug}/${nextSection?.sectionGroup.slug}/${nextSection?.slug}`}
-        className="w-full"
+        href={`/course/${params.courseSlug}/${
+          nextSection?.sectionGroup.slug || ""
+        }/${nextSection?.slug || ""}`}
+        className={`ml-auto w-1/2 ${!nextSection && "hidden"}`}
       >
         <button
-          className={`w-full flex flex-col items-end gap-2 text-xs text-accent border-accent hover:text-secondary-accent hover:border-secondary-accent border-[1px] p-8 rounded-2xl ${
-            !nextSection && "hidden"
-          } duration-500`}
+          className={`w-full flex flex-col items-end gap-2 text-xs text-accent border-accent hover:text-secondary-accent hover:border-secondary-accent border-[1px] p-8 rounded-2xl duration-400`}
         >
           <span className="font-bold text-sm text-foreground">Next</span>
 

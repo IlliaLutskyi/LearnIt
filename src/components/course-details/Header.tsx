@@ -8,7 +8,7 @@ type Props = {
 };
 const Header = ({ course }: Props) => {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-[4fr_1fr] gap-3 shadow-sm px-8 py-4 min-h-[300px]">
+    <div className="grid grid-cols-1 sm:grid-cols-[3fr_1fr] gap-3 shadow-sm px-8 py-4 min-h-[300px]">
       <section className="flex flex-col gap-4">
         <div className="flex flex-col gap-2">
           <h1 className="text-3xl font-bold text-primary">{course.title}</h1>
@@ -32,11 +32,19 @@ const Header = ({ course }: Props) => {
         </div>
       </section>
 
-      <section className="self-end">
+      <section className="flex flex-col justify-between gap-4 h-full">
+        <img
+          src={course.poster}
+          alt={course.title}
+          className="w-full mx-auto object-cover rounded-sm"
+          width={300}
+          height={350}
+        />
+
         <Link
           href={`/course/${course.slug}/${course?.sectionGroups?.[0].slug}/${course?.sectionGroups?.[0]?.sections?.[0].slug}`}
         >
-          <button className="w-full p-2 bg-accent text-accent-foreground rounded-xs hover:scale-95 focus:scale-95 duration-400">
+          <button className="self-end w-full p-2 bg-accent text-accent-foreground rounded-xs hover:scale-95 focus:scale-95 duration-400">
             Get started
           </button>
         </Link>
