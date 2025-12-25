@@ -19,6 +19,7 @@ export async function getCourse(slug: string) {
           id: true,
           title: true,
           slug: true,
+          showSectionsOnly: true,
           order: true,
           sections: {
             select: {

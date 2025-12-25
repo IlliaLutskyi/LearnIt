@@ -23,6 +23,11 @@ const SideBar = () => {
       id: "skills",
     },
     {
+      onClick: () => dispatch(setCurrentTab("section_groups_ordering")),
+      name: "Edit Section Groups",
+      id: "section_groups_ordering",
+    },
+    {
       onClick: () => dispatch(setCurrentTab("delete_course")),
       name: "Delete Course",
       id: "delete_course",

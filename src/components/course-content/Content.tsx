@@ -47,8 +47,8 @@ const Content = ({ section, nextSection, prevSection }: Props) => {
             }}
           />
 
-          <Suspense fallback={<Loader />}>
-            <section className="m-4">
+          <section className="flex flex-col gap-2 m-4">
+            <Suspense fallback={<Loader />}>
               {section.lessons?.map((lesson) => {
                 if (lesson.contentType === "Text")
                   return <Text key={lesson.id} lesson={lesson} />;
@@ -62,8 +62,8 @@ const Content = ({ section, nextSection, prevSection }: Props) => {
                   return <HighlightedCode key={lesson.id} lesson={lesson} />;
                 }
               })}
-            </section>
-          </Suspense>
+            </Suspense>
+          </section>
 
           <section className="flex flex-col gap-2 justify-end mb-4 mx-4">
             <SetRating section={section} />

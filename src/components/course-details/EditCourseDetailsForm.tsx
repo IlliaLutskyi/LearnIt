@@ -6,10 +6,16 @@ import { toggleEditCourseDetailForm } from "@/lib/slices/edit-course-detail-form
 import SideBar from "./SideBar";
 import { DbCourse } from "@/types";
 import { AnimatePresence } from "framer-motion";
-import { Dialog, DialogContent, DialogTitle } from "../ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogTitle,
+} from "../ui/dialog";
 import { Loader } from "../common";
-import DeleteCourseTab from "./tabs/DeleteCourseTab";
 
+const EditSectionGroupsTab = lazy(() => import("./tabs/EditSectionGroupsTab"));
+const DeleteCourseTab = lazy(() => import("./tabs/DeleteCourseTab"));
 const GeneralInfoTab = lazy(() => import("./tabs/GeneralInfoTab"));
 const PrerequisitesTab = lazy(() => import("./tabs/PrerequisitesTab"));
 const SkillsTab = lazy(() => import("./tabs/SkillsTab"));
@@ -33,7 +39,9 @@ const EditCourseDetailForm = ({ course }: Props) => {
           <DialogContent className="w-5/6" showCloseButton={false}>
             <div className="grid grid-cols-[1fr_5fr]">
               <DialogTitle className="hidden">Edit Course Details</DialogTitle>
-
+              <DialogDescription className="hidden">
+                Change course detail here
+              </DialogDescription>
               <SideBar />
 
               <Suspense fallback={<Loader />}>
@@ -50,6 +58,9 @@ const EditCourseDetailForm = ({ course }: Props) => {
 
                   {currentTab === "delete_course" && (
                     <DeleteCourseTab course={course} />
+                  )}
+                  {currentTab === "section_groups_ordering" && (
+                    <EditSectionGroupsTab course={course} />
                   )}
                 </section>
               </Suspense>

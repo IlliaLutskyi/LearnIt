@@ -1,33 +1,49 @@
-"use client";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { Collapsible, CollapsibleContent } from "@/components/ui/collapsible";
 import { FaSort } from "react-icons/fa";
-import Sections from "./Sections";
-import SectionGroupMenu from "./SectionGroupMenu";
-import { memo, useEffect, useState } from "react";
-import { SectionGroup as TSectionGroup } from "@/types/create-course";
 import { motion, useAnimation } from "framer-motion";
 import { fadeInOutWithShiftVariants } from "@/features/animations/fade-in-out-with-shift";
+import { Collapsible, CollapsibleContent } from "../ui/collapsible";
+import { memo, useEffect, useState } from "react";
+import SectionGroupMenu from "./SectionGroupMenu";
+import Sections from "./Sections";
+import { UseFieldArrayUpdate } from "react-hook-form";
+import { EditSectionGroups } from "@/features/sections/schemas/edit-section-group-schema";
 type Props = {
-  sectionGroup: TSectionGroup;
+  index: number;
+  sectionGroup: EditSectionGroups["sectionGroups"][number];
+  update: UseFieldArrayUpdate<EditSectionGroups, "sectionGroups">;
 };
-const SectionGroup = ({ sectionGroup }: Props) => {
+const SectionGroup = ({ sectionGroup, update, index }: Props) => {
+  const [isOpen, setIsOpen] = useState(false);
+
   const controls = useAnimation();
-  const [isOpen, setIsOpen] = useState(sectionGroup.order === 1 ? true : false);
 
   const { attributes, listeners, setNodeRef, transform, transition } =
-    useSortable({ id: sectionGroup.order });
+    useSortable({ id: sectionGroup.id });
+
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
   };
+
   useEffect(() => {
     async function inView() {
       await controls.start("visible");
     }
     inView();
-  });
+  }, []);
+
+  function updateSections(
+    index: number,
+    sections: EditSectionGroups["sectionGroups"][number]["sections"]
+  ) {
+    update(index, {
+      ...sectionGroup,
+      sections: sections,
+    });
+  }
+
   return (
     <motion.div
       initial="hidden"
@@ -41,25 +57,31 @@ const SectionGroup = ({ sectionGroup }: Props) => {
         style={style}
       >
         <div className="flex justify-between">
-          <button onClick={() => setIsOpen(!isOpen)} className="font-bold">
+          <button
+            type="button"
+            onClick={() => setIsOpen(!isOpen)}
+            className="font-bold"
+          >
             {sectionGroup.title}
           </button>
 
           <section className="flex gap-2">
             <SectionGroupMenu sectionGroup={sectionGroup} controls={controls} />
-            <button {...attributes} {...listeners}>
+            <button type="button" {...attributes} {...listeners}>
               <FaSort />
             </button>
           </section>
         </div>
+
         <CollapsibleContent>
-          {sectionGroup.sections.length > 0 ? (
+          {sectionGroup.sections && (
             <Sections
               key={sectionGroup.order}
               sections={sectionGroup.sections}
+              updateSections={(
+                sections: EditSectionGroups["sectionGroups"][number]["sections"]
+              ) => updateSections(index, sections)}
             />
-          ) : (
-            <p className="text-sm text-center">No sections</p>
           )}
         </CollapsibleContent>
       </Collapsible>

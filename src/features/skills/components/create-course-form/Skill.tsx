@@ -21,19 +21,19 @@ const Skill = <T extends FieldValues>({
   remove,
   error,
 }: Props<T>) => {
-  const controlls = useAnimation();
+  const controls = useAnimation();
   useEffect(() => {
     async function inView() {
-      await controlls.start("visible");
+      await controls.start("visible");
     }
     inView();
-  }, [controlls]);
+  }, [controls]);
 
   return (
     <motion.div
       className="grid grid-cols-[1fr_10fr_1fr]"
       variants={fadeInOutWithShiftVariants}
-      animate={controlls}
+      animate={controls}
       initial="hidden"
     >
       <span className="m-auto">.</span>
@@ -47,7 +47,7 @@ const Skill = <T extends FieldValues>({
       <button
         type="button"
         onClick={async () => {
-          await controlls.start("exit");
+          await controls.start("exit");
           remove(index);
         }}
         className="text-error m-auto text-lg"

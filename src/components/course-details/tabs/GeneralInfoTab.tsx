@@ -75,7 +75,6 @@ const GeneralInfoTab = ({ course }: Props) => {
     setValue("category", String(course.category.id));
   }, [course]);
 
-  console.log("dirtyFields", dirtyFields);
   async function onSubmit(data: CreateGeneralInfo) {
     if (!isDirty) return;
 

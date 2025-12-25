@@ -34,10 +34,10 @@ const SectionGroups = () => {
 
     if (over?.id !== active?.id) {
       const oldIndex = sectionGroups.findIndex(
-        (section) => section.order === active.id
+        (sectionGroup) => sectionGroup.order === active.id
       );
       const newIndex = sectionGroups.findIndex(
-        (section) => section.order === over?.id
+        (sectionGroup) => sectionGroup.order === over?.id
       );
       dispatch(shiftSectionGroup({ newIndex, oldIndex }));
     }

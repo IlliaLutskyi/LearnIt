@@ -11,6 +11,7 @@ import { useAppDispatch } from "@/lib/hooks";
 import {
   addSectionToSectionGroup,
   deleteSectionGroup,
+  setProperties,
 } from "@/lib/slices/create-course-slice";
 import { SiGooglegemini } from "react-icons/si";
 import { HiDotsVertical } from "react-icons/hi";
@@ -19,6 +20,7 @@ import { Section, SectionGroup } from "@/types/create-course";
 import { LegacyAnimationControls } from "framer-motion";
 import { GenerateSection } from "../../schemas/generate-section";
 import { toast } from "sonner";
+import { SectionGroupProperties } from "../../schemas/section-group-properties";
 
 const PropertiesForm = lazy(() => import("./PropertiesForm"));
 
@@ -26,14 +28,14 @@ const GenerateSectionForm = lazy(() => import("./GenerateSectionForm"));
 
 type Props = {
   sectionGroup: SectionGroup;
-  controlls: LegacyAnimationControls;
+  controls: LegacyAnimationControls;
 };
-const SectionGroupMenu = ({ sectionGroup, controlls }: Props) => {
+const SectionGroupMenu = ({ sectionGroup, controls }: Props) => {
   const dispatch = useAppDispatch();
   const [isPropertiesFormOpen, setIsPropertiesFormOpen] = useState(false);
   const [isGenerateSectionOpen, setIsGenerateSectionOpen] = useState(false);
   async function handleDeleteSectionGroup() {
-    await controlls.start("exit");
+    await controls.start("exit");
     dispatch(deleteSectionGroup(sectionGroup.order));
   }
   function handleRenameSectionGroup() {
@@ -57,6 +59,18 @@ const SectionGroupMenu = ({ sectionGroup, controlls }: Props) => {
     );
     toast.success("Section generated");
   }
+
+  function onSaveSectionGroupProperties(data: SectionGroupProperties) {
+    dispatch(
+      setProperties({
+        title: data.title,
+        showSectionsOnly: data.showSectionsOnly,
+        sectionGroupOrder: sectionGroup.order,
+      })
+    );
+    toast.success("SectionGroup properties updated");
+  }
+
   return (
     <>
       <Menubar>
@@ -87,6 +101,7 @@ const SectionGroupMenu = ({ sectionGroup, controlls }: Props) => {
           isOpen={isPropertiesFormOpen}
           sectionGroup={sectionGroup}
           setIsOpen={setIsPropertiesFormOpen}
+          onSave={onSaveSectionGroupProperties}
         />
         <GenerateSectionForm
           isOpen={isGenerateSectionOpen}

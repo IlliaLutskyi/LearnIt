@@ -7,4 +7,5 @@ export type DbSectionGroup = {
   slug: string;
   order: number;
   sections?: DbSection[];
+  courseId?: number;
 };

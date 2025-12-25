@@ -44,9 +44,9 @@ const GenerateQuizForm = lazy(
 );
 type Props = {
   section: Section;
-  controlls: LegacyAnimationControls;
+  controls: LegacyAnimationControls;
 };
-const SectionMenu = ({ section, controlls }: Props) => {
+const SectionMenu = ({ section, controls }: Props) => {
   const [isCreateLessonOpen, setIsCreateLessonOpen] = useState(false);
   const [isRenameSectionOpen, setIsRenameSectionOpen] = useState(false);
   const [isCreateQuizOpen, setIsCreateQuizOpen] = useState(false);
@@ -54,7 +54,7 @@ const SectionMenu = ({ section, controlls }: Props) => {
   const [isGenerateQuizOpen, setIsGenerateQuizOpen] = useState(false);
   const dispatch = useAppDispatch();
   async function handleDeleteSection() {
-    await controlls.start("exit");
+    await controls.start("exit");
     dispatch(
       deleteSection({
         sectionGroupOrder: section.sectionGroupOrder,

@@ -1,5 +1,4 @@
 "use client";
-import { useAppDispatch } from "@/lib/hooks";
 import { SectionGroup } from "@/types/create-course";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -10,19 +9,15 @@ import {
   SectionGroupProperties,
   SectionGroupPropertiesSchema,
 } from "../../schemas/section-group-properties";
-import { setProperties } from "@/lib/slices/create-course-slice";
-import { toast } from "sonner";
+import { DbSectionGroup } from "@/types";
 
 type Props = {
   isOpen: boolean;
-  sectionGroup: SectionGroup;
+  sectionGroup: SectionGroup | DbSectionGroup;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  onSave?: (data: SectionGroupProperties) => void;
 };
-const SectionGroupPropertiesFrom = ({
-  isOpen,
-  sectionGroup,
-  setIsOpen,
-}: Props) => {
+const PropertiesForm = ({ isOpen, sectionGroup, setIsOpen, onSave }: Props) => {
   const {
     register,
     handleSubmit,
@@ -37,18 +32,8 @@ const SectionGroupPropertiesFrom = ({
     },
   });
 
-  const dispatch = useAppDispatch();
-
   function onSubmit(data: SectionGroupProperties) {
-    dispatch(
-      setProperties({
-        title: data.title,
-        showSectionsOnly: data.showSectionsOnly,
-        sectionGroupOrder: sectionGroup.order,
-      })
-    );
-
-    toast.message("Properties updated");
+    onSave?.(data);
 
     setIsOpen(false);
   }
@@ -103,4 +88,4 @@ const SectionGroupPropertiesFrom = ({
   );
 };
 
-export default SectionGroupPropertiesFrom;
+export default PropertiesForm;

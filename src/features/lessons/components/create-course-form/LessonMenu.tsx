@@ -28,9 +28,9 @@ const CreateQuizForm = lazy(
 
 type Props = {
   lesson: Lesson;
-  controlls: LegacyAnimationControls;
+  controls: LegacyAnimationControls;
 };
-const LessonMenu = ({ lesson, controlls }: Props) => {
+const LessonMenu = ({ lesson, controls }: Props) => {
   const [isEditLessonOpen, setIsEditLessonOpen] = useState(false);
   const [isEditQuizOpen, setIsEditQuizOpen] = useState(false);
 
@@ -46,7 +46,7 @@ const LessonMenu = ({ lesson, controlls }: Props) => {
     return section;
   };
   async function handleDeleteLesson() {
-    await controlls.start("exit");
+    await controls.start("exit");
 
     dispatch(
       deleteLesson({

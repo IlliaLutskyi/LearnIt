@@ -1,10 +1,11 @@
 "use client";
-import { FaArrowDown, FaArrowUp } from "react-icons/fa";
+import { FaArrowUp } from "react-icons/fa";
 import { Collapsible, CollapsibleContent } from "@/components/ui/collapsible";
 import { useEffect, useState } from "react";
 import Section from "./Section";
 import { useParams } from "next/navigation";
 import { DbSectionGroup } from "@/types";
+import { motion } from "framer-motion";
 type Props = {
   sectionGroup: DbSectionGroup;
 };
@@ -34,16 +35,20 @@ const SectionGroup = ({ sectionGroup }: Props) => {
   return (
     <Collapsible open={isOpen}>
       <button
-        className="flex justify-between items-center gap-4"
+        className="flex justify-between items-center gap-4  hover:text-secondary-accent duration-400"
         onClick={() => setIsOpen(!isOpen)}
       >
-        <p className="text-md line-clamp-1 hover:line-clamp-none font-bold hover:text-secondary-accent duration-400">
+        <p className="text-md text-left line-clamp-1 hover:line-clamp-none font-bold">
           {sectionGroup.title}
         </p>
-        {isOpen ? <FaArrowUp /> : <FaArrowDown />}
+
+        <motion.span animate={{ rotate: isOpen ? 180 : 0 }}>
+          <FaArrowUp />
+        </motion.span>
       </button>
+
       <CollapsibleContent>
-        <div className="ml-2 mt-2">
+        <div className="ml-4 mt-2">
           {sectionGroup.sections &&
             sectionGroup.sections.map((section) => (
               <Section

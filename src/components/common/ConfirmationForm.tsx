@@ -3,12 +3,13 @@ import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { toggleConfirmationForm } from "@/lib/slices/confirmation-form-slice";
 import { AnimatePresence } from "framer-motion";
 import { Dialog } from "@radix-ui/react-dialog";
-import { DialogContent, DialogTitle } from "../ui/dialog";
+import { DialogContent, DialogDescription, DialogTitle } from "../ui/dialog";
 type Props = {
   warning?: string;
+  description?: string;
   onYes?: () => void;
 };
-const ConfirmationForm = ({ warning, onYes }: Props) => {
+const ConfirmationForm = ({ warning, onYes, description }: Props) => {
   const isOpen = useAppSelector((store) => store.ConfirmationForm.isOpen);
   const dispatch = useAppDispatch();
   function handleNo() {
@@ -29,9 +30,14 @@ const ConfirmationForm = ({ warning, onYes }: Props) => {
           >
             <DialogContent asChild className="w-1/2 p-6">
               <div className="flex flex-col gap-4">
-                <DialogTitle className="text-center text-lg font-bold">
-                  {warning}
-                </DialogTitle>
+                <section>
+                  <DialogTitle className="text-center text-lg font-bold">
+                    {warning}
+                  </DialogTitle>
+                  <DialogDescription className="text-center">
+                    {description}
+                  </DialogDescription>
+                </section>
 
                 <section className="flex justify-between items-end">
                   <button

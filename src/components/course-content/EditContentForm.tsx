@@ -33,7 +33,6 @@ import api from "@/lib/axios";
 import { toast } from "sonner";
 import { isAxiosError } from "axios";
 import { useParams, useRouter } from "next/navigation";
-import z from "zod";
 type Props = {
   section: DbSection;
   isOpen: boolean;

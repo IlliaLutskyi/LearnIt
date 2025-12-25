@@ -19,7 +19,7 @@ const Section = ({ section, sectionGroupSlug }: Props) => {
     >
       <Link
         href={`/course/${params.courseSlug}/${sectionGroupSlug}/${section.slug}`}
-        className={`text-sm  ${
+        className={`text-sm ${
           params.sectionSlug === section.slug
             ? "text-secondary-accent"
             : "hover:text-secondary-accent"

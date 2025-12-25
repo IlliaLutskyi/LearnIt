@@ -18,7 +18,7 @@ type Props = {
 };
 
 const Lesson = ({ lesson }: Props) => {
-  const controlls = useAnimation();
+  const controls = useAnimation();
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id: lesson.order });
 
@@ -29,17 +29,17 @@ const Lesson = ({ lesson }: Props) => {
 
   useEffect(() => {
     async function inView() {
-      await controlls.start("visible");
+      await controls.start("visible");
     }
 
     inView();
-  }, [controlls]);
+  }, [controls]);
 
   return (
     <motion.div
       variants={fadeInOutWithShiftVariants}
       initial="hidden"
-      animate={controlls}
+      animate={controls}
     >
       <Collapsible
         ref={setNodeRef}

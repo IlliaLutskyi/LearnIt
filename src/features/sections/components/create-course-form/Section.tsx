@@ -16,7 +16,7 @@ type Props = {
   section: TSection;
 };
 const Section = ({ section }: Props) => {
-  const controlls = useAnimation();
+  const controls = useAnimation();
   const [isOpen, setIsOpen] = useState(section.order === 1 ? true : false);
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id: section.order });
@@ -26,16 +26,16 @@ const Section = ({ section }: Props) => {
   };
   useEffect(() => {
     async function inView() {
-      await controlls.start("visible");
+      await controls.start("visible");
     }
     inView();
-  }, [controlls]);
+  }, [controls]);
 
   return (
     <motion.div
       variants={fadeInOutWithShiftVariants}
       initial="hidden"
-      animate={controlls}
+      animate={controls}
     >
       <Collapsible
         className="ring-1 ring-ring rounded-sm p-4"
@@ -48,7 +48,7 @@ const Section = ({ section }: Props) => {
             {section.title}
           </button>
           <section className="flex gap-2">
-            <SectionMenu section={section} controlls={controlls} />
+            <SectionMenu section={section} controls={controls} />
             <button {...attributes} {...listeners}>
               <FaSort />
             </button>

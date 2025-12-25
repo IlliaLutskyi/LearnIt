@@ -19,8 +19,10 @@ export async function getSectionGroups(course_slug: string) {
               order: true,
               id: true,
             },
+            orderBy: { order: "asc" },
           },
         },
+        orderBy: { order: "asc" },
       },
     },
   });

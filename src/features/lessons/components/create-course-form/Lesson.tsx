@@ -18,7 +18,7 @@ type Props = {
   lesson: TLesson;
 };
 const Lesson = ({ lesson }: Props) => {
-  const controlls = useAnimation();
+  const controls = useAnimation();
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id: lesson.order });
   const style = {
@@ -28,14 +28,14 @@ const Lesson = ({ lesson }: Props) => {
 
   useEffect(() => {
     async function inView() {
-      await controlls.start("visible");
+      await controls.start("visible");
     }
     inView();
-  }, [controlls]);
+  }, [controls]);
 
   return (
     <motion.div
-      animate={controlls}
+      animate={controls}
       initial="hidden"
       variants={fadeInOutWithShiftVariants}
     >
@@ -50,7 +50,7 @@ const Lesson = ({ lesson }: Props) => {
           </CollapsibleTrigger>
 
           <section className="flex gap-2">
-            <LessonMenu lesson={lesson} controlls={controlls} />
+            <LessonMenu lesson={lesson} controls={controls} />
 
             <button {...attributes} {...listeners}>
               <FaSort />
