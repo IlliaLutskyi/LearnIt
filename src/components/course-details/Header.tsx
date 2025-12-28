@@ -5,8 +5,9 @@ import { DbCourse } from "@/types";
 
 type Props = {
   course: DbCourse;
+  courseRate: number | null;
 };
-const Header = ({ course }: Props) => {
+const Header = ({ course, courseRate }: Props) => {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-[3fr_1fr] gap-3 px-8 py-4 min-h-[300px]">
       <section className="flex flex-col gap-4">
@@ -14,16 +15,20 @@ const Header = ({ course }: Props) => {
           <h1 className="text-3xl font-bold text-primary">{course.title}</h1>
           <p className="text-sm text-muted-foreground">{course.description}</p>
         </div>
+
         <div className="mt-auto flex flex-col gap-2">
-          <Rating rating={4.5} />
+          {courseRate && <Rating rating={courseRate} />}
+
           <span className="text-xs text-accent">
             Created by: {course?.user?.name}
           </span>
+
           <span className="text-xs text-accent">
             Created at:{" "}
             {course.createdAt &&
               new Date(course.createdAt).toLocaleDateString()}
           </span>
+
           <span className="text-xs text-accent">
             Last updated:{" "}
             {course.updatedAt &&

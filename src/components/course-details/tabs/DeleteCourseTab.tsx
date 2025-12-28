@@ -9,7 +9,7 @@ type Props = {
 const DeleteCourseTab = ({ course }: Props) => {
   const mutation = useMutation({
     mutationFn: async () => {
-      const res = await api.delete(`/course/${course.id}`);
+      const res = await api.delete(`/courses/${course.id}`);
       return res.data;
     },
     onSuccess: (data) => {
@@ -19,12 +19,13 @@ const DeleteCourseTab = ({ course }: Props) => {
       if (isAxiosError(err)) return toast.error(err.response?.data.message);
     },
   });
-  async function onSubmit() {
+  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
     await mutation.mutateAsync();
   }
 
   return (
-    <form className="flex flex-col gap-2 h-full">
+    <form className="flex flex-col gap-2 h-full" onSubmit={onSubmit}>
       <div className="grow flex flex-col gap-1 text-center">
         <h1 className="font-bold text-lg">
           Are you sure you want to delete this course
@@ -37,7 +38,7 @@ const DeleteCourseTab = ({ course }: Props) => {
       </div>
 
       <button
-        onClick={onSubmit}
+        type="submit"
         className="self-end bg-error text-error-foreground text-sm p-2 rounded-sm hover:scale-95 duration-400"
       >
         Delete

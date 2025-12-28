@@ -37,8 +37,10 @@ const SkillsTab = ({ course }: Props) => {
     control,
     name: "skills",
   });
+
   const router = useRouter();
   const dispatch = useAppDispatch();
+
   const updateMustation = useMutation({
     mutationFn: async (data: CreateSkills) => {
       const res = await api.patch(

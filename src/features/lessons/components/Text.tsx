@@ -1,3 +1,4 @@
+import { createSlug } from "@/features/courses/utils/create-slug";
 import { useAppDispatch } from "@/lib/hooks";
 import { setCurrentLessonViewId } from "@/lib/slices/course-view-slice";
 import { DbLesson } from "@/types";
@@ -16,7 +17,7 @@ const Text = ({ lesson }: Props) => {
 
   return (
     <div>
-      <div ref={ref} id={`lesson-${lesson.id}`} />
+      <div ref={ref} id={createSlug(lesson.title)} />
       <article
         className="content"
         dangerouslySetInnerHTML={{

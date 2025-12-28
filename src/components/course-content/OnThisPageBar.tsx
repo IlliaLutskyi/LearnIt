@@ -1,4 +1,5 @@
 "use client";
+import { createSlug } from "@/features/courses/utils/create-slug";
 import { useAppSelector } from "@/lib/hooks";
 import { DbSection } from "@/types";
 
@@ -21,7 +22,7 @@ const OnThisPageBar = ({ section }: Props) => {
           return (
             <Link
               key={lesson.id}
-              href={`#lesson-${lesson.id}`}
+              href={`#${createSlug(lesson.title)}`}
               className={`text-sm ${
                 lesson.id === currentLessonViewId
                   ? "text-secondary-accent"

@@ -4,6 +4,7 @@ import { DbLesson } from "@/types";
 import React, { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 import { convertLessonUrl } from "../utils/convertLessonUrl";
+import { createSlug } from "@/features/courses/utils/create-slug";
 
 type Props = {
   lesson: DbLesson;
@@ -20,7 +21,7 @@ const Video = ({ lesson }: Props) => {
 
   return (
     <>
-      <div ref={ref} id={`lesson-${lesson.id}`} />
+      <div ref={ref} id={createSlug(lesson.title)} />
       <iframe
         src={convertLessonUrl(lesson.content, lesson.videoSource)}
         ref={ref}

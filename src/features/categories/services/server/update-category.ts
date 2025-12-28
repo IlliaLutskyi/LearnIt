@@ -6,8 +6,11 @@ export async function UpdateCategory(
   params: Promise<{ id: string }>
 ) {
   const formData = await req.formData();
+
   const name = formData.get("name") as string;
   const image = formData.get("image") as File;
+  const description = formData.get("description") as string;
+
   const { id } = await params;
   try {
     let optimizedImage;
@@ -30,6 +33,7 @@ export async function UpdateCategory(
       data: {
         ...(optimizedImage && { image: optimizedImage }),
         ...(name && { name: name.toLowerCase() }),
+        ...(description && { description: description }),
       },
     });
 

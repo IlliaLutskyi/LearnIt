@@ -48,7 +48,7 @@ const Preview = ({ isOpen, setIsOpen, onSave }: Props) => {
             <div className="flex flex-col gap-4 py-4">
               <DialogTitle className="text-center text-lg">Preview</DialogTitle>
 
-              <section className="grid grid-cols-[1fr_4fr] justify-center">
+              <section className="grow grid grid-cols-[1fr_4fr] justify-center">
                 <PreviewSidebar
                   sectionGroups={sectionGroups}
                   currentSection={currentSection}

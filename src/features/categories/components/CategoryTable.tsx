@@ -19,9 +19,11 @@ const CategoryTable = ({ categories }: Props) => {
         <TableRow>
           <TableHead>Image</TableHead>
           <TableHead>Name</TableHead>
+          <TableHead>Description</TableHead>
           <TableHead>Actions</TableHead>
         </TableRow>
       </TableHeader>
+
       <TableBody>
         {categories?.map((category) => (
           <TableRow key={category.id}>
@@ -36,6 +38,12 @@ const CategoryTable = ({ categories }: Props) => {
               />
             </TableCell>
             <TableCell>{category.name}</TableCell>
+            <TableCell
+              className="max-w-[15rem] overflow-x-auto"
+              id="styledScrollbar"
+            >
+              {category.description}
+            </TableCell>
             <TableCell className="flex justify-center">
               <CategoryMenu category={category} />
             </TableCell>

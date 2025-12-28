@@ -8,6 +8,7 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/options";
 import { getServerSession } from "next-auth";
 import { isAdmin, isAuthor } from "@/features/users/permissions";
 import { Loader } from "@/components/common";
+
 const EditCourseDetailsForm = lazy(
   () => import("@/components/course-details/EditCourseDetailsForm")
 );
@@ -27,14 +28,14 @@ const CourseDetails = async ({ params }: Props) => {
   if (!courseSlug)
     return <h1 className="text-center font-bold m-4">Course not found</h1>;
 
-  const course = await getCourse(courseSlug);
+  const { course, courseRate } = await getCourse(courseSlug);
   if (!course)
     return <h1 className="text-center font-bold m-4">Course not found</h1>;
 
   return (
     <Suspense fallback={<Loader />}>
       <div className="flex flex-col gap-2">
-        <Header course={course} />
+        <Header course={course} courseRate={courseRate} />
         <section className="flex flex-col gap-4 px-8 py-2">
           <div className="flex flex-col gap-2">
             <h2 className="font-bold text-lg">Prerequisites:</h2>

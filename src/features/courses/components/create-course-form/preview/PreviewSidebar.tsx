@@ -13,7 +13,10 @@ const PreviewSidebar = ({
   setCurrentSection,
 }: Props) => {
   return (
-    <aside className="flex flex-col bg-sidebar-primary text-sidebar-primary-foreground rounded-br-sm rounded-tr-sm p-4">
+    <aside
+      className="flex flex-col bg-sidebar-primary text-sidebar-primary-foreground overflow-auto h-[20rem] min-h-full rounded-br-sm rounded-tr-sm p-4"
+      id="scrollbar"
+    >
       {sectionGroups.map((sectionGroup) => {
         if (sectionGroup.showSectionsOnly)
           return sectionGroup.sections.map((section) => (

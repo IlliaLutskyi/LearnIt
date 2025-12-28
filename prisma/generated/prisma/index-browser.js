@@ -143,6 +143,7 @@ exports.Prisma.CourseScalarFieldEnum = {
 exports.Prisma.CategoryScalarFieldEnum = {
   id: 'id',
   name: 'name',
+  description: 'description',
   image: 'image'
 };
 

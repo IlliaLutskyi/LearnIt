@@ -39,7 +39,7 @@ const CourseCard = ({ course }: Props) => {
         </span>
 
         <Link href={`/course/${course.slug}`}>
-          <button className="bg-background text-foreground ring-1 ring-accent py-2 px-6 rounded-sm hover:scale-95 hover:bg-accent hover:text-accent-foreground duration-500">
+          <button className="bg-background text-foreground ring-1 ring-accent py-2 px-4 rounded-sm hover:scale-95 hover:bg-accent hover:text-accent-foreground duration-500">
             View Details
           </button>
         </Link>

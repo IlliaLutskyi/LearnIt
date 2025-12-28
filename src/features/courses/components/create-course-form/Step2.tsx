@@ -1,4 +1,4 @@
-import { useAppDispatch, useAppSelector } from "@/lib/hooks";
+import { useAppDispatch } from "@/lib/hooks";
 import {
   addPrerequisites,
   setNextStep,
@@ -17,26 +17,23 @@ import {
   CreatePrerequisites,
   CreatePrerequisitesSchema,
 } from "@/features/prerequisites/schemas/create-prerequisite-schema";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
+import { isJsonValid } from "@/utils/isJsonValid";
 
 type Props = {
   step: Step;
 };
 const Step2 = ({ step }: Props) => {
-  const { prerequisites: initialPrerequisites } = useAppSelector(
-    (state) => state.CreateCourse
-  );
   const {
     register,
     handleSubmit,
     control,
+    setValue,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(CreatePrerequisitesSchema),
-    defaultValues: {
-      prerequisites: initialPrerequisites,
-    },
   });
+
   const {
     fields: prerequisites,
     append,
@@ -45,8 +42,17 @@ const Step2 = ({ step }: Props) => {
 
   const scrollRef = useRef<HTMLDivElement>(null);
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    const savedPrerequisites = localStorage.getItem("prerequisites");
+
+    if (savedPrerequisites && isJsonValid(savedPrerequisites))
+      setValue("prerequisites", JSON.parse(savedPrerequisites));
+  }, []);
+
   function handleAddPreriquisite() {
     append({ content: "Prerequisite" });
+
     if (scrollRef.current) {
       scrollRef.current.scrollTo({
         behavior: "smooth",

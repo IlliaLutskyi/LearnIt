@@ -14,12 +14,15 @@ const CategorySelect = ({ register, error }: Props) => {
     queryKey: ["categories"],
     queryFn: getCategories,
   });
+
   if (!categories) return null;
+
   return (
     <div className="flex flex-col gap-1">
       <label htmlFor="categories" className="text-xs">
         Category
       </label>
+
       <select id="categories" {...register("category")} className="input-field">
         {categories?.map((category) => {
           return (
@@ -29,6 +32,7 @@ const CategorySelect = ({ register, error }: Props) => {
           );
         })}
       </select>
+
       <p className="text-xs text-error">{error}</p>
     </div>
   );

@@ -1,4 +1,10 @@
-const Content = () => {
+import { DbCategory } from "@/types";
+import Card from "./Card";
+
+type Props = {
+  categories: DbCategory[];
+};
+const Content = ({ categories }: Props) => {
   return (
     <main className="flex flex-col gap-4 pb-20">
       <section className="flex flex-col gap-4">
@@ -6,45 +12,14 @@ const Content = () => {
           Ready to take your skills further? Explore advanced learning paths
         </h2>
 
-        <div className="grid grid-cols-3 gap-2">
-          {cards.map((card) => (
-            <div
-              key={card.name}
-              className="flex flex-col gap-4 bg-card text-card-foreground hover:shadow-lg hover:shadow-accent p-2 rounded-sm duration-400"
-            >
-              <h3 className="text-lg">{card.name}</h3>
-              <p className="text-muted-foreground text-sm">
-                {card.description}
-              </p>
-            </div>
+        <div className="grid sm:grid-cols-3 md:grid-cols-4 grid-cols-1 items-start gap-2">
+          {categories.map((category) => (
+            <Card key={category.id} category={category} />
           ))}
         </div>
       </section>
     </main>
   );
 };
-
-const cards = [
-  {
-    name: "Propmt engeneering",
-    description: "Dive deep into building applications with AI help",
-  },
-  {
-    name: "React development",
-    description: "Build user interfaces with React and TypeScript",
-  },
-  {
-    name: "Node.js development",
-    description: "Build server-side applications with Node.js and TypeScript",
-  },
-  {
-    name: "Python development",
-    description: "Build server-side applications with Python and Django",
-  },
-  {
-    name: "Go development",
-    description: "Build server-side applications with Go and Gin",
-  },
-];
 
 export default Content;

@@ -75,7 +75,7 @@ const DropZone = ({
           <button
             type="button"
             onClick={() => inputRef.current?.click()}
-            className={`grow w-full p-2 border-[1px] rounded-sm min-h-[15rem] text-sm ${
+            className={`w-full h-full p-2 border-[1px] rounded-sm text-sm ${
               uploadStatus === "complete"
                 ? "border-success text-success"
                 : "text-accent border-accent hover:border-secondary-accent hover:text-secondary-accent"

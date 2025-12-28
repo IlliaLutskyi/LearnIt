@@ -5,6 +5,7 @@ import { setCurrentLessonViewId } from "@/lib/slices/course-view-slice";
 import { useAppDispatch } from "@/lib/hooks";
 import { useInView } from "react-intersection-observer";
 import { DbAnswer, DbLesson } from "@/types";
+import { createSlug } from "@/features/courses/utils/create-slug";
 
 const Explanation = lazy(() => import("./Explanation"));
 type Props = {
@@ -29,8 +30,8 @@ const Quiz = ({ lesson }: Props) => {
   }
 
   return (
-    <article id={`lesson-${lesson.id}`}>
-      <div ref={ref} id={`lesson-${lesson.id}`} />
+    <article>
+      <div ref={ref} id={createSlug(lesson.title)} />
 
       <div
         className="flex flex-col gap-2 w-7/8 mx-auto my-4"

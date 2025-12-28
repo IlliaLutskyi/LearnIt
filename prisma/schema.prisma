@@ -39,6 +39,7 @@ model Category{
   id Int @id @default(autoincrement())
   name String  @unique
   courses Course[]
+  description String
   image String 
 }
 

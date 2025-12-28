@@ -175,11 +175,13 @@
   body {
     @apply bg-background text-foreground;
   }
+
   #scrollbar::-webkit-scrollbar {
     display: none;
   }
   #styledScrollbar::-webkit-scrollbar {
     width: 10px;
+    height: 10px;
   }
 
   #styledScrollbar::-webkit-scrollbar-track {
@@ -197,7 +199,12 @@
   .content {
     @apply prose prose-sm **:text-foreground prose-pre:bg-card prose-pre:ring-1 whitespace-pre-wrap break-words;
   }
+
   .input-field {
     @apply text-sm w-full p-2 ring-input ring-1 focus:ring-1 rounded-sm outline-none focus:ring-accent bg-background text-foreground;
+  }
+
+  .button-base {
+    @apply bg-accent text-sm text-accent-foreground p-2 rounded-sm hover:scale-95 duration-400;
   }
 }

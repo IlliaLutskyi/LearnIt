@@ -6,7 +6,7 @@ import {
   setNextStep,
   setPoster,
 } from "@/lib/slices/create-course-slice";
-import { useAppDispatch, useAppSelector } from "@/lib/hooks";
+import { useAppDispatch } from "@/lib/hooks";
 import { Step } from "@/types/create-course";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
@@ -37,14 +37,12 @@ const Step1 = ({ step }: Props) => {
 
   const dispatch = useAppDispatch();
 
-  const { title, description, category } = useAppSelector(
-    (state) => state.CreateCourse
-  );
-
   useEffect(() => {
     const generalInfo = localStorage.getItem("generalInfo");
+
     if (generalInfo && isJsonValid(generalInfo)) {
       const { title, description, category, poster } = JSON.parse(generalInfo);
+
       setValue("poster", poster);
       setValue("title", title);
       setValue("description", description);
@@ -81,9 +79,10 @@ const Step1 = ({ step }: Props) => {
         poster: data.poster,
         title: data.title,
         description: data.description,
-        category: category,
+        category: data.category,
       })
     );
+
     dispatch(setNextStep({ nextStep: step.step + 1 }));
   }
   return (
@@ -118,7 +117,6 @@ const Step1 = ({ step }: Props) => {
               label="course title"
               type="text"
               field="title"
-              defaultValue={title}
               register={register}
               error={errors.title?.message}
               className="input-field"
@@ -136,7 +134,6 @@ const Step1 = ({ step }: Props) => {
             register={register}
             error={errors.description?.message}
             multiline={true}
-            defaultValue={description}
             className="input-field h-[17rem] resize-none"
           />
         </div>

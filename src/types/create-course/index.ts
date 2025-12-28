@@ -4,7 +4,6 @@ import { Lesson } from "./lesson";
 import { Section } from "./section";
 import { SectionGroup } from "./section-group";
 import { Course } from "./course";
-import { Category } from "./category";
 import { Prerequisite } from "./prerequisite";
 import { Skill } from "./skill";
 import { Step } from "./step";
@@ -20,7 +19,6 @@ export type {
   Section,
   SectionGroup,
   Course,
-  Category,
   Prerequisite,
   Skill,
 };

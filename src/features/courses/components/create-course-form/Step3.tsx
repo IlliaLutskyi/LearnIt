@@ -1,9 +1,9 @@
-import { useAppDispatch, useAppSelector } from "@/lib/hooks";
+import { useAppDispatch } from "@/lib/hooks";
 import { addSkills, setNextStep } from "@/lib/slices/create-course-slice";
 import { Skill as TSkill, Step } from "@/types/create-course";
 import Navigation from "./Navigation";
 import Skill from "@/features/skills/components/create-course-form/Skill";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { fadeInVariants } from "@/features/animations/fade-in";
 import {
@@ -12,22 +12,19 @@ import {
 } from "@/features/skills/schemas/create-skills-schema";
 import { useFieldArray, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { isJsonValid } from "@/utils/isJsonValid";
 type Props = {
   step: Step;
 };
 const Step3 = ({ step }: Props) => {
-  const { skills: initialSkills } = useAppSelector(
-    (state) => state.CreateCourse
-  );
-
   const {
     register,
     handleSubmit,
     control,
+    setValue,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(CreateSkillsSchema),
-    defaultValues: { skills: initialSkills },
   });
 
   const {
@@ -38,11 +35,22 @@ const Step3 = ({ step }: Props) => {
     control,
     name: "skills",
   });
-  const scrollRef = useRef<HTMLDivElement>(null);
+
   const dispatch = useAppDispatch();
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const savedSkills = localStorage.getItem("skills");
+
+    if (savedSkills && isJsonValid(savedSkills))
+      setValue("skills", JSON.parse(savedSkills));
+  }, []);
+
   function onSubmit(data: CreateSkills) {
     dispatch(addSkills(data.skills as TSkill[]));
-    localStorage.setItem("skills", JSON.stringify(skills));
+
+    localStorage.setItem("skills", JSON.stringify(data.skills));
+
     dispatch(setNextStep({ nextStep: step.step + 1 }));
   }
   function handleAddSkill() {
@@ -54,6 +62,7 @@ const Step3 = ({ step }: Props) => {
       });
     }
   }
+
   return (
     <motion.form
       className="h-full flex flex-col gap-4 p-4"

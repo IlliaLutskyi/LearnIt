@@ -49,6 +49,7 @@ const AddOrEditCategoryForm = () => {
   const addMutation = useMutation({
     mutationFn: async (data: FormData) => {
       const res = await api.post("/categories", data);
+
       return res.data;
     },
     onSuccess: (data) => {
@@ -88,6 +89,7 @@ const AddOrEditCategoryForm = () => {
     if (!category) return;
 
     setValue("name", category.name || "");
+    setValue("description", category.description || "");
   }, [category, setValue]);
 
   async function onSubmit(data: CreateCategory | UpdateCategory) {
@@ -107,6 +109,8 @@ const AddOrEditCategoryForm = () => {
 
       formData.append("name", data.name.toLowerCase());
       formData.append("image", data.image!);
+      formData.append("description", data.description);
+
       await addMutation.mutateAsync(formData);
     }
   }
@@ -132,18 +136,29 @@ const AddOrEditCategoryForm = () => {
                 {category ? "Edit Category" : "Add Category"}
               </DialogTitle>
 
-              <section className="flex flex-col gap-4">
-                <Input
-                  label="Category Name"
-                  {...register("name")}
-                  error={errors.name?.message}
-                  className="input-field"
-                />
+              <section className="grow grid grid-cols-[1fr_3fr] items-center gap-4">
                 <DropZone
                   onLoad={(file) => setValue("image", file)}
                   error={errors.image?.message}
-                  label="Poster Image"
+                  label="Icon Image"
                 />
+
+                <div className="flex flex-col gap-2">
+                  <Input
+                    label="Category Name"
+                    {...register("name")}
+                    error={errors.name?.message}
+                    className="input-field"
+                  />
+
+                  <Input
+                    label="Description"
+                    multiline={true}
+                    {...register("description")}
+                    className="input-field h-[15rem] resize-none"
+                    error={errors.description?.message}
+                  />
+                </div>
               </section>
 
               <button

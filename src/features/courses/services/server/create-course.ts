@@ -11,6 +11,7 @@ export default async function createCourse(
   const course: Course = await req.json();
   try {
     const validated = CreateCourseSchema.safeParse(course);
+
     if (!userId)
       return Response.json(
         { message: "Login to create a course" },
@@ -95,11 +96,12 @@ export default async function createCourse(
         skills:
           course.skills.length > 0
             ? {
-                create: course.prerequisites.map((prerequisite) => ({
-                  content: prerequisite.content,
+                create: course.skills.map((skill) => ({
+                  content: skill.content,
                 })),
               }
             : undefined,
+
         prerequisites:
           course.prerequisites.length > 0
             ? {
@@ -108,14 +110,17 @@ export default async function createCourse(
                 })),
               }
             : undefined,
+
         category: {
-          connect: { id: Number(course.category.id) },
+          connect: { id: Number(course.category) },
         },
+
         user: {
           connect: {
             id: userId,
           },
         },
+
         sectionGroups: {
           create: processedSectionGroups,
         },

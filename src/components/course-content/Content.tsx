@@ -1,6 +1,5 @@
 "use client";
 
-import Loader from "../common/Loader";
 import { lazy, Suspense, useRef, useState } from "react";
 import Navigation from "./Navigation";
 import SetRating from "../../features/ratings/components/SetRating";
@@ -10,13 +9,13 @@ import { motion, useScroll, useSpring } from "framer-motion";
 import Image from "@/features/lessons/components/Image";
 import { DbNextOrPrevSection, DbSection } from "@/types";
 import { isAdmin } from "@/features/users/permissions";
-const HighlightedCode = lazy(
-  () => import("@/features/lessons/components/HighlightedCode")
-);
+import Text from "@/features/lessons/components/Text";
+import Video from "@/features/lessons/components/Video";
+import Quiz from "@/features/quizzes/components/Quiz";
+import HighlightedCode from "@/features/lessons/components/HighlightedCode";
+
 const EditContentForm = lazy(() => import("./EditContentForm"));
-const Video = lazy(() => import("@/features/lessons/components/Video"));
-const Text = lazy(() => import("@/features/lessons/components/Text"));
-const Quiz = lazy(() => import("@/features/quizzes/components/Quiz"));
+
 type Props = {
   section: DbSection;
   nextSection: DbNextOrPrevSection | null;
@@ -48,21 +47,19 @@ const Content = ({ section, nextSection, prevSection }: Props) => {
           />
 
           <section className="flex flex-col gap-2 m-4">
-            <Suspense fallback={<Loader />}>
-              {section.lessons?.map((lesson) => {
-                if (lesson.contentType === "Text")
-                  return <Text key={lesson.id} lesson={lesson} />;
-                if (lesson.contentType === "Video")
-                  return <Video key={lesson.id} lesson={lesson} />;
-                if (lesson.contentType === "Quiz")
-                  return <Quiz key={lesson.id} lesson={lesson} />;
-                if (lesson.contentType === "Image")
-                  return <Image key={lesson.id} lesson={lesson} />;
-                if (lesson.contentType === "HighlightedCode") {
-                  return <HighlightedCode key={lesson.id} lesson={lesson} />;
-                }
-              })}
-            </Suspense>
+            {section.lessons?.map((lesson) => {
+              if (lesson.contentType === "Text")
+                return <Text key={lesson.id} lesson={lesson} />;
+              if (lesson.contentType === "Video")
+                return <Video key={lesson.id} lesson={lesson} />;
+              if (lesson.contentType === "Quiz")
+                return <Quiz key={lesson.id} lesson={lesson} />;
+              if (lesson.contentType === "Image")
+                return <Image key={lesson.id} lesson={lesson} />;
+              if (lesson.contentType === "HighlightedCode") {
+                return <HighlightedCode key={lesson.id} lesson={lesson} />;
+              }
+            })}
           </section>
 
           <section className="flex flex-col gap-2 justify-end mb-4 mx-4">

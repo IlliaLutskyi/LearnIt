@@ -61,7 +61,7 @@ const CreateQuizForm = ({ isOpen, setIsOpen, lesson, onSave }: Props) => {
     <AnimatePresence>
       {isOpen && (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
-          <DialogContent asChild className="w-9/10 p-6">
+          <DialogContent asChild className="w-11/12 p-6">
             <form
               onSubmit={handleSubmit(onSubmit)}
               className="flex flex-col gap-4"
