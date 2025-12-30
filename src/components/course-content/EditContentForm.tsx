@@ -43,6 +43,8 @@ import { useParams, useRouter } from "next/navigation";
 import { CreateLesson } from "@/features/lessons/schemas/create-lesson-schema";
 import CreateQuizForm from "@/features/quizzes/components/create-course-form/CreateQuizForm";
 import { CreateQuiz } from "@/features/quizzes/schemas/create-quiz";
+import { GenerateLesson } from "@/features/lessons/schemas/generate-lesson-schema";
+import GenerateLessonForm from "@/features/lessons/components/create-course-form/GenerateLessonForm";
 
 const CreateLessonForm = lazy(
   () =>
@@ -60,7 +62,8 @@ const EditContentForm = ({ section, isOpen, setIsOpen }: Props) => {
   const params = useParams();
   const [isAddLessonFormOpen, setIsAddLessonFormOpen] = useState(false);
   const [isAddQuizFormOpen, setIsAddQuizFormOpen] = useState(false);
-
+  const [isGenerateLessonFormOpen, setIsGenerateLessonFormOpen] =
+    useState(false);
   const {
     register,
     handleSubmit,
@@ -152,7 +155,7 @@ const EditContentForm = ({ section, isOpen, setIsOpen }: Props) => {
   async function onAddLesson(data: CreateLesson) {
     await addLessonMutation.mutateAsync(data);
   }
-
+  async function onGenerateLesson(data: GenerateLesson & { content: string }) {}
   async function onSubmit(data: EditSection) {
     if (!isDirty) return;
 
@@ -242,6 +245,11 @@ const EditContentForm = ({ section, isOpen, setIsOpen }: Props) => {
           isOpen={isAddQuizFormOpen}
           setIsOpen={setIsAddQuizFormOpen}
           onSave={onAddQuiz}
+        />
+        <GenerateLessonForm
+          isOpen={isGenerateLessonFormOpen}
+          setIsOpen={setIsGenerateLessonFormOpen}
+          onSave={onGenerateLesson}
         />
       </Suspense>
     </>

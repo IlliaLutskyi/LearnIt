@@ -23,6 +23,7 @@ import { CreateQuiz } from "@/features/quizzes/schemas/create-quiz";
 import { toast } from "sonner";
 import { GenerateQuiz } from "@/features/quizzes/schemas/generate-quiz";
 import { GenerateLesson } from "@/features/lessons/schemas/generate-lesson-schema";
+import { AiResponse } from "@/features/lessons/schemas/ai-response-schema";
 const CreateLessonForm = lazy(
   () =>
     import("@/features/lessons/components/create-course-form/CreateLessonForm")
@@ -86,13 +87,14 @@ const SectionMenu = ({ section, controls }: Props) => {
       })
     );
   }
-  function onSaveGenerateLesson(data: { content: string } & GenerateLesson) {
+  function onSaveGenerateLesson(data: GenerateLesson & { lesson: AiResponse }) {
     dispatch(
       addLessonToSection({
         sectionGroupOrder: section.sectionGroupOrder,
         sectionOrder: section.order,
-        content: data.content,
-        contentType: data.contentType,
+        content: data.lesson.content,
+        contentType: data.lesson.contentType,
+        videoSource: data.lesson.videoSource,
         title: data.title,
       })
     );

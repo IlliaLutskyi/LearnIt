@@ -4,7 +4,7 @@ import { Collapsible, CollapsibleContent } from "@/components/ui/collapsible";
 import { useEffect, useState } from "react";
 import Section from "./Section";
 import { useParams } from "next/navigation";
-import { DbSectionGroup } from "@/types";
+import { DbSection, DbSectionGroup } from "@/types";
 import { motion } from "framer-motion";
 type Props = {
   sectionGroup: DbSectionGroup;
@@ -25,7 +25,7 @@ const SectionGroup = ({ sectionGroup }: Props) => {
           sectionGroup.sections.map((section) => (
             <Section
               key={section.id}
-              section={section}
+              section={section as DbSection & { _count: { lessons: number } }}
               sectionGroupSlug={sectionGroup.slug}
             />
           ))}
@@ -35,7 +35,7 @@ const SectionGroup = ({ sectionGroup }: Props) => {
   return (
     <Collapsible open={isOpen}>
       <button
-        className="flex justify-between items-center gap-4  hover:text-secondary-accent duration-400"
+        className="flex justify-between items-center gap-4 hover:text-secondary-accent duration-400"
         onClick={() => setIsOpen(!isOpen)}
       >
         <p className="text-md text-left line-clamp-1 hover:line-clamp-none font-bold">
@@ -53,7 +53,7 @@ const SectionGroup = ({ sectionGroup }: Props) => {
             sectionGroup.sections.map((section) => (
               <Section
                 key={section.id}
-                section={section}
+                section={section as DbSection & { _count: { lessons: number } }}
                 sectionGroupSlug={sectionGroup.slug}
               />
             ))}

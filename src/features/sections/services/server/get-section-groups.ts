@@ -18,6 +18,7 @@ export async function getSectionGroups(course_slug: string) {
               slug: true,
               order: true,
               id: true,
+              _count: { select: { lessons: true } },
             },
             orderBy: { order: "asc" },
           },

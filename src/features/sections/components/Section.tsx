@@ -4,11 +4,13 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 
 type Props = {
-  section: DbSection;
+  section: DbSection & { _count: { lessons: number } };
   sectionGroupSlug: string;
 };
 const Section = ({ section, sectionGroupSlug }: Props) => {
   const params = useParams();
+  if (section._count.lessons === 0) return null;
+
   return (
     <div
       className={`${

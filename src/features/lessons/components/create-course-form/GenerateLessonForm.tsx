@@ -11,11 +11,12 @@ import api from "@/lib/axios";
 import { toast } from "sonner";
 import { isAxiosError } from "axios";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import { AiResponse } from "../../schemas/ai-response-schema";
 
 type Props = {
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  onSave?: (data: GenerateLesson & { content: string }) => void;
+  onSave?: (data: GenerateLesson & { lesson: AiResponse }) => void;
 };
 const GenerateLessonForm = ({ isOpen, setIsOpen, onSave }: Props) => {
   const {
@@ -32,7 +33,7 @@ const GenerateLessonForm = ({ isOpen, setIsOpen, onSave }: Props) => {
       return res.data;
     },
     onSuccess: (data, variables) => {
-      if (onSave) onSave({ content: data.lesson.content, ...variables });
+      if (onSave) onSave({ lesson: data.lesson, ...variables });
       setIsOpen(false);
     },
     onError: (error) => {
@@ -67,9 +68,9 @@ const GenerateLessonForm = ({ isOpen, setIsOpen, onSave }: Props) => {
                   {...register("contentType")}
                 >
                   <option value="Text">Text</option>
-                  {/* <option value="Video">Video</option>
-                <option value="Table">Excel Table</option>
-                <option value="Markdown">Markdown</option> */}
+                  <option value="Video">Video</option>
+                  <option value="Table">Excel Table</option>
+                  <option value="HighlightedCode">Highlighted Code</option>
                 </select>
               </section>
 
