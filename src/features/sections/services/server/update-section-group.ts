@@ -4,7 +4,6 @@ import {
   SectionGroupPropertiesSchema,
 } from "../../schemas/section-group-properties";
 import { createSlug } from "@/features/courses/utils/create-slug";
-import z from "zod";
 
 export async function updateSectionGroup(
   req: Request,
@@ -17,14 +16,11 @@ export async function updateSectionGroup(
       SectionGroupPropertiesSchema.safeParse(data);
 
     if (!isValidData)
-      return Response.json(
-        { message: z.prettifyError(error) },
-        { status: 400 }
-      );
+      return Response.json({ message: error.message }, { status: 400 });
 
     const sectionGroup = await prisma.sectionGroup.update({
       where: {
-        id: Number(id),
+        id,
       },
       data: {
         title: data.title,

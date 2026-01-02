@@ -1,6 +1,6 @@
 "use client";
 import { lazy, Suspense, useEffect, useState } from "react";
-import { ContentType, Lesson } from "@/types/create-course";
+import { ContentType, FormLesson, Lesson } from "@/types/create-course";
 import { Loader, Input } from "@/components/common";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -8,11 +8,9 @@ import {
   CreateLesson,
   CreateLessonSchema,
 } from "@/features/lessons/schemas/create-lesson-schema";
-import { DbLesson } from "@/types";
 import { AnimatePresence } from "framer-motion";
 import ImageOption from "./lessonTypeOptions/ImageOption";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
-import { isDirty } from "zod/v3";
 
 const HighlightedCodeOption = lazy(
   () => import("./lessonTypeOptions/HighlightedCodeOption")
@@ -24,8 +22,8 @@ const TextOption = lazy(() => import("./lessonTypeOptions/TextOption"));
 type Props = {
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  lesson?: Lesson | DbLesson;
-  onSave?: (data: CreateLesson) => void;
+  lesson?: FormLesson;
+  onSave?: (data: CreateLesson) => Promise<void>;
 };
 const CreateLessonForm = ({ isOpen, setIsOpen, lesson, onSave }: Props) => {
   const [drafts, setDrafts] = useState<Partial<Record<ContentType, string>>>(
@@ -42,7 +40,7 @@ const CreateLessonForm = ({ isOpen, setIsOpen, lesson, onSave }: Props) => {
   } = useForm({
     resolver: zodResolver(CreateLessonSchema),
     defaultValues: {
-      codeStyle: lesson?.codeStyle,
+      codeStyle: lesson?.codeStyle || undefined,
       title: lesson?.title || "",
       content: lesson?.content || "",
       contentType: lesson?.contentType || "Text",
@@ -66,11 +64,11 @@ const CreateLessonForm = ({ isOpen, setIsOpen, lesson, onSave }: Props) => {
     setDrafts({ ...drafts, [contentType]: content });
     setValue("content", "");
   }
-
-  function onSubmit(data: CreateLesson) {
+  async function onSubmit(data: CreateLesson) {
+    console.log(data);
     if (!isDirty) return;
 
-    if (onSave) onSave(data);
+    await onSave?.(data);
 
     reset();
     setDrafts({});

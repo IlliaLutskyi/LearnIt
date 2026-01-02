@@ -5,7 +5,7 @@ import { DbSkill } from "./dbSkill";
 import { DbUser } from "./dbUser";
 
 export type DbCourse = {
-  id: number;
+  id: string;
   title: string;
   poster: string;
   description: string;

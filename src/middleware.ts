@@ -6,19 +6,15 @@ export default withAuth(
     const path = req.nextUrl.pathname;
     const token = req.nextauth.token as { role: string } | undefined;
 
-    const isAuthPath = path.startsWith("/auth");
+    const isAuthPath =
+      path.startsWith("/auth") || path.startsWith("/create-course");
     const isAdminPath = path.startsWith("/admin");
-    const isPrivatePath = path === "/create-course";
 
     if (isAuthPath && token)
       return NextResponse.redirect(new URL("/", req.url));
 
     if (isAdminPath && (!token || token.role !== "Admin")) {
       return NextResponse.redirect(new URL("/", req.url));
-    }
-
-    if (isPrivatePath && !token) {
-      return NextResponse.redirect(new URL("/auth/login", req.url));
     }
 
     return NextResponse.next();
@@ -31,5 +27,5 @@ export default withAuth(
 );
 
 export const config = {
-  matcher: ["/auth/:path*", "/admin/:path*", "/create-course"],
+  matcher: ["/auth/:path*", "/admin/:path*", "/create-course", "/api/:path*"],
 };

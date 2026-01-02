@@ -28,7 +28,7 @@ export async function UpdateCategory(
 
     await prisma.category.update({
       where: {
-        id: Number(id),
+        id,
       },
       data: {
         ...(optimizedImage && { image: optimizedImage }),

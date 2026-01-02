@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 type States = {
-  currentSectionId: number | null;
-  currentLessonViewId: number | null;
+  currentSectionId: string | null;
+  currentLessonViewId: string | null;
 };
 const initialState: States = {
   currentSectionId: null,
@@ -13,10 +13,10 @@ export const CourseViewSlice = createSlice({
   name: "CourseView",
   initialState,
   reducers: {
-    setCurrentSectionId: (state, action: PayloadAction<number>) => {
+    setCurrentSectionId: (state, action: PayloadAction<string>) => {
       state.currentSectionId = action.payload;
     },
-    setCurrentLessonViewId: (state, action: PayloadAction<number>) => {
+    setCurrentLessonViewId: (state, action: PayloadAction<string>) => {
       state.currentLessonViewId = action.payload;
     },
   },

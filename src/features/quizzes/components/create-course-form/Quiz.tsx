@@ -1,12 +1,10 @@
-import { DbQuiz } from "@/types";
 import { Quiz as TQuiz } from "@/types/create-course";
 import { Loader } from "lucide-react";
-import React from "react";
 import { Suspense } from "react";
 import Explanation from "../Explanation";
 
 type Props = {
-  quiz: TQuiz | DbQuiz;
+  quiz: TQuiz;
 };
 const Quiz = ({ quiz }: Props) => {
   return (

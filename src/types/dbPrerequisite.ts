@@ -1,5 +1,5 @@
 export type DbPrerequisite = {
-  id: number;
+  id: string;
   content: string;
-  courseId?: number;
+  courseId?: string;
 };

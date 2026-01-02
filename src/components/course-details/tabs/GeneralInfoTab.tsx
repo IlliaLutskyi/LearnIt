@@ -33,6 +33,12 @@ const GeneralInfoTab = ({ course }: Props) => {
     formState: { errors, isDirty, dirtyFields },
   } = useForm({
     resolver: zodResolver(CreateGeneralInfoSchema),
+    defaultValues: {
+      title: course.title,
+      description: course.description,
+      category: course.category.id,
+      poster: course.poster,
+    },
   });
 
   const poster = watch("poster");
@@ -67,14 +73,6 @@ const GeneralInfoTab = ({ course }: Props) => {
       </button>
     );
   }
-
-  useEffect(() => {
-    setValue("poster", course.poster);
-    setValue("description", course.description);
-    setValue("title", course.title);
-    setValue("category", String(course.category.id));
-  }, [course]);
-
   async function onSubmit(data: CreateGeneralInfo) {
     if (!isDirty) return;
 

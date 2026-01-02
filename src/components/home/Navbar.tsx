@@ -1,5 +1,5 @@
 "use client";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import React from "react";
 import DarkModeToggle from "../common/DarkModeToggle";
@@ -40,6 +40,7 @@ const Navbar = () => {
               Courses
             </Link>
           </li>
+
           {!session?.user && status !== "loading" && (
             <li>
               <Link
@@ -50,6 +51,7 @@ const Navbar = () => {
               </Link>
             </li>
           )}
+
           {session?.user && session.user.role === "Admin" && (
             <li>
               <Link
@@ -60,6 +62,7 @@ const Navbar = () => {
               </Link>
             </li>
           )}
+
           {session?.user && session.user.role === "Admin" && (
             <li>
               <Link
@@ -68,6 +71,17 @@ const Navbar = () => {
               >
                 Create course
               </Link>
+            </li>
+          )}
+
+          {session?.user && (
+            <li>
+              <button
+                className="hover:text-secondary-accent duration-400 text-sm"
+                onClick={async () => await signOut()}
+              >
+                Sign out
+              </button>
             </li>
           )}
           <DarkModeToggle />
@@ -120,6 +134,7 @@ const MobileNavbar = () => {
                 </Link>
               </li>
             )}
+
             {isAdmin(session?.user) && (
               <li>
                 <Link
@@ -130,6 +145,7 @@ const MobileNavbar = () => {
                 </Link>
               </li>
             )}
+
             {isAdmin(session?.user) && (
               <li>
                 <Link
@@ -138,6 +154,17 @@ const MobileNavbar = () => {
                 >
                   Create course
                 </Link>
+              </li>
+            )}
+
+            {session?.user && (
+              <li>
+                <button
+                  className="hover:text-secondary-accent duration-400 text-sm"
+                  onClick={async () => await signOut()}
+                >
+                  Sign out
+                </button>
               </li>
             )}
             <DarkModeToggle />

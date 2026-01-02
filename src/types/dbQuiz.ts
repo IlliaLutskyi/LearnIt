@@ -1,9 +1,9 @@
 import { DbAnswer } from "./dbAnswers";
 
 export type DbQuiz = {
-  id: number;
+  id: string;
   question: string;
   explanation: string | null;
   answers: DbAnswer[];
-  lessonId?: number;
+  lessonId?: string;
 };

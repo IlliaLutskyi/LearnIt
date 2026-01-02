@@ -1,29 +1,18 @@
 import prisma from "@/lib/db";
 import { Course } from "@/types/create-course";
 import { CreateCourseSchema } from "@/features/courses/schemas/create-course-schema";
-import z from "zod";
 import { optimizeImage } from "@/utils/optimizeImage";
 
-export default async function createCourse(
-  req: Request,
-  userId: number | undefined
-) {
+export default async function createCourse(req: Request, userId: string) {
   const course: Course = await req.json();
   try {
-    const validated = CreateCourseSchema.safeParse(course);
+    const { success: isValidData, error } =
+      CreateCourseSchema.safeParse(course);
 
-    if (!userId)
-      return Response.json(
-        { message: "Login to create a course" },
-        { status: 400 }
-      );
-
-    if (!validated.success) {
-      return Response.json(
-        { message: z.prettifyError(validated.error) },
-        { status: 400 }
-      );
+    if (!isValidData) {
+      return Response.json({ message: error.message }, { status: 400 });
     }
+
     const isDuplicateSlug = await prisma.course.findUnique({
       where: {
         slug: course.slug,
@@ -112,7 +101,7 @@ export default async function createCourse(
             : undefined,
 
         category: {
-          connect: { id: Number(course.category) },
+          connect: { id: course.category },
         },
 
         user: {

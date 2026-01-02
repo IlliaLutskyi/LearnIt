@@ -9,7 +9,9 @@ import { Skill } from "./skill";
 import { Step } from "./step";
 import { ContentType } from "./content-type";
 import { Row } from "./table";
+import { FormLesson } from "./formlesson";
 export type {
+  FormLesson,
   Step,
   Answer,
   Quiz,

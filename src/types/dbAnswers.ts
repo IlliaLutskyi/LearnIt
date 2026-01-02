@@ -1,6 +1,6 @@
 export type DbAnswer = {
-  id: number;
+  id: string;
   content: string;
   isCorrect: boolean;
-  quizId?: number;
+  quizId?: string;
 };

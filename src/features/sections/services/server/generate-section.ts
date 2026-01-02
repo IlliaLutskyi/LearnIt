@@ -14,7 +14,7 @@ export async function generateSection(req: Request) {
     if (!isValidData)
       return Response.json(
         {
-          message: z.prettifyError(error),
+          message: error.message,
         },
         { status: 400 }
       );

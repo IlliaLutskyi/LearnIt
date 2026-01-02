@@ -78,7 +78,7 @@ const SectionMenu = ({ section, controls }: Props) => {
   function handleGenerateQuiz() {
     setIsGenerateQuizOpen(true);
   }
-  function onSaveLesson(data: CreateLesson) {
+  async function onSaveLesson(data: CreateLesson) {
     dispatch(
       addLessonToSection({
         sectionGroupOrder: section.sectionGroupOrder,
@@ -87,20 +87,22 @@ const SectionMenu = ({ section, controls }: Props) => {
       })
     );
   }
-  function onSaveGenerateLesson(data: GenerateLesson & { lesson: AiResponse }) {
+  async function onSaveGenerateLesson(
+    data: GenerateLesson & { lesson: AiResponse }
+  ) {
     dispatch(
       addLessonToSection({
         sectionGroupOrder: section.sectionGroupOrder,
         sectionOrder: section.order,
         content: data.lesson.content,
         contentType: data.lesson.contentType,
-        videoSource: data.lesson.videoSource,
         title: data.title,
       })
     );
-    return toast.message("Lesson added");
+
+    toast.message("Lesson added");
   }
-  function onSaveGenerateQuiz(
+  async function onSaveGenerateQuiz(
     data: GenerateQuiz & { quizzes: (Quiz & { title: string })[] }
   ) {
     data.quizzes.forEach((quiz) => {
@@ -117,11 +119,10 @@ const SectionMenu = ({ section, controls }: Props) => {
         })
       );
     });
-    return toast.success(
-      data.quizzes.length > 1 ? "Quizzes added" : "Quiz added"
-    );
+
+    toast.success(data.quizzes.length > 1 ? "Quizzes added" : "Quiz added");
   }
-  function onSaveQuiz(data: CreateQuiz) {
+  async function onSaveQuiz(data: CreateQuiz) {
     dispatch(
       addQuizToSection({
         quiz: {
@@ -134,7 +135,8 @@ const SectionMenu = ({ section, controls }: Props) => {
         title: data.title,
       })
     );
-    return toast.message("Quiz added");
+
+    toast.message("Quiz added");
   }
   return (
     <>

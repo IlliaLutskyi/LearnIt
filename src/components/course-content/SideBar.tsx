@@ -26,7 +26,7 @@ const Sidebar = ({ sectionGroups }: Props) => {
 const DesktopSidebar = ({ sectionGroups }: Props) => {
   return (
     <div
-      className="hidden sm:block p-4 bg-sidebar-primary text-sidebar-primary-foreground h-[calc(100vh-48px)] min-w-[200px] overflow-y-auto"
+      className="hidden sm:block p-4 bg-sidebar-primary text-sidebar-primary-foreground h-[calc(100vh-var(--navbar-height))] min-w-[200px] overflow-y-auto"
       id="scrollbar"
     >
       <div className="flex flex-col gap-2 justify-center">

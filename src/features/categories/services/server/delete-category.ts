@@ -9,7 +9,7 @@ export async function DeleteCategory(params: Promise<{ id: string }>) {
         { status: 400 }
       );
 
-    await prisma.category.delete({ where: { id: Number(id) } });
+    await prisma.category.delete({ where: { id } });
 
     return Response.json(
       { message: "Category deleted successfully" },

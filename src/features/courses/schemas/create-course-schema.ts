@@ -15,7 +15,7 @@ export const CreateCourseSchema = z.object({
       z.object({
         title: z.string().min(1, "Title is required"),
         slug: z.string().min(1, "Slug is required"),
-        showSectionsOnly: z.boolean(),
+        showSectionsOnly: z.boolean().optional(),
         order: z.coerce.number(),
         sections: z
           .array(
@@ -30,6 +30,7 @@ export const CreateCourseSchema = z.object({
                     content: z.string().optional(),
                     videoSource: z.string().optional(),
                     contentType: ContentTypeSchema,
+                    codeStyle: z.string().optional(),
                     order: z.coerce.number(),
                     quiz: z
                       .object({
@@ -40,9 +41,7 @@ export const CreateCourseSchema = z.object({
                             isCorrect: z.boolean(),
                           })
                         ),
-                        explanation: z
-                          .string()
-                          .min(1, "Explanation is required"),
+                        explanation: z.string().optional(),
                       })
                       .optional(),
                   })

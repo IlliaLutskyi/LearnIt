@@ -2,20 +2,20 @@ import NextAuth from "next-auth";
 
 declare module "next-auth" {
   interface User {
-    id: number;
+    id: string;
     name: string;
     email: string;
     role: "Admin" | "User";
   }
   interface Token {
-    id: number;
+    id: string;
     name: string;
     email: string;
     role: "Admin" | "User";
   }
   interface Session {
     user: {
-      id: number;
+      id: string;
       name: string;
       email: string;
       role: "Admin" | "User";

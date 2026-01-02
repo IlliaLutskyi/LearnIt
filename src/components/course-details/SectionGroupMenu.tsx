@@ -9,8 +9,6 @@ import {
 } from "../ui/menubar";
 import { HiDotsVertical } from "react-icons/hi";
 import ConfirmationForm from "../common/ConfirmationForm";
-import { useDispatch } from "react-redux";
-import { toggleConfirmationForm } from "@/lib/slices/confirmation-form-slice";
 import { useMutation } from "@tanstack/react-query";
 import api from "@/lib/axios";
 import { DbSectionGroup } from "@/types";
@@ -27,11 +25,11 @@ type Props = {
 };
 const SectionGroupMenu = ({ sectionGroup, controls }: Props) => {
   const [isPropertiesFormOpen, setIsPropertiesFormOpen] = useState(false);
+  const [isConfirmationFormOpen, setIsConfirmationFormOpen] = useState(false);
   const router = useRouter();
-  const dispatch = useDispatch();
 
   const deleteMutation = useMutation({
-    mutationFn: async (id: number) => {
+    mutationFn: async (id: string) => {
       const res = await api.delete(`/section-groups/${id}`, {
         withCredentials: true,
       });
@@ -69,10 +67,6 @@ const SectionGroupMenu = ({ sectionGroup, controls }: Props) => {
     await deleteMutation.mutateAsync(sectionGroup.id);
   }
 
-  function openConfirmationForm() {
-    dispatch(toggleConfirmationForm(true));
-  }
-
   async function handleSaveProperties(data: SectionGroupProperties) {
     await updateMutation.mutateAsync(data);
   }
@@ -91,7 +85,7 @@ const SectionGroupMenu = ({ sectionGroup, controls }: Props) => {
 
             <MenubarSeparator />
 
-            <MenubarItem onClick={openConfirmationForm}>
+            <MenubarItem onClick={() => setIsConfirmationFormOpen(true)}>
               Delete SectionGroup
             </MenubarItem>
           </MenubarContent>
@@ -106,9 +100,11 @@ const SectionGroupMenu = ({ sectionGroup, controls }: Props) => {
           onSave={handleSaveProperties}
         />
         <ConfirmationForm
+          isOpen={isConfirmationFormOpen}
+          setIsOpen={setIsConfirmationFormOpen}
           onYes={handleDeleteSectionGroup}
-          warning="Are you sure, you wanna delete this section group?"
-          description="This action will remove all related sections and lessons."
+          message="Are you sure?"
+          description="This action will delete all sections and lessons that contains the sectionGroup"
         />
       </Suspense>
     </>

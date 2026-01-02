@@ -6,8 +6,6 @@ import {
 import { ai, ai_model } from "@/lib/ai";
 import { isJsonValid } from "@/utils/isJsonValid";
 import { AiResponseSchema } from "../../schemas/ai-response-schema";
-import { vi } from "zod/v4/locales";
-import { VideoSource } from "../../../../../prisma/generated/prisma";
 export async function generateLesson(req: Request) {
   const data: GenerateLesson = await req.json();
   try {
@@ -15,10 +13,7 @@ export async function generateLesson(req: Request) {
       GenerateLessonSchema.safeParse(data);
 
     if (!isValidData)
-      return Response.json(
-        { message: z.prettifyError(error) },
-        { status: 400 }
-      );
+      return Response.json({ message: error.message }, { status: 400 });
 
     const prompt = `You are a lesson generator assistant. Based on this content type "${
       data.contentType
@@ -45,6 +40,8 @@ export async function generateLesson(req: Request) {
       ? JSON.parse(response.text!)
       : undefined;
 
+    console.log(lesson);
+
     return Response.json(
       {
         lesson: lesson,
@@ -66,27 +63,53 @@ export async function generateLesson(req: Request) {
 const examples = [
   {
     contentType: "Text",
-    content:
-      '<p>Intro to system architecture. <a href="https://example.com">Docs</a></p>',
-  },
-  {
-    contentType: "Video",
-    content: "https://www.youtube.com/watch?v=MfB0dd4thBk",
-    videoSource: "Youtube",
+    content: `
+      <h2>System Architecture Overview</h2>
+      <p>This document explains the <strong>core architecture</strong> of our platform, focusing on <em>scalability</em>, <s>legacy constraints</s>, and <code>service isolation</code>. Full documentation is available <a href="https://example.com/docs" target="_blank" rel="noopener noreferrer">here</a>.</p>
+      <blockquote><p>“Good architecture allows the system to evolve <strong>without rewriting everything</strong>.”</p></blockquote>
+      <h3>Key Components</h3>
+      <ul>
+        <li><strong>API Gateway</strong> – request routing & auth</li>
+        <li><em>Core Services</em> – business logic</li>
+        <li>Database layer – PostgreSQL & Redis</li>
+      </ul>
+      <h3>Request Flow</h3>
+      <ol>
+        <li>Client sends HTTP request</li>
+        <li>Gateway validates JWT</li>
+        <li>Service processes data</li>
+        <li>Response returned to client</li>
+      </ol>
+      <hr />
+      <p>Example health check endpoint:<br /><code>GET /health</code></p>
+      <pre><code class="language-js">
+app.get('/health', (_, res) => {
+  res.json({ ok: true });
+});
+      </code></pre>
+      <p>For implementation details, see <a href="https://example.com/api" target="_blank" rel="noopener noreferrer">API Reference</a>.</p>
+    `,
   },
   {
     contentType: "Table",
     content: [
-      { id: 1, email: "a@ex.com", role: "admin" },
-      { id: 2, email: "b@ex.com", role: "user" },
+      { id: 1, email: "admin@ex.com", role: "admin", status: "active" },
+      { id: 2, email: "user@ex.com", role: "user", status: "pending" },
+      { id: 3, email: "guest@ex.com", role: "guest", status: "disabled" },
     ],
   },
   {
-    contentType: "Markdown",
-    content: "<h2>Setup</h2><pre><code>npm i && npm run dev</code></pre>",
-  },
-  {
     contentType: "HighlightedCode",
-    content: "app.get('/health',(_,r)=>r.json({ok:true}))",
+    content: `
+import express from "express";
+
+const app = express();
+
+app.get("/health", (_, res) => {
+  res.json({ ok: true });
+});
+
+app.listen(3000);
+    `,
   },
 ];

@@ -9,5 +9,9 @@ export async function GET(req: Request) {
 
 export async function POST(req: Request) {
   const session = await getServerSession(authOptions);
-  return await createCourse(req, session?.user?.id);
+
+  if (!session || session?.user.role !== "Admin")
+    return Response.json({ message: "Unauthorized" }, { status: 401 });
+
+  return await createCourse(req, session.user.id);
 }

@@ -5,7 +5,7 @@ import {
 } from "../../schemas/edit-section-schema";
 import { createSlug } from "@/features/courses/utils/create-slug";
 
-export default async function updateSection(
+export async function updateSection(
   req: Request,
   params: Promise<{ id: string }>
 ) {
@@ -23,20 +23,39 @@ export default async function updateSection(
 
     const section = await prisma.section.update({
       where: {
-        id: Number(id),
+        id,
       },
       data: {
         title: data.title,
         slug: createSlug(data.title),
         lessons: {
-          updateMany: data.lessons.map((lesson) => {
+          deleteMany: {},
+          create: data.lessons.map((lesson, index) => {
             return {
-              where: {
-                id: lesson.id,
-              },
-              data: {
-                order: lesson.order,
-              },
+              title: lesson.title,
+              contentType: lesson.contentType,
+              content: lesson.content,
+              codeStyle: lesson.codeStyle,
+              videoSource: lesson.videoSource,
+              quiz: lesson?.quiz
+                ? {
+                    create: {
+                      question: lesson.quiz.question,
+                      answers: {
+                        createMany: {
+                          data: lesson.quiz.answers.map((answer) => {
+                            return {
+                              content: answer.content,
+                              isCorrect: answer.isCorrect,
+                            };
+                          }),
+                        },
+                      },
+                      explanation: lesson.quiz.explanation,
+                    },
+                  }
+                : undefined,
+              order: index + 1,
             };
           }),
         },

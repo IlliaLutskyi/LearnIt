@@ -1,5 +1,5 @@
 export type DbSkill = {
-  id: number;
+  id: string;
   content: string;
-  courseId?: number;
+  courseId?: string;
 };

@@ -17,7 +17,7 @@ type Props = {
   lessons: Lesson[];
   onSave?: (
     data: GenerateQuiz & { quizzes: (Quiz & { title: string })[] }
-  ) => void;
+  ) => Promise<void>;
 };
 const GenerateQuizForm = ({ isOpen, setIsOpen, onSave, lessons }: Props) => {
   const mutation = useMutation({
@@ -25,8 +25,8 @@ const GenerateQuizForm = ({ isOpen, setIsOpen, onSave, lessons }: Props) => {
       const res = await api.post("/ai/quizzes", data);
       return res.data;
     },
-    onSuccess: (data, variables) => {
-      if (onSave) onSave({ quizzes: data.quizzes, ...variables });
+    onSuccess: async (data, variables) => {
+      await onSave?.({ quizzes: data.quizzes, ...variables });
     },
     onError: (error) => {
       if (isAxiosError(error)) toast.error(error.response?.data.message);

@@ -1,5 +1,5 @@
 export type DbUser = {
-  id: number;
+  id: string;
   name: string;
   role?: "Admin" | "User";
   email?: string;

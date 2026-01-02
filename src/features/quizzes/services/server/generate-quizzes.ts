@@ -13,7 +13,7 @@ export async function generateQuizzes(req: Request) {
     if (!isValidData)
       return Response.json(
         {
-          message: z.prettifyError(error),
+          message: error.message,
         },
         { status: 400 }
       );

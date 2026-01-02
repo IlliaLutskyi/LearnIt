@@ -3,7 +3,7 @@ import prisma from "@/lib/db";
 export default async function createRate(
   req: Request,
   params: Promise<{ id: string }>,
-  userId: number | undefined
+  userId: string
 ) {
   try {
     const data: { rate: number } = await req.json();
@@ -11,18 +11,14 @@ export default async function createRate(
 
     if (!id)
       return Response.json({ message: "Missing section ID" }, { status: 400 });
+
     if (!data.rate)
       return Response.json({ message: "Missing rating" }, { status: 400 });
-    if (!userId)
-      return Response.json(
-        { message: "You need to log in first" },
-        { status: 400 }
-      );
 
     const rate = await prisma.sectionRating.findFirst({
       where: {
         userId: userId,
-        sectionId: Number(id),
+        sectionId: id,
       },
     });
 
@@ -30,7 +26,7 @@ export default async function createRate(
       await prisma.sectionRating.create({
         data: {
           userId: userId,
-          sectionId: Number(id),
+          sectionId: id,
           rate: data.rate,
         },
       });
@@ -39,7 +35,7 @@ export default async function createRate(
         where: {
           userId_sectionId: {
             userId: userId,
-            sectionId: Number(id),
+            sectionId: id,
           },
         },
         data: {

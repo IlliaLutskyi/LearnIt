@@ -30,7 +30,7 @@ const CourseDetails = async ({ params }: Props) => {
 
   const { course, courseRate } = await getCourse(courseSlug);
   if (!course)
-    return <h1 className="text-center font-bold m-4">Course not found</h1>;
+    return <h1 className="text-center font-bold">Course not found</h1>;
 
   return (
     <Suspense fallback={<Loader />}>

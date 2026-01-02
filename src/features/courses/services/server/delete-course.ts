@@ -9,7 +9,7 @@ export async function deleteCourse(params: Promise<{ id: string }>) {
         { status: 400 }
       );
 
-    await prisma.course.delete({ where: { id: Number(id) } });
+    await prisma.course.delete({ where: { id } });
 
     return Response.json(
       { message: "Course deleted successfully" },

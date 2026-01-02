@@ -2044,22 +2044,12 @@ export namespace Prisma {
 
   export type AggregateUser = {
     _count: UserCountAggregateOutputType | null
-    _avg: UserAvgAggregateOutputType | null
-    _sum: UserSumAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
   }
 
-  export type UserAvgAggregateOutputType = {
-    id: number | null
-  }
-
-  export type UserSumAggregateOutputType = {
-    id: number | null
-  }
-
   export type UserMinAggregateOutputType = {
-    id: number | null
+    id: string | null
     name: string | null
     password: string | null
     email: string | null
@@ -2067,7 +2057,7 @@ export namespace Prisma {
   }
 
   export type UserMaxAggregateOutputType = {
-    id: number | null
+    id: string | null
     name: string | null
     password: string | null
     email: string | null
@@ -2083,14 +2073,6 @@ export namespace Prisma {
     _all: number
   }
 
-
-  export type UserAvgAggregateInputType = {
-    id?: true
-  }
-
-  export type UserSumAggregateInputType = {
-    id?: true
-  }
 
   export type UserMinAggregateInputType = {
     id?: true
@@ -2155,18 +2137,6 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Select which fields to average
-    **/
-    _avg?: UserAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: UserSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
      * Select which fields to find the minimum value
     **/
     _min?: UserMinAggregateInputType
@@ -2197,21 +2167,17 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: UserCountAggregateInputType | true
-    _avg?: UserAvgAggregateInputType
-    _sum?: UserSumAggregateInputType
     _min?: UserMinAggregateInputType
     _max?: UserMaxAggregateInputType
   }
 
   export type UserGroupByOutputType = {
-    id: number
+    id: string
     name: string
     password: string
     email: string
     role: $Enums.Role
     _count: UserCountAggregateOutputType | null
-    _avg: UserAvgAggregateOutputType | null
-    _sum: UserSumAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
   }
@@ -2281,7 +2247,7 @@ export namespace Prisma {
       courses: Prisma.$CoursePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
-      id: number
+      id: string
       name: string
       password: string
       email: string
@@ -2711,7 +2677,7 @@ export namespace Prisma {
    * Fields of the User model
    */
   interface UserFieldRefs {
-    readonly id: FieldRef<"User", 'Int'>
+    readonly id: FieldRef<"User", 'String'>
     readonly name: FieldRef<"User", 'String'>
     readonly password: FieldRef<"User", 'String'>
     readonly email: FieldRef<"User", 'String'>
@@ -3176,44 +3142,30 @@ export namespace Prisma {
 
   export type AggregateCourse = {
     _count: CourseCountAggregateOutputType | null
-    _avg: CourseAvgAggregateOutputType | null
-    _sum: CourseSumAggregateOutputType | null
     _min: CourseMinAggregateOutputType | null
     _max: CourseMaxAggregateOutputType | null
   }
 
-  export type CourseAvgAggregateOutputType = {
-    id: number | null
-    categoryId: number | null
-    userId: number | null
-  }
-
-  export type CourseSumAggregateOutputType = {
-    id: number | null
-    categoryId: number | null
-    userId: number | null
-  }
-
   export type CourseMinAggregateOutputType = {
-    id: number | null
+    id: string | null
     poster: string | null
     title: string | null
     slug: string | null
     description: string | null
-    categoryId: number | null
-    userId: number | null
+    categoryId: string | null
+    userId: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
 
   export type CourseMaxAggregateOutputType = {
-    id: number | null
+    id: string | null
     poster: string | null
     title: string | null
     slug: string | null
     description: string | null
-    categoryId: number | null
-    userId: number | null
+    categoryId: string | null
+    userId: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -3231,18 +3183,6 @@ export namespace Prisma {
     _all: number
   }
 
-
-  export type CourseAvgAggregateInputType = {
-    id?: true
-    categoryId?: true
-    userId?: true
-  }
-
-  export type CourseSumAggregateInputType = {
-    id?: true
-    categoryId?: true
-    userId?: true
-  }
 
   export type CourseMinAggregateInputType = {
     id?: true
@@ -3319,18 +3259,6 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Select which fields to average
-    **/
-    _avg?: CourseAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: CourseSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
      * Select which fields to find the minimum value
     **/
     _min?: CourseMinAggregateInputType
@@ -3361,25 +3289,21 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: CourseCountAggregateInputType | true
-    _avg?: CourseAvgAggregateInputType
-    _sum?: CourseSumAggregateInputType
     _min?: CourseMinAggregateInputType
     _max?: CourseMaxAggregateInputType
   }
 
   export type CourseGroupByOutputType = {
-    id: number
+    id: string
     poster: string
     title: string
     slug: string
     description: string
-    categoryId: number
-    userId: number
+    categoryId: string
+    userId: string
     createdAt: Date
     updatedAt: Date
     _count: CourseCountAggregateOutputType | null
-    _avg: CourseAvgAggregateOutputType | null
-    _sum: CourseSumAggregateOutputType | null
     _min: CourseMinAggregateOutputType | null
     _max: CourseMaxAggregateOutputType | null
   }
@@ -3484,13 +3408,13 @@ export namespace Prisma {
       category: Prisma.$CategoryPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
-      id: number
+      id: string
       poster: string
       title: string
       slug: string
       description: string
-      categoryId: number
-      userId: number
+      categoryId: string
+      userId: string
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["course"]>
@@ -3921,13 +3845,13 @@ export namespace Prisma {
    * Fields of the Course model
    */
   interface CourseFieldRefs {
-    readonly id: FieldRef<"Course", 'Int'>
+    readonly id: FieldRef<"Course", 'String'>
     readonly poster: FieldRef<"Course", 'String'>
     readonly title: FieldRef<"Course", 'String'>
     readonly slug: FieldRef<"Course", 'String'>
     readonly description: FieldRef<"Course", 'String'>
-    readonly categoryId: FieldRef<"Course", 'Int'>
-    readonly userId: FieldRef<"Course", 'Int'>
+    readonly categoryId: FieldRef<"Course", 'String'>
+    readonly userId: FieldRef<"Course", 'String'>
     readonly createdAt: FieldRef<"Course", 'DateTime'>
     readonly updatedAt: FieldRef<"Course", 'DateTime'>
   }
@@ -4422,29 +4346,19 @@ export namespace Prisma {
 
   export type AggregateCategory = {
     _count: CategoryCountAggregateOutputType | null
-    _avg: CategoryAvgAggregateOutputType | null
-    _sum: CategorySumAggregateOutputType | null
     _min: CategoryMinAggregateOutputType | null
     _max: CategoryMaxAggregateOutputType | null
   }
 
-  export type CategoryAvgAggregateOutputType = {
-    id: number | null
-  }
-
-  export type CategorySumAggregateOutputType = {
-    id: number | null
-  }
-
   export type CategoryMinAggregateOutputType = {
-    id: number | null
+    id: string | null
     name: string | null
     description: string | null
     image: string | null
   }
 
   export type CategoryMaxAggregateOutputType = {
-    id: number | null
+    id: string | null
     name: string | null
     description: string | null
     image: string | null
@@ -4458,14 +4372,6 @@ export namespace Prisma {
     _all: number
   }
 
-
-  export type CategoryAvgAggregateInputType = {
-    id?: true
-  }
-
-  export type CategorySumAggregateInputType = {
-    id?: true
-  }
 
   export type CategoryMinAggregateInputType = {
     id?: true
@@ -4527,18 +4433,6 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Select which fields to average
-    **/
-    _avg?: CategoryAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: CategorySumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
      * Select which fields to find the minimum value
     **/
     _min?: CategoryMinAggregateInputType
@@ -4569,20 +4463,16 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: CategoryCountAggregateInputType | true
-    _avg?: CategoryAvgAggregateInputType
-    _sum?: CategorySumAggregateInputType
     _min?: CategoryMinAggregateInputType
     _max?: CategoryMaxAggregateInputType
   }
 
   export type CategoryGroupByOutputType = {
-    id: number
+    id: string
     name: string
     description: string
     image: string
     _count: CategoryCountAggregateOutputType | null
-    _avg: CategoryAvgAggregateOutputType | null
-    _sum: CategorySumAggregateOutputType | null
     _min: CategoryMinAggregateOutputType | null
     _max: CategoryMaxAggregateOutputType | null
   }
@@ -4645,7 +4535,7 @@ export namespace Prisma {
       courses: Prisma.$CoursePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
-      id: number
+      id: string
       name: string
       description: string
       image: string
@@ -5073,7 +4963,7 @@ export namespace Prisma {
    * Fields of the Category model
    */
   interface CategoryFieldRefs {
-    readonly id: FieldRef<"Category", 'Int'>
+    readonly id: FieldRef<"Category", 'String'>
     readonly name: FieldRef<"Category", 'String'>
     readonly description: FieldRef<"Category", 'String'>
     readonly image: FieldRef<"Category", 'String'>
@@ -5520,33 +5410,29 @@ export namespace Prisma {
   }
 
   export type SectionGroupAvgAggregateOutputType = {
-    id: number | null
     order: number | null
-    courseId: number | null
   }
 
   export type SectionGroupSumAggregateOutputType = {
-    id: number | null
     order: number | null
-    courseId: number | null
   }
 
   export type SectionGroupMinAggregateOutputType = {
-    id: number | null
+    id: string | null
     title: string | null
     slug: string | null
     showSectionsOnly: boolean | null
     order: number | null
-    courseId: number | null
+    courseId: string | null
   }
 
   export type SectionGroupMaxAggregateOutputType = {
-    id: number | null
+    id: string | null
     title: string | null
     slug: string | null
     showSectionsOnly: boolean | null
     order: number | null
-    courseId: number | null
+    courseId: string | null
   }
 
   export type SectionGroupCountAggregateOutputType = {
@@ -5561,15 +5447,11 @@ export namespace Prisma {
 
 
   export type SectionGroupAvgAggregateInputType = {
-    id?: true
     order?: true
-    courseId?: true
   }
 
   export type SectionGroupSumAggregateInputType = {
-    id?: true
     order?: true
-    courseId?: true
   }
 
   export type SectionGroupMinAggregateInputType = {
@@ -5687,12 +5569,12 @@ export namespace Prisma {
   }
 
   export type SectionGroupGroupByOutputType = {
-    id: number
+    id: string
     title: string
     slug: string
     showSectionsOnly: boolean
     order: number
-    courseId: number
+    courseId: string
     _count: SectionGroupCountAggregateOutputType | null
     _avg: SectionGroupAvgAggregateOutputType | null
     _sum: SectionGroupSumAggregateOutputType | null
@@ -5775,12 +5657,12 @@ export namespace Prisma {
       course: Prisma.$CoursePayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
-      id: number
+      id: string
       title: string
       slug: string
       showSectionsOnly: boolean
       order: number
-      courseId: number
+      courseId: string
     }, ExtArgs["result"]["sectionGroup"]>
     composites: {}
   }
@@ -6206,12 +6088,12 @@ export namespace Prisma {
    * Fields of the SectionGroup model
    */
   interface SectionGroupFieldRefs {
-    readonly id: FieldRef<"SectionGroup", 'Int'>
+    readonly id: FieldRef<"SectionGroup", 'String'>
     readonly title: FieldRef<"SectionGroup", 'String'>
     readonly slug: FieldRef<"SectionGroup", 'String'>
     readonly showSectionsOnly: FieldRef<"SectionGroup", 'Boolean'>
     readonly order: FieldRef<"SectionGroup", 'Int'>
-    readonly courseId: FieldRef<"SectionGroup", 'Int'>
+    readonly courseId: FieldRef<"SectionGroup", 'String'>
   }
     
 
@@ -6663,31 +6545,27 @@ export namespace Prisma {
   }
 
   export type SectionAvgAggregateOutputType = {
-    id: number | null
     order: number | null
-    sectionGroupId: number | null
   }
 
   export type SectionSumAggregateOutputType = {
-    id: number | null
     order: number | null
-    sectionGroupId: number | null
   }
 
   export type SectionMinAggregateOutputType = {
-    id: number | null
+    id: string | null
     title: string | null
     slug: string | null
     order: number | null
-    sectionGroupId: number | null
+    sectionGroupId: string | null
   }
 
   export type SectionMaxAggregateOutputType = {
-    id: number | null
+    id: string | null
     title: string | null
     slug: string | null
     order: number | null
-    sectionGroupId: number | null
+    sectionGroupId: string | null
   }
 
   export type SectionCountAggregateOutputType = {
@@ -6701,15 +6579,11 @@ export namespace Prisma {
 
 
   export type SectionAvgAggregateInputType = {
-    id?: true
     order?: true
-    sectionGroupId?: true
   }
 
   export type SectionSumAggregateInputType = {
-    id?: true
     order?: true
-    sectionGroupId?: true
   }
 
   export type SectionMinAggregateInputType = {
@@ -6824,11 +6698,11 @@ export namespace Prisma {
   }
 
   export type SectionGroupByOutputType = {
-    id: number
+    id: string
     title: string
     slug: string
     order: number
-    sectionGroupId: number
+    sectionGroupId: string
     _count: SectionCountAggregateOutputType | null
     _avg: SectionAvgAggregateOutputType | null
     _sum: SectionSumAggregateOutputType | null
@@ -6910,11 +6784,11 @@ export namespace Prisma {
       sectionGroup: Prisma.$SectionGroupPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
-      id: number
+      id: string
       title: string
       slug: string
       order: number
-      sectionGroupId: number
+      sectionGroupId: string
     }, ExtArgs["result"]["section"]>
     composites: {}
   }
@@ -7341,11 +7215,11 @@ export namespace Prisma {
    * Fields of the Section model
    */
   interface SectionFieldRefs {
-    readonly id: FieldRef<"Section", 'Int'>
+    readonly id: FieldRef<"Section", 'String'>
     readonly title: FieldRef<"Section", 'String'>
     readonly slug: FieldRef<"Section", 'String'>
     readonly order: FieldRef<"Section", 'Int'>
-    readonly sectionGroupId: FieldRef<"Section", 'Int'>
+    readonly sectionGroupId: FieldRef<"Section", 'String'>
   }
     
 
@@ -7821,41 +7695,35 @@ export namespace Prisma {
   }
 
   export type LessonAvgAggregateOutputType = {
-    id: number | null
     order: number | null
-    quizId: number | null
-    sectionId: number | null
   }
 
   export type LessonSumAggregateOutputType = {
-    id: number | null
     order: number | null
-    quizId: number | null
-    sectionId: number | null
   }
 
   export type LessonMinAggregateOutputType = {
-    id: number | null
+    id: string | null
     title: string | null
     content: string | null
     order: number | null
-    quizId: number | null
+    quizId: string | null
     codeStyle: string | null
     contentType: $Enums.ContentType | null
     videoSource: $Enums.VideoSource | null
-    sectionId: number | null
+    sectionId: string | null
   }
 
   export type LessonMaxAggregateOutputType = {
-    id: number | null
+    id: string | null
     title: string | null
     content: string | null
     order: number | null
-    quizId: number | null
+    quizId: string | null
     codeStyle: string | null
     contentType: $Enums.ContentType | null
     videoSource: $Enums.VideoSource | null
-    sectionId: number | null
+    sectionId: string | null
   }
 
   export type LessonCountAggregateOutputType = {
@@ -7873,17 +7741,11 @@ export namespace Prisma {
 
 
   export type LessonAvgAggregateInputType = {
-    id?: true
     order?: true
-    quizId?: true
-    sectionId?: true
   }
 
   export type LessonSumAggregateInputType = {
-    id?: true
     order?: true
-    quizId?: true
-    sectionId?: true
   }
 
   export type LessonMinAggregateInputType = {
@@ -8010,15 +7872,15 @@ export namespace Prisma {
   }
 
   export type LessonGroupByOutputType = {
-    id: number
+    id: string
     title: string
     content: string | null
     order: number
-    quizId: number | null
+    quizId: string | null
     codeStyle: string | null
     contentType: $Enums.ContentType
     videoSource: $Enums.VideoSource | null
-    sectionId: number
+    sectionId: string
     _count: LessonCountAggregateOutputType | null
     _avg: LessonAvgAggregateOutputType | null
     _sum: LessonSumAggregateOutputType | null
@@ -8111,15 +7973,15 @@ export namespace Prisma {
       section: Prisma.$SectionPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
-      id: number
+      id: string
       title: string
       content: string | null
       order: number
-      quizId: number | null
+      quizId: string | null
       codeStyle: string | null
       contentType: $Enums.ContentType
       videoSource: $Enums.VideoSource | null
-      sectionId: number
+      sectionId: string
     }, ExtArgs["result"]["lesson"]>
     composites: {}
   }
@@ -8545,15 +8407,15 @@ export namespace Prisma {
    * Fields of the Lesson model
    */
   interface LessonFieldRefs {
-    readonly id: FieldRef<"Lesson", 'Int'>
+    readonly id: FieldRef<"Lesson", 'String'>
     readonly title: FieldRef<"Lesson", 'String'>
     readonly content: FieldRef<"Lesson", 'String'>
     readonly order: FieldRef<"Lesson", 'Int'>
-    readonly quizId: FieldRef<"Lesson", 'Int'>
+    readonly quizId: FieldRef<"Lesson", 'String'>
     readonly codeStyle: FieldRef<"Lesson", 'String'>
     readonly contentType: FieldRef<"Lesson", 'ContentType'>
     readonly videoSource: FieldRef<"Lesson", 'VideoSource'>
-    readonly sectionId: FieldRef<"Lesson", 'Int'>
+    readonly sectionId: FieldRef<"Lesson", 'String'>
   }
     
 
@@ -8993,34 +8855,22 @@ export namespace Prisma {
 
   export type AggregateQuiz = {
     _count: QuizCountAggregateOutputType | null
-    _avg: QuizAvgAggregateOutputType | null
-    _sum: QuizSumAggregateOutputType | null
     _min: QuizMinAggregateOutputType | null
     _max: QuizMaxAggregateOutputType | null
   }
 
-  export type QuizAvgAggregateOutputType = {
-    id: number | null
-    lessonId: number | null
-  }
-
-  export type QuizSumAggregateOutputType = {
-    id: number | null
-    lessonId: number | null
-  }
-
   export type QuizMinAggregateOutputType = {
-    id: number | null
+    id: string | null
     question: string | null
     explanation: string | null
-    lessonId: number | null
+    lessonId: string | null
   }
 
   export type QuizMaxAggregateOutputType = {
-    id: number | null
+    id: string | null
     question: string | null
     explanation: string | null
-    lessonId: number | null
+    lessonId: string | null
   }
 
   export type QuizCountAggregateOutputType = {
@@ -9031,16 +8881,6 @@ export namespace Prisma {
     _all: number
   }
 
-
-  export type QuizAvgAggregateInputType = {
-    id?: true
-    lessonId?: true
-  }
-
-  export type QuizSumAggregateInputType = {
-    id?: true
-    lessonId?: true
-  }
 
   export type QuizMinAggregateInputType = {
     id?: true
@@ -9102,18 +8942,6 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Select which fields to average
-    **/
-    _avg?: QuizAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: QuizSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
      * Select which fields to find the minimum value
     **/
     _min?: QuizMinAggregateInputType
@@ -9144,20 +8972,16 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: QuizCountAggregateInputType | true
-    _avg?: QuizAvgAggregateInputType
-    _sum?: QuizSumAggregateInputType
     _min?: QuizMinAggregateInputType
     _max?: QuizMaxAggregateInputType
   }
 
   export type QuizGroupByOutputType = {
-    id: number
+    id: string
     question: string
     explanation: string | null
-    lessonId: number
+    lessonId: string
     _count: QuizCountAggregateOutputType | null
-    _avg: QuizAvgAggregateOutputType | null
-    _sum: QuizSumAggregateOutputType | null
     _min: QuizMinAggregateOutputType | null
     _max: QuizMaxAggregateOutputType | null
   }
@@ -9229,10 +9053,10 @@ export namespace Prisma {
       lesson: Prisma.$LessonPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
-      id: number
+      id: string
       question: string
       explanation: string | null
-      lessonId: number
+      lessonId: string
     }, ExtArgs["result"]["quiz"]>
     composites: {}
   }
@@ -9658,10 +9482,10 @@ export namespace Prisma {
    * Fields of the Quiz model
    */
   interface QuizFieldRefs {
-    readonly id: FieldRef<"Quiz", 'Int'>
+    readonly id: FieldRef<"Quiz", 'String'>
     readonly question: FieldRef<"Quiz", 'String'>
     readonly explanation: FieldRef<"Quiz", 'String'>
-    readonly lessonId: FieldRef<"Quiz", 'Int'>
+    readonly lessonId: FieldRef<"Quiz", 'String'>
   }
     
 
@@ -10106,32 +9930,20 @@ export namespace Prisma {
 
   export type AggregateAnswer = {
     _count: AnswerCountAggregateOutputType | null
-    _avg: AnswerAvgAggregateOutputType | null
-    _sum: AnswerSumAggregateOutputType | null
     _min: AnswerMinAggregateOutputType | null
     _max: AnswerMaxAggregateOutputType | null
   }
 
-  export type AnswerAvgAggregateOutputType = {
-    id: number | null
-    quizId: number | null
-  }
-
-  export type AnswerSumAggregateOutputType = {
-    id: number | null
-    quizId: number | null
-  }
-
   export type AnswerMinAggregateOutputType = {
-    id: number | null
-    quizId: number | null
+    id: string | null
+    quizId: string | null
     content: string | null
     isCorrect: boolean | null
   }
 
   export type AnswerMaxAggregateOutputType = {
-    id: number | null
-    quizId: number | null
+    id: string | null
+    quizId: string | null
     content: string | null
     isCorrect: boolean | null
   }
@@ -10144,16 +9956,6 @@ export namespace Prisma {
     _all: number
   }
 
-
-  export type AnswerAvgAggregateInputType = {
-    id?: true
-    quizId?: true
-  }
-
-  export type AnswerSumAggregateInputType = {
-    id?: true
-    quizId?: true
-  }
 
   export type AnswerMinAggregateInputType = {
     id?: true
@@ -10215,18 +10017,6 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Select which fields to average
-    **/
-    _avg?: AnswerAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: AnswerSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
      * Select which fields to find the minimum value
     **/
     _min?: AnswerMinAggregateInputType
@@ -10257,20 +10047,16 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: AnswerCountAggregateInputType | true
-    _avg?: AnswerAvgAggregateInputType
-    _sum?: AnswerSumAggregateInputType
     _min?: AnswerMinAggregateInputType
     _max?: AnswerMaxAggregateInputType
   }
 
   export type AnswerGroupByOutputType = {
-    id: number
-    quizId: number
+    id: string
+    quizId: string
     content: string
     isCorrect: boolean
     _count: AnswerCountAggregateOutputType | null
-    _avg: AnswerAvgAggregateOutputType | null
-    _sum: AnswerSumAggregateOutputType | null
     _min: AnswerMinAggregateOutputType | null
     _max: AnswerMaxAggregateOutputType | null
   }
@@ -10337,8 +10123,8 @@ export namespace Prisma {
       quiz: Prisma.$QuizPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
-      id: number
-      quizId: number
+      id: string
+      quizId: string
       content: string
       isCorrect: boolean
     }, ExtArgs["result"]["answer"]>
@@ -10765,8 +10551,8 @@ export namespace Prisma {
    * Fields of the Answer model
    */
   interface AnswerFieldRefs {
-    readonly id: FieldRef<"Answer", 'Int'>
-    readonly quizId: FieldRef<"Answer", 'Int'>
+    readonly id: FieldRef<"Answer", 'String'>
+    readonly quizId: FieldRef<"Answer", 'String'>
     readonly content: FieldRef<"Answer", 'String'>
     readonly isCorrect: FieldRef<"Answer", 'Boolean'>
   }
@@ -11189,32 +10975,20 @@ export namespace Prisma {
 
   export type AggregatePrerequisit = {
     _count: PrerequisitCountAggregateOutputType | null
-    _avg: PrerequisitAvgAggregateOutputType | null
-    _sum: PrerequisitSumAggregateOutputType | null
     _min: PrerequisitMinAggregateOutputType | null
     _max: PrerequisitMaxAggregateOutputType | null
   }
 
-  export type PrerequisitAvgAggregateOutputType = {
-    id: number | null
-    courseId: number | null
-  }
-
-  export type PrerequisitSumAggregateOutputType = {
-    id: number | null
-    courseId: number | null
-  }
-
   export type PrerequisitMinAggregateOutputType = {
-    id: number | null
+    id: string | null
     content: string | null
-    courseId: number | null
+    courseId: string | null
   }
 
   export type PrerequisitMaxAggregateOutputType = {
-    id: number | null
+    id: string | null
     content: string | null
-    courseId: number | null
+    courseId: string | null
   }
 
   export type PrerequisitCountAggregateOutputType = {
@@ -11224,16 +10998,6 @@ export namespace Prisma {
     _all: number
   }
 
-
-  export type PrerequisitAvgAggregateInputType = {
-    id?: true
-    courseId?: true
-  }
-
-  export type PrerequisitSumAggregateInputType = {
-    id?: true
-    courseId?: true
-  }
 
   export type PrerequisitMinAggregateInputType = {
     id?: true
@@ -11292,18 +11056,6 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Select which fields to average
-    **/
-    _avg?: PrerequisitAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: PrerequisitSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
      * Select which fields to find the minimum value
     **/
     _min?: PrerequisitMinAggregateInputType
@@ -11334,19 +11086,15 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: PrerequisitCountAggregateInputType | true
-    _avg?: PrerequisitAvgAggregateInputType
-    _sum?: PrerequisitSumAggregateInputType
     _min?: PrerequisitMinAggregateInputType
     _max?: PrerequisitMaxAggregateInputType
   }
 
   export type PrerequisitGroupByOutputType = {
-    id: number
+    id: string
     content: string
-    courseId: number
+    courseId: string
     _count: PrerequisitCountAggregateOutputType | null
-    _avg: PrerequisitAvgAggregateOutputType | null
-    _sum: PrerequisitSumAggregateOutputType | null
     _min: PrerequisitMinAggregateOutputType | null
     _max: PrerequisitMaxAggregateOutputType | null
   }
@@ -11409,9 +11157,9 @@ export namespace Prisma {
       course: Prisma.$CoursePayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
-      id: number
+      id: string
       content: string
-      courseId: number
+      courseId: string
     }, ExtArgs["result"]["prerequisit"]>
     composites: {}
   }
@@ -11836,9 +11584,9 @@ export namespace Prisma {
    * Fields of the Prerequisit model
    */
   interface PrerequisitFieldRefs {
-    readonly id: FieldRef<"Prerequisit", 'Int'>
+    readonly id: FieldRef<"Prerequisit", 'String'>
     readonly content: FieldRef<"Prerequisit", 'String'>
-    readonly courseId: FieldRef<"Prerequisit", 'Int'>
+    readonly courseId: FieldRef<"Prerequisit", 'String'>
   }
     
 
@@ -12259,32 +12007,20 @@ export namespace Prisma {
 
   export type AggregateSkill = {
     _count: SkillCountAggregateOutputType | null
-    _avg: SkillAvgAggregateOutputType | null
-    _sum: SkillSumAggregateOutputType | null
     _min: SkillMinAggregateOutputType | null
     _max: SkillMaxAggregateOutputType | null
   }
 
-  export type SkillAvgAggregateOutputType = {
-    id: number | null
-    courseId: number | null
-  }
-
-  export type SkillSumAggregateOutputType = {
-    id: number | null
-    courseId: number | null
-  }
-
   export type SkillMinAggregateOutputType = {
-    id: number | null
+    id: string | null
     content: string | null
-    courseId: number | null
+    courseId: string | null
   }
 
   export type SkillMaxAggregateOutputType = {
-    id: number | null
+    id: string | null
     content: string | null
-    courseId: number | null
+    courseId: string | null
   }
 
   export type SkillCountAggregateOutputType = {
@@ -12294,16 +12030,6 @@ export namespace Prisma {
     _all: number
   }
 
-
-  export type SkillAvgAggregateInputType = {
-    id?: true
-    courseId?: true
-  }
-
-  export type SkillSumAggregateInputType = {
-    id?: true
-    courseId?: true
-  }
 
   export type SkillMinAggregateInputType = {
     id?: true
@@ -12362,18 +12088,6 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Select which fields to average
-    **/
-    _avg?: SkillAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: SkillSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
      * Select which fields to find the minimum value
     **/
     _min?: SkillMinAggregateInputType
@@ -12404,19 +12118,15 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: SkillCountAggregateInputType | true
-    _avg?: SkillAvgAggregateInputType
-    _sum?: SkillSumAggregateInputType
     _min?: SkillMinAggregateInputType
     _max?: SkillMaxAggregateInputType
   }
 
   export type SkillGroupByOutputType = {
-    id: number
+    id: string
     content: string
-    courseId: number
+    courseId: string
     _count: SkillCountAggregateOutputType | null
-    _avg: SkillAvgAggregateOutputType | null
-    _sum: SkillSumAggregateOutputType | null
     _min: SkillMinAggregateOutputType | null
     _max: SkillMaxAggregateOutputType | null
   }
@@ -12479,9 +12189,9 @@ export namespace Prisma {
       course: Prisma.$CoursePayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
-      id: number
+      id: string
       content: string
-      courseId: number
+      courseId: string
     }, ExtArgs["result"]["skill"]>
     composites: {}
   }
@@ -12906,9 +12616,9 @@ export namespace Prisma {
    * Fields of the Skill model
    */
   interface SkillFieldRefs {
-    readonly id: FieldRef<"Skill", 'Int'>
+    readonly id: FieldRef<"Skill", 'String'>
     readonly content: FieldRef<"Skill", 'String'>
-    readonly courseId: FieldRef<"Skill", 'Int'>
+    readonly courseId: FieldRef<"Skill", 'String'>
   }
     
 
@@ -13336,33 +13046,27 @@ export namespace Prisma {
   }
 
   export type SectionRatingAvgAggregateOutputType = {
-    id: number | null
     rate: number | null
-    userId: number | null
-    sectionId: number | null
   }
 
   export type SectionRatingSumAggregateOutputType = {
-    id: number | null
     rate: number | null
-    userId: number | null
-    sectionId: number | null
   }
 
   export type SectionRatingMinAggregateOutputType = {
-    id: number | null
+    id: string | null
     rate: number | null
-    userId: number | null
-    sectionId: number | null
+    userId: string | null
+    sectionId: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
 
   export type SectionRatingMaxAggregateOutputType = {
-    id: number | null
+    id: string | null
     rate: number | null
-    userId: number | null
-    sectionId: number | null
+    userId: string | null
+    sectionId: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -13379,17 +13083,11 @@ export namespace Prisma {
 
 
   export type SectionRatingAvgAggregateInputType = {
-    id?: true
     rate?: true
-    userId?: true
-    sectionId?: true
   }
 
   export type SectionRatingSumAggregateInputType = {
-    id?: true
     rate?: true
-    userId?: true
-    sectionId?: true
   }
 
   export type SectionRatingMinAggregateInputType = {
@@ -13507,10 +13205,10 @@ export namespace Prisma {
   }
 
   export type SectionRatingGroupByOutputType = {
-    id: number
+    id: string
     rate: number
-    userId: number
-    sectionId: number
+    userId: string
+    sectionId: string
     createdAt: Date
     updatedAt: Date
     _count: SectionRatingCountAggregateOutputType | null
@@ -13597,10 +13295,10 @@ export namespace Prisma {
       section: Prisma.$SectionPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
-      id: number
+      id: string
       rate: number
-      userId: number
-      sectionId: number
+      userId: string
+      sectionId: string
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["sectionRating"]>
@@ -14028,10 +13726,10 @@ export namespace Prisma {
    * Fields of the SectionRating model
    */
   interface SectionRatingFieldRefs {
-    readonly id: FieldRef<"SectionRating", 'Int'>
+    readonly id: FieldRef<"SectionRating", 'String'>
     readonly rate: FieldRef<"SectionRating", 'Int'>
-    readonly userId: FieldRef<"SectionRating", 'Int'>
-    readonly sectionId: FieldRef<"SectionRating", 'Int'>
+    readonly userId: FieldRef<"SectionRating", 'String'>
+    readonly sectionId: FieldRef<"SectionRating", 'String'>
     readonly createdAt: FieldRef<"SectionRating", 'DateTime'>
     readonly updatedAt: FieldRef<"SectionRating", 'DateTime'>
   }
@@ -14616,20 +14314,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Int'
-   */
-  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
-    
-
-
-  /**
-   * Reference to a field of type 'Int[]'
-   */
-  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
-    
-
-
-  /**
    * Reference to a field of type 'String'
    */
   export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String'>
@@ -14675,6 +14359,20 @@ export namespace Prisma {
    * Reference to a field of type 'Boolean'
    */
   export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+  /**
+   * Reference to a field of type 'Int'
+   */
+  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+    
+
+
+  /**
+   * Reference to a field of type 'Int[]'
+   */
+  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
     
 
 
@@ -14727,7 +14425,7 @@ export namespace Prisma {
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
-    id?: IntFilter<"User"> | number
+    id?: StringFilter<"User"> | string
     name?: StringFilter<"User"> | string
     password?: StringFilter<"User"> | string
     email?: StringFilter<"User"> | string
@@ -14747,7 +14445,7 @@ export namespace Prisma {
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
+    id?: string
     email?: string
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
@@ -14766,17 +14464,15 @@ export namespace Prisma {
     email?: SortOrder
     role?: SortOrder
     _count?: UserCountOrderByAggregateInput
-    _avg?: UserAvgOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
-    _sum?: UserSumOrderByAggregateInput
   }
 
   export type UserScalarWhereWithAggregatesInput = {
     AND?: UserScalarWhereWithAggregatesInput | UserScalarWhereWithAggregatesInput[]
     OR?: UserScalarWhereWithAggregatesInput[]
     NOT?: UserScalarWhereWithAggregatesInput | UserScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"User"> | number
+    id?: StringWithAggregatesFilter<"User"> | string
     name?: StringWithAggregatesFilter<"User"> | string
     password?: StringWithAggregatesFilter<"User"> | string
     email?: StringWithAggregatesFilter<"User"> | string
@@ -14787,13 +14483,13 @@ export namespace Prisma {
     AND?: CourseWhereInput | CourseWhereInput[]
     OR?: CourseWhereInput[]
     NOT?: CourseWhereInput | CourseWhereInput[]
-    id?: IntFilter<"Course"> | number
+    id?: StringFilter<"Course"> | string
     poster?: StringFilter<"Course"> | string
     title?: StringFilter<"Course"> | string
     slug?: StringFilter<"Course"> | string
     description?: StringFilter<"Course"> | string
-    categoryId?: IntFilter<"Course"> | number
-    userId?: IntFilter<"Course"> | number
+    categoryId?: StringFilter<"Course"> | string
+    userId?: StringFilter<"Course"> | string
     createdAt?: DateTimeFilter<"Course"> | Date | string
     updatedAt?: DateTimeFilter<"Course"> | Date | string
     sectionGroups?: SectionGroupListRelationFilter
@@ -14821,7 +14517,7 @@ export namespace Prisma {
   }
 
   export type CourseWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
+    id?: string
     title?: string
     slug?: string
     AND?: CourseWhereInput | CourseWhereInput[]
@@ -14829,8 +14525,8 @@ export namespace Prisma {
     NOT?: CourseWhereInput | CourseWhereInput[]
     poster?: StringFilter<"Course"> | string
     description?: StringFilter<"Course"> | string
-    categoryId?: IntFilter<"Course"> | number
-    userId?: IntFilter<"Course"> | number
+    categoryId?: StringFilter<"Course"> | string
+    userId?: StringFilter<"Course"> | string
     createdAt?: DateTimeFilter<"Course"> | Date | string
     updatedAt?: DateTimeFilter<"Course"> | Date | string
     sectionGroups?: SectionGroupListRelationFilter
@@ -14851,23 +14547,21 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: CourseCountOrderByAggregateInput
-    _avg?: CourseAvgOrderByAggregateInput
     _max?: CourseMaxOrderByAggregateInput
     _min?: CourseMinOrderByAggregateInput
-    _sum?: CourseSumOrderByAggregateInput
   }
 
   export type CourseScalarWhereWithAggregatesInput = {
     AND?: CourseScalarWhereWithAggregatesInput | CourseScalarWhereWithAggregatesInput[]
     OR?: CourseScalarWhereWithAggregatesInput[]
     NOT?: CourseScalarWhereWithAggregatesInput | CourseScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"Course"> | number
+    id?: StringWithAggregatesFilter<"Course"> | string
     poster?: StringWithAggregatesFilter<"Course"> | string
     title?: StringWithAggregatesFilter<"Course"> | string
     slug?: StringWithAggregatesFilter<"Course"> | string
     description?: StringWithAggregatesFilter<"Course"> | string
-    categoryId?: IntWithAggregatesFilter<"Course"> | number
-    userId?: IntWithAggregatesFilter<"Course"> | number
+    categoryId?: StringWithAggregatesFilter<"Course"> | string
+    userId?: StringWithAggregatesFilter<"Course"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Course"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Course"> | Date | string
   }
@@ -14876,7 +14570,7 @@ export namespace Prisma {
     AND?: CategoryWhereInput | CategoryWhereInput[]
     OR?: CategoryWhereInput[]
     NOT?: CategoryWhereInput | CategoryWhereInput[]
-    id?: IntFilter<"Category"> | number
+    id?: StringFilter<"Category"> | string
     name?: StringFilter<"Category"> | string
     description?: StringFilter<"Category"> | string
     image?: StringFilter<"Category"> | string
@@ -14892,7 +14586,7 @@ export namespace Prisma {
   }
 
   export type CategoryWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
+    id?: string
     name?: string
     AND?: CategoryWhereInput | CategoryWhereInput[]
     OR?: CategoryWhereInput[]
@@ -14908,17 +14602,15 @@ export namespace Prisma {
     description?: SortOrder
     image?: SortOrder
     _count?: CategoryCountOrderByAggregateInput
-    _avg?: CategoryAvgOrderByAggregateInput
     _max?: CategoryMaxOrderByAggregateInput
     _min?: CategoryMinOrderByAggregateInput
-    _sum?: CategorySumOrderByAggregateInput
   }
 
   export type CategoryScalarWhereWithAggregatesInput = {
     AND?: CategoryScalarWhereWithAggregatesInput | CategoryScalarWhereWithAggregatesInput[]
     OR?: CategoryScalarWhereWithAggregatesInput[]
     NOT?: CategoryScalarWhereWithAggregatesInput | CategoryScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"Category"> | number
+    id?: StringWithAggregatesFilter<"Category"> | string
     name?: StringWithAggregatesFilter<"Category"> | string
     description?: StringWithAggregatesFilter<"Category"> | string
     image?: StringWithAggregatesFilter<"Category"> | string
@@ -14928,12 +14620,12 @@ export namespace Prisma {
     AND?: SectionGroupWhereInput | SectionGroupWhereInput[]
     OR?: SectionGroupWhereInput[]
     NOT?: SectionGroupWhereInput | SectionGroupWhereInput[]
-    id?: IntFilter<"SectionGroup"> | number
+    id?: StringFilter<"SectionGroup"> | string
     title?: StringFilter<"SectionGroup"> | string
     slug?: StringFilter<"SectionGroup"> | string
     showSectionsOnly?: BoolFilter<"SectionGroup"> | boolean
     order?: IntFilter<"SectionGroup"> | number
-    courseId?: IntFilter<"SectionGroup"> | number
+    courseId?: StringFilter<"SectionGroup"> | string
     sections?: SectionListRelationFilter
     course?: XOR<CourseScalarRelationFilter, CourseWhereInput>
   }
@@ -14950,7 +14642,7 @@ export namespace Prisma {
   }
 
   export type SectionGroupWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
+    id?: string
     AND?: SectionGroupWhereInput | SectionGroupWhereInput[]
     OR?: SectionGroupWhereInput[]
     NOT?: SectionGroupWhereInput | SectionGroupWhereInput[]
@@ -14958,7 +14650,7 @@ export namespace Prisma {
     slug?: StringFilter<"SectionGroup"> | string
     showSectionsOnly?: BoolFilter<"SectionGroup"> | boolean
     order?: IntFilter<"SectionGroup"> | number
-    courseId?: IntFilter<"SectionGroup"> | number
+    courseId?: StringFilter<"SectionGroup"> | string
     sections?: SectionListRelationFilter
     course?: XOR<CourseScalarRelationFilter, CourseWhereInput>
   }, "id">
@@ -14981,23 +14673,23 @@ export namespace Prisma {
     AND?: SectionGroupScalarWhereWithAggregatesInput | SectionGroupScalarWhereWithAggregatesInput[]
     OR?: SectionGroupScalarWhereWithAggregatesInput[]
     NOT?: SectionGroupScalarWhereWithAggregatesInput | SectionGroupScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"SectionGroup"> | number
+    id?: StringWithAggregatesFilter<"SectionGroup"> | string
     title?: StringWithAggregatesFilter<"SectionGroup"> | string
     slug?: StringWithAggregatesFilter<"SectionGroup"> | string
     showSectionsOnly?: BoolWithAggregatesFilter<"SectionGroup"> | boolean
     order?: IntWithAggregatesFilter<"SectionGroup"> | number
-    courseId?: IntWithAggregatesFilter<"SectionGroup"> | number
+    courseId?: StringWithAggregatesFilter<"SectionGroup"> | string
   }
 
   export type SectionWhereInput = {
     AND?: SectionWhereInput | SectionWhereInput[]
     OR?: SectionWhereInput[]
     NOT?: SectionWhereInput | SectionWhereInput[]
-    id?: IntFilter<"Section"> | number
+    id?: StringFilter<"Section"> | string
     title?: StringFilter<"Section"> | string
     slug?: StringFilter<"Section"> | string
     order?: IntFilter<"Section"> | number
-    sectionGroupId?: IntFilter<"Section"> | number
+    sectionGroupId?: StringFilter<"Section"> | string
     lessons?: LessonListRelationFilter
     sectionRates?: SectionRatingListRelationFilter
     sectionGroup?: XOR<SectionGroupScalarRelationFilter, SectionGroupWhereInput>
@@ -15015,14 +14707,14 @@ export namespace Prisma {
   }
 
   export type SectionWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
+    id?: string
     AND?: SectionWhereInput | SectionWhereInput[]
     OR?: SectionWhereInput[]
     NOT?: SectionWhereInput | SectionWhereInput[]
     title?: StringFilter<"Section"> | string
     slug?: StringFilter<"Section"> | string
     order?: IntFilter<"Section"> | number
-    sectionGroupId?: IntFilter<"Section"> | number
+    sectionGroupId?: StringFilter<"Section"> | string
     lessons?: LessonListRelationFilter
     sectionRates?: SectionRatingListRelationFilter
     sectionGroup?: XOR<SectionGroupScalarRelationFilter, SectionGroupWhereInput>
@@ -15045,26 +14737,26 @@ export namespace Prisma {
     AND?: SectionScalarWhereWithAggregatesInput | SectionScalarWhereWithAggregatesInput[]
     OR?: SectionScalarWhereWithAggregatesInput[]
     NOT?: SectionScalarWhereWithAggregatesInput | SectionScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"Section"> | number
+    id?: StringWithAggregatesFilter<"Section"> | string
     title?: StringWithAggregatesFilter<"Section"> | string
     slug?: StringWithAggregatesFilter<"Section"> | string
     order?: IntWithAggregatesFilter<"Section"> | number
-    sectionGroupId?: IntWithAggregatesFilter<"Section"> | number
+    sectionGroupId?: StringWithAggregatesFilter<"Section"> | string
   }
 
   export type LessonWhereInput = {
     AND?: LessonWhereInput | LessonWhereInput[]
     OR?: LessonWhereInput[]
     NOT?: LessonWhereInput | LessonWhereInput[]
-    id?: IntFilter<"Lesson"> | number
+    id?: StringFilter<"Lesson"> | string
     title?: StringFilter<"Lesson"> | string
     content?: StringNullableFilter<"Lesson"> | string | null
     order?: IntFilter<"Lesson"> | number
-    quizId?: IntNullableFilter<"Lesson"> | number | null
+    quizId?: StringNullableFilter<"Lesson"> | string | null
     codeStyle?: StringNullableFilter<"Lesson"> | string | null
     contentType?: EnumContentTypeFilter<"Lesson"> | $Enums.ContentType
     videoSource?: EnumVideoSourceNullableFilter<"Lesson"> | $Enums.VideoSource | null
-    sectionId?: IntFilter<"Lesson"> | number
+    sectionId?: StringFilter<"Lesson"> | string
     quiz?: XOR<QuizNullableScalarRelationFilter, QuizWhereInput> | null
     section?: XOR<SectionScalarRelationFilter, SectionWhereInput>
   }
@@ -15084,18 +14776,18 @@ export namespace Prisma {
   }
 
   export type LessonWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
+    id?: string
     AND?: LessonWhereInput | LessonWhereInput[]
     OR?: LessonWhereInput[]
     NOT?: LessonWhereInput | LessonWhereInput[]
     title?: StringFilter<"Lesson"> | string
     content?: StringNullableFilter<"Lesson"> | string | null
     order?: IntFilter<"Lesson"> | number
-    quizId?: IntNullableFilter<"Lesson"> | number | null
+    quizId?: StringNullableFilter<"Lesson"> | string | null
     codeStyle?: StringNullableFilter<"Lesson"> | string | null
     contentType?: EnumContentTypeFilter<"Lesson"> | $Enums.ContentType
     videoSource?: EnumVideoSourceNullableFilter<"Lesson"> | $Enums.VideoSource | null
-    sectionId?: IntFilter<"Lesson"> | number
+    sectionId?: StringFilter<"Lesson"> | string
     quiz?: XOR<QuizNullableScalarRelationFilter, QuizWhereInput> | null
     section?: XOR<SectionScalarRelationFilter, SectionWhereInput>
   }, "id">
@@ -15121,25 +14813,25 @@ export namespace Prisma {
     AND?: LessonScalarWhereWithAggregatesInput | LessonScalarWhereWithAggregatesInput[]
     OR?: LessonScalarWhereWithAggregatesInput[]
     NOT?: LessonScalarWhereWithAggregatesInput | LessonScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"Lesson"> | number
+    id?: StringWithAggregatesFilter<"Lesson"> | string
     title?: StringWithAggregatesFilter<"Lesson"> | string
     content?: StringNullableWithAggregatesFilter<"Lesson"> | string | null
     order?: IntWithAggregatesFilter<"Lesson"> | number
-    quizId?: IntNullableWithAggregatesFilter<"Lesson"> | number | null
+    quizId?: StringNullableWithAggregatesFilter<"Lesson"> | string | null
     codeStyle?: StringNullableWithAggregatesFilter<"Lesson"> | string | null
     contentType?: EnumContentTypeWithAggregatesFilter<"Lesson"> | $Enums.ContentType
     videoSource?: EnumVideoSourceNullableWithAggregatesFilter<"Lesson"> | $Enums.VideoSource | null
-    sectionId?: IntWithAggregatesFilter<"Lesson"> | number
+    sectionId?: StringWithAggregatesFilter<"Lesson"> | string
   }
 
   export type QuizWhereInput = {
     AND?: QuizWhereInput | QuizWhereInput[]
     OR?: QuizWhereInput[]
     NOT?: QuizWhereInput | QuizWhereInput[]
-    id?: IntFilter<"Quiz"> | number
+    id?: StringFilter<"Quiz"> | string
     question?: StringFilter<"Quiz"> | string
     explanation?: StringNullableFilter<"Quiz"> | string | null
-    lessonId?: IntFilter<"Quiz"> | number
+    lessonId?: StringFilter<"Quiz"> | string
     answers?: AnswerListRelationFilter
     lesson?: XOR<LessonScalarRelationFilter, LessonWhereInput>
   }
@@ -15154,8 +14846,8 @@ export namespace Prisma {
   }
 
   export type QuizWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
-    lessonId?: number
+    id?: string
+    lessonId?: string
     AND?: QuizWhereInput | QuizWhereInput[]
     OR?: QuizWhereInput[]
     NOT?: QuizWhereInput | QuizWhereInput[]
@@ -15171,28 +14863,26 @@ export namespace Prisma {
     explanation?: SortOrderInput | SortOrder
     lessonId?: SortOrder
     _count?: QuizCountOrderByAggregateInput
-    _avg?: QuizAvgOrderByAggregateInput
     _max?: QuizMaxOrderByAggregateInput
     _min?: QuizMinOrderByAggregateInput
-    _sum?: QuizSumOrderByAggregateInput
   }
 
   export type QuizScalarWhereWithAggregatesInput = {
     AND?: QuizScalarWhereWithAggregatesInput | QuizScalarWhereWithAggregatesInput[]
     OR?: QuizScalarWhereWithAggregatesInput[]
     NOT?: QuizScalarWhereWithAggregatesInput | QuizScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"Quiz"> | number
+    id?: StringWithAggregatesFilter<"Quiz"> | string
     question?: StringWithAggregatesFilter<"Quiz"> | string
     explanation?: StringNullableWithAggregatesFilter<"Quiz"> | string | null
-    lessonId?: IntWithAggregatesFilter<"Quiz"> | number
+    lessonId?: StringWithAggregatesFilter<"Quiz"> | string
   }
 
   export type AnswerWhereInput = {
     AND?: AnswerWhereInput | AnswerWhereInput[]
     OR?: AnswerWhereInput[]
     NOT?: AnswerWhereInput | AnswerWhereInput[]
-    id?: IntFilter<"Answer"> | number
-    quizId?: IntFilter<"Answer"> | number
+    id?: StringFilter<"Answer"> | string
+    quizId?: StringFilter<"Answer"> | string
     content?: StringFilter<"Answer"> | string
     isCorrect?: BoolFilter<"Answer"> | boolean
     quiz?: XOR<QuizScalarRelationFilter, QuizWhereInput>
@@ -15207,11 +14897,11 @@ export namespace Prisma {
   }
 
   export type AnswerWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
+    id?: string
     AND?: AnswerWhereInput | AnswerWhereInput[]
     OR?: AnswerWhereInput[]
     NOT?: AnswerWhereInput | AnswerWhereInput[]
-    quizId?: IntFilter<"Answer"> | number
+    quizId?: StringFilter<"Answer"> | string
     content?: StringFilter<"Answer"> | string
     isCorrect?: BoolFilter<"Answer"> | boolean
     quiz?: XOR<QuizScalarRelationFilter, QuizWhereInput>
@@ -15223,18 +14913,16 @@ export namespace Prisma {
     content?: SortOrder
     isCorrect?: SortOrder
     _count?: AnswerCountOrderByAggregateInput
-    _avg?: AnswerAvgOrderByAggregateInput
     _max?: AnswerMaxOrderByAggregateInput
     _min?: AnswerMinOrderByAggregateInput
-    _sum?: AnswerSumOrderByAggregateInput
   }
 
   export type AnswerScalarWhereWithAggregatesInput = {
     AND?: AnswerScalarWhereWithAggregatesInput | AnswerScalarWhereWithAggregatesInput[]
     OR?: AnswerScalarWhereWithAggregatesInput[]
     NOT?: AnswerScalarWhereWithAggregatesInput | AnswerScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"Answer"> | number
-    quizId?: IntWithAggregatesFilter<"Answer"> | number
+    id?: StringWithAggregatesFilter<"Answer"> | string
+    quizId?: StringWithAggregatesFilter<"Answer"> | string
     content?: StringWithAggregatesFilter<"Answer"> | string
     isCorrect?: BoolWithAggregatesFilter<"Answer"> | boolean
   }
@@ -15243,9 +14931,9 @@ export namespace Prisma {
     AND?: PrerequisitWhereInput | PrerequisitWhereInput[]
     OR?: PrerequisitWhereInput[]
     NOT?: PrerequisitWhereInput | PrerequisitWhereInput[]
-    id?: IntFilter<"Prerequisit"> | number
+    id?: StringFilter<"Prerequisit"> | string
     content?: StringFilter<"Prerequisit"> | string
-    courseId?: IntFilter<"Prerequisit"> | number
+    courseId?: StringFilter<"Prerequisit"> | string
     course?: XOR<CourseScalarRelationFilter, CourseWhereInput>
   }
 
@@ -15257,12 +14945,12 @@ export namespace Prisma {
   }
 
   export type PrerequisitWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
+    id?: string
     AND?: PrerequisitWhereInput | PrerequisitWhereInput[]
     OR?: PrerequisitWhereInput[]
     NOT?: PrerequisitWhereInput | PrerequisitWhereInput[]
     content?: StringFilter<"Prerequisit"> | string
-    courseId?: IntFilter<"Prerequisit"> | number
+    courseId?: StringFilter<"Prerequisit"> | string
     course?: XOR<CourseScalarRelationFilter, CourseWhereInput>
   }, "id">
 
@@ -15271,28 +14959,26 @@ export namespace Prisma {
     content?: SortOrder
     courseId?: SortOrder
     _count?: PrerequisitCountOrderByAggregateInput
-    _avg?: PrerequisitAvgOrderByAggregateInput
     _max?: PrerequisitMaxOrderByAggregateInput
     _min?: PrerequisitMinOrderByAggregateInput
-    _sum?: PrerequisitSumOrderByAggregateInput
   }
 
   export type PrerequisitScalarWhereWithAggregatesInput = {
     AND?: PrerequisitScalarWhereWithAggregatesInput | PrerequisitScalarWhereWithAggregatesInput[]
     OR?: PrerequisitScalarWhereWithAggregatesInput[]
     NOT?: PrerequisitScalarWhereWithAggregatesInput | PrerequisitScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"Prerequisit"> | number
+    id?: StringWithAggregatesFilter<"Prerequisit"> | string
     content?: StringWithAggregatesFilter<"Prerequisit"> | string
-    courseId?: IntWithAggregatesFilter<"Prerequisit"> | number
+    courseId?: StringWithAggregatesFilter<"Prerequisit"> | string
   }
 
   export type SkillWhereInput = {
     AND?: SkillWhereInput | SkillWhereInput[]
     OR?: SkillWhereInput[]
     NOT?: SkillWhereInput | SkillWhereInput[]
-    id?: IntFilter<"Skill"> | number
+    id?: StringFilter<"Skill"> | string
     content?: StringFilter<"Skill"> | string
-    courseId?: IntFilter<"Skill"> | number
+    courseId?: StringFilter<"Skill"> | string
     course?: XOR<CourseScalarRelationFilter, CourseWhereInput>
   }
 
@@ -15304,12 +14990,12 @@ export namespace Prisma {
   }
 
   export type SkillWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
+    id?: string
     AND?: SkillWhereInput | SkillWhereInput[]
     OR?: SkillWhereInput[]
     NOT?: SkillWhereInput | SkillWhereInput[]
     content?: StringFilter<"Skill"> | string
-    courseId?: IntFilter<"Skill"> | number
+    courseId?: StringFilter<"Skill"> | string
     course?: XOR<CourseScalarRelationFilter, CourseWhereInput>
   }, "id">
 
@@ -15318,29 +15004,27 @@ export namespace Prisma {
     content?: SortOrder
     courseId?: SortOrder
     _count?: SkillCountOrderByAggregateInput
-    _avg?: SkillAvgOrderByAggregateInput
     _max?: SkillMaxOrderByAggregateInput
     _min?: SkillMinOrderByAggregateInput
-    _sum?: SkillSumOrderByAggregateInput
   }
 
   export type SkillScalarWhereWithAggregatesInput = {
     AND?: SkillScalarWhereWithAggregatesInput | SkillScalarWhereWithAggregatesInput[]
     OR?: SkillScalarWhereWithAggregatesInput[]
     NOT?: SkillScalarWhereWithAggregatesInput | SkillScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"Skill"> | number
+    id?: StringWithAggregatesFilter<"Skill"> | string
     content?: StringWithAggregatesFilter<"Skill"> | string
-    courseId?: IntWithAggregatesFilter<"Skill"> | number
+    courseId?: StringWithAggregatesFilter<"Skill"> | string
   }
 
   export type SectionRatingWhereInput = {
     AND?: SectionRatingWhereInput | SectionRatingWhereInput[]
     OR?: SectionRatingWhereInput[]
     NOT?: SectionRatingWhereInput | SectionRatingWhereInput[]
-    id?: IntFilter<"SectionRating"> | number
+    id?: StringFilter<"SectionRating"> | string
     rate?: IntFilter<"SectionRating"> | number
-    userId?: IntFilter<"SectionRating"> | number
-    sectionId?: IntFilter<"SectionRating"> | number
+    userId?: StringFilter<"SectionRating"> | string
+    sectionId?: StringFilter<"SectionRating"> | string
     createdAt?: DateTimeFilter<"SectionRating"> | Date | string
     updatedAt?: DateTimeFilter<"SectionRating"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -15359,14 +15043,14 @@ export namespace Prisma {
   }
 
   export type SectionRatingWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
+    id?: string
     userId_sectionId?: SectionRatingUserIdSectionIdCompoundUniqueInput
     AND?: SectionRatingWhereInput | SectionRatingWhereInput[]
     OR?: SectionRatingWhereInput[]
     NOT?: SectionRatingWhereInput | SectionRatingWhereInput[]
     rate?: IntFilter<"SectionRating"> | number
-    userId?: IntFilter<"SectionRating"> | number
-    sectionId?: IntFilter<"SectionRating"> | number
+    userId?: StringFilter<"SectionRating"> | string
+    sectionId?: StringFilter<"SectionRating"> | string
     createdAt?: DateTimeFilter<"SectionRating"> | Date | string
     updatedAt?: DateTimeFilter<"SectionRating"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -15391,15 +15075,16 @@ export namespace Prisma {
     AND?: SectionRatingScalarWhereWithAggregatesInput | SectionRatingScalarWhereWithAggregatesInput[]
     OR?: SectionRatingScalarWhereWithAggregatesInput[]
     NOT?: SectionRatingScalarWhereWithAggregatesInput | SectionRatingScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"SectionRating"> | number
+    id?: StringWithAggregatesFilter<"SectionRating"> | string
     rate?: IntWithAggregatesFilter<"SectionRating"> | number
-    userId?: IntWithAggregatesFilter<"SectionRating"> | number
-    sectionId?: IntWithAggregatesFilter<"SectionRating"> | number
+    userId?: StringWithAggregatesFilter<"SectionRating"> | string
+    sectionId?: StringWithAggregatesFilter<"SectionRating"> | string
     createdAt?: DateTimeWithAggregatesFilter<"SectionRating"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"SectionRating"> | Date | string
   }
 
   export type UserCreateInput = {
+    id?: string
     name: string
     password: string
     email: string
@@ -15409,7 +15094,7 @@ export namespace Prisma {
   }
 
   export type UserUncheckedCreateInput = {
-    id?: number
+    id?: string
     name: string
     password: string
     email: string
@@ -15419,6 +15104,7 @@ export namespace Prisma {
   }
 
   export type UserUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
@@ -15428,7 +15114,7 @@ export namespace Prisma {
   }
 
   export type UserUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
@@ -15438,7 +15124,7 @@ export namespace Prisma {
   }
 
   export type UserCreateManyInput = {
-    id?: number
+    id?: string
     name: string
     password: string
     email: string
@@ -15446,6 +15132,7 @@ export namespace Prisma {
   }
 
   export type UserUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
@@ -15453,7 +15140,7 @@ export namespace Prisma {
   }
 
   export type UserUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
@@ -15461,6 +15148,7 @@ export namespace Prisma {
   }
 
   export type CourseCreateInput = {
+    id?: string
     poster: string
     title: string
     slug: string
@@ -15475,13 +15163,13 @@ export namespace Prisma {
   }
 
   export type CourseUncheckedCreateInput = {
-    id?: number
+    id?: string
     poster: string
     title: string
     slug: string
     description: string
-    categoryId: number
-    userId: number
+    categoryId: string
+    userId: string
     createdAt?: Date | string
     updatedAt?: Date | string
     sectionGroups?: SectionGroupUncheckedCreateNestedManyWithoutCourseInput
@@ -15490,6 +15178,7 @@ export namespace Prisma {
   }
 
   export type CourseUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     poster?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
@@ -15504,13 +15193,13 @@ export namespace Prisma {
   }
 
   export type CourseUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     poster?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    categoryId?: IntFieldUpdateOperationsInput | number
-    userId?: IntFieldUpdateOperationsInput | number
+    categoryId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sectionGroups?: SectionGroupUncheckedUpdateManyWithoutCourseNestedInput
@@ -15519,18 +15208,19 @@ export namespace Prisma {
   }
 
   export type CourseCreateManyInput = {
-    id?: number
+    id?: string
     poster: string
     title: string
     slug: string
     description: string
-    categoryId: number
-    userId: number
+    categoryId: string
+    userId: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type CourseUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
     poster?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
@@ -15540,18 +15230,19 @@ export namespace Prisma {
   }
 
   export type CourseUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     poster?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    categoryId?: IntFieldUpdateOperationsInput | number
-    userId?: IntFieldUpdateOperationsInput | number
+    categoryId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CategoryCreateInput = {
+    id?: string
     name: string
     description: string
     image: string
@@ -15559,7 +15250,7 @@ export namespace Prisma {
   }
 
   export type CategoryUncheckedCreateInput = {
-    id?: number
+    id?: string
     name: string
     description: string
     image: string
@@ -15567,6 +15258,7 @@ export namespace Prisma {
   }
 
   export type CategoryUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
@@ -15574,7 +15266,7 @@ export namespace Prisma {
   }
 
   export type CategoryUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
@@ -15582,26 +15274,28 @@ export namespace Prisma {
   }
 
   export type CategoryCreateManyInput = {
-    id?: number
+    id?: string
     name: string
     description: string
     image: string
   }
 
   export type CategoryUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
   }
 
   export type CategoryUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
   }
 
   export type SectionGroupCreateInput = {
+    id?: string
     title: string
     slug: string
     showSectionsOnly?: boolean
@@ -15611,16 +15305,17 @@ export namespace Prisma {
   }
 
   export type SectionGroupUncheckedCreateInput = {
-    id?: number
+    id?: string
     title: string
     slug: string
     showSectionsOnly?: boolean
     order: number
-    courseId: number
+    courseId: string
     sections?: SectionUncheckedCreateNestedManyWithoutSectionGroupInput
   }
 
   export type SectionGroupUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     showSectionsOnly?: BoolFieldUpdateOperationsInput | boolean
@@ -15630,25 +15325,26 @@ export namespace Prisma {
   }
 
   export type SectionGroupUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     showSectionsOnly?: BoolFieldUpdateOperationsInput | boolean
     order?: IntFieldUpdateOperationsInput | number
-    courseId?: IntFieldUpdateOperationsInput | number
+    courseId?: StringFieldUpdateOperationsInput | string
     sections?: SectionUncheckedUpdateManyWithoutSectionGroupNestedInput
   }
 
   export type SectionGroupCreateManyInput = {
-    id?: number
+    id?: string
     title: string
     slug: string
     showSectionsOnly?: boolean
     order: number
-    courseId: number
+    courseId: string
   }
 
   export type SectionGroupUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     showSectionsOnly?: BoolFieldUpdateOperationsInput | boolean
@@ -15656,15 +15352,16 @@ export namespace Prisma {
   }
 
   export type SectionGroupUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     showSectionsOnly?: BoolFieldUpdateOperationsInput | boolean
     order?: IntFieldUpdateOperationsInput | number
-    courseId?: IntFieldUpdateOperationsInput | number
+    courseId?: StringFieldUpdateOperationsInput | string
   }
 
   export type SectionCreateInput = {
+    id?: string
     title: string
     slug: string
     order: number
@@ -15674,16 +15371,17 @@ export namespace Prisma {
   }
 
   export type SectionUncheckedCreateInput = {
-    id?: number
+    id?: string
     title: string
     slug: string
     order: number
-    sectionGroupId: number
+    sectionGroupId: string
     lessons?: LessonUncheckedCreateNestedManyWithoutSectionInput
     sectionRates?: SectionRatingUncheckedCreateNestedManyWithoutSectionInput
   }
 
   export type SectionUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
@@ -15693,42 +15391,44 @@ export namespace Prisma {
   }
 
   export type SectionUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
-    sectionGroupId?: IntFieldUpdateOperationsInput | number
+    sectionGroupId?: StringFieldUpdateOperationsInput | string
     lessons?: LessonUncheckedUpdateManyWithoutSectionNestedInput
     sectionRates?: SectionRatingUncheckedUpdateManyWithoutSectionNestedInput
   }
 
   export type SectionCreateManyInput = {
-    id?: number
+    id?: string
     title: string
     slug: string
     order: number
-    sectionGroupId: number
+    sectionGroupId: string
   }
 
   export type SectionUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
   }
 
   export type SectionUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
-    sectionGroupId?: IntFieldUpdateOperationsInput | number
+    sectionGroupId?: StringFieldUpdateOperationsInput | string
   }
 
   export type LessonCreateInput = {
+    id?: string
     title: string
     content?: string | null
     order: number
-    quizId?: number | null
+    quizId?: string | null
     codeStyle?: string | null
     contentType: $Enums.ContentType
     videoSource?: $Enums.VideoSource | null
@@ -15737,23 +15437,24 @@ export namespace Prisma {
   }
 
   export type LessonUncheckedCreateInput = {
-    id?: number
+    id?: string
     title: string
     content?: string | null
     order: number
-    quizId?: number | null
+    quizId?: string | null
     codeStyle?: string | null
     contentType: $Enums.ContentType
     videoSource?: $Enums.VideoSource | null
-    sectionId: number
+    sectionId: string
     quiz?: QuizUncheckedCreateNestedOneWithoutLessonInput
   }
 
   export type LessonUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     content?: NullableStringFieldUpdateOperationsInput | string | null
     order?: IntFieldUpdateOperationsInput | number
-    quizId?: NullableIntFieldUpdateOperationsInput | number | null
+    quizId?: NullableStringFieldUpdateOperationsInput | string | null
     codeStyle?: NullableStringFieldUpdateOperationsInput | string | null
     contentType?: EnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType
     videoSource?: NullableEnumVideoSourceFieldUpdateOperationsInput | $Enums.VideoSource | null
@@ -15762,53 +15463,55 @@ export namespace Prisma {
   }
 
   export type LessonUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     content?: NullableStringFieldUpdateOperationsInput | string | null
     order?: IntFieldUpdateOperationsInput | number
-    quizId?: NullableIntFieldUpdateOperationsInput | number | null
+    quizId?: NullableStringFieldUpdateOperationsInput | string | null
     codeStyle?: NullableStringFieldUpdateOperationsInput | string | null
     contentType?: EnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType
     videoSource?: NullableEnumVideoSourceFieldUpdateOperationsInput | $Enums.VideoSource | null
-    sectionId?: IntFieldUpdateOperationsInput | number
+    sectionId?: StringFieldUpdateOperationsInput | string
     quiz?: QuizUncheckedUpdateOneWithoutLessonNestedInput
   }
 
   export type LessonCreateManyInput = {
-    id?: number
+    id?: string
     title: string
     content?: string | null
     order: number
-    quizId?: number | null
+    quizId?: string | null
     codeStyle?: string | null
     contentType: $Enums.ContentType
     videoSource?: $Enums.VideoSource | null
-    sectionId: number
+    sectionId: string
   }
 
   export type LessonUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     content?: NullableStringFieldUpdateOperationsInput | string | null
     order?: IntFieldUpdateOperationsInput | number
-    quizId?: NullableIntFieldUpdateOperationsInput | number | null
+    quizId?: NullableStringFieldUpdateOperationsInput | string | null
     codeStyle?: NullableStringFieldUpdateOperationsInput | string | null
     contentType?: EnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType
     videoSource?: NullableEnumVideoSourceFieldUpdateOperationsInput | $Enums.VideoSource | null
   }
 
   export type LessonUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     content?: NullableStringFieldUpdateOperationsInput | string | null
     order?: IntFieldUpdateOperationsInput | number
-    quizId?: NullableIntFieldUpdateOperationsInput | number | null
+    quizId?: NullableStringFieldUpdateOperationsInput | string | null
     codeStyle?: NullableStringFieldUpdateOperationsInput | string | null
     contentType?: EnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType
     videoSource?: NullableEnumVideoSourceFieldUpdateOperationsInput | $Enums.VideoSource | null
-    sectionId?: IntFieldUpdateOperationsInput | number
+    sectionId?: StringFieldUpdateOperationsInput | string
   }
 
   export type QuizCreateInput = {
+    id?: string
     question: string
     explanation?: string | null
     answers?: AnswerCreateNestedManyWithoutQuizInput
@@ -15816,14 +15519,15 @@ export namespace Prisma {
   }
 
   export type QuizUncheckedCreateInput = {
-    id?: number
+    id?: string
     question: string
     explanation?: string | null
-    lessonId: number
+    lessonId: string
     answers?: AnswerUncheckedCreateNestedManyWithoutQuizInput
   }
 
   export type QuizUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     question?: StringFieldUpdateOperationsInput | string
     explanation?: NullableStringFieldUpdateOperationsInput | string | null
     answers?: AnswerUpdateManyWithoutQuizNestedInput
@@ -15831,154 +15535,165 @@ export namespace Prisma {
   }
 
   export type QuizUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     question?: StringFieldUpdateOperationsInput | string
     explanation?: NullableStringFieldUpdateOperationsInput | string | null
-    lessonId?: IntFieldUpdateOperationsInput | number
+    lessonId?: StringFieldUpdateOperationsInput | string
     answers?: AnswerUncheckedUpdateManyWithoutQuizNestedInput
   }
 
   export type QuizCreateManyInput = {
-    id?: number
+    id?: string
     question: string
     explanation?: string | null
-    lessonId: number
+    lessonId: string
   }
 
   export type QuizUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
     question?: StringFieldUpdateOperationsInput | string
     explanation?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type QuizUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     question?: StringFieldUpdateOperationsInput | string
     explanation?: NullableStringFieldUpdateOperationsInput | string | null
-    lessonId?: IntFieldUpdateOperationsInput | number
+    lessonId?: StringFieldUpdateOperationsInput | string
   }
 
   export type AnswerCreateInput = {
+    id?: string
     content: string
     isCorrect: boolean
     quiz: QuizCreateNestedOneWithoutAnswersInput
   }
 
   export type AnswerUncheckedCreateInput = {
-    id?: number
-    quizId: number
+    id?: string
+    quizId: string
     content: string
     isCorrect: boolean
   }
 
   export type AnswerUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     isCorrect?: BoolFieldUpdateOperationsInput | boolean
     quiz?: QuizUpdateOneRequiredWithoutAnswersNestedInput
   }
 
   export type AnswerUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    quizId?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
+    quizId?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     isCorrect?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type AnswerCreateManyInput = {
-    id?: number
-    quizId: number
+    id?: string
+    quizId: string
     content: string
     isCorrect: boolean
   }
 
   export type AnswerUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     isCorrect?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type AnswerUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    quizId?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
+    quizId?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     isCorrect?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type PrerequisitCreateInput = {
+    id?: string
     content: string
     course: CourseCreateNestedOneWithoutPrerequisitesInput
   }
 
   export type PrerequisitUncheckedCreateInput = {
-    id?: number
+    id?: string
     content: string
-    courseId: number
+    courseId: string
   }
 
   export type PrerequisitUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     course?: CourseUpdateOneRequiredWithoutPrerequisitesNestedInput
   }
 
   export type PrerequisitUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
-    courseId?: IntFieldUpdateOperationsInput | number
+    courseId?: StringFieldUpdateOperationsInput | string
   }
 
   export type PrerequisitCreateManyInput = {
-    id?: number
+    id?: string
     content: string
-    courseId: number
+    courseId: string
   }
 
   export type PrerequisitUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
   }
 
   export type PrerequisitUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
-    courseId?: IntFieldUpdateOperationsInput | number
+    courseId?: StringFieldUpdateOperationsInput | string
   }
 
   export type SkillCreateInput = {
+    id?: string
     content: string
     course: CourseCreateNestedOneWithoutSkillsInput
   }
 
   export type SkillUncheckedCreateInput = {
-    id?: number
+    id?: string
     content: string
-    courseId: number
+    courseId: string
   }
 
   export type SkillUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     course?: CourseUpdateOneRequiredWithoutSkillsNestedInput
   }
 
   export type SkillUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
-    courseId?: IntFieldUpdateOperationsInput | number
+    courseId?: StringFieldUpdateOperationsInput | string
   }
 
   export type SkillCreateManyInput = {
-    id?: number
+    id?: string
     content: string
-    courseId: number
+    courseId: string
   }
 
   export type SkillUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
   }
 
   export type SkillUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
-    courseId?: IntFieldUpdateOperationsInput | number
+    courseId?: StringFieldUpdateOperationsInput | string
   }
 
   export type SectionRatingCreateInput = {
+    id?: string
     rate?: number
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -15987,15 +15702,16 @@ export namespace Prisma {
   }
 
   export type SectionRatingUncheckedCreateInput = {
-    id?: number
+    id?: string
     rate?: number
-    userId: number
-    sectionId: number
+    userId: string
+    sectionId: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type SectionRatingUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     rate?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -16004,47 +15720,37 @@ export namespace Prisma {
   }
 
   export type SectionRatingUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     rate?: IntFieldUpdateOperationsInput | number
-    userId?: IntFieldUpdateOperationsInput | number
-    sectionId?: IntFieldUpdateOperationsInput | number
+    userId?: StringFieldUpdateOperationsInput | string
+    sectionId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type SectionRatingCreateManyInput = {
-    id?: number
+    id?: string
     rate?: number
-    userId: number
-    sectionId: number
+    userId: string
+    sectionId: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type SectionRatingUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
     rate?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type SectionRatingUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     rate?: IntFieldUpdateOperationsInput | number
-    userId?: IntFieldUpdateOperationsInput | number
-    sectionId?: IntFieldUpdateOperationsInput | number
+    userId?: StringFieldUpdateOperationsInput | string
+    sectionId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type IntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -16097,10 +15803,6 @@ export namespace Prisma {
     role?: SortOrder
   }
 
-  export type UserAvgOrderByAggregateInput = {
-    id?: SortOrder
-  }
-
   export type UserMaxOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
@@ -16115,26 +15817,6 @@ export namespace Prisma {
     password?: SortOrder
     email?: SortOrder
     role?: SortOrder
-  }
-
-  export type UserSumOrderByAggregateInput = {
-    id?: SortOrder
-  }
-
-  export type IntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -16228,12 +15910,6 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
-  export type CourseAvgOrderByAggregateInput = {
-    id?: SortOrder
-    categoryId?: SortOrder
-    userId?: SortOrder
-  }
-
   export type CourseMaxOrderByAggregateInput = {
     id?: SortOrder
     poster?: SortOrder
@@ -16258,12 +15934,6 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
-  export type CourseSumOrderByAggregateInput = {
-    id?: SortOrder
-    categoryId?: SortOrder
-    userId?: SortOrder
-  }
-
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -16285,10 +15955,6 @@ export namespace Prisma {
     image?: SortOrder
   }
 
-  export type CategoryAvgOrderByAggregateInput = {
-    id?: SortOrder
-  }
-
   export type CategoryMaxOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
@@ -16303,13 +15969,20 @@ export namespace Prisma {
     image?: SortOrder
   }
 
-  export type CategorySumOrderByAggregateInput = {
-    id?: SortOrder
-  }
-
   export type BoolFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
   }
 
   export type SectionListRelationFilter = {
@@ -16337,9 +16010,7 @@ export namespace Prisma {
   }
 
   export type SectionGroupAvgOrderByAggregateInput = {
-    id?: SortOrder
     order?: SortOrder
-    courseId?: SortOrder
   }
 
   export type SectionGroupMaxOrderByAggregateInput = {
@@ -16361,9 +16032,7 @@ export namespace Prisma {
   }
 
   export type SectionGroupSumOrderByAggregateInput = {
-    id?: SortOrder
     order?: SortOrder
-    courseId?: SortOrder
   }
 
   export type BoolWithAggregatesFilter<$PrismaModel = never> = {
@@ -16372,6 +16041,22 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedBoolFilter<$PrismaModel>
     _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type LessonListRelationFilter = {
@@ -16398,9 +16083,7 @@ export namespace Prisma {
   }
 
   export type SectionAvgOrderByAggregateInput = {
-    id?: SortOrder
     order?: SortOrder
-    sectionGroupId?: SortOrder
   }
 
   export type SectionMaxOrderByAggregateInput = {
@@ -16420,9 +16103,7 @@ export namespace Prisma {
   }
 
   export type SectionSumOrderByAggregateInput = {
-    id?: SortOrder
     order?: SortOrder
-    sectionGroupId?: SortOrder
   }
 
   export type StringNullableFilter<$PrismaModel = never> = {
@@ -16438,17 +16119,6 @@ export namespace Prisma {
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     mode?: QueryMode
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
-  export type IntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
   export type EnumContentTypeFilter<$PrismaModel = never> = {
@@ -16493,10 +16163,7 @@ export namespace Prisma {
   }
 
   export type LessonAvgOrderByAggregateInput = {
-    id?: SortOrder
     order?: SortOrder
-    quizId?: SortOrder
-    sectionId?: SortOrder
   }
 
   export type LessonMaxOrderByAggregateInput = {
@@ -16524,10 +16191,7 @@ export namespace Prisma {
   }
 
   export type LessonSumOrderByAggregateInput = {
-    id?: SortOrder
     order?: SortOrder
-    quizId?: SortOrder
-    sectionId?: SortOrder
   }
 
   export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -16546,22 +16210,6 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
-  }
-
-  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedIntNullableFilter<$PrismaModel>
-    _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
   export type EnumContentTypeWithAggregatesFilter<$PrismaModel = never> = {
@@ -16606,11 +16254,6 @@ export namespace Prisma {
     lessonId?: SortOrder
   }
 
-  export type QuizAvgOrderByAggregateInput = {
-    id?: SortOrder
-    lessonId?: SortOrder
-  }
-
   export type QuizMaxOrderByAggregateInput = {
     id?: SortOrder
     question?: SortOrder
@@ -16625,11 +16268,6 @@ export namespace Prisma {
     lessonId?: SortOrder
   }
 
-  export type QuizSumOrderByAggregateInput = {
-    id?: SortOrder
-    lessonId?: SortOrder
-  }
-
   export type QuizScalarRelationFilter = {
     is?: QuizWhereInput
     isNot?: QuizWhereInput
@@ -16640,11 +16278,6 @@ export namespace Prisma {
     quizId?: SortOrder
     content?: SortOrder
     isCorrect?: SortOrder
-  }
-
-  export type AnswerAvgOrderByAggregateInput = {
-    id?: SortOrder
-    quizId?: SortOrder
   }
 
   export type AnswerMaxOrderByAggregateInput = {
@@ -16661,19 +16294,9 @@ export namespace Prisma {
     isCorrect?: SortOrder
   }
 
-  export type AnswerSumOrderByAggregateInput = {
-    id?: SortOrder
-    quizId?: SortOrder
-  }
-
   export type PrerequisitCountOrderByAggregateInput = {
     id?: SortOrder
     content?: SortOrder
-    courseId?: SortOrder
-  }
-
-  export type PrerequisitAvgOrderByAggregateInput = {
-    id?: SortOrder
     courseId?: SortOrder
   }
 
@@ -16689,19 +16312,9 @@ export namespace Prisma {
     courseId?: SortOrder
   }
 
-  export type PrerequisitSumOrderByAggregateInput = {
-    id?: SortOrder
-    courseId?: SortOrder
-  }
-
   export type SkillCountOrderByAggregateInput = {
     id?: SortOrder
     content?: SortOrder
-    courseId?: SortOrder
-  }
-
-  export type SkillAvgOrderByAggregateInput = {
-    id?: SortOrder
     courseId?: SortOrder
   }
 
@@ -16717,14 +16330,9 @@ export namespace Prisma {
     courseId?: SortOrder
   }
 
-  export type SkillSumOrderByAggregateInput = {
-    id?: SortOrder
-    courseId?: SortOrder
-  }
-
   export type SectionRatingUserIdSectionIdCompoundUniqueInput = {
-    userId: number
-    sectionId: number
+    userId: string
+    sectionId: string
   }
 
   export type SectionRatingCountOrderByAggregateInput = {
@@ -16737,10 +16345,7 @@ export namespace Prisma {
   }
 
   export type SectionRatingAvgOrderByAggregateInput = {
-    id?: SortOrder
     rate?: SortOrder
-    userId?: SortOrder
-    sectionId?: SortOrder
   }
 
   export type SectionRatingMaxOrderByAggregateInput = {
@@ -16762,10 +16367,7 @@ export namespace Prisma {
   }
 
   export type SectionRatingSumOrderByAggregateInput = {
-    id?: SortOrder
     rate?: SortOrder
-    userId?: SortOrder
-    sectionId?: SortOrder
   }
 
   export type SectionRatingCreateNestedManyWithoutUserInput = {
@@ -16830,14 +16432,6 @@ export namespace Prisma {
     update?: CourseUpdateWithWhereUniqueWithoutUserInput | CourseUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: CourseUpdateManyWithWhereWithoutUserInput | CourseUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: CourseScalarWhereInput | CourseScalarWhereInput[]
-  }
-
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
   }
 
   export type SectionRatingUncheckedUpdateManyWithoutUserNestedInput = {
@@ -17092,6 +16686,14 @@ export namespace Prisma {
     set?: boolean
   }
 
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
   export type SectionUpdateManyWithoutSectionGroupNestedInput = {
     create?: XOR<SectionCreateWithoutSectionGroupInput, SectionUncheckedCreateWithoutSectionGroupInput> | SectionCreateWithoutSectionGroupInput[] | SectionUncheckedCreateWithoutSectionGroupInput[]
     connectOrCreate?: SectionCreateOrConnectWithoutSectionGroupInput | SectionCreateOrConnectWithoutSectionGroupInput[]
@@ -17246,14 +16848,6 @@ export namespace Prisma {
 
   export type NullableStringFieldUpdateOperationsInput = {
     set?: string | null
-  }
-
-  export type NullableIntFieldUpdateOperationsInput = {
-    set?: number | null
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
   }
 
   export type EnumContentTypeFieldUpdateOperationsInput = {
@@ -17418,17 +17012,6 @@ export namespace Prisma {
     update?: XOR<XOR<SectionUpdateToOneWithWhereWithoutSectionRatesInput, SectionUpdateWithoutSectionRatesInput>, SectionUncheckedUpdateWithoutSectionRatesInput>
   }
 
-  export type NestedIntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
-  }
-
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -17450,33 +17033,6 @@ export namespace Prisma {
     not?: NestedEnumRoleFilter<$PrismaModel> | $Enums.Role
   }
 
-  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
-  }
-
-  export type NestedFloatFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatFilter<$PrismaModel> | number
-  }
-
   export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -17492,6 +17048,17 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedStringFilter<$PrismaModel>
     _max?: NestedStringFilter<$PrismaModel>
+  }
+
+  export type NestedIntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
   }
 
   export type NestedEnumRoleWithAggregatesFilter<$PrismaModel = never> = {
@@ -17542,6 +17109,33 @@ export namespace Prisma {
     _max?: NestedBoolFilter<$PrismaModel>
   }
 
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
   export type NestedStringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -17554,17 +17148,6 @@ export namespace Prisma {
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
-  export type NestedIntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
   export type NestedEnumContentTypeFilter<$PrismaModel = never> = {
@@ -17598,7 +17181,7 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
-  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
     notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
@@ -17606,23 +17189,7 @@ export namespace Prisma {
     lte?: number | IntFieldRefInput<$PrismaModel>
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedIntNullableFilter<$PrismaModel>
-    _max?: NestedIntNullableFilter<$PrismaModel>
-  }
-
-  export type NestedFloatNullableFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
   export type NestedEnumContentTypeWithAggregatesFilter<$PrismaModel = never> = {
@@ -17646,6 +17213,7 @@ export namespace Prisma {
   }
 
   export type SectionRatingCreateWithoutUserInput = {
+    id?: string
     rate?: number
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -17653,9 +17221,9 @@ export namespace Prisma {
   }
 
   export type SectionRatingUncheckedCreateWithoutUserInput = {
-    id?: number
+    id?: string
     rate?: number
-    sectionId: number
+    sectionId: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -17671,6 +17239,7 @@ export namespace Prisma {
   }
 
   export type CourseCreateWithoutUserInput = {
+    id?: string
     poster: string
     title: string
     slug: string
@@ -17684,12 +17253,12 @@ export namespace Prisma {
   }
 
   export type CourseUncheckedCreateWithoutUserInput = {
-    id?: number
+    id?: string
     poster: string
     title: string
     slug: string
     description: string
-    categoryId: number
+    categoryId: string
     createdAt?: Date | string
     updatedAt?: Date | string
     sectionGroups?: SectionGroupUncheckedCreateNestedManyWithoutCourseInput
@@ -17727,10 +17296,10 @@ export namespace Prisma {
     AND?: SectionRatingScalarWhereInput | SectionRatingScalarWhereInput[]
     OR?: SectionRatingScalarWhereInput[]
     NOT?: SectionRatingScalarWhereInput | SectionRatingScalarWhereInput[]
-    id?: IntFilter<"SectionRating"> | number
+    id?: StringFilter<"SectionRating"> | string
     rate?: IntFilter<"SectionRating"> | number
-    userId?: IntFilter<"SectionRating"> | number
-    sectionId?: IntFilter<"SectionRating"> | number
+    userId?: StringFilter<"SectionRating"> | string
+    sectionId?: StringFilter<"SectionRating"> | string
     createdAt?: DateTimeFilter<"SectionRating"> | Date | string
     updatedAt?: DateTimeFilter<"SectionRating"> | Date | string
   }
@@ -17755,18 +17324,19 @@ export namespace Prisma {
     AND?: CourseScalarWhereInput | CourseScalarWhereInput[]
     OR?: CourseScalarWhereInput[]
     NOT?: CourseScalarWhereInput | CourseScalarWhereInput[]
-    id?: IntFilter<"Course"> | number
+    id?: StringFilter<"Course"> | string
     poster?: StringFilter<"Course"> | string
     title?: StringFilter<"Course"> | string
     slug?: StringFilter<"Course"> | string
     description?: StringFilter<"Course"> | string
-    categoryId?: IntFilter<"Course"> | number
-    userId?: IntFilter<"Course"> | number
+    categoryId?: StringFilter<"Course"> | string
+    userId?: StringFilter<"Course"> | string
     createdAt?: DateTimeFilter<"Course"> | Date | string
     updatedAt?: DateTimeFilter<"Course"> | Date | string
   }
 
   export type SectionGroupCreateWithoutCourseInput = {
+    id?: string
     title: string
     slug: string
     showSectionsOnly?: boolean
@@ -17775,7 +17345,7 @@ export namespace Prisma {
   }
 
   export type SectionGroupUncheckedCreateWithoutCourseInput = {
-    id?: number
+    id?: string
     title: string
     slug: string
     showSectionsOnly?: boolean
@@ -17794,11 +17364,12 @@ export namespace Prisma {
   }
 
   export type PrerequisitCreateWithoutCourseInput = {
+    id?: string
     content: string
   }
 
   export type PrerequisitUncheckedCreateWithoutCourseInput = {
-    id?: number
+    id?: string
     content: string
   }
 
@@ -17813,11 +17384,12 @@ export namespace Prisma {
   }
 
   export type SkillCreateWithoutCourseInput = {
+    id?: string
     content: string
   }
 
   export type SkillUncheckedCreateWithoutCourseInput = {
-    id?: number
+    id?: string
     content: string
   }
 
@@ -17832,6 +17404,7 @@ export namespace Prisma {
   }
 
   export type UserCreateWithoutCoursesInput = {
+    id?: string
     name: string
     password: string
     email: string
@@ -17840,7 +17413,7 @@ export namespace Prisma {
   }
 
   export type UserUncheckedCreateWithoutCoursesInput = {
-    id?: number
+    id?: string
     name: string
     password: string
     email: string
@@ -17854,13 +17427,14 @@ export namespace Prisma {
   }
 
   export type CategoryCreateWithoutCoursesInput = {
+    id?: string
     name: string
     description: string
     image: string
   }
 
   export type CategoryUncheckedCreateWithoutCoursesInput = {
-    id?: number
+    id?: string
     name: string
     description: string
     image: string
@@ -17891,12 +17465,12 @@ export namespace Prisma {
     AND?: SectionGroupScalarWhereInput | SectionGroupScalarWhereInput[]
     OR?: SectionGroupScalarWhereInput[]
     NOT?: SectionGroupScalarWhereInput | SectionGroupScalarWhereInput[]
-    id?: IntFilter<"SectionGroup"> | number
+    id?: StringFilter<"SectionGroup"> | string
     title?: StringFilter<"SectionGroup"> | string
     slug?: StringFilter<"SectionGroup"> | string
     showSectionsOnly?: BoolFilter<"SectionGroup"> | boolean
     order?: IntFilter<"SectionGroup"> | number
-    courseId?: IntFilter<"SectionGroup"> | number
+    courseId?: StringFilter<"SectionGroup"> | string
   }
 
   export type PrerequisitUpsertWithWhereUniqueWithoutCourseInput = {
@@ -17919,9 +17493,9 @@ export namespace Prisma {
     AND?: PrerequisitScalarWhereInput | PrerequisitScalarWhereInput[]
     OR?: PrerequisitScalarWhereInput[]
     NOT?: PrerequisitScalarWhereInput | PrerequisitScalarWhereInput[]
-    id?: IntFilter<"Prerequisit"> | number
+    id?: StringFilter<"Prerequisit"> | string
     content?: StringFilter<"Prerequisit"> | string
-    courseId?: IntFilter<"Prerequisit"> | number
+    courseId?: StringFilter<"Prerequisit"> | string
   }
 
   export type SkillUpsertWithWhereUniqueWithoutCourseInput = {
@@ -17944,9 +17518,9 @@ export namespace Prisma {
     AND?: SkillScalarWhereInput | SkillScalarWhereInput[]
     OR?: SkillScalarWhereInput[]
     NOT?: SkillScalarWhereInput | SkillScalarWhereInput[]
-    id?: IntFilter<"Skill"> | number
+    id?: StringFilter<"Skill"> | string
     content?: StringFilter<"Skill"> | string
-    courseId?: IntFilter<"Skill"> | number
+    courseId?: StringFilter<"Skill"> | string
   }
 
   export type UserUpsertWithoutCoursesInput = {
@@ -17961,6 +17535,7 @@ export namespace Prisma {
   }
 
   export type UserUpdateWithoutCoursesInput = {
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
@@ -17969,7 +17544,7 @@ export namespace Prisma {
   }
 
   export type UserUncheckedUpdateWithoutCoursesInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
@@ -17989,19 +17564,21 @@ export namespace Prisma {
   }
 
   export type CategoryUpdateWithoutCoursesInput = {
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
   }
 
   export type CategoryUncheckedUpdateWithoutCoursesInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
   }
 
   export type CourseCreateWithoutCategoryInput = {
+    id?: string
     poster: string
     title: string
     slug: string
@@ -18015,12 +17592,12 @@ export namespace Prisma {
   }
 
   export type CourseUncheckedCreateWithoutCategoryInput = {
-    id?: number
+    id?: string
     poster: string
     title: string
     slug: string
     description: string
-    userId: number
+    userId: string
     createdAt?: Date | string
     updatedAt?: Date | string
     sectionGroups?: SectionGroupUncheckedCreateNestedManyWithoutCourseInput
@@ -18055,6 +17632,7 @@ export namespace Prisma {
   }
 
   export type SectionCreateWithoutSectionGroupInput = {
+    id?: string
     title: string
     slug: string
     order: number
@@ -18063,7 +17641,7 @@ export namespace Prisma {
   }
 
   export type SectionUncheckedCreateWithoutSectionGroupInput = {
-    id?: number
+    id?: string
     title: string
     slug: string
     order: number
@@ -18082,6 +17660,7 @@ export namespace Prisma {
   }
 
   export type CourseCreateWithoutSectionGroupsInput = {
+    id?: string
     poster: string
     title: string
     slug: string
@@ -18095,13 +17674,13 @@ export namespace Prisma {
   }
 
   export type CourseUncheckedCreateWithoutSectionGroupsInput = {
-    id?: number
+    id?: string
     poster: string
     title: string
     slug: string
     description: string
-    categoryId: number
-    userId: number
+    categoryId: string
+    userId: string
     createdAt?: Date | string
     updatedAt?: Date | string
     prerequisites?: PrerequisitUncheckedCreateNestedManyWithoutCourseInput
@@ -18133,11 +17712,11 @@ export namespace Prisma {
     AND?: SectionScalarWhereInput | SectionScalarWhereInput[]
     OR?: SectionScalarWhereInput[]
     NOT?: SectionScalarWhereInput | SectionScalarWhereInput[]
-    id?: IntFilter<"Section"> | number
+    id?: StringFilter<"Section"> | string
     title?: StringFilter<"Section"> | string
     slug?: StringFilter<"Section"> | string
     order?: IntFilter<"Section"> | number
-    sectionGroupId?: IntFilter<"Section"> | number
+    sectionGroupId?: StringFilter<"Section"> | string
   }
 
   export type CourseUpsertWithoutSectionGroupsInput = {
@@ -18152,6 +17731,7 @@ export namespace Prisma {
   }
 
   export type CourseUpdateWithoutSectionGroupsInput = {
+    id?: StringFieldUpdateOperationsInput | string
     poster?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
@@ -18165,13 +17745,13 @@ export namespace Prisma {
   }
 
   export type CourseUncheckedUpdateWithoutSectionGroupsInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     poster?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    categoryId?: IntFieldUpdateOperationsInput | number
-    userId?: IntFieldUpdateOperationsInput | number
+    categoryId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     prerequisites?: PrerequisitUncheckedUpdateManyWithoutCourseNestedInput
@@ -18179,10 +17759,11 @@ export namespace Prisma {
   }
 
   export type LessonCreateWithoutSectionInput = {
+    id?: string
     title: string
     content?: string | null
     order: number
-    quizId?: number | null
+    quizId?: string | null
     codeStyle?: string | null
     contentType: $Enums.ContentType
     videoSource?: $Enums.VideoSource | null
@@ -18190,11 +17771,11 @@ export namespace Prisma {
   }
 
   export type LessonUncheckedCreateWithoutSectionInput = {
-    id?: number
+    id?: string
     title: string
     content?: string | null
     order: number
-    quizId?: number | null
+    quizId?: string | null
     codeStyle?: string | null
     contentType: $Enums.ContentType
     videoSource?: $Enums.VideoSource | null
@@ -18212,6 +17793,7 @@ export namespace Prisma {
   }
 
   export type SectionRatingCreateWithoutSectionInput = {
+    id?: string
     rate?: number
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -18219,9 +17801,9 @@ export namespace Prisma {
   }
 
   export type SectionRatingUncheckedCreateWithoutSectionInput = {
-    id?: number
+    id?: string
     rate?: number
-    userId: number
+    userId: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -18237,6 +17819,7 @@ export namespace Prisma {
   }
 
   export type SectionGroupCreateWithoutSectionsInput = {
+    id?: string
     title: string
     slug: string
     showSectionsOnly?: boolean
@@ -18245,12 +17828,12 @@ export namespace Prisma {
   }
 
   export type SectionGroupUncheckedCreateWithoutSectionsInput = {
-    id?: number
+    id?: string
     title: string
     slug: string
     showSectionsOnly?: boolean
     order: number
-    courseId: number
+    courseId: string
   }
 
   export type SectionGroupCreateOrConnectWithoutSectionsInput = {
@@ -18278,15 +17861,15 @@ export namespace Prisma {
     AND?: LessonScalarWhereInput | LessonScalarWhereInput[]
     OR?: LessonScalarWhereInput[]
     NOT?: LessonScalarWhereInput | LessonScalarWhereInput[]
-    id?: IntFilter<"Lesson"> | number
+    id?: StringFilter<"Lesson"> | string
     title?: StringFilter<"Lesson"> | string
     content?: StringNullableFilter<"Lesson"> | string | null
     order?: IntFilter<"Lesson"> | number
-    quizId?: IntNullableFilter<"Lesson"> | number | null
+    quizId?: StringNullableFilter<"Lesson"> | string | null
     codeStyle?: StringNullableFilter<"Lesson"> | string | null
     contentType?: EnumContentTypeFilter<"Lesson"> | $Enums.ContentType
     videoSource?: EnumVideoSourceNullableFilter<"Lesson"> | $Enums.VideoSource | null
-    sectionId?: IntFilter<"Lesson"> | number
+    sectionId?: StringFilter<"Lesson"> | string
   }
 
   export type SectionRatingUpsertWithWhereUniqueWithoutSectionInput = {
@@ -18317,6 +17900,7 @@ export namespace Prisma {
   }
 
   export type SectionGroupUpdateWithoutSectionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     showSectionsOnly?: BoolFieldUpdateOperationsInput | boolean
@@ -18325,22 +17909,23 @@ export namespace Prisma {
   }
 
   export type SectionGroupUncheckedUpdateWithoutSectionsInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     showSectionsOnly?: BoolFieldUpdateOperationsInput | boolean
     order?: IntFieldUpdateOperationsInput | number
-    courseId?: IntFieldUpdateOperationsInput | number
+    courseId?: StringFieldUpdateOperationsInput | string
   }
 
   export type QuizCreateWithoutLessonInput = {
+    id?: string
     question: string
     explanation?: string | null
     answers?: AnswerCreateNestedManyWithoutQuizInput
   }
 
   export type QuizUncheckedCreateWithoutLessonInput = {
-    id?: number
+    id?: string
     question: string
     explanation?: string | null
     answers?: AnswerUncheckedCreateNestedManyWithoutQuizInput
@@ -18352,6 +17937,7 @@ export namespace Prisma {
   }
 
   export type SectionCreateWithoutLessonsInput = {
+    id?: string
     title: string
     slug: string
     order: number
@@ -18360,11 +17946,11 @@ export namespace Prisma {
   }
 
   export type SectionUncheckedCreateWithoutLessonsInput = {
-    id?: number
+    id?: string
     title: string
     slug: string
     order: number
-    sectionGroupId: number
+    sectionGroupId: string
     sectionRates?: SectionRatingUncheckedCreateNestedManyWithoutSectionInput
   }
 
@@ -18385,13 +17971,14 @@ export namespace Prisma {
   }
 
   export type QuizUpdateWithoutLessonInput = {
+    id?: StringFieldUpdateOperationsInput | string
     question?: StringFieldUpdateOperationsInput | string
     explanation?: NullableStringFieldUpdateOperationsInput | string | null
     answers?: AnswerUpdateManyWithoutQuizNestedInput
   }
 
   export type QuizUncheckedUpdateWithoutLessonInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     question?: StringFieldUpdateOperationsInput | string
     explanation?: NullableStringFieldUpdateOperationsInput | string | null
     answers?: AnswerUncheckedUpdateManyWithoutQuizNestedInput
@@ -18409,6 +17996,7 @@ export namespace Prisma {
   }
 
   export type SectionUpdateWithoutLessonsInput = {
+    id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
@@ -18417,21 +18005,22 @@ export namespace Prisma {
   }
 
   export type SectionUncheckedUpdateWithoutLessonsInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
-    sectionGroupId?: IntFieldUpdateOperationsInput | number
+    sectionGroupId?: StringFieldUpdateOperationsInput | string
     sectionRates?: SectionRatingUncheckedUpdateManyWithoutSectionNestedInput
   }
 
   export type AnswerCreateWithoutQuizInput = {
+    id?: string
     content: string
     isCorrect: boolean
   }
 
   export type AnswerUncheckedCreateWithoutQuizInput = {
-    id?: number
+    id?: string
     content: string
     isCorrect: boolean
   }
@@ -18447,10 +18036,11 @@ export namespace Prisma {
   }
 
   export type LessonCreateWithoutQuizInput = {
+    id?: string
     title: string
     content?: string | null
     order: number
-    quizId?: number | null
+    quizId?: string | null
     codeStyle?: string | null
     contentType: $Enums.ContentType
     videoSource?: $Enums.VideoSource | null
@@ -18458,15 +18048,15 @@ export namespace Prisma {
   }
 
   export type LessonUncheckedCreateWithoutQuizInput = {
-    id?: number
+    id?: string
     title: string
     content?: string | null
     order: number
-    quizId?: number | null
+    quizId?: string | null
     codeStyle?: string | null
     contentType: $Enums.ContentType
     videoSource?: $Enums.VideoSource | null
-    sectionId: number
+    sectionId: string
   }
 
   export type LessonCreateOrConnectWithoutQuizInput = {
@@ -18494,8 +18084,8 @@ export namespace Prisma {
     AND?: AnswerScalarWhereInput | AnswerScalarWhereInput[]
     OR?: AnswerScalarWhereInput[]
     NOT?: AnswerScalarWhereInput | AnswerScalarWhereInput[]
-    id?: IntFilter<"Answer"> | number
-    quizId?: IntFilter<"Answer"> | number
+    id?: StringFilter<"Answer"> | string
+    quizId?: StringFilter<"Answer"> | string
     content?: StringFilter<"Answer"> | string
     isCorrect?: BoolFilter<"Answer"> | boolean
   }
@@ -18512,10 +18102,11 @@ export namespace Prisma {
   }
 
   export type LessonUpdateWithoutQuizInput = {
+    id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     content?: NullableStringFieldUpdateOperationsInput | string | null
     order?: IntFieldUpdateOperationsInput | number
-    quizId?: NullableIntFieldUpdateOperationsInput | number | null
+    quizId?: NullableStringFieldUpdateOperationsInput | string | null
     codeStyle?: NullableStringFieldUpdateOperationsInput | string | null
     contentType?: EnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType
     videoSource?: NullableEnumVideoSourceFieldUpdateOperationsInput | $Enums.VideoSource | null
@@ -18523,28 +18114,29 @@ export namespace Prisma {
   }
 
   export type LessonUncheckedUpdateWithoutQuizInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     content?: NullableStringFieldUpdateOperationsInput | string | null
     order?: IntFieldUpdateOperationsInput | number
-    quizId?: NullableIntFieldUpdateOperationsInput | number | null
+    quizId?: NullableStringFieldUpdateOperationsInput | string | null
     codeStyle?: NullableStringFieldUpdateOperationsInput | string | null
     contentType?: EnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType
     videoSource?: NullableEnumVideoSourceFieldUpdateOperationsInput | $Enums.VideoSource | null
-    sectionId?: IntFieldUpdateOperationsInput | number
+    sectionId?: StringFieldUpdateOperationsInput | string
   }
 
   export type QuizCreateWithoutAnswersInput = {
+    id?: string
     question: string
     explanation?: string | null
     lesson: LessonCreateNestedOneWithoutQuizInput
   }
 
   export type QuizUncheckedCreateWithoutAnswersInput = {
-    id?: number
+    id?: string
     question: string
     explanation?: string | null
-    lessonId: number
+    lessonId: string
   }
 
   export type QuizCreateOrConnectWithoutAnswersInput = {
@@ -18564,19 +18156,21 @@ export namespace Prisma {
   }
 
   export type QuizUpdateWithoutAnswersInput = {
+    id?: StringFieldUpdateOperationsInput | string
     question?: StringFieldUpdateOperationsInput | string
     explanation?: NullableStringFieldUpdateOperationsInput | string | null
     lesson?: LessonUpdateOneRequiredWithoutQuizNestedInput
   }
 
   export type QuizUncheckedUpdateWithoutAnswersInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     question?: StringFieldUpdateOperationsInput | string
     explanation?: NullableStringFieldUpdateOperationsInput | string | null
-    lessonId?: IntFieldUpdateOperationsInput | number
+    lessonId?: StringFieldUpdateOperationsInput | string
   }
 
   export type CourseCreateWithoutPrerequisitesInput = {
+    id?: string
     poster: string
     title: string
     slug: string
@@ -18590,13 +18184,13 @@ export namespace Prisma {
   }
 
   export type CourseUncheckedCreateWithoutPrerequisitesInput = {
-    id?: number
+    id?: string
     poster: string
     title: string
     slug: string
     description: string
-    categoryId: number
-    userId: number
+    categoryId: string
+    userId: string
     createdAt?: Date | string
     updatedAt?: Date | string
     sectionGroups?: SectionGroupUncheckedCreateNestedManyWithoutCourseInput
@@ -18620,6 +18214,7 @@ export namespace Prisma {
   }
 
   export type CourseUpdateWithoutPrerequisitesInput = {
+    id?: StringFieldUpdateOperationsInput | string
     poster?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
@@ -18633,13 +18228,13 @@ export namespace Prisma {
   }
 
   export type CourseUncheckedUpdateWithoutPrerequisitesInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     poster?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    categoryId?: IntFieldUpdateOperationsInput | number
-    userId?: IntFieldUpdateOperationsInput | number
+    categoryId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sectionGroups?: SectionGroupUncheckedUpdateManyWithoutCourseNestedInput
@@ -18647,6 +18242,7 @@ export namespace Prisma {
   }
 
   export type CourseCreateWithoutSkillsInput = {
+    id?: string
     poster: string
     title: string
     slug: string
@@ -18660,13 +18256,13 @@ export namespace Prisma {
   }
 
   export type CourseUncheckedCreateWithoutSkillsInput = {
-    id?: number
+    id?: string
     poster: string
     title: string
     slug: string
     description: string
-    categoryId: number
-    userId: number
+    categoryId: string
+    userId: string
     createdAt?: Date | string
     updatedAt?: Date | string
     sectionGroups?: SectionGroupUncheckedCreateNestedManyWithoutCourseInput
@@ -18690,6 +18286,7 @@ export namespace Prisma {
   }
 
   export type CourseUpdateWithoutSkillsInput = {
+    id?: StringFieldUpdateOperationsInput | string
     poster?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
@@ -18703,13 +18300,13 @@ export namespace Prisma {
   }
 
   export type CourseUncheckedUpdateWithoutSkillsInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     poster?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    categoryId?: IntFieldUpdateOperationsInput | number
-    userId?: IntFieldUpdateOperationsInput | number
+    categoryId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sectionGroups?: SectionGroupUncheckedUpdateManyWithoutCourseNestedInput
@@ -18717,6 +18314,7 @@ export namespace Prisma {
   }
 
   export type UserCreateWithoutSectionRatingsInput = {
+    id?: string
     name: string
     password: string
     email: string
@@ -18725,7 +18323,7 @@ export namespace Prisma {
   }
 
   export type UserUncheckedCreateWithoutSectionRatingsInput = {
-    id?: number
+    id?: string
     name: string
     password: string
     email: string
@@ -18739,6 +18337,7 @@ export namespace Prisma {
   }
 
   export type SectionCreateWithoutSectionRatesInput = {
+    id?: string
     title: string
     slug: string
     order: number
@@ -18747,11 +18346,11 @@ export namespace Prisma {
   }
 
   export type SectionUncheckedCreateWithoutSectionRatesInput = {
-    id?: number
+    id?: string
     title: string
     slug: string
     order: number
-    sectionGroupId: number
+    sectionGroupId: string
     lessons?: LessonUncheckedCreateNestedManyWithoutSectionInput
   }
 
@@ -18772,6 +18371,7 @@ export namespace Prisma {
   }
 
   export type UserUpdateWithoutSectionRatingsInput = {
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
@@ -18780,7 +18380,7 @@ export namespace Prisma {
   }
 
   export type UserUncheckedUpdateWithoutSectionRatingsInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
@@ -18800,6 +18400,7 @@ export namespace Prisma {
   }
 
   export type SectionUpdateWithoutSectionRatesInput = {
+    id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
@@ -18808,34 +18409,35 @@ export namespace Prisma {
   }
 
   export type SectionUncheckedUpdateWithoutSectionRatesInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
-    sectionGroupId?: IntFieldUpdateOperationsInput | number
+    sectionGroupId?: StringFieldUpdateOperationsInput | string
     lessons?: LessonUncheckedUpdateManyWithoutSectionNestedInput
   }
 
   export type SectionRatingCreateManyUserInput = {
-    id?: number
+    id?: string
     rate?: number
-    sectionId: number
+    sectionId: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type CourseCreateManyUserInput = {
-    id?: number
+    id?: string
     poster: string
     title: string
     slug: string
     description: string
-    categoryId: number
+    categoryId: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type SectionRatingUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
     rate?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -18843,22 +18445,23 @@ export namespace Prisma {
   }
 
   export type SectionRatingUncheckedUpdateWithoutUserInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     rate?: IntFieldUpdateOperationsInput | number
-    sectionId?: IntFieldUpdateOperationsInput | number
+    sectionId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type SectionRatingUncheckedUpdateManyWithoutUserInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     rate?: IntFieldUpdateOperationsInput | number
-    sectionId?: IntFieldUpdateOperationsInput | number
+    sectionId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CourseUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
     poster?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
@@ -18872,12 +18475,12 @@ export namespace Prisma {
   }
 
   export type CourseUncheckedUpdateWithoutUserInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     poster?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    categoryId?: IntFieldUpdateOperationsInput | number
+    categoryId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sectionGroups?: SectionGroupUncheckedUpdateManyWithoutCourseNestedInput
@@ -18886,18 +18489,18 @@ export namespace Prisma {
   }
 
   export type CourseUncheckedUpdateManyWithoutUserInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     poster?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    categoryId?: IntFieldUpdateOperationsInput | number
+    categoryId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type SectionGroupCreateManyCourseInput = {
-    id?: number
+    id?: string
     title: string
     slug: string
     showSectionsOnly?: boolean
@@ -18905,16 +18508,17 @@ export namespace Prisma {
   }
 
   export type PrerequisitCreateManyCourseInput = {
-    id?: number
+    id?: string
     content: string
   }
 
   export type SkillCreateManyCourseInput = {
-    id?: number
+    id?: string
     content: string
   }
 
   export type SectionGroupUpdateWithoutCourseInput = {
+    id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     showSectionsOnly?: BoolFieldUpdateOperationsInput | boolean
@@ -18923,7 +18527,7 @@ export namespace Prisma {
   }
 
   export type SectionGroupUncheckedUpdateWithoutCourseInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     showSectionsOnly?: BoolFieldUpdateOperationsInput | boolean
@@ -18932,7 +18536,7 @@ export namespace Prisma {
   }
 
   export type SectionGroupUncheckedUpdateManyWithoutCourseInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     showSectionsOnly?: BoolFieldUpdateOperationsInput | boolean
@@ -18940,45 +18544,48 @@ export namespace Prisma {
   }
 
   export type PrerequisitUpdateWithoutCourseInput = {
+    id?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
   }
 
   export type PrerequisitUncheckedUpdateWithoutCourseInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
   }
 
   export type PrerequisitUncheckedUpdateManyWithoutCourseInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
   }
 
   export type SkillUpdateWithoutCourseInput = {
+    id?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
   }
 
   export type SkillUncheckedUpdateWithoutCourseInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
   }
 
   export type SkillUncheckedUpdateManyWithoutCourseInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
   }
 
   export type CourseCreateManyCategoryInput = {
-    id?: number
+    id?: string
     poster: string
     title: string
     slug: string
     description: string
-    userId: number
+    userId: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type CourseUpdateWithoutCategoryInput = {
+    id?: StringFieldUpdateOperationsInput | string
     poster?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
@@ -18992,12 +18599,12 @@ export namespace Prisma {
   }
 
   export type CourseUncheckedUpdateWithoutCategoryInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     poster?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    userId?: IntFieldUpdateOperationsInput | number
+    userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sectionGroups?: SectionGroupUncheckedUpdateManyWithoutCourseNestedInput
@@ -19006,24 +18613,25 @@ export namespace Prisma {
   }
 
   export type CourseUncheckedUpdateManyWithoutCategoryInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     poster?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    userId?: IntFieldUpdateOperationsInput | number
+    userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type SectionCreateManySectionGroupInput = {
-    id?: number
+    id?: string
     title: string
     slug: string
     order: number
   }
 
   export type SectionUpdateWithoutSectionGroupInput = {
+    id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
@@ -19032,7 +18640,7 @@ export namespace Prisma {
   }
 
   export type SectionUncheckedUpdateWithoutSectionGroupInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
@@ -19041,36 +18649,37 @@ export namespace Prisma {
   }
 
   export type SectionUncheckedUpdateManyWithoutSectionGroupInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     order?: IntFieldUpdateOperationsInput | number
   }
 
   export type LessonCreateManySectionInput = {
-    id?: number
+    id?: string
     title: string
     content?: string | null
     order: number
-    quizId?: number | null
+    quizId?: string | null
     codeStyle?: string | null
     contentType: $Enums.ContentType
     videoSource?: $Enums.VideoSource | null
   }
 
   export type SectionRatingCreateManySectionInput = {
-    id?: number
+    id?: string
     rate?: number
-    userId: number
+    userId: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type LessonUpdateWithoutSectionInput = {
+    id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     content?: NullableStringFieldUpdateOperationsInput | string | null
     order?: IntFieldUpdateOperationsInput | number
-    quizId?: NullableIntFieldUpdateOperationsInput | number | null
+    quizId?: NullableStringFieldUpdateOperationsInput | string | null
     codeStyle?: NullableStringFieldUpdateOperationsInput | string | null
     contentType?: EnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType
     videoSource?: NullableEnumVideoSourceFieldUpdateOperationsInput | $Enums.VideoSource | null
@@ -19078,11 +18687,11 @@ export namespace Prisma {
   }
 
   export type LessonUncheckedUpdateWithoutSectionInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     content?: NullableStringFieldUpdateOperationsInput | string | null
     order?: IntFieldUpdateOperationsInput | number
-    quizId?: NullableIntFieldUpdateOperationsInput | number | null
+    quizId?: NullableStringFieldUpdateOperationsInput | string | null
     codeStyle?: NullableStringFieldUpdateOperationsInput | string | null
     contentType?: EnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType
     videoSource?: NullableEnumVideoSourceFieldUpdateOperationsInput | $Enums.VideoSource | null
@@ -19090,17 +18699,18 @@ export namespace Prisma {
   }
 
   export type LessonUncheckedUpdateManyWithoutSectionInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     content?: NullableStringFieldUpdateOperationsInput | string | null
     order?: IntFieldUpdateOperationsInput | number
-    quizId?: NullableIntFieldUpdateOperationsInput | number | null
+    quizId?: NullableStringFieldUpdateOperationsInput | string | null
     codeStyle?: NullableStringFieldUpdateOperationsInput | string | null
     contentType?: EnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType
     videoSource?: NullableEnumVideoSourceFieldUpdateOperationsInput | $Enums.VideoSource | null
   }
 
   export type SectionRatingUpdateWithoutSectionInput = {
+    id?: StringFieldUpdateOperationsInput | string
     rate?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19108,40 +18718,41 @@ export namespace Prisma {
   }
 
   export type SectionRatingUncheckedUpdateWithoutSectionInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     rate?: IntFieldUpdateOperationsInput | number
-    userId?: IntFieldUpdateOperationsInput | number
+    userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type SectionRatingUncheckedUpdateManyWithoutSectionInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     rate?: IntFieldUpdateOperationsInput | number
-    userId?: IntFieldUpdateOperationsInput | number
+    userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type AnswerCreateManyQuizInput = {
-    id?: number
+    id?: string
     content: string
     isCorrect: boolean
   }
 
   export type AnswerUpdateWithoutQuizInput = {
+    id?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     isCorrect?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type AnswerUncheckedUpdateWithoutQuizInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     isCorrect?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type AnswerUncheckedUpdateManyWithoutQuizInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     isCorrect?: BoolFieldUpdateOperationsInput | boolean
   }

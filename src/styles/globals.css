@@ -1,8 +1,9 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @plugin "@tailwindcss/typography";
-
 @custom-variant dark (&:is(.dark *));
+
+@layer base, utilities;
 
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
@@ -48,6 +49,10 @@
 }
 
 :root {
+  --navbar-height: 3rem;
+  --content-navbar-height: 3.25rem;
+  --streak-height: 0.25rem;
+
   --radius: 0.625rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);

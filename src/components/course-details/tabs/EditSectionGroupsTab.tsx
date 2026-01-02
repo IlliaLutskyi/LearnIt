@@ -34,7 +34,13 @@ type Props = {
 };
 const EditSectionGroupsTab = ({ course }: Props) => {
   const router = useRouter();
-  const { control, handleSubmit, setValue, watch } = useForm({
+  const {
+    control,
+    handleSubmit,
+    setValue,
+    watch,
+    formState: { isDirty },
+  } = useForm({
     resolver: zodResolver(EditSectionGroupsSchema),
     defaultValues: {
       sectionGroups: course.sectionGroups,
@@ -84,11 +90,15 @@ const EditSectionGroupsTab = ({ course }: Props) => {
 
       if (oldIndex === -1 || newIndex === -1) return;
 
-      setValue("sectionGroups", arrayMove(sectionGroups, oldIndex, newIndex));
+      setValue("sectionGroups", arrayMove(sectionGroups, oldIndex, newIndex), {
+        shouldDirty: true,
+        shouldTouch: true,
+      });
     }
   };
 
   async function onSubmit(data: EditSectionGroups) {
+    if (!isDirty) return;
     await mutation.mutateAsync(data);
   }
 

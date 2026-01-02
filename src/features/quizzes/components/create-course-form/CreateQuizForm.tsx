@@ -1,7 +1,7 @@
 "use client";
 import { useEffect } from "react";
 import Answers from "./Answers";
-import { Lesson } from "@/types/create-course";
+import { FormLesson, Lesson } from "@/types/create-course";
 import { Input } from "@/components/common";
 import { DbLesson } from "@/types";
 import { useFieldArray, useForm } from "react-hook-form";
@@ -12,14 +12,14 @@ import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 type Props = {
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  lesson?: Lesson | DbLesson;
-  onSave?: (data: CreateQuiz) => void;
+  lesson?: FormLesson;
+  onSave?: (data: CreateQuiz) => Promise<void>;
 };
 const CreateQuizForm = ({ isOpen, setIsOpen, lesson, onSave }: Props) => {
   const {
     control,
     register,
-    formState: { errors, isDirty },
+    formState: { errors, isDirty, isSubmitting },
     setValue,
     reset,
     handleSubmit,
@@ -47,10 +47,10 @@ const CreateQuizForm = ({ isOpen, setIsOpen, lesson, onSave }: Props) => {
     }
   }, [setValue, isOpen, lesson]);
 
-  function onSubmit(data: CreateQuiz) {
+  async function onSubmit(data: CreateQuiz) {
     if (!isDirty) return;
 
-    if (onSave) onSave(data);
+    await onSave?.(data);
 
     reset();
 
@@ -118,6 +118,7 @@ const CreateQuizForm = ({ isOpen, setIsOpen, lesson, onSave }: Props) => {
               </section>
               <button
                 type="submit"
+                disabled={isSubmitting}
                 className="self-end bg-accent text-accent-foreground text-sm p-2 mt-2 rounded-sm hover:scale-95 duration-400"
               >
                 Save

@@ -14,7 +14,7 @@ export async function updateQuiz(
     if (!isValidData) {
       return Response.json(
         {
-          message: z.prettifyError(error),
+          message: error.message,
         },
         { status: 400 }
       );
@@ -22,7 +22,7 @@ export async function updateQuiz(
 
     const quiz = await prisma.quiz.update({
       where: {
-        id: Number(id),
+        id,
       },
       data: {
         question: data.question,

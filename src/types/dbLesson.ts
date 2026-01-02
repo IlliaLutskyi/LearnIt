@@ -3,14 +3,14 @@ import { ContentType } from "./create-course";
 import { DbQuiz } from "./dbQuiz";
 
 export type DbLesson = {
-  id: number;
+  id: string;
   title: string;
   order: number;
   content: string | null;
-  quiz: DbQuiz | null;
-  videoSource: $Enums.VideoSource | null;
+  quiz?: DbQuiz;
+  videoSource?: $Enums.VideoSource;
   codeStyle?: string;
   contentType: ContentType;
-  quizId?: number;
-  sectionId?: number;
+  quizId?: string;
+  sectionId?: string;
 };

@@ -14,14 +14,16 @@ export async function createLesson(
   try {
     const { success: isValidData, error } = CreateLessonSchema.safeParse(data);
 
+    console.log(data);
+
     if (!isValidData)
       return Response.json({
-        message: z.prettifyError(error),
+        message: error.message,
       });
 
     const { _max } = await prisma.lesson.aggregate({
       where: {
-        sectionId: Number(id),
+        sectionId: id,
       },
       _max: {
         order: true,
@@ -45,7 +47,7 @@ export async function createLesson(
 
         section: {
           connect: {
-            id: Number(id),
+            id,
           },
         },
       },

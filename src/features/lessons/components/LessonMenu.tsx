@@ -9,20 +9,10 @@ import {
 } from "@/components/ui/menubar";
 import { lazy, memo, Suspense, useState } from "react";
 import { HiDotsVertical } from "react-icons/hi";
-import { useAppDispatch } from "@/lib/hooks";
-import { toggleConfirmationForm } from "@/lib/slices/confirmation-form-slice";
-import { DbLesson } from "@/types";
 import { CreateLesson } from "@/features/lessons/schemas/create-lesson-schema";
 import { CreateQuiz } from "@/features/quizzes/schemas/create-quiz";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import api from "@/lib/axios";
-import { toast } from "sonner";
-import { useParams, useRouter } from "next/navigation";
-import { isAxiosError } from "axios";
+import { EditSection } from "@/features/sections/schemas/edit-section-schema";
 
-const ConfirmationForm = lazy(
-  () => import("@/components/common/ConfirmationForm")
-);
 const CreateLessonForm = lazy(
   () =>
     import("@/features/lessons/components/create-course-form/CreateLessonForm")
@@ -33,58 +23,16 @@ const CreateQuizForm = lazy(
 );
 
 type Props = {
-  lesson: DbLesson;
+  lesson: EditSection["lessons"][number];
+  removeLesson: () => void;
+  updateLesson: (data: EditSection["lessons"][number]) => void;
 };
-const LessonMenu = ({ lesson }: Props) => {
-  const router = useRouter();
-  const dispatch = useAppDispatch();
-
+const LessonMenu = ({ lesson, removeLesson, updateLesson }: Props) => {
   const [isEditLessonOpen, setIsEditLessonOpen] = useState(false);
   const [isEditQuizOpen, setIsEditQuizOpen] = useState(false);
 
-  const lessonMutation = useMutation({
-    mutationFn: async (data: CreateLesson) => {
-      const res = await api.patch(`/lessons/${lesson.id}`, data);
-      return res.data;
-    },
-    onSuccess: (res) => {
-      toast.success(res.message);
-      return router.refresh();
-    },
-    onError: (err) => {
-      if (isAxiosError(err)) return toast.error(err.response?.data.message);
-    },
-  });
-
-  const deleteLessonMutation = useMutation({
-    mutationFn: async () => {
-      const res = await api.delete(`/lessons/${lesson.id}`);
-      return res.data;
-    },
-    onSuccess: (res) => {
-      toast.success(res.message);
-      return router.refresh();
-    },
-    onError: (err) => {
-      if (isAxiosError(err)) return toast.error(err.response?.data.message);
-    },
-  });
-
-  const quizMutation = useMutation({
-    mutationFn: async (data: CreateQuiz) => {
-      const res = await api.patch(`/quizzes/${lesson?.quiz?.id}`, data);
-      return res.data;
-    },
-    onSuccess: (res) => {
-      toast.success(res.message);
-      return router.refresh();
-    },
-    onError: (err) => {
-      if (isAxiosError(err)) return toast.error(err.response?.data.message);
-    },
-  });
-  function openConformationForm() {
-    dispatch(toggleConfirmationForm(true));
+  function handleDeleteLesson() {
+    removeLesson();
   }
   function handleEditLesson() {
     setIsEditLessonOpen(true);
@@ -93,15 +41,22 @@ const LessonMenu = ({ lesson }: Props) => {
     setIsEditQuizOpen(true);
   }
   async function onSaveLesson(data: CreateLesson) {
-    await lessonMutation.mutateAsync(data);
-  }
-
-  async function handleDeleteLesson() {
-    await deleteLessonMutation.mutateAsync();
+    updateLesson({ ...lesson, ...data });
   }
 
   async function onSaveQuiz(data: CreateQuiz) {
-    await quizMutation.mutateAsync(data);
+    updateLesson({
+      ...lesson,
+      title: data.title,
+      quiz: {
+        question: data.question,
+        answers: data.answers.map((answer) => ({
+          content: answer.content,
+          isCorrect: answer.isCorrect,
+        })),
+        explanation: data.explanation,
+      },
+    });
   }
   return (
     <>
@@ -123,7 +78,7 @@ const LessonMenu = ({ lesson }: Props) => {
             </MenubarItem>
             <MenubarSeparator />
 
-            <MenubarItem onClick={openConformationForm}>
+            <MenubarItem onClick={handleDeleteLesson}>
               Delete {lesson.contentType === "Quiz" ? "quiz" : "lesson"}
             </MenubarItem>
           </MenubarContent>
@@ -143,7 +98,6 @@ const LessonMenu = ({ lesson }: Props) => {
           lesson={lesson}
           onSave={onSaveQuiz}
         />
-        <ConfirmationForm onYes={handleDeleteLesson} warning="Are you sure?" />
       </Suspense>
     </>
   );

@@ -6,5 +6,12 @@ type Context = {
 };
 export async function POST(req: Request, { params }: Context) {
   const session = await getServerSession(authOptions);
+
+  if (!session)
+    return Response.json(
+      { message: "In order to perform this action you need to be logged in" },
+      { status: 401 }
+    );
+
   return await createRate(req, params, session?.user.id);
 }

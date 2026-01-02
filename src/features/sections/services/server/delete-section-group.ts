@@ -9,7 +9,7 @@ export async function deleteSectionGroup(params: Promise<{ id: string }>) {
         { status: 400 }
       );
 
-    await prisma.sectionGroup.delete({ where: { id: Number(id) } });
+    await prisma.sectionGroup.delete({ where: { id } });
 
     return Response.json(
       { message: "Section group deleted successfully" },

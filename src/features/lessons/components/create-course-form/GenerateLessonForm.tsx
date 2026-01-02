@@ -16,7 +16,7 @@ import { AiResponse } from "../../schemas/ai-response-schema";
 type Props = {
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  onSave?: (data: GenerateLesson & { lesson: AiResponse }) => void;
+  onSave?: (data: GenerateLesson & { lesson: AiResponse }) => Promise<void>;
 };
 const GenerateLessonForm = ({ isOpen, setIsOpen, onSave }: Props) => {
   const {
@@ -32,8 +32,8 @@ const GenerateLessonForm = ({ isOpen, setIsOpen, onSave }: Props) => {
       const res = await api.post("/ai/lessons", data);
       return res.data;
     },
-    onSuccess: (data, variables) => {
-      if (onSave) onSave({ lesson: data.lesson, ...variables });
+    onSuccess: async (data, variables) => {
+      await onSave?.({ lesson: data.lesson, ...variables });
       setIsOpen(false);
     },
     onError: (error) => {
@@ -44,6 +44,7 @@ const GenerateLessonForm = ({ isOpen, setIsOpen, onSave }: Props) => {
   async function onSubmit(data: GenerateLesson) {
     await mutation.mutateAsync(data);
   }
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -68,8 +69,7 @@ const GenerateLessonForm = ({ isOpen, setIsOpen, onSave }: Props) => {
                   {...register("contentType")}
                 >
                   <option value="Text">Text</option>
-                  <option value="Video">Video</option>
-                  <option value="Table">Excel Table</option>
+                  <option value="Table">Table</option>
                   <option value="HighlightedCode">Highlighted Code</option>
                 </select>
               </section>

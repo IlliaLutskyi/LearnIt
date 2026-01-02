@@ -18,7 +18,7 @@ export async function updateLesson(
     if (!isValidData) {
       return Response.json(
         {
-          message: z.prettifyError(error),
+          message: error.message,
         },
         { status: 400 }
       );
@@ -26,7 +26,7 @@ export async function updateLesson(
 
     const lesson = await prisma.lesson.update({
       where: {
-        id: Number(id),
+        id,
       },
       data: {
         title: data.title,

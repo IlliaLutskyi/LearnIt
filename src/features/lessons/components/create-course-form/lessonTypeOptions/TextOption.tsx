@@ -2,7 +2,6 @@
 import { useEditor, EditorContent } from "@tiptap/react";
 import { useEffect } from "react";
 import TextMenuBar from "./TextMenuBar";
-import Image from "@tiptap/extension-image";
 import { CreateLesson } from "@/features/lessons/schemas/create-lesson-schema";
 import { UseFormSetValue } from "react-hook-form";
 import { extensions } from "@/features/lessons/lib/tiptap-extensions";
@@ -14,12 +13,7 @@ type Props = {
 };
 const TextOption = ({ isOpen, content, setValue, error }: Props) => {
   const editor = useEditor({
-    extensions: [
-      ...extensions,
-      Image.configure({
-        allowBase64: true,
-      }),
-    ],
+    extensions: extensions,
     editorProps: {
       attributes: {
         class:

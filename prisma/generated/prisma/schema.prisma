@@ -9,7 +9,7 @@ datasource db {
 }
 
 model User {
-  id             Int             @id @default(autoincrement())
+  id             String          @id @default(uuid())
   name           String
   password       String
   email          String          @unique
@@ -19,7 +19,7 @@ model User {
 }
 
 model Course {
-  id            Int            @id @default(autoincrement())
+  id            String         @id @default(uuid())
   poster        String
   title         String         @unique
   slug          String         @unique
@@ -27,8 +27,8 @@ model Course {
   sectionGroups SectionGroup[]
   prerequisites Prerequisit[]
   skills        Skill[]
-  categoryId    Int
-  userId        Int
+  categoryId    String
+  userId        String
   user          User           @relation(fields: [userId], references: [id])
   category      Category       @relation(fields: [categoryId], references: [id])
   createdAt     DateTime       @default(now())
@@ -36,7 +36,7 @@ model Course {
 }
 
 model Category {
-  id          Int      @id @default(autoincrement())
+  id          String   @id @default(uuid())
   name        String   @unique
   courses     Course[]
   description String
@@ -44,78 +44,78 @@ model Category {
 }
 
 model SectionGroup {
-  id               Int       @id @default(autoincrement())
+  id               String    @id @default(uuid())
   title            String
   slug             String
   showSectionsOnly Boolean   @default(false)
   sections         Section[]
   order            Int
-  courseId         Int
+  courseId         String
   course           Course    @relation(fields: [courseId], references: [id], onDelete: Cascade)
 }
 
 model Section {
-  id             Int             @id @default(autoincrement())
+  id             String          @id @default(uuid())
   lessons        Lesson[]
   title          String
   slug           String
   order          Int
   sectionRates   SectionRating[]
-  sectionGroupId Int
+  sectionGroupId String
   sectionGroup   SectionGroup    @relation(fields: [sectionGroupId], references: [id], onDelete: Cascade)
 }
 
 model Lesson {
-  id          Int          @id @default(autoincrement())
+  id          String       @id @default(uuid())
   title       String
   content     String?
   quiz        Quiz?
   order       Int
-  quizId      Int?
+  quizId      String?
   codeStyle   String?
   contentType ContentType
   videoSource VideoSource?
-  sectionId   Int
+  sectionId   String
   section     Section      @relation(fields: [sectionId], references: [id], onDelete: Cascade)
 }
 
 model Quiz {
-  id          Int      @id() @default(autoincrement())
+  id          String   @id() @default(uuid())
   answers     Answer[]
   question    String
   explanation String?
-  lessonId    Int      @unique
+  lessonId    String   @unique
   lesson      Lesson   @relation(fields: [lessonId], references: [id], onDelete: Cascade)
 }
 
 model Answer {
-  id        Int     @id() @default(autoincrement())
-  quizId    Int
+  id        String  @id() @default(uuid())
+  quizId    String
   quiz      Quiz    @relation(fields: [quizId], references: [id], onDelete: Cascade)
   content   String
   isCorrect Boolean
 }
 
 model Prerequisit {
-  id       Int    @id() @default(autoincrement())
+  id       String @id() @default(uuid())
   content  String
-  courseId Int
+  courseId String
   course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
 }
 
 model Skill {
-  id       Int    @id() @default(autoincrement())
+  id       String @id() @default(uuid())
   content  String
-  courseId Int
+  courseId String
   course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
 }
 
 model SectionRating {
-  id        Int      @id() @default(autoincrement())
+  id        String   @id() @default(uuid())
   rate      Int      @default(0)
-  userId    Int
+  userId    String
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  sectionId Int
+  sectionId String
   section   Section  @relation(fields: [sectionId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

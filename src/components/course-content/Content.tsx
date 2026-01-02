@@ -35,11 +35,11 @@ const Content = ({ section, nextSection, prevSection }: Props) => {
       <section className="grid grid-cols-1 sm:grid-cols-[4fr_1fr]">
         <div
           ref={containerRef}
-          className="grow flex flex-col gap-2 sm:overflow-y-auto sm:h-[calc(100vh-48px)]"
+          className="grow flex flex-col gap-2 overflow-y-auto sm:h-[calc(100vh-var(--navbar-height))] h-[calc(100vh-var(--navbar-height)-var(--content-navbar-height)-var(--streak-height))]"
           id="scrollbar"
         >
           <motion.div
-            className="sm:sticky fixed sm:top-0 top-10 bg-secondary-accent w-full p-1 z-10"
+            className="sm:sticky fixed sm:top-0 top-20 bg-secondary-accent w-full p-1 z-10"
             style={{
               scaleX: springProgress,
               originX: 0,

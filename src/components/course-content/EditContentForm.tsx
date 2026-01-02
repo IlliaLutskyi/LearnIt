@@ -27,7 +27,7 @@ import {
 import Lesson from "@/features/lessons/components/Lesson";
 import { AnimatePresence } from "framer-motion";
 import { Dialog, DialogContent, DialogTitle } from "../ui/dialog";
-import { useForm } from "react-hook-form";
+import { useFieldArray, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input, Loader } from "../common";
 import {
@@ -41,14 +41,25 @@ import { toast } from "sonner";
 import { isAxiosError } from "axios";
 import { useParams, useRouter } from "next/navigation";
 import { CreateLesson } from "@/features/lessons/schemas/create-lesson-schema";
-import CreateQuizForm from "@/features/quizzes/components/create-course-form/CreateQuizForm";
 import { CreateQuiz } from "@/features/quizzes/schemas/create-quiz";
 import { GenerateLesson } from "@/features/lessons/schemas/generate-lesson-schema";
-import GenerateLessonForm from "@/features/lessons/components/create-course-form/GenerateLessonForm";
+import { AiResponse } from "@/features/lessons/schemas/ai-response-schema";
+import { SiGooglegemini } from "react-icons/si";
+import ConfirmationForm from "../common/ConfirmationForm";
 
 const CreateLessonForm = lazy(
   () =>
     import("@/features/lessons/components/create-course-form/CreateLessonForm")
+);
+const CreateQuizForm = lazy(
+  () =>
+    import("@/features/quizzes/components/create-course-form/CreateQuizForm")
+);
+const GenerateLessonForm = lazy(
+  () =>
+    import(
+      "@/features/lessons/components/create-course-form/GenerateLessonForm"
+    )
 );
 
 type Props = {
@@ -60,20 +71,49 @@ type Props = {
 const EditContentForm = ({ section, isOpen, setIsOpen }: Props) => {
   const router = useRouter();
   const params = useParams();
+
   const [isAddLessonFormOpen, setIsAddLessonFormOpen] = useState(false);
   const [isAddQuizFormOpen, setIsAddQuizFormOpen] = useState(false);
   const [isGenerateLessonFormOpen, setIsGenerateLessonFormOpen] =
     useState(false);
+  const [isConfirmationFormOpen, setIsConfirmationFormOpen] = useState(false);
+
   const {
+    control,
     register,
     handleSubmit,
-    watch,
     formState: { errors, isDirty },
     setValue,
   } = useForm({
     resolver: zodResolver(EditSectionSchema),
+    defaultValues: {
+      title: section.title,
+      lessons: section?.lessons?.map((lesson) => ({
+        title: lesson.title,
+        contentType: lesson.contentType,
+        order: lesson.order,
+        codeStyle: lesson.codeStyle || undefined,
+        videoSource: lesson.videoSource || undefined,
+        content: lesson.content || undefined,
+        quiz: lesson.quiz
+          ? {
+              ...lesson.quiz,
+              explanation: lesson?.quiz?.explanation || undefined,
+            }
+          : undefined,
+      })),
+    },
   });
-  const lessons = watch("lessons");
+
+  const {
+    fields: lessons,
+    append,
+    update,
+    remove,
+  } = useFieldArray({
+    control: control,
+    name: "lessons",
+  });
 
   const saveMutation = useMutation({
     mutationFn: async (data: EditSection) => {
@@ -82,41 +122,10 @@ const EditContentForm = ({ section, isOpen, setIsOpen }: Props) => {
     },
     onSuccess: (data) => {
       toast.success(data.message);
+
       return router.push(
         `/course/${params.courseSlug}/${params.sectionGroupSlug}/${data.sectionSlug}`
       );
-    },
-    onError: (err) => {
-      if (isAxiosError(err)) return toast.error(err.response?.data.message);
-    },
-  });
-
-  const addLessonMutation = useMutation({
-    mutationFn: async (data: CreateLesson) => {
-      const res = await api.post(`/sections/${section.id}/lessons`, data, {
-        withCredentials: true,
-      });
-      return res.data;
-    },
-    onSuccess: (data) => {
-      toast.success(data.message);
-      return router.refresh();
-    },
-    onError: (err) => {
-      if (isAxiosError(err)) return toast.error(err.response?.data.message);
-    },
-  });
-
-  const addQuizMutation = useMutation({
-    mutationFn: async (data: CreateQuiz) => {
-      const res = await api.post(`/sections/${section.id}/quizzes`, data, {
-        withCredentials: true,
-      });
-      return res.data;
-    },
-    onSuccess: (data) => {
-      toast.success(data.message);
-      return router.refresh();
     },
     onError: (err) => {
       if (isAxiosError(err)) return toast.error(err.response?.data.message);
@@ -128,13 +137,6 @@ const EditContentForm = ({ section, isOpen, setIsOpen }: Props) => {
     useSensor(TouchSensor),
     useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates })
   );
-
-  useEffect(() => {
-    setValue("title", section.title);
-
-    if (!section.lessons) return;
-    setValue("lessons", section.lessons);
-  }, [section]);
 
   function handleDragEnd(e: DragEndEvent) {
     const { over, active } = e;
@@ -148,15 +150,49 @@ const EditContentForm = ({ section, isOpen, setIsOpen }: Props) => {
     }
   }
 
+  function removeLesson(index: number) {
+    remove(index);
+  }
+  function updateLesson(index: number, data: EditSection["lessons"][number]) {
+    update(index, data);
+  }
   async function onAddQuiz(data: CreateQuiz) {
-    await addQuizMutation.mutateAsync(data);
+    append({
+      title: data.title,
+      content: "",
+      contentType: "Quiz",
+      order: lessons.length + 1,
+      quiz: {
+        answers: data.answers.map((answer) => ({
+          content: answer.content,
+          isCorrect: answer.isCorrect,
+        })),
+        explanation: data.explanation,
+        question: data.question,
+      },
+    });
   }
 
   async function onAddLesson(data: CreateLesson) {
-    await addLessonMutation.mutateAsync(data);
+    append({
+      title: data.title,
+      content: data.content,
+      contentType: data.contentType,
+      order: lessons.length + 1,
+    });
   }
-  async function onGenerateLesson(data: GenerateLesson & { content: string }) {}
-  async function onSubmit(data: EditSection) {
+  console.log(isDirty);
+  async function onGenerateLesson(
+    data: GenerateLesson & { lesson: AiResponse }
+  ) {
+    append({
+      title: data.title,
+      content: data.lesson.content,
+      contentType: data.lesson.contentType,
+      order: lessons.length + 1,
+    });
+  }
+  async function onYes(data: EditSection) {
     if (!isDirty) return;
 
     await saveMutation.mutateAsync(data);
@@ -187,11 +223,19 @@ const EditContentForm = ({ section, isOpen, setIsOpen }: Props) => {
 
                 <section className="flex justify-end gap-2">
                   <button
+                    className="button-base flex items-center gap-2"
+                    onClick={() => setIsGenerateLessonFormOpen(true)}
+                  >
+                    <SiGooglegemini /> Generate Lesson
+                  </button>
+
+                  <button
                     className="button-base"
                     onClick={() => setIsAddQuizFormOpen(true)}
                   >
                     Add Quiz
                   </button>
+
                   <button
                     className="button-base"
                     onClick={() => setIsAddLessonFormOpen(true)}
@@ -214,8 +258,17 @@ const EditContentForm = ({ section, isOpen, setIsOpen }: Props) => {
                         items={lessons.map((lesson) => lesson.order)}
                         strategy={verticalListSortingStrategy}
                       >
-                        {lessons.map((lesson) => {
-                          return <Lesson key={lesson.id} lesson={lesson} />;
+                        {lessons.map((lesson, index) => {
+                          return (
+                            <Lesson
+                              key={index}
+                              lesson={lesson}
+                              removeLesson={() => removeLesson(index)}
+                              updateLesson={(
+                                data: EditSection["lessons"][number]
+                              ) => updateLesson(index, data)}
+                            />
+                          );
                         })}
                       </SortableContext>
                     </div>
@@ -224,8 +277,8 @@ const EditContentForm = ({ section, isOpen, setIsOpen }: Props) => {
 
                 <button
                   className="button-base self-end"
-                  onClick={handleSubmit(onSubmit)}
-                  disabled={saveMutation.isPending}
+                  onClick={() => setIsConfirmationFormOpen(true)}
+                  disabled={saveMutation.isPending || !isDirty}
                 >
                   {saveMutation.isPending ? <Loader /> : "Save"}
                 </button>
@@ -250,6 +303,12 @@ const EditContentForm = ({ section, isOpen, setIsOpen }: Props) => {
           isOpen={isGenerateLessonFormOpen}
           setIsOpen={setIsGenerateLessonFormOpen}
           onSave={onGenerateLesson}
+        />
+        <ConfirmationForm
+          isOpen={isConfirmationFormOpen}
+          setIsOpen={setIsConfirmationFormOpen}
+          onYes={handleSubmit(onYes, () => console.log(errors))}
+          message="Are you sure, you wanna perform thouse changes?"
         />
       </Suspense>
     </>

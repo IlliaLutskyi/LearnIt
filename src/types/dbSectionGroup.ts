@@ -1,11 +1,11 @@
 import { DbSection } from "./dbSection";
 
 export type DbSectionGroup = {
-  id: number;
+  id: string;
   showSectionsOnly?: boolean;
   title: string;
   slug: string;
   order: number;
   sections?: DbSection[];
-  courseId?: number;
+  courseId?: string;
 };

@@ -16,7 +16,7 @@ export default async function updateCourseDetails(
   try {
     const course = await prisma.course.update({
       where: {
-        id: Number(id),
+        id,
       },
       data: {
         ...(data.title && { title: data.title }),
@@ -25,7 +25,7 @@ export default async function updateCourseDetails(
         ...(data.category && {
           category: {
             connect: {
-              id: Number(data.category),
+              id: data.category,
             },
           },
         }),

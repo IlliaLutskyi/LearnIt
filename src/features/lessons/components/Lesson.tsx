@@ -13,11 +13,14 @@ import { motion, useAnimation } from "framer-motion";
 import { fadeInOutWithShiftVariants } from "@/features/animations/fade-in-out-with-shift";
 import LessonPreview from "./create-course-form/LessonPreview";
 import { useEffect } from "react";
+import { EditSection } from "@/features/sections/schemas/edit-section-schema";
 type Props = {
-  lesson: DbLesson;
+  lesson: EditSection["lessons"][number];
+  removeLesson: () => void;
+  updateLesson: (data: EditSection["lessons"][number]) => void;
 };
 
-const Lesson = ({ lesson }: Props) => {
+const Lesson = ({ lesson, removeLesson, updateLesson }: Props) => {
   const controls = useAnimation();
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id: lesson.order });
@@ -52,7 +55,11 @@ const Lesson = ({ lesson }: Props) => {
           </CollapsibleTrigger>
 
           <section className="flex gap-2">
-            <LessonMenu lesson={lesson} />
+            <LessonMenu
+              lesson={lesson}
+              removeLesson={removeLesson}
+              updateLesson={updateLesson}
+            />
             <button {...attributes} {...listeners}>
               <FaSort />
             </button>
