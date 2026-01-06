@@ -65,7 +65,6 @@ const CreateLessonForm = ({ isOpen, setIsOpen, lesson, onSave }: Props) => {
     setValue("content", "");
   }
   async function onSubmit(data: CreateLesson) {
-    console.log(data);
     if (!isDirty) return;
 
     await onSave?.(data);

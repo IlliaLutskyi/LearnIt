@@ -8,6 +8,10 @@ type Props = {
   courseRate: number | null;
 };
 const Header = ({ course, courseRate }: Props) => {
+  const sectionGroup = course?.sectionGroups?.[0];
+
+  const section = sectionGroup?.sections?.[0];
+
   return (
     <div className="grid grid-cols-1 sm:grid-cols-[3fr_1fr] gap-3 px-8 py-4 min-h-[300px]">
       <section className="flex flex-col gap-4">
@@ -47,7 +51,7 @@ const Header = ({ course, courseRate }: Props) => {
         />
 
         <Link
-          href={`/course/${course.slug}/${course?.sectionGroups?.[0].slug}/${course?.sectionGroups?.[0]?.sections?.[0].slug}`}
+          href={`/course/${course.slug}/${sectionGroup?.slug}/${section?.slug}`}
         >
           <button className="self-end w-full p-2 bg-accent text-accent-foreground rounded-xs hover:scale-95 focus:scale-95 duration-400">
             Get started

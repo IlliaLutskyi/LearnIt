@@ -11,6 +11,7 @@ import {
 } from "@/types/create-course";
 import { arrayMove } from "@dnd-kit/sortable";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { State } from "../../../prisma/generated/prisma";
 
 type Step = { step: number; title: string; active: boolean };
 type CourseStates = {
@@ -78,6 +79,7 @@ export const CourseSlice = createSlice({
         title: `SectionGroup ${maxOrder + 1}`,
         slug: `sectionGroup-${maxOrder + 1}`,
         sections: [],
+        state: "Ready",
         showSectionsOnly: false,
         order: maxOrder + 1,
       });
@@ -111,6 +113,7 @@ export const CourseSlice = createSlice({
       sectionGroup.title = action.payload.title;
       sectionGroup.slug = createSlug(action.payload.title);
       sectionGroup.showSectionsOnly = action.payload.showSectionsOnly;
+      sectionGroup.state = action.payload.state;
     },
 
     loadContent: (state) => {
@@ -229,11 +232,15 @@ export const CourseSlice = createSlice({
         (sectionGroup) =>
           sectionGroup.order === action.payload.sectionGroupOrder
       );
+
       if (!sectionGroup) return;
+
       const section = sectionGroup.sections.find(
         (section) => section.order === action.payload.sectionOrder
       );
+
       if (!section) return;
+
       section.title = action.payload.title;
       section.slug = createSlug(action.payload.title);
     },

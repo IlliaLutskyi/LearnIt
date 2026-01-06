@@ -6,7 +6,6 @@ type Props = {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 const Suggestion = ({ course, setIsOpen }: Props) => {
-  console.log(course.poster);
   return (
     <Link href={`/course/${course.slug}`} onClick={() => setIsOpen(false)}>
       <div className="grid grid-cols-[1fr_4fr] items-center gap-2 hover:bg-primary/10 p-2 rounded-sm duration-400">

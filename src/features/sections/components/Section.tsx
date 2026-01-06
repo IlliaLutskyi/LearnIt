@@ -9,7 +9,6 @@ type Props = {
 };
 const Section = ({ section, sectionGroupSlug }: Props) => {
   const params = useParams();
-  if (section._count.lessons === 0) return null;
 
   return (
     <div

@@ -14,8 +14,6 @@ export async function createLesson(
   try {
     const { success: isValidData, error } = CreateLessonSchema.safeParse(data);
 
-    console.log(data);
-
     if (!isValidData)
       return Response.json({
         message: error.message,

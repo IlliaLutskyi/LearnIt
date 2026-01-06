@@ -34,12 +34,6 @@ import {
   EditSection,
   EditSectionSchema,
 } from "@/features/sections/schemas/edit-section-schema";
-
-import { useMutation } from "@tanstack/react-query";
-import api from "@/lib/axios";
-import { toast } from "sonner";
-import { isAxiosError } from "axios";
-import { useParams, useRouter } from "next/navigation";
 import { CreateLesson } from "@/features/lessons/schemas/create-lesson-schema";
 import { CreateQuiz } from "@/features/quizzes/schemas/create-quiz";
 import { GenerateLesson } from "@/features/lessons/schemas/generate-lesson-schema";
@@ -63,15 +57,13 @@ const GenerateLessonForm = lazy(
 );
 
 type Props = {
-  section: DbSection;
+  section?: DbSection;
   isOpen: boolean;
   setIsOpen: React.Dispatch<SetStateAction<boolean>>;
+  onSave?: (data: EditSection) => Promise<void>;
 };
 
-const EditContentForm = ({ section, isOpen, setIsOpen }: Props) => {
-  const router = useRouter();
-  const params = useParams();
-
+const EditContentForm = ({ section, isOpen, setIsOpen, onSave }: Props) => {
   const [isAddLessonFormOpen, setIsAddLessonFormOpen] = useState(false);
   const [isAddQuizFormOpen, setIsAddQuizFormOpen] = useState(false);
   const [isGenerateLessonFormOpen, setIsGenerateLessonFormOpen] =
@@ -82,27 +74,29 @@ const EditContentForm = ({ section, isOpen, setIsOpen }: Props) => {
     control,
     register,
     handleSubmit,
-    formState: { errors, isDirty },
+    formState: { errors, isDirty, isSubmitting },
     setValue,
   } = useForm({
     resolver: zodResolver(EditSectionSchema),
-    defaultValues: {
-      title: section.title,
-      lessons: section?.lessons?.map((lesson) => ({
-        title: lesson.title,
-        contentType: lesson.contentType,
-        order: lesson.order,
-        codeStyle: lesson.codeStyle || undefined,
-        videoSource: lesson.videoSource || undefined,
-        content: lesson.content || undefined,
-        quiz: lesson.quiz
-          ? {
-              ...lesson.quiz,
-              explanation: lesson?.quiz?.explanation || undefined,
-            }
-          : undefined,
-      })),
-    },
+    defaultValues: section
+      ? {
+          title: section.title,
+          lessons: section?.lessons?.map((lesson) => ({
+            title: lesson.title,
+            contentType: lesson.contentType,
+            order: lesson.order,
+            codeStyle: lesson.codeStyle || undefined,
+            videoSource: lesson.videoSource || undefined,
+            content: lesson.content || undefined,
+            quiz: lesson.quiz
+              ? {
+                  ...lesson.quiz,
+                  explanation: lesson?.quiz?.explanation || undefined,
+                }
+              : undefined,
+          })),
+        }
+      : {},
   });
 
   const {
@@ -113,23 +107,6 @@ const EditContentForm = ({ section, isOpen, setIsOpen }: Props) => {
   } = useFieldArray({
     control: control,
     name: "lessons",
-  });
-
-  const saveMutation = useMutation({
-    mutationFn: async (data: EditSection) => {
-      const res = await api.patch(`/sections/${section.id}`, data);
-      return res.data;
-    },
-    onSuccess: (data) => {
-      toast.success(data.message);
-
-      return router.push(
-        `/course/${params.courseSlug}/${params.sectionGroupSlug}/${data.sectionSlug}`
-      );
-    },
-    onError: (err) => {
-      if (isAxiosError(err)) return toast.error(err.response?.data.message);
-    },
   });
 
   const sensors = useSensors(
@@ -181,7 +158,6 @@ const EditContentForm = ({ section, isOpen, setIsOpen }: Props) => {
       order: lessons.length + 1,
     });
   }
-  console.log(isDirty);
   async function onGenerateLesson(
     data: GenerateLesson & { lesson: AiResponse }
   ) {
@@ -195,10 +171,8 @@ const EditContentForm = ({ section, isOpen, setIsOpen }: Props) => {
   async function onYes(data: EditSection) {
     if (!isDirty) return;
 
-    await saveMutation.mutateAsync(data);
+    await onSave?.(data);
   }
-
-  if (!lessons) return null;
 
   return (
     <>
@@ -245,42 +219,46 @@ const EditContentForm = ({ section, isOpen, setIsOpen }: Props) => {
                 </section>
 
                 <section className="grow">
-                  <DndContext
-                    sensors={sensors}
-                    collisionDetection={closestCenter}
-                    onDragEnd={handleDragEnd}
-                  >
-                    <div
-                      className="flex flex-col gap-2 overflow-y-auto h-[24rem] max-h-full p-2"
-                      id="scrollbar"
+                  {lessons.length === 0 ? (
+                    <p className="text-sm text-center">No lessons yet</p>
+                  ) : (
+                    <DndContext
+                      sensors={sensors}
+                      collisionDetection={closestCenter}
+                      onDragEnd={handleDragEnd}
                     >
-                      <SortableContext
-                        items={lessons.map((lesson) => lesson.order)}
-                        strategy={verticalListSortingStrategy}
+                      <div
+                        className="flex flex-col gap-2 overflow-y-auto h-[24rem] max-h-full p-2"
+                        id="scrollbar"
                       >
-                        {lessons.map((lesson, index) => {
-                          return (
-                            <Lesson
-                              key={index}
-                              lesson={lesson}
-                              removeLesson={() => removeLesson(index)}
-                              updateLesson={(
-                                data: EditSection["lessons"][number]
-                              ) => updateLesson(index, data)}
-                            />
-                          );
-                        })}
-                      </SortableContext>
-                    </div>
-                  </DndContext>
+                        <SortableContext
+                          items={lessons.map((lesson) => lesson.order)}
+                          strategy={verticalListSortingStrategy}
+                        >
+                          {lessons.map((lesson, index) => {
+                            return (
+                              <Lesson
+                                key={index}
+                                lesson={lesson}
+                                removeLesson={() => removeLesson(index)}
+                                updateLesson={(
+                                  data: EditSection["lessons"][number]
+                                ) => updateLesson(index, data)}
+                              />
+                            );
+                          })}
+                        </SortableContext>
+                      </div>
+                    </DndContext>
+                  )}
                 </section>
 
                 <button
                   className="button-base self-end"
                   onClick={() => setIsConfirmationFormOpen(true)}
-                  disabled={saveMutation.isPending || !isDirty}
+                  disabled={isSubmitting}
                 >
-                  {saveMutation.isPending ? <Loader /> : "Save"}
+                  {isSubmitting ? <Loader /> : "Save"}
                 </button>
               </div>
             </DialogContent>

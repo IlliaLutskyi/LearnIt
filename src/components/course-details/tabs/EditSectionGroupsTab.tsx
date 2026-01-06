@@ -52,7 +52,7 @@ const EditSectionGroupsTab = ({ course }: Props) => {
     name: "sectionGroups",
   });
 
-  const mutation = useMutation({
+  const saveMutation = useMutation({
     mutationFn: async (data: EditSectionGroups) => {
       const res = await api.patch(`/section-groups`, data, {
         withCredentials: true,
@@ -99,7 +99,7 @@ const EditSectionGroupsTab = ({ course }: Props) => {
 
   async function onSubmit(data: EditSectionGroups) {
     if (!isDirty) return;
-    await mutation.mutateAsync(data);
+    await saveMutation.mutateAsync(data);
   }
 
   return (
@@ -140,9 +140,9 @@ const EditSectionGroupsTab = ({ course }: Props) => {
       <button
         className="self-end bg-accent text-accent-foreground text-sm p-2 rounded-sm hover:scale-95 duration-400"
         onClick={handleSubmit(onSubmit)}
-        disabled={mutation.isPending}
+        disabled={saveMutation.isPending}
       >
-        {mutation.isPending ? <Loader /> : "Save"}
+        {saveMutation.isPending ? <Loader /> : "Save"}
       </button>
     </div>
   );

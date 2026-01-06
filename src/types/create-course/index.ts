@@ -10,7 +10,9 @@ import { Step } from "./step";
 import { ContentType } from "./content-type";
 import { Row } from "./table";
 import { FormLesson } from "./formlesson";
+import { FormSection } from "./formsection";
 export type {
+  FormSection,
   FormLesson,
   Step,
   Answer,

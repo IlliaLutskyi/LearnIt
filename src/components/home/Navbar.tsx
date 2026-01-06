@@ -16,6 +16,7 @@ import { isAdmin } from "@/features/users/permissions";
 
 const Navbar = () => {
   const { data: session, status } = useSession();
+
   return (
     <nav className="flex justify-between items-center gap-4 w-full bg-navbar text-navbar-foreground h-12 py-4 px-6">
       <Link href="/" className="text-2xl font-bold">
@@ -52,7 +53,7 @@ const Navbar = () => {
             </li>
           )}
 
-          {session?.user && session.user.role === "Admin" && (
+          {isAdmin(session?.user) && (
             <li>
               <Link
                 href="/admin"
@@ -63,7 +64,7 @@ const Navbar = () => {
             </li>
           )}
 
-          {session?.user && session.user.role === "Admin" && (
+          {isAdmin(session?.user) && (
             <li>
               <Link
                 href={"/create-course"}

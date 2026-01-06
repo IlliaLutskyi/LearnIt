@@ -10,7 +10,7 @@ const Card = ({ category }: Props) => {
   return (
     <div
       key={category.id}
-      className="flex flex-col gap-2 bg-card text-card-foreground hover:shadow-lg hover:shadow-accent p-2 rounded-sm duration-400"
+      className="flex flex-col gap-2 bg-card ring-1 ring-input text-card-foreground hover:shadow-lg hover:shadow-accent p-2 rounded-sm duration-400"
     >
       <h3 className="text-lg">
         {category.name &&

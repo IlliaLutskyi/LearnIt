@@ -47,11 +47,18 @@ const Course = async ({ params }: Props) => {
     <Suspense fallback={<Loader />}>
       <div className="block sm:grid grid-cols-[1fr_5fr] h-full">
         <Sidebar sectionGroups={sectionGroups} />
-        <Content
-          section={section}
-          nextSection={nextSection}
-          prevSection={prevSection}
-        />
+
+        {section ? (
+          <Content
+            section={section}
+            nextSection={nextSection}
+            prevSection={prevSection}
+          />
+        ) : (
+          <h1 className="flex justify-center items-center">
+            Section not found
+          </h1>
+        )}
       </div>
     </Suspense>
   );

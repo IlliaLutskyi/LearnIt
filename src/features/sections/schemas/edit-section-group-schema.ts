@@ -1,4 +1,5 @@
 import z from "zod";
+import { State } from "../../../../prisma/generated/prisma";
 
 export const EditSectionGroupsSchema = z.object({
   sectionGroups: z.array(
@@ -7,6 +8,7 @@ export const EditSectionGroupsSchema = z.object({
       title: z.string(),
       slug: z.string(),
       showSectionsOnly: z.boolean().optional(),
+      state: z.enum(State),
       order: z.number(),
       sections: z.array(
         z.object({

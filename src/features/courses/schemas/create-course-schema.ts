@@ -1,5 +1,6 @@
 import { ContentTypeSchema } from "@/types/create-course/content-type";
 import z from "zod";
+import { State } from "../../../../prisma/generated/prisma";
 
 export const CreateCourseSchema = z.object({
   poster: z.string().min(1, "Poster is required"),
@@ -15,6 +16,7 @@ export const CreateCourseSchema = z.object({
       z.object({
         title: z.string().min(1, "Title is required"),
         slug: z.string().min(1, "Slug is required"),
+        state: z.enum(State).default("Ready"),
         showSectionsOnly: z.boolean().optional(),
         order: z.coerce.number(),
         sections: z

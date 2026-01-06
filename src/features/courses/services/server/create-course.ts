@@ -31,6 +31,7 @@ export default async function createCourse(req: Request, userId: string) {
       course.sectionGroups.map(async (sectionGroup, sgi) => ({
         title: sectionGroup.title,
         slug: sectionGroup.slug,
+        state: sectionGroup.state,
         showSectionsOnly: sectionGroup.showSectionsOnly,
         order: sgi + 1,
         sections: {

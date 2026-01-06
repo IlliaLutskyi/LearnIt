@@ -24,6 +24,11 @@ export async function getSection(course_slug: string, section_slug: string) {
           userId: session?.user.id,
         },
       },
+      sectionGroup: {
+        select: {
+          state: true,
+        },
+      },
     },
     orderBy: {
       order: "asc",
@@ -53,6 +58,7 @@ export async function getSection(course_slug: string, section_slug: string) {
     const currentSectionGroup = await prisma.sectionGroup.findUnique({
       where: {
         id: section.sectionGroupId,
+        state: "Ready",
       },
       select: {
         order: true,
@@ -67,6 +73,7 @@ export async function getSection(course_slug: string, section_slug: string) {
           sectionGroup: {
             courseId: currentSectionGroup.courseId,
             order: currentSectionGroup.order + 1,
+            state: "Ready",
           },
         },
         select: {
@@ -103,6 +110,7 @@ export async function getSection(course_slug: string, section_slug: string) {
     const currentSectionGroup = await prisma.sectionGroup.findUnique({
       where: {
         id: section.sectionGroupId,
+        state: "Ready",
       },
       select: {
         order: true,
@@ -122,6 +130,7 @@ export async function getSection(course_slug: string, section_slug: string) {
           sectionGroup: {
             courseId: currentSectionGroup.courseId,
             order: currentSectionGroup.order - 1,
+            state: "Ready",
           },
         },
         select: {

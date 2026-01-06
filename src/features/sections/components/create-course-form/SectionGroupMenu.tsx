@@ -65,6 +65,7 @@ const SectionGroupMenu = ({ sectionGroup, controls }: Props) => {
       setProperties({
         title: data.title,
         showSectionsOnly: data.showSectionsOnly,
+        state: data.state,
         sectionGroupOrder: sectionGroup.order,
       })
     );

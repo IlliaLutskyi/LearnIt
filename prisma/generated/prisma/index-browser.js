@@ -151,6 +151,7 @@ exports.Prisma.SectionGroupScalarFieldEnum = {
   id: 'id',
   title: 'title',
   slug: 'slug',
+  state: 'state',
   showSectionsOnly: 'showSectionsOnly',
   order: 'order',
   courseId: 'courseId'
@@ -228,6 +229,11 @@ exports.Prisma.NullsOrder = {
 exports.Role = exports.$Enums.Role = {
   Admin: 'Admin',
   User: 'User'
+};
+
+exports.State = exports.$Enums.State = {
+  Indevelopment: 'Indevelopment',
+  Ready: 'Ready'
 };
 
 exports.ContentType = exports.$Enums.ContentType = {

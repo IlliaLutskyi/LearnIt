@@ -6,17 +6,23 @@ import Section from "./Section";
 import { useParams } from "next/navigation";
 import { DbSection, DbSectionGroup } from "@/types";
 import { motion } from "framer-motion";
+import { useSession } from "next-auth/react";
+import { isAdmin } from "@/features/users/permissions";
 type Props = {
   sectionGroup: DbSectionGroup;
 };
 
 const SectionGroup = ({ sectionGroup }: Props) => {
   const params = useParams();
+  const { data: session } = useSession();
   const [isOpen, setIsOpen] = useState(sectionGroup.order === 1 ? true : false);
 
   useEffect(() => {
     if (params.sectionGroupSlug == sectionGroup.slug) setIsOpen(true);
   }, [params.sectionGroupSlug, sectionGroup.slug]);
+
+  if (sectionGroup.state === "Indevelopment" && !isAdmin(session?.user))
+    return null;
 
   if (sectionGroup.showSectionsOnly)
     return (

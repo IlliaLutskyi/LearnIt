@@ -67,6 +67,7 @@ const SectionGroup = ({ sectionGroup, update, index }: Props) => {
 
           <section className="flex gap-2">
             <SectionGroupMenu sectionGroup={sectionGroup} controls={controls} />
+
             <button type="button" {...attributes} {...listeners}>
               <FaSort />
             </button>

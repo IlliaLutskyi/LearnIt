@@ -20,10 +20,12 @@ const Section = ({ section }: Props) => {
   const [isOpen, setIsOpen] = useState(section.order === 1 ? true : false);
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id: section.order });
+
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
   };
+
   useEffect(() => {
     async function inView() {
       await controls.start("visible");
@@ -43,17 +45,20 @@ const Section = ({ section }: Props) => {
         style={style}
         open={isOpen}
       >
-        <div className="flex justify-between">
+        <div className="flex items-center justify-between">
           <button onClick={() => setIsOpen(!isOpen)} className="font-bold">
             {section.title}
           </button>
+
           <section className="flex gap-2">
             <SectionMenu section={section} controls={controls} />
+
             <button {...attributes} {...listeners}>
               <FaSort />
             </button>
           </section>
         </div>
+
         <CollapsibleContent>
           {section.lessons.length > 0 ? (
             <Suspense fallback={<Loader />}>

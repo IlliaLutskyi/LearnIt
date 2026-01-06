@@ -49,7 +49,7 @@ const Lessons = ({ lessons }: Props) => {
       );
     }
   };
-  console.log(lessons);
+
   return (
     <DndContext
       sensors={sensors}

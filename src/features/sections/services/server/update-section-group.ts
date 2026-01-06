@@ -26,6 +26,7 @@ export async function updateSectionGroup(
         title: data.title,
         slug: createSlug(data.title),
         showSectionsOnly: data.showSectionsOnly,
+        state: data.state,
       },
     });
 

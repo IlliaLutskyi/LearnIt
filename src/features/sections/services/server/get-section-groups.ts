@@ -6,8 +6,9 @@ export async function getSectionGroups(course_slug: string) {
     select: {
       sectionGroups: {
         select: {
-          showSectionsOnly: true,
           title: true,
+          showSectionsOnly: true,
+          state: true,
           order: true,
           slug: true,
           id: true,

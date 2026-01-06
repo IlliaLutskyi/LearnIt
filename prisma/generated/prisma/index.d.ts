@@ -81,6 +81,14 @@ export namespace $Enums {
 export type Role = (typeof Role)[keyof typeof Role]
 
 
+export const State: {
+  Indevelopment: 'Indevelopment',
+  Ready: 'Ready'
+};
+
+export type State = (typeof State)[keyof typeof State]
+
+
 export const VideoSource: {
   Youtube: 'Youtube'
 };
@@ -105,6 +113,10 @@ export type ContentType = (typeof ContentType)[keyof typeof ContentType]
 export type Role = $Enums.Role
 
 export const Role: typeof $Enums.Role
+
+export type State = $Enums.State
+
+export const State: typeof $Enums.State
 
 export type VideoSource = $Enums.VideoSource
 
@@ -5421,6 +5433,7 @@ export namespace Prisma {
     id: string | null
     title: string | null
     slug: string | null
+    state: $Enums.State | null
     showSectionsOnly: boolean | null
     order: number | null
     courseId: string | null
@@ -5430,6 +5443,7 @@ export namespace Prisma {
     id: string | null
     title: string | null
     slug: string | null
+    state: $Enums.State | null
     showSectionsOnly: boolean | null
     order: number | null
     courseId: string | null
@@ -5439,6 +5453,7 @@ export namespace Prisma {
     id: number
     title: number
     slug: number
+    state: number
     showSectionsOnly: number
     order: number
     courseId: number
@@ -5458,6 +5473,7 @@ export namespace Prisma {
     id?: true
     title?: true
     slug?: true
+    state?: true
     showSectionsOnly?: true
     order?: true
     courseId?: true
@@ -5467,6 +5483,7 @@ export namespace Prisma {
     id?: true
     title?: true
     slug?: true
+    state?: true
     showSectionsOnly?: true
     order?: true
     courseId?: true
@@ -5476,6 +5493,7 @@ export namespace Prisma {
     id?: true
     title?: true
     slug?: true
+    state?: true
     showSectionsOnly?: true
     order?: true
     courseId?: true
@@ -5572,6 +5590,7 @@ export namespace Prisma {
     id: string
     title: string
     slug: string
+    state: $Enums.State
     showSectionsOnly: boolean
     order: number
     courseId: string
@@ -5600,6 +5619,7 @@ export namespace Prisma {
     id?: boolean
     title?: boolean
     slug?: boolean
+    state?: boolean
     showSectionsOnly?: boolean
     order?: boolean
     courseId?: boolean
@@ -5612,6 +5632,7 @@ export namespace Prisma {
     id?: boolean
     title?: boolean
     slug?: boolean
+    state?: boolean
     showSectionsOnly?: boolean
     order?: boolean
     courseId?: boolean
@@ -5622,6 +5643,7 @@ export namespace Prisma {
     id?: boolean
     title?: boolean
     slug?: boolean
+    state?: boolean
     showSectionsOnly?: boolean
     order?: boolean
     courseId?: boolean
@@ -5632,12 +5654,13 @@ export namespace Prisma {
     id?: boolean
     title?: boolean
     slug?: boolean
+    state?: boolean
     showSectionsOnly?: boolean
     order?: boolean
     courseId?: boolean
   }
 
-  export type SectionGroupOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "slug" | "showSectionsOnly" | "order" | "courseId", ExtArgs["result"]["sectionGroup"]>
+  export type SectionGroupOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "slug" | "state" | "showSectionsOnly" | "order" | "courseId", ExtArgs["result"]["sectionGroup"]>
   export type SectionGroupInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     sections?: boolean | SectionGroup$sectionsArgs<ExtArgs>
     course?: boolean | CourseDefaultArgs<ExtArgs>
@@ -5660,6 +5683,7 @@ export namespace Prisma {
       id: string
       title: string
       slug: string
+      state: $Enums.State
       showSectionsOnly: boolean
       order: number
       courseId: string
@@ -6091,6 +6115,7 @@ export namespace Prisma {
     readonly id: FieldRef<"SectionGroup", 'String'>
     readonly title: FieldRef<"SectionGroup", 'String'>
     readonly slug: FieldRef<"SectionGroup", 'String'>
+    readonly state: FieldRef<"SectionGroup", 'State'>
     readonly showSectionsOnly: FieldRef<"SectionGroup", 'Boolean'>
     readonly order: FieldRef<"SectionGroup", 'Int'>
     readonly courseId: FieldRef<"SectionGroup", 'String'>
@@ -14200,6 +14225,7 @@ export namespace Prisma {
     id: 'id',
     title: 'title',
     slug: 'slug',
+    state: 'state',
     showSectionsOnly: 'showSectionsOnly',
     order: 'order',
     courseId: 'courseId'
@@ -14352,6 +14378,20 @@ export namespace Prisma {
    * Reference to a field of type 'DateTime[]'
    */
   export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'State'
+   */
+  export type EnumStateFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'State'>
+    
+
+
+  /**
+   * Reference to a field of type 'State[]'
+   */
+  export type ListEnumStateFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'State[]'>
     
 
 
@@ -14623,6 +14663,7 @@ export namespace Prisma {
     id?: StringFilter<"SectionGroup"> | string
     title?: StringFilter<"SectionGroup"> | string
     slug?: StringFilter<"SectionGroup"> | string
+    state?: EnumStateFilter<"SectionGroup"> | $Enums.State
     showSectionsOnly?: BoolFilter<"SectionGroup"> | boolean
     order?: IntFilter<"SectionGroup"> | number
     courseId?: StringFilter<"SectionGroup"> | string
@@ -14634,6 +14675,7 @@ export namespace Prisma {
     id?: SortOrder
     title?: SortOrder
     slug?: SortOrder
+    state?: SortOrder
     showSectionsOnly?: SortOrder
     order?: SortOrder
     courseId?: SortOrder
@@ -14648,6 +14690,7 @@ export namespace Prisma {
     NOT?: SectionGroupWhereInput | SectionGroupWhereInput[]
     title?: StringFilter<"SectionGroup"> | string
     slug?: StringFilter<"SectionGroup"> | string
+    state?: EnumStateFilter<"SectionGroup"> | $Enums.State
     showSectionsOnly?: BoolFilter<"SectionGroup"> | boolean
     order?: IntFilter<"SectionGroup"> | number
     courseId?: StringFilter<"SectionGroup"> | string
@@ -14659,6 +14702,7 @@ export namespace Prisma {
     id?: SortOrder
     title?: SortOrder
     slug?: SortOrder
+    state?: SortOrder
     showSectionsOnly?: SortOrder
     order?: SortOrder
     courseId?: SortOrder
@@ -14676,6 +14720,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"SectionGroup"> | string
     title?: StringWithAggregatesFilter<"SectionGroup"> | string
     slug?: StringWithAggregatesFilter<"SectionGroup"> | string
+    state?: EnumStateWithAggregatesFilter<"SectionGroup"> | $Enums.State
     showSectionsOnly?: BoolWithAggregatesFilter<"SectionGroup"> | boolean
     order?: IntWithAggregatesFilter<"SectionGroup"> | number
     courseId?: StringWithAggregatesFilter<"SectionGroup"> | string
@@ -15298,6 +15343,7 @@ export namespace Prisma {
     id?: string
     title: string
     slug: string
+    state?: $Enums.State
     showSectionsOnly?: boolean
     order: number
     sections?: SectionCreateNestedManyWithoutSectionGroupInput
@@ -15308,6 +15354,7 @@ export namespace Prisma {
     id?: string
     title: string
     slug: string
+    state?: $Enums.State
     showSectionsOnly?: boolean
     order: number
     courseId: string
@@ -15318,6 +15365,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
+    state?: EnumStateFieldUpdateOperationsInput | $Enums.State
     showSectionsOnly?: BoolFieldUpdateOperationsInput | boolean
     order?: IntFieldUpdateOperationsInput | number
     sections?: SectionUpdateManyWithoutSectionGroupNestedInput
@@ -15328,6 +15376,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
+    state?: EnumStateFieldUpdateOperationsInput | $Enums.State
     showSectionsOnly?: BoolFieldUpdateOperationsInput | boolean
     order?: IntFieldUpdateOperationsInput | number
     courseId?: StringFieldUpdateOperationsInput | string
@@ -15338,6 +15387,7 @@ export namespace Prisma {
     id?: string
     title: string
     slug: string
+    state?: $Enums.State
     showSectionsOnly?: boolean
     order: number
     courseId: string
@@ -15347,6 +15397,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
+    state?: EnumStateFieldUpdateOperationsInput | $Enums.State
     showSectionsOnly?: BoolFieldUpdateOperationsInput | boolean
     order?: IntFieldUpdateOperationsInput | number
   }
@@ -15355,6 +15406,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
+    state?: EnumStateFieldUpdateOperationsInput | $Enums.State
     showSectionsOnly?: BoolFieldUpdateOperationsInput | boolean
     order?: IntFieldUpdateOperationsInput | number
     courseId?: StringFieldUpdateOperationsInput | string
@@ -15969,6 +16021,13 @@ export namespace Prisma {
     image?: SortOrder
   }
 
+  export type EnumStateFilter<$PrismaModel = never> = {
+    equals?: $Enums.State | EnumStateFieldRefInput<$PrismaModel>
+    in?: $Enums.State[] | ListEnumStateFieldRefInput<$PrismaModel>
+    notIn?: $Enums.State[] | ListEnumStateFieldRefInput<$PrismaModel>
+    not?: NestedEnumStateFilter<$PrismaModel> | $Enums.State
+  }
+
   export type BoolFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolFilter<$PrismaModel> | boolean
@@ -16004,6 +16063,7 @@ export namespace Prisma {
     id?: SortOrder
     title?: SortOrder
     slug?: SortOrder
+    state?: SortOrder
     showSectionsOnly?: SortOrder
     order?: SortOrder
     courseId?: SortOrder
@@ -16017,6 +16077,7 @@ export namespace Prisma {
     id?: SortOrder
     title?: SortOrder
     slug?: SortOrder
+    state?: SortOrder
     showSectionsOnly?: SortOrder
     order?: SortOrder
     courseId?: SortOrder
@@ -16026,6 +16087,7 @@ export namespace Prisma {
     id?: SortOrder
     title?: SortOrder
     slug?: SortOrder
+    state?: SortOrder
     showSectionsOnly?: SortOrder
     order?: SortOrder
     courseId?: SortOrder
@@ -16033,6 +16095,16 @@ export namespace Prisma {
 
   export type SectionGroupSumOrderByAggregateInput = {
     order?: SortOrder
+  }
+
+  export type EnumStateWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.State | EnumStateFieldRefInput<$PrismaModel>
+    in?: $Enums.State[] | ListEnumStateFieldRefInput<$PrismaModel>
+    notIn?: $Enums.State[] | ListEnumStateFieldRefInput<$PrismaModel>
+    not?: NestedEnumStateWithAggregatesFilter<$PrismaModel> | $Enums.State
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumStateFilter<$PrismaModel>
+    _max?: NestedEnumStateFilter<$PrismaModel>
   }
 
   export type BoolWithAggregatesFilter<$PrismaModel = never> = {
@@ -16682,6 +16754,10 @@ export namespace Prisma {
     connect?: SectionWhereUniqueInput | SectionWhereUniqueInput[]
   }
 
+  export type EnumStateFieldUpdateOperationsInput = {
+    set?: $Enums.State
+  }
+
   export type BoolFieldUpdateOperationsInput = {
     set?: boolean
   }
@@ -17096,9 +17172,26 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type NestedEnumStateFilter<$PrismaModel = never> = {
+    equals?: $Enums.State | EnumStateFieldRefInput<$PrismaModel>
+    in?: $Enums.State[] | ListEnumStateFieldRefInput<$PrismaModel>
+    notIn?: $Enums.State[] | ListEnumStateFieldRefInput<$PrismaModel>
+    not?: NestedEnumStateFilter<$PrismaModel> | $Enums.State
+  }
+
   export type NestedBoolFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type NestedEnumStateWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.State | EnumStateFieldRefInput<$PrismaModel>
+    in?: $Enums.State[] | ListEnumStateFieldRefInput<$PrismaModel>
+    notIn?: $Enums.State[] | ListEnumStateFieldRefInput<$PrismaModel>
+    not?: NestedEnumStateWithAggregatesFilter<$PrismaModel> | $Enums.State
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumStateFilter<$PrismaModel>
+    _max?: NestedEnumStateFilter<$PrismaModel>
   }
 
   export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
@@ -17339,6 +17432,7 @@ export namespace Prisma {
     id?: string
     title: string
     slug: string
+    state?: $Enums.State
     showSectionsOnly?: boolean
     order: number
     sections?: SectionCreateNestedManyWithoutSectionGroupInput
@@ -17348,6 +17442,7 @@ export namespace Prisma {
     id?: string
     title: string
     slug: string
+    state?: $Enums.State
     showSectionsOnly?: boolean
     order: number
     sections?: SectionUncheckedCreateNestedManyWithoutSectionGroupInput
@@ -17468,6 +17563,7 @@ export namespace Prisma {
     id?: StringFilter<"SectionGroup"> | string
     title?: StringFilter<"SectionGroup"> | string
     slug?: StringFilter<"SectionGroup"> | string
+    state?: EnumStateFilter<"SectionGroup"> | $Enums.State
     showSectionsOnly?: BoolFilter<"SectionGroup"> | boolean
     order?: IntFilter<"SectionGroup"> | number
     courseId?: StringFilter<"SectionGroup"> | string
@@ -17822,6 +17918,7 @@ export namespace Prisma {
     id?: string
     title: string
     slug: string
+    state?: $Enums.State
     showSectionsOnly?: boolean
     order: number
     course: CourseCreateNestedOneWithoutSectionGroupsInput
@@ -17831,6 +17928,7 @@ export namespace Prisma {
     id?: string
     title: string
     slug: string
+    state?: $Enums.State
     showSectionsOnly?: boolean
     order: number
     courseId: string
@@ -17903,6 +18001,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
+    state?: EnumStateFieldUpdateOperationsInput | $Enums.State
     showSectionsOnly?: BoolFieldUpdateOperationsInput | boolean
     order?: IntFieldUpdateOperationsInput | number
     course?: CourseUpdateOneRequiredWithoutSectionGroupsNestedInput
@@ -17912,6 +18011,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
+    state?: EnumStateFieldUpdateOperationsInput | $Enums.State
     showSectionsOnly?: BoolFieldUpdateOperationsInput | boolean
     order?: IntFieldUpdateOperationsInput | number
     courseId?: StringFieldUpdateOperationsInput | string
@@ -18503,6 +18603,7 @@ export namespace Prisma {
     id?: string
     title: string
     slug: string
+    state?: $Enums.State
     showSectionsOnly?: boolean
     order: number
   }
@@ -18521,6 +18622,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
+    state?: EnumStateFieldUpdateOperationsInput | $Enums.State
     showSectionsOnly?: BoolFieldUpdateOperationsInput | boolean
     order?: IntFieldUpdateOperationsInput | number
     sections?: SectionUpdateManyWithoutSectionGroupNestedInput
@@ -18530,6 +18632,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
+    state?: EnumStateFieldUpdateOperationsInput | $Enums.State
     showSectionsOnly?: BoolFieldUpdateOperationsInput | boolean
     order?: IntFieldUpdateOperationsInput | number
     sections?: SectionUncheckedUpdateManyWithoutSectionGroupNestedInput
@@ -18539,6 +18642,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
+    state?: EnumStateFieldUpdateOperationsInput | $Enums.State
     showSectionsOnly?: BoolFieldUpdateOperationsInput | boolean
     order?: IntFieldUpdateOperationsInput | number
   }

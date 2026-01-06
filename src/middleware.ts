@@ -6,9 +6,9 @@ export default withAuth(
     const path = req.nextUrl.pathname;
     const token = req.nextauth.token as { role: string } | undefined;
 
-    const isAuthPath =
-      path.startsWith("/auth") || path.startsWith("/create-course");
-    const isAdminPath = path.startsWith("/admin");
+    const isAuthPath = path.startsWith("/auth");
+    const isAdminPath =
+      path.startsWith("/admin") || path.startsWith("/create-course");
 
     if (isAuthPath && token)
       return NextResponse.redirect(new URL("/", req.url));

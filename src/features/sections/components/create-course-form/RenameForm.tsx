@@ -1,47 +1,40 @@
 "use client";
-import { useAppDispatch } from "@/lib/hooks";
-import { editSection } from "@/lib/slices/create-course-slice";
-import { Section } from "@/types/create-course";
-import z from "zod";
+import { FormSection } from "@/types/create-course";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Input } from "@/components/common";
 import { AnimatePresence } from "framer-motion";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { toast } from "sonner";
-
-const DataSchema = z.object({
-  title: z.string().min(1, "Title is required").max(100, "Title is too long"),
-});
-type Data = z.infer<typeof DataSchema>;
+import {
+  SectionProperties,
+  sectionPropertiesSchema,
+} from "../../schemas/section-properties-schema";
 
 type Props = {
   isOpen: boolean;
-  section: Section;
+  section?: FormSection;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  onSave?: (data: SectionProperties) => Promise<void>;
 };
-const RenameForm = ({ isOpen, section, setIsOpen }: Props) => {
+const RenameForm = ({ isOpen, section, setIsOpen, onSave }: Props) => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isDirty },
   } = useForm({
-    resolver: zodResolver(DataSchema),
-    defaultValues: { title: section.title },
+    resolver: zodResolver(sectionPropertiesSchema),
+    defaultValues: {
+      title: section?.title || "",
+    },
   });
 
-  const dispatch = useAppDispatch();
+  async function onSubmit(data: SectionProperties) {
+    if (!isDirty) return;
 
-  function onSubmit(data: Data) {
-    dispatch(
-      editSection({
-        sectionGroupOrder: section.sectionGroupOrder,
-        title: data.title,
-        sectionOrder: section.order,
-      })
-    );
+    await onSave?.(data);
 
-    toast.success("Section renamed");
+    toast.success("Section properties updated");
 
     setIsOpen(false);
   }

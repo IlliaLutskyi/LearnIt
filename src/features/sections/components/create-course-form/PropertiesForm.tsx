@@ -17,11 +17,16 @@ type Props = {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   onSave?: (data: SectionGroupProperties) => void;
 };
-const PropertiesForm = ({ isOpen, sectionGroup, setIsOpen, onSave }: Props) => {
+const SectionGroupPropertiesForm = ({
+  isOpen,
+  sectionGroup,
+  setIsOpen,
+  onSave,
+}: Props) => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isDirty },
   } = useForm({
     resolver: zodResolver(SectionGroupPropertiesSchema),
     defaultValues: {
@@ -29,10 +34,13 @@ const PropertiesForm = ({ isOpen, sectionGroup, setIsOpen, onSave }: Props) => {
       showSectionsOnly: sectionGroup.showSectionsOnly
         ? sectionGroup.showSectionsOnly
         : false,
+      state: sectionGroup?.state ? sectionGroup.state : "Ready",
     },
   });
 
   function onSubmit(data: SectionGroupProperties) {
+    if (!isDirty) return;
+
     onSave?.(data);
 
     setIsOpen(false);
@@ -60,21 +68,44 @@ const PropertiesForm = ({ isOpen, sectionGroup, setIsOpen, onSave }: Props) => {
                 className="input-field"
               />
 
-              <section className="flex flex-col gap-2">
-                <h2 className="text-xs">Display options:</h2>
-                <label
-                  htmlFor="showSectionsOnly"
-                  className="has-checked:bg-accent/40 has-checked:text-accent-foreground flex justify-between p-2 ring-1 ring-accent rounded-sm"
-                >
-                  <span className="text-xs">Show sections only</span>
+              <section className="flex flex-col gap-4">
+                <div className="flex flex-col gap-1">
+                  <h2 className="text-xs">Options</h2>
 
-                  <input
-                    type="checkbox"
-                    id="showSectionsOnly"
-                    className="checked:accent-accent accent-foreground"
-                    {...register("showSectionsOnly")}
-                  />
-                </label>
+                  <label
+                    htmlFor="showSectionsOnly"
+                    className="has-checked:bg-accent/40 has-checked:text-accent-foreground flex justify-between p-2 ring-1 ring-accent rounded-sm"
+                  >
+                    <span className="text-sm">Show sections only</span>
+
+                    <input
+                      type="checkbox"
+                      id="showSectionsOnly"
+                      className="checked:accent-accent accent-foreground"
+                      {...register("showSectionsOnly")}
+                    />
+                  </label>
+                </div>
+
+                <div className="flex flex-col gap-1">
+                  <h2 className="text-xs">State</h2>
+
+                  <select {...register("state")} className="input-field">
+                    <option
+                      value="Ready"
+                      title="This section group will be displayed for all users"
+                    >
+                      Ready
+                    </option>
+
+                    <option
+                      value="Indevelopment"
+                      title="This section group will be displayed only for you"
+                    >
+                      Indevelopment
+                    </option>
+                  </select>
+                </div>
               </section>
 
               <button className="self-end bg-accent p-2 rounded-md text-sm text-accent-foreground hover:scale-95 duration-400">
@@ -88,4 +119,4 @@ const PropertiesForm = ({ isOpen, sectionGroup, setIsOpen, onSave }: Props) => {
   );
 };
 
-export default PropertiesForm;
+export default SectionGroupPropertiesForm;

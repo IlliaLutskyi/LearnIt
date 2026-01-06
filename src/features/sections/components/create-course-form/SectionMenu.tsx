@@ -12,6 +12,7 @@ import {
   addLessonToSection,
   addQuizToSection,
   deleteSection,
+  editSection,
 } from "@/lib/slices/create-course-slice";
 import { Quiz, Section } from "@/types/create-course";
 import { lazy, memo, Suspense, useState } from "react";
@@ -24,6 +25,7 @@ import { toast } from "sonner";
 import { GenerateQuiz } from "@/features/quizzes/schemas/generate-quiz";
 import { GenerateLesson } from "@/features/lessons/schemas/generate-lesson-schema";
 import { AiResponse } from "@/features/lessons/schemas/ai-response-schema";
+import { SectionProperties } from "../../schemas/section-properties-schema";
 const CreateLessonForm = lazy(
   () =>
     import("@/features/lessons/components/create-course-form/CreateLessonForm")
@@ -49,10 +51,11 @@ type Props = {
 };
 const SectionMenu = ({ section, controls }: Props) => {
   const [isCreateLessonOpen, setIsCreateLessonOpen] = useState(false);
-  const [isRenameSectionOpen, setIsRenameSectionOpen] = useState(false);
+  const [isSectionPropertiesOpen, setIsSectionPropertiesOpen] = useState(false);
   const [isCreateQuizOpen, setIsCreateQuizOpen] = useState(false);
   const [isGenerateLessonOpen, setIsGenerateLessonOpen] = useState(false);
   const [isGenerateQuizOpen, setIsGenerateQuizOpen] = useState(false);
+
   const dispatch = useAppDispatch();
   async function handleDeleteSection() {
     await controls.start("exit");
@@ -63,27 +66,21 @@ const SectionMenu = ({ section, controls }: Props) => {
       })
     );
   }
-  function handleAddLesson() {
-    setIsCreateLessonOpen(true);
-  }
-  function handleAddQuiz() {
-    setIsCreateQuizOpen(true);
-  }
-  function handleRenameSection() {
-    setIsRenameSectionOpen(true);
-  }
-  function handleGenerateLesson() {
-    setIsGenerateLessonOpen(true);
-  }
-  function handleGenerateQuiz() {
-    setIsGenerateQuizOpen(true);
-  }
   async function onSaveLesson(data: CreateLesson) {
     dispatch(
       addLessonToSection({
         sectionGroupOrder: section.sectionGroupOrder,
         sectionOrder: section.order,
         ...data,
+      })
+    );
+  }
+  async function onSaveSectionProperties(data: SectionProperties) {
+    dispatch(
+      editSection({
+        sectionGroupOrder: section.sectionGroupOrder,
+        title: data.title,
+        sectionOrder: section.order,
       })
     );
   }
@@ -146,23 +143,32 @@ const SectionMenu = ({ section, controls }: Props) => {
             <HiDotsVertical />
           </MenubarTrigger>
           <MenubarContent>
-            <MenubarItem onClick={handleAddQuiz} id="create-quiz-anchor">
+            <MenubarItem
+              onClick={() => setIsCreateQuizOpen(true)}
+              id="create-quiz-anchor"
+            >
               Add Quiz
             </MenubarItem>
-            <MenubarItem onClick={handleAddLesson} id="create-lesson-anchor">
+            <MenubarItem
+              onClick={() => setIsCreateLessonOpen(true)}
+              id="create-lesson-anchor"
+            >
               Add Lesson
             </MenubarItem>
-            <MenubarItem onClick={handleRenameSection} id="rename-anchor">
-              Rename
+            <MenubarItem
+              onClick={() => setIsSectionPropertiesOpen(true)}
+              id="rename-anchor"
+            >
+              Properties
             </MenubarItem>
             <MenubarItem
-              onClick={handleGenerateLesson}
+              onClick={() => setIsGenerateLessonOpen(true)}
               id="generate-lesson-anchor"
             >
               <SiGooglegemini /> Generate Lesson With AI
             </MenubarItem>
             <MenubarItem
-              onClick={handleGenerateQuiz}
+              onClick={() => setIsGenerateQuizOpen(true)}
               id="generate-lesson-anchor"
             >
               <SiGooglegemini /> Generate Quiz With AI
@@ -182,9 +188,10 @@ const SectionMenu = ({ section, controls }: Props) => {
           onSave={onSaveLesson}
         />
         <RenameForm
-          isOpen={isRenameSectionOpen}
+          isOpen={isSectionPropertiesOpen}
           section={section}
-          setIsOpen={setIsRenameSectionOpen}
+          setIsOpen={setIsSectionPropertiesOpen}
+          onSave={onSaveSectionProperties}
         />
         <CreateQuizForm
           isOpen={isCreateQuizOpen}

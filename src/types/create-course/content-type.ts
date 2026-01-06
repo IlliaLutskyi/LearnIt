@@ -1,13 +1,6 @@
 import z from "zod";
+import { ContentType as PrismaContentType } from "../../../prisma/generated/prisma";
 
-export const ContentTypeSchema = z.enum([
-  "Video",
-  "Text",
-  "Quiz",
-  "Table",
-  "Markdown",
-  "Image",
-  "HighlightedCode",
-]);
+export const ContentTypeSchema = z.enum(PrismaContentType);
 
 export type ContentType = z.infer<typeof ContentTypeSchema>;

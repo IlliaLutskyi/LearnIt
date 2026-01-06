@@ -47,6 +47,7 @@ model SectionGroup{
   id String @id @default(uuid())
   title String 
   slug String
+  state State @default(Ready)
   showSectionsOnly Boolean @default(false)
   sections Section[]
   order Int 
@@ -125,6 +126,11 @@ model SectionRating{
 enum Role {
   Admin
   User
+}
+
+enum State {
+  Indevelopment
+  Ready
 }
 
 enum VideoSource {

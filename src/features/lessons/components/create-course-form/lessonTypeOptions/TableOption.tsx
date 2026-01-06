@@ -13,7 +13,9 @@ const TableOption = ({ setValue }: Props) => {
   return (
     <DropZone
       onLoad={async (file) => {
-        const workbook = xlsx.read(file, { type: "file" });
+        const workbook = xlsx.read(await file.arrayBuffer(), {
+          type: "buffer",
+        });
         const worksheet = workbook.Sheets[workbook.SheetNames[0]];
 
         const json = xlsx.utils.sheet_to_json(worksheet);

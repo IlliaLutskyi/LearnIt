@@ -95,7 +95,6 @@ const GeneralInfoTab = ({ course }: Props) => {
       onSubmit={handleSubmit(onSubmit)}
     >
       <h1 className="font-bold text-center text-lg">General information</h1>
-
       <section className="grid grid-cols-[1fr_4fr] gap-2">
         <div>
           <DropZone

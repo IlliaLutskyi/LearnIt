@@ -107,7 +107,10 @@ const CreateQuizForm = ({ isOpen, setIsOpen, lesson, onSave }: Props) => {
                   Add answer
                 </button>
 
-                <div className="overflow-y-auto max-h-[200px]" id="scrollbar">
+                <div
+                  className="overflow-y-auto min-h-[100px] max-h-[200px]"
+                  id="scrollbar"
+                >
                   <Answers
                     answers={answers}
                     remove={remove}

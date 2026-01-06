@@ -15,10 +15,9 @@ import {
   sortableKeyboardCoordinates,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
-import { memo, useState } from "react";
+import { memo } from "react";
 import Section from "./Section";
 import { EditSectionGroups } from "@/features/sections/schemas/edit-section-group-schema";
-import updateSection from "@/features/sections/services/server/update-section";
 
 type Props = {
   sections: EditSectionGroups["sectionGroups"][number]["sections"];

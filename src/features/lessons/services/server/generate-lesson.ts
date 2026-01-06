@@ -40,8 +40,6 @@ export async function generateLesson(req: Request) {
       ? JSON.parse(response.text!)
       : undefined;
 
-    console.log(lesson);
-
     return Response.json(
       {
         lesson: lesson,

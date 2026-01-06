@@ -15,6 +15,7 @@ import { isAxiosError } from "axios";
 import { toast } from "sonner";
 import { useMutation } from "@tanstack/react-query";
 import { CreateCourse } from "../../schemas/create-course-schema";
+
 const Preview = lazy(() => import("./preview/Preview"));
 
 type Props = {
@@ -53,7 +54,6 @@ const Step4 = ({ step }: Props) => {
     slug,
     title,
   } = useAppSelector((state) => state.CreateCourse);
-
   async function onSave() {
     dispatch(setIsLoading(true));
 

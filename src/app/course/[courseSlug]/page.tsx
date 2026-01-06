@@ -13,7 +13,7 @@ const EditCourseDetailsForm = lazy(
   () => import("@/components/course-details/EditCourseDetailsForm")
 );
 const EditEditCourseDetailsButton = lazy(
-  () => import("@/components/course-details/EditEditCourseDetailsButton")
+  () => import("@/components/course-details/EditCourseDetailsButton")
 );
 
 type Props = {
