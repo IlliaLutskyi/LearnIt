@@ -25,13 +25,15 @@ const CourseCard = ({ course }: Props) => {
         />
       </div>
 
-      <h2 className="text-xl font-bold text-foreground line-clamp-1">
-        {course.title}
-      </h2>
+      <div className="flex flex-col gap-2">
+        <h2 className="text-xl font-bold text-foreground line-clamp-1">
+          {course.title}
+        </h2>
 
-      <p className="text-sm text-muted-foreground line-clamp-2">
-        {course.description}
-      </p>
+        <p className="text-sm text-muted-foreground line-clamp-2">
+          {course.description}
+        </p>
+      </div>
 
       <div className="flex justify-between items-center text-xs text-muted-foreground mt-auto">
         <span>

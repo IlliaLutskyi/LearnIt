@@ -11,9 +11,8 @@ const Header = ({ course, courseRate }: Props) => {
   const sectionGroup = course?.sectionGroups?.[0];
 
   const section = sectionGroup?.sections?.[0];
-
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-[3fr_1fr] gap-3 px-8 py-4 min-h-[300px]">
+    <div className="grid grid-cols-1 sm:grid-cols-[3fr_1fr] gap-3 px-8 py-4 min-h-[300px] border-b-[1px] border-accent">
       <section className="flex flex-col gap-4">
         <div className="flex flex-col gap-2">
           <h1 className="text-3xl font-bold text-primary">{course.title}</h1>

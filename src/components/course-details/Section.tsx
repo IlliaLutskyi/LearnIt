@@ -1,4 +1,3 @@
-import { DbSection } from "@/types";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import React, { memo, useEffect } from "react";
@@ -6,13 +5,20 @@ import { FaSort } from "react-icons/fa";
 import { motion, useAnimation } from "framer-motion";
 import SectionMenu from "./SectionMenu";
 import { fadeInOutWithShiftVariants } from "@/features/animations/fade-in-out-with-shift";
+import { EditSectionGroups } from "@/features/sections/schemas/edit-section-group-schema";
 type Props = {
-  section: DbSection;
+  section: EditSectionGroups["sectionGroups"][number]["sections"][number];
+  update: (
+    order: number,
+    edits: EditSectionGroups["sectionGroups"][number]["sections"][number]
+  ) => void;
+  remove: (order: number) => void;
 };
-const Section = ({ section }: Props) => {
+const Section = ({ section, update, remove }: Props) => {
   const controls = useAnimation();
+
   const { attributes, listeners, setNodeRef, transform, transition } =
-    useSortable({ id: section.id });
+    useSortable({ id: section.order });
 
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -25,6 +31,26 @@ const Section = ({ section }: Props) => {
     }
     inView();
   }, [controls]);
+
+  async function removeSection() {
+    await controls.start("exit");
+
+    if (section.action === "create") return remove(section.order);
+
+    update(section.order, {
+      ...section,
+      action: "delete",
+    });
+  }
+  async function renameSection(title: string) {
+    update(section.order, {
+      ...section,
+      title,
+      action: section.action === "create" ? "create" : "update",
+    });
+  }
+
+  if (section.action === "delete") return null;
 
   return (
     <motion.div
@@ -39,8 +65,13 @@ const Section = ({ section }: Props) => {
       >
         <p className="font-bold">{section.title}</p>
 
-        <section className="flex gap-2">
-          <SectionMenu section={section} controls={controls} />
+        <section className="flex gap-2 items-center">
+          <SectionMenu
+            section={section}
+            controls={controls}
+            deleteSection={removeSection}
+            renameSection={(title: string) => renameSection(title)}
+          />
           <button type="button" {...attributes} {...listeners}>
             <FaSort />
           </button>

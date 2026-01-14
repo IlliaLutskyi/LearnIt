@@ -100,7 +100,11 @@ const SectionGroupMenu = ({ sectionGroup, controls }: Props) => {
       <Suspense>
         <PropertiesForm
           isOpen={isPropertiesFormOpen}
-          sectionGroup={sectionGroup}
+          sectionGroupProperties={{
+            title: sectionGroup.title,
+            showSectionsOnly: sectionGroup.showSectionsOnly,
+            state: sectionGroup.state,
+          }}
           setIsOpen={setIsPropertiesFormOpen}
           onSave={onSaveSectionGroupProperties}
         />

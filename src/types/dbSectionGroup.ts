@@ -3,11 +3,11 @@ import { DbSection } from "./dbSection";
 
 export type DbSectionGroup = {
   id: string;
-  state: State;
-  showSectionsOnly?: boolean;
   title: string;
   slug: string;
+  state: State;
   order: number;
+  showSectionsOnly?: boolean;
   sections?: DbSection[];
   courseId?: string;
 };

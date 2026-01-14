@@ -7,20 +7,22 @@ import { Collapsible, CollapsibleContent } from "../ui/collapsible";
 import { memo, useEffect, useState } from "react";
 import SectionGroupMenu from "./SectionGroupMenu";
 import Sections from "./Sections";
-import { UseFieldArrayUpdate } from "react-hook-form";
+import { UseFieldArrayRemove, UseFieldArrayUpdate } from "react-hook-form";
 import { EditSectionGroups } from "@/features/sections/schemas/edit-section-group-schema";
+import { SectionGroupProperties } from "@/features/sections/schemas/section-group-properties";
 type Props = {
   index: number;
   sectionGroup: EditSectionGroups["sectionGroups"][number];
   update: UseFieldArrayUpdate<EditSectionGroups, "sectionGroups">;
+  remove: UseFieldArrayRemove;
 };
-const SectionGroup = ({ sectionGroup, update, index }: Props) => {
+const SectionGroup = ({ sectionGroup, update, index, remove }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const controls = useAnimation();
 
   const { attributes, listeners, setNodeRef, transform, transition } =
-    useSortable({ id: sectionGroup.id });
+    useSortable({ id: sectionGroup.order });
 
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -33,7 +35,6 @@ const SectionGroup = ({ sectionGroup, update, index }: Props) => {
     }
     inView();
   }, []);
-
   function updateSections(
     index: number,
     sections: EditSectionGroups["sectionGroups"][number]["sections"]
@@ -43,6 +44,38 @@ const SectionGroup = ({ sectionGroup, update, index }: Props) => {
       sections: sections,
     });
   }
+  function addSection(section: { title: string }) {
+    update(index, {
+      ...sectionGroup,
+      sections: [
+        ...sectionGroup.sections,
+        {
+          title: section.title,
+          action: "create",
+          order: sectionGroup.sections.length + 1,
+        },
+      ],
+    });
+  }
+  function updateProperties(properties: SectionGroupProperties) {
+    update(index, {
+      ...sectionGroup,
+      ...properties,
+      action: sectionGroup.action === "create" ? "create" : "update",
+    });
+  }
+  async function removeSectionGroup() {
+    await controls.start("exit");
+
+    if (sectionGroup.action === "create") return remove(index);
+
+    update(index, {
+      ...sectionGroup,
+      action: "delete",
+    });
+  }
+
+  if (sectionGroup.action === "delete") return null;
 
   return (
     <motion.div
@@ -65,8 +98,14 @@ const SectionGroup = ({ sectionGroup, update, index }: Props) => {
             {sectionGroup.title}
           </button>
 
-          <section className="flex gap-2">
-            <SectionGroupMenu sectionGroup={sectionGroup} controls={controls} />
+          <section className="flex items-center gap-2">
+            <SectionGroupMenu
+              sectionGroup={sectionGroup}
+              controls={controls}
+              addSection={addSection}
+              updateProperties={updateProperties}
+              removeSectionGroup={removeSectionGroup}
+            />
 
             <button type="button" {...attributes} {...listeners}>
               <FaSort />
@@ -90,4 +129,4 @@ const SectionGroup = ({ sectionGroup, update, index }: Props) => {
   );
 };
 
-export default memo(SectionGroup);
+export default SectionGroup;

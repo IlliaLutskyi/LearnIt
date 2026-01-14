@@ -12,7 +12,7 @@ import { HiDotsVertical } from "react-icons/hi";
 import { CreateLesson } from "@/features/lessons/schemas/create-lesson-schema";
 import { CreateQuiz } from "@/features/quizzes/schemas/create-quiz";
 import { EditSection } from "@/features/sections/schemas/edit-section-schema";
-
+import { LegacyAnimationControls } from "motion";
 const CreateLessonForm = lazy(
   () =>
     import("@/features/lessons/components/create-course-form/CreateLessonForm")
@@ -24,14 +24,22 @@ const CreateQuizForm = lazy(
 
 type Props = {
   lesson: EditSection["lessons"][number];
+  controls: LegacyAnimationControls;
   removeLesson: () => void;
   updateLesson: (data: EditSection["lessons"][number]) => void;
 };
-const LessonMenu = ({ lesson, removeLesson, updateLesson }: Props) => {
+const LessonMenu = ({
+  lesson,
+  removeLesson,
+  updateLesson,
+  controls,
+}: Props) => {
   const [isEditLessonOpen, setIsEditLessonOpen] = useState(false);
   const [isEditQuizOpen, setIsEditQuizOpen] = useState(false);
 
-  function handleDeleteLesson() {
+  async function handleDeleteLesson() {
+    await controls.start("exit");
+
     removeLesson();
   }
   function handleEditLesson() {
@@ -58,6 +66,7 @@ const LessonMenu = ({ lesson, removeLesson, updateLesson }: Props) => {
       },
     });
   }
+
   return (
     <>
       <Menubar>

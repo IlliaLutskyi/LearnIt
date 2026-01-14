@@ -1,5 +1,4 @@
 "use client";
-import { SectionGroup } from "@/types/create-course";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Input } from "@/components/common";
@@ -9,17 +8,21 @@ import {
   SectionGroupProperties,
   SectionGroupPropertiesSchema,
 } from "../../schemas/section-group-properties";
-import { DbSectionGroup } from "@/types";
+import { State } from "../../../../../prisma/generated/prisma";
 
 type Props = {
   isOpen: boolean;
-  sectionGroup: SectionGroup | DbSectionGroup;
+  sectionGroupProperties: {
+    title?: string;
+    showSectionsOnly?: boolean;
+    state?: State;
+  };
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   onSave?: (data: SectionGroupProperties) => void;
 };
 const SectionGroupPropertiesForm = ({
   isOpen,
-  sectionGroup,
+  sectionGroupProperties,
   setIsOpen,
   onSave,
 }: Props) => {
@@ -30,11 +33,13 @@ const SectionGroupPropertiesForm = ({
   } = useForm({
     resolver: zodResolver(SectionGroupPropertiesSchema),
     defaultValues: {
-      title: sectionGroup.title,
-      showSectionsOnly: sectionGroup.showSectionsOnly
-        ? sectionGroup.showSectionsOnly
+      title: sectionGroupProperties?.title || "",
+      showSectionsOnly: sectionGroupProperties?.showSectionsOnly
+        ? sectionGroupProperties.showSectionsOnly
         : false,
-      state: sectionGroup?.state ? sectionGroup.state : "Ready",
+      state: sectionGroupProperties?.state
+        ? sectionGroupProperties.state
+        : "Ready",
     },
   });
 

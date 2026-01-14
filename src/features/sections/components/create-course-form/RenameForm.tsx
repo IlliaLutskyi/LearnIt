@@ -21,6 +21,7 @@ const RenameForm = ({ isOpen, section, setIsOpen, onSave }: Props) => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors, isDirty },
   } = useForm({
     resolver: zodResolver(sectionPropertiesSchema),
@@ -34,8 +35,7 @@ const RenameForm = ({ isOpen, section, setIsOpen, onSave }: Props) => {
 
     await onSave?.(data);
 
-    toast.success("Section properties updated");
-
+    reset();
     setIsOpen(false);
   }
 
@@ -49,7 +49,7 @@ const RenameForm = ({ isOpen, section, setIsOpen, onSave }: Props) => {
               className="flex flex-col gap-4"
             >
               <DialogTitle className="text-center text-lg font-bold">
-                Rename Section
+                {section ? "Rename Section" : "Create Section"}
               </DialogTitle>
 
               <Input

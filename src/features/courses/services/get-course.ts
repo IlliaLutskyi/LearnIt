@@ -54,6 +54,15 @@ export async function getCourse(slug: string) {
   });
 
   const courseRate = await prisma.sectionRating.aggregate({
+    where: {
+      section: {
+        sectionGroup: {
+          course: {
+            slug,
+          },
+        },
+      },
+    },
     _avg: {
       rate: true,
     },

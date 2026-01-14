@@ -40,6 +40,7 @@ import { GenerateLesson } from "@/features/lessons/schemas/generate-lesson-schem
 import { AiResponse } from "@/features/lessons/schemas/ai-response-schema";
 import { SiGooglegemini } from "react-icons/si";
 import ConfirmationForm from "../common/ConfirmationForm";
+import Change from "../course-details/Change";
 
 const CreateLessonForm = lazy(
   () =>
@@ -76,6 +77,7 @@ const EditContentForm = ({ section, isOpen, setIsOpen, onSave }: Props) => {
     handleSubmit,
     formState: { errors, isDirty, isSubmitting },
     setValue,
+    reset,
   } = useForm({
     resolver: zodResolver(EditSectionSchema),
     defaultValues: section
@@ -126,12 +128,31 @@ const EditContentForm = ({ section, isOpen, setIsOpen, onSave }: Props) => {
       return setValue("lessons", arrayMove(lessons, oldIndex, newIndex));
     }
   }
+  function showChanges() {
+    return (
+      <section className="flex flex-col gap-3">
+        {lessons.map((lesson) => {
+          if (!lesson.action) return null;
+
+          return (
+            <Change
+              changeType={lesson.action}
+              title={lesson.title}
+              key={lesson.order}
+            />
+          );
+        })}
+      </section>
+    );
+  }
 
   function removeLesson(index: number) {
-    remove(index);
+    if (lessons[index].action === "create") return remove(index);
+
+    return update(index, { ...lessons[index], action: "delete" });
   }
   function updateLesson(index: number, data: EditSection["lessons"][number]) {
-    update(index, data);
+    update(index, { ...data, action: "update" });
   }
   async function onAddQuiz(data: CreateQuiz) {
     append({
@@ -139,6 +160,7 @@ const EditContentForm = ({ section, isOpen, setIsOpen, onSave }: Props) => {
       content: "",
       contentType: "Quiz",
       order: lessons.length + 1,
+      action: "create",
       quiz: {
         answers: data.answers.map((answer) => ({
           content: answer.content,
@@ -156,6 +178,7 @@ const EditContentForm = ({ section, isOpen, setIsOpen, onSave }: Props) => {
       content: data.content,
       contentType: data.contentType,
       order: lessons.length + 1,
+      action: "create",
     });
   }
   async function onGenerateLesson(
@@ -166,6 +189,7 @@ const EditContentForm = ({ section, isOpen, setIsOpen, onSave }: Props) => {
       content: data.lesson.content,
       contentType: data.lesson.contentType,
       order: lessons.length + 1,
+      action: "create",
     });
   }
   async function onYes(data: EditSection) {
@@ -178,7 +202,13 @@ const EditContentForm = ({ section, isOpen, setIsOpen, onSave }: Props) => {
     <>
       <AnimatePresence>
         {isOpen && (
-          <Dialog open={isOpen} onOpenChange={setIsOpen}>
+          <Dialog
+            open={isOpen}
+            onOpenChange={() => {
+              reset();
+              setIsOpen(false);
+            }}
+          >
             <DialogContent
               asChild
               className="w-9/10 p-6 bg-popover text-popover-foreground"
@@ -286,7 +316,9 @@ const EditContentForm = ({ section, isOpen, setIsOpen, onSave }: Props) => {
           isOpen={isConfirmationFormOpen}
           setIsOpen={setIsConfirmationFormOpen}
           onYes={handleSubmit(onYes, () => console.log(errors))}
-          message="Are you sure, you wanna perform thouse changes?"
+          message="Are you sure, you wanna save changes?"
+          description="This action cannot be undone."
+          body={showChanges()}
         />
       </Suspense>
     </>

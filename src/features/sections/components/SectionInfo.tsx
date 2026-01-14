@@ -14,6 +14,7 @@ type Props = {
 };
 const SectionInfo = ({ sectionGroup }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
+
   return (
     <motion.div
       className="flex flex-col ml-4"
@@ -40,6 +41,7 @@ const SectionInfo = ({ sectionGroup }: Props) => {
         <section className="flex flex-col gap-3 p-2">
           {sectionGroup.sections.map((section) => {
             if (!section.sectionRates) return null;
+
             const rating =
               section.sectionRates.reduce((a, b) => a + b.rate, 0) /
               section.sectionRates.length;

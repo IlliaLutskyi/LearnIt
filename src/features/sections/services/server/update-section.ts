@@ -18,8 +18,15 @@ export async function updateSection(
     if (!isValidData)
       return Response.json({ message: "Invalid data" }, { status: 400 });
 
-    if (!id)
-      return Response.json({ message: "Missing section ID" }, { status: 400 });
+    const lessonsToUpdate = data.lessons.filter(
+      (lesson) => lesson.action === "update"
+    );
+    const lessonsToDelete = data.lessons.filter(
+      (lesson) => lesson.action === "delete"
+    );
+    const lessonsToCreate = data.lessons.filter(
+      (lesson) => lesson.action === "create"
+    );
 
     const section = await prisma.section.update({
       where: {
@@ -28,22 +35,53 @@ export async function updateSection(
       data: {
         title: data.title,
         slug: createSlug(data.title),
+
         lessons: {
-          deleteMany: {},
-          create: data.lessons.map((lesson, index) => {
+          create: lessonsToCreate.map((lesson) => {
             return {
               title: lesson.title,
               contentType: lesson.contentType,
               content: lesson.content,
               codeStyle: lesson.codeStyle,
+              order: lesson.order,
               videoSource: lesson.videoSource,
-              quiz: lesson?.quiz
+              quiz: lesson.quiz
                 ? {
                     create: {
                       question: lesson.quiz.question,
+                      explanation: lesson.quiz.explanation,
                       answers: {
-                        createMany: {
-                          data: lesson.quiz.answers.map((answer) => {
+                        create: lesson.quiz.answers.map((answer) => {
+                          return {
+                            content: answer.content,
+                            isCorrect: answer.isCorrect,
+                          };
+                        }),
+                      },
+                    },
+                  }
+                : undefined,
+            };
+          }),
+          update: lessonsToUpdate.map((lesson) => {
+            return {
+              where: {
+                id: lesson.id,
+              },
+              data: {
+                title: lesson.title,
+                contentType: lesson.contentType,
+                content: lesson.content,
+                codeStyle: lesson.codeStyle,
+                order: lesson.order,
+                videoSource: lesson.videoSource,
+                quiz: lesson.quiz
+                  ? {
+                      update: {
+                        question: lesson.quiz.question,
+                        explanation: lesson.quiz.explanation,
+                        answers: {
+                          create: lesson.quiz.answers.map((answer) => {
                             return {
                               content: answer.content,
                               isCorrect: answer.isCorrect,
@@ -51,11 +89,15 @@ export async function updateSection(
                           }),
                         },
                       },
-                      explanation: lesson.quiz.explanation,
-                    },
-                  }
-                : undefined,
-              order: index + 1,
+                    }
+                  : undefined,
+              },
+            };
+          }),
+
+          deleteMany: lessonsToDelete.map((lesson) => {
+            return {
+              id: lesson.id,
             };
           }),
         },

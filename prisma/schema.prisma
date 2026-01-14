@@ -33,6 +33,7 @@ model Course{
   category Category @relation(fields: [categoryId],references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  @@index([slug])
 }
 
 model Category{
@@ -53,6 +54,7 @@ model SectionGroup{
   order Int 
   courseId String
   course Course @relation(fields: [courseId],references: [id], onDelete: Cascade)
+  @@index([slug])
 }
 
 model Section{
@@ -64,6 +66,7 @@ model Section{
   sectionRates SectionRating[]
   sectionGroupId String
   sectionGroup SectionGroup @relation(fields: [sectionGroupId],references: [id], onDelete: Cascade)
+  @@index([slug])
 }
 
 model Lesson{

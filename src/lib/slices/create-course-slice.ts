@@ -11,7 +11,6 @@ import {
 } from "@/types/create-course";
 import { arrayMove } from "@dnd-kit/sortable";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { State } from "../../../prisma/generated/prisma";
 
 type Step = { step: number; title: string; active: boolean };
 type CourseStates = {

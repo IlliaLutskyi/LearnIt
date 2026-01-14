@@ -1,5 +1,4 @@
 "use client";
-import { DbLesson } from "@/types";
 import { useSortable } from "@dnd-kit/sortable";
 import {
   Collapsible,
@@ -36,7 +35,9 @@ const Lesson = ({ lesson, removeLesson, updateLesson }: Props) => {
     }
 
     inView();
-  }, [controls]);
+  }, []);
+
+  if (lesson.action === "delete") return null;
 
   return (
     <motion.div
@@ -57,6 +58,7 @@ const Lesson = ({ lesson, removeLesson, updateLesson }: Props) => {
           <section className="flex gap-2">
             <LessonMenu
               lesson={lesson}
+              controls={controls}
               removeLesson={removeLesson}
               updateLesson={updateLesson}
             />

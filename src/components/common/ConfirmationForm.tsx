@@ -7,6 +7,7 @@ type Props = {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   message?: string;
   description?: string;
+  body?: React.ReactNode;
   onYes?: () => Promise<void>;
 };
 const ConfirmationForm = ({
@@ -15,6 +16,7 @@ const ConfirmationForm = ({
   description,
   setIsOpen,
   isOpen,
+  body,
 }: Props) => {
   async function handleYes() {
     await onYes?.();
@@ -27,7 +29,7 @@ const ConfirmationForm = ({
       {isOpen && (
         <>
           <Dialog open={isOpen} onOpenChange={setIsOpen}>
-            <DialogContent asChild className="w-1/2 p-6">
+            <DialogContent asChild className="w-1/2 p-4">
               <div className="flex flex-col gap-4">
                 <section>
                   <DialogTitle className="text-center text-lg font-bold">
@@ -37,6 +39,8 @@ const ConfirmationForm = ({
                     {description}
                   </DialogDescription>
                 </section>
+
+                {body}
 
                 <section className="flex justify-between items-end">
                   <button

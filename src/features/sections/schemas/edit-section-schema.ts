@@ -6,11 +6,13 @@ export const EditSectionSchema = z.object({
   lessons: z
     .array(
       z.object({
+        id: z.string().optional(),
         title: z.string().min(1, "Title is required"),
         content: z.string().optional(),
         contentType: ContentTypeSchema,
         videoSource: z.enum(["Youtube"]).optional(),
         codeStyle: z.string().optional(),
+        action: z.enum(["delete", "update", "create"]).optional(),
         quiz: z
           .object({
             question: z.string().min(1, "Question is required"),

@@ -1,4 +1,3 @@
-import { DbSection } from "@/types";
 import {
   closestCenter,
   DndContext,
@@ -38,20 +37,57 @@ const Sections = ({ sections, updateSections }: Props) => {
     if (!sections) return;
 
     if (over?.id !== active?.id) {
-      const section = sections.find((section) => section.id === active.id);
+      const section = sections.find((section) => section.order === active.id);
       if (!section) return;
 
       const oldIndex = sections.findIndex(
-        (section) => section.id === active.id
+        (section) => section.order === active.id
       );
 
-      const newIndex = sections.findIndex((section) => section.id === over?.id);
+      const newIndex = sections.findIndex(
+        (section) => section.order === over?.id
+      );
 
       if (oldIndex === -1 || newIndex === -1) return;
 
       updateSections(arrayMove(sections, oldIndex, newIndex));
     }
   };
+  function update(
+    order: number,
+    edits: EditSectionGroups["sectionGroups"][number]["sections"][number]
+  ) {
+    updateSections(
+      sections.map((section) => {
+        if (section.order === order)
+          return {
+            ...edits,
+          };
+        return section;
+      })
+    );
+  }
+  function remove(order: number) {
+    const section = sections.find((section) => section.order === order);
+    if (!section) return;
+
+    if (section.action === "create")
+      return updateSections(
+        sections.filter((section) => section.order !== order)
+      );
+
+    return updateSections(
+      sections.map((section) => {
+        if (section.order === order)
+          return {
+            ...section,
+            action: "delete",
+          };
+
+        return section;
+      })
+    );
+  }
 
   return (
     <DndContext
@@ -64,11 +100,18 @@ const Sections = ({ sections, updateSections }: Props) => {
         id="scrollbar"
       >
         <SortableContext
-          items={sections.map((section) => section.id)}
+          items={sections.map((section) => section.order)}
           strategy={verticalListSortingStrategy}
         >
           {sections.map((section) => {
-            return <Section section={section} key={section.id} />;
+            return (
+              <Section
+                section={section}
+                key={section.order}
+                update={update}
+                remove={remove}
+              />
+            );
           })}
         </SortableContext>
       </div>
