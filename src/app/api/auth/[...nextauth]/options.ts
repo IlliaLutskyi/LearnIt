@@ -60,7 +60,7 @@ export const authOptions = {
     },
     async session({ session, token }) {
       if (token.email && token.id && token.name && token.role) {
-        session.user.id = token.id as number;
+        session.user.id = token.id as string;
         session.user.name = token.name;
         session.user.email = token.email;
         session.user.role = token.role as $Enums.Role;

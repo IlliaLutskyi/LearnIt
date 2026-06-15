@@ -46,16 +46,16 @@ const SectionGroupMenu = ({ sectionGroup, controls }: Props) => {
   }
   function handleAddSection() {
     dispatch(
-      addSectionToSectionGroup({ sectionGroupOrder: sectionGroup.order })
+      addSectionToSectionGroup({ sectionGroupOrder: sectionGroup.order }),
     );
   }
   function onSaveSection(data: GenerateSection & { section: Section }) {
     dispatch(
       addSectionToSectionGroup({
         sectionGroupOrder: sectionGroup.order,
-        title: data.section.title,
+        title: data.title,
         lessons: data.section.lessons || [],
-      })
+      }),
     );
     toast.success("Section generated");
   }
@@ -67,7 +67,7 @@ const SectionGroupMenu = ({ sectionGroup, controls }: Props) => {
         showSectionsOnly: data.showSectionsOnly,
         state: data.state,
         sectionGroupOrder: sectionGroup.order,
-      })
+      }),
     );
     toast.success("SectionGroup properties updated");
   }

@@ -28,14 +28,16 @@ const Lessons = ({ lessons }: Props) => {
   const sensors = useSensors(
     useSensor(PointerSensor),
     useSensor(TouchSensor),
-    useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates })
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    }),
   );
   const handleDragEnd = (event: DragEndEvent) => {
     const { over, active } = event;
 
     if (over?.id !== active?.id) {
       const oldIndex = lessons.findIndex(
-        (lesson) => lesson.order === active.id
+        (lesson) => lesson.order === active.id,
       );
       const newIndex = lessons.findIndex((lesson) => lesson.order === over?.id);
 
@@ -45,7 +47,7 @@ const Lessons = ({ lessons }: Props) => {
           newIndex: newIndex,
           oldIndex: oldIndex,
           sectionOrder: lessons[0].sectionOrder,
-        })
+        }),
       );
     }
   };
@@ -67,7 +69,7 @@ const Lessons = ({ lessons }: Props) => {
           {lessons.map((lesson) => {
             return (
               <Suspense key={lesson.order} fallback={<Loader />}>
-                <Lesson lesson={lesson} key={lesson.order} />
+                <Lesson lesson={lesson} />
               </Suspense>
             );
           })}

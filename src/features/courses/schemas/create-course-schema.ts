@@ -41,18 +41,19 @@ export const CreateCourseSchema = z.object({
                           z.object({
                             content: z.string().min(1, "Answer is required"),
                             isCorrect: z.boolean(),
-                          })
+                          }),
                         ),
                         explanation: z.string().optional(),
                       })
+                      .nullable()
                       .optional(),
-                  })
+                  }),
                 )
                 .min(1, "At least one lesson is required"),
-            })
+            }),
           )
           .min(1, "At least one section is required"),
-      })
+      }),
     )
     .min(1, "At least one section group is required"),
 });

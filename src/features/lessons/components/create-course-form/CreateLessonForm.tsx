@@ -13,7 +13,7 @@ import ImageOption from "./lessonTypeOptions/ImageOption";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 
 const HighlightedCodeOption = lazy(
-  () => import("./lessonTypeOptions/HighlightedCodeOption")
+  () => import("./lessonTypeOptions/HighlightedCodeOption"),
 );
 const MarkdownOption = lazy(() => import("./lessonTypeOptions/MarkdownOption"));
 const TableOption = lazy(() => import("./lessonTypeOptions/TableOption"));
@@ -27,7 +27,7 @@ type Props = {
 };
 const CreateLessonForm = ({ isOpen, setIsOpen, lesson, onSave }: Props) => {
   const [drafts, setDrafts] = useState<Partial<Record<ContentType, string>>>(
-    lesson ? { [lesson.contentType]: lesson.content || "" } : {}
+    lesson ? { [lesson.contentType]: lesson.content || "" } : {},
   );
 
   const {
@@ -47,7 +47,6 @@ const CreateLessonForm = ({ isOpen, setIsOpen, lesson, onSave }: Props) => {
       videoSource: lesson?.videoSource || "Youtube",
     },
   });
-
   const contentType = watch("contentType");
   const content = watch("content");
   const codeStyle = watch("codeStyle");
@@ -86,6 +85,7 @@ const CreateLessonForm = ({ isOpen, setIsOpen, lesson, onSave }: Props) => {
               <DialogTitle className="text-center text-lg font-bold">
                 Create content for a lesson
               </DialogTitle>
+              {errors.root && <p className="text-error text-center">{}</p>}
 
               <section className="flex flex-col gap-1">
                 <label className="text-xs" htmlFor="lessonType">

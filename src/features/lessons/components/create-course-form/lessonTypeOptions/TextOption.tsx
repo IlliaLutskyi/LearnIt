@@ -38,7 +38,6 @@ const TextOption = ({ isOpen, content, setValue, error }: Props) => {
     };
 
     editor.on("update", handleUpdate);
-
     return () => {
       editor.off("update", handleUpdate);
     };
