@@ -44,7 +44,7 @@ const Step3 = ({ step }: Props) => {
 
     if (savedSkills && isJsonValid(savedSkills))
       setValue("skills", JSON.parse(savedSkills));
-  }, []);
+  }, [setValue]);
 
   function onSubmit(data: CreateSkills) {
     dispatch(addSkills(data.skills as TSkill[]));

@@ -11,6 +11,7 @@ export const metadata: Metadata = {
   title: "LearnIt",
 };
 export const jetbrains_mono = JetBrains_Mono({
+  subsets: ["latin"],
   fallback: ["monospace"],
 });
 export default function RootLayout({

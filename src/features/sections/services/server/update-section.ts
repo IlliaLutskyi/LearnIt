@@ -7,7 +7,7 @@ import { createSlug } from "@/features/courses/utils/create-slug";
 
 export async function updateSection(
   req: Request,
-  params: Promise<{ id: string }>
+  params: Promise<{ id: string }>,
 ) {
   const data: EditSection = await req.json();
   const { id } = await params;
@@ -19,15 +19,16 @@ export async function updateSection(
       return Response.json({ message: "Invalid data" }, { status: 400 });
 
     const lessonsToUpdate = data.lessons.filter(
-      (lesson) => lesson.action === "update"
+      (lesson) => lesson.action === "update",
     );
     const lessonsToDelete = data.lessons.filter(
-      (lesson) => lesson.action === "delete"
+      (lesson) => lesson.action === "delete",
     );
     const lessonsToCreate = data.lessons.filter(
-      (lesson) => lesson.action === "create"
+      (lesson) => lesson.action === "create",
     );
 
+    console.log(lessonsToUpdate);
     const section = await prisma.section.update({
       where: {
         id,
@@ -63,6 +64,7 @@ export async function updateSection(
                 : undefined,
             };
           }),
+
           update: lessonsToUpdate.map((lesson) => {
             return {
               where: {
@@ -80,6 +82,7 @@ export async function updateSection(
                       update: {
                         question: lesson.quiz.question,
                         explanation: lesson.quiz.explanation,
+
                         answers: {
                           create: lesson.quiz.answers.map((answer) => {
                             return {
@@ -109,12 +112,13 @@ export async function updateSection(
         sectionSlug: section.slug,
         message: "Section updated successfully",
       },
-      { status: 200 }
+      { status: 200 },
     );
   } catch (err) {
+    console.log(err instanceof Error ? err.message : err);
     return Response.json(
       { message: "Could not update section", err: err },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

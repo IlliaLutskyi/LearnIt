@@ -80,7 +80,7 @@ const Step1 = ({ step }: Props) => {
         title: data.title,
         description: data.description,
         category: data.category,
-      })
+      }),
     );
 
     dispatch(setNextStep({ nextStep: step.step + 1 }));
@@ -100,7 +100,7 @@ const Step1 = ({ step }: Props) => {
           message="Poster"
           onLoad={async (file) => {
             const base64 = Buffer.from(await file.arrayBuffer()).toString(
-              "base64"
+              "base64",
             );
 
             const image = `data:${file.type};base64,${base64}`;

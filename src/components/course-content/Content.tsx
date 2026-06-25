@@ -48,7 +48,7 @@ const Content = ({ section, nextSection, prevSection }: Props) => {
       toast.success(data.message);
 
       return router.push(
-        `/course/${params.courseSlug}/${params.sectionGroupSlug}/${data.sectionSlug}`
+        `/course/${params.courseSlug}/${params.sectionGroupSlug}/${data.sectionSlug}`,
       );
     },
     onError: (err) => {

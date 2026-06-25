@@ -1,6 +1,6 @@
 "use client";
 import { lazy, Suspense, useEffect, useState } from "react";
-import { ContentType, FormLesson, Lesson } from "@/types/create-course";
+import { ContentType, FormLesson } from "@/types/create-course";
 import { Loader, Input } from "@/components/common";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -23,7 +23,7 @@ type Props = {
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   lesson?: FormLesson;
-  onSave?: (data: CreateLesson) => Promise<void>;
+  onSave?: (data: CreateLesson) => Promise<unknown>;
 };
 const CreateLessonForm = ({ isOpen, setIsOpen, lesson, onSave }: Props) => {
   const [drafts, setDrafts] = useState<Partial<Record<ContentType, string>>>(

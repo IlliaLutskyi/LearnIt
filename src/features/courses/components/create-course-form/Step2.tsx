@@ -48,7 +48,7 @@ const Step2 = ({ step }: Props) => {
 
     if (savedPrerequisites && isJsonValid(savedPrerequisites))
       setValue("prerequisites", JSON.parse(savedPrerequisites));
-  }, []);
+  }, [setValue]);
 
   function handleAddPreriquisite() {
     append({ content: "Prerequisite" });

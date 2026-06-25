@@ -1,4 +1,3 @@
-import z from "zod";
 import {
   GenerateQuiz,
   GenerateQuizSchema,
@@ -15,12 +14,12 @@ export async function generateQuizzes(req: Request) {
         {
           message: error.message,
         },
-        { status: 400 }
+        { status: 400 },
       );
     const propmt = `You are a quiz generator assistant. Based on this content: ${data.contents.map(
       (content) => {
         return `1. ${content.value} \n`;
-      }
+      },
     )} generate ${data.quizzesQuantity} quizes with ${
       data.answersQuantity
     } answers each. Return the quizes in a JSON format. Response examples: 
@@ -64,7 +63,7 @@ export async function generateQuizzes(req: Request) {
     console.log(err instanceof Error ? err.message : err);
     return Response.json(
       { message: err instanceof Error ? err.message : err },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

@@ -23,7 +23,7 @@ import { LegacyAnimationControls } from "framer-motion";
 const CreateLessonForm = lazy(() => import("./CreateLessonForm"));
 const CreateQuizForm = lazy(
   () =>
-    import("@/features/quizzes/components/create-course-form/CreateQuizForm")
+    import("@/features/quizzes/components/create-course-form/CreateQuizForm"),
 );
 
 type Props = {
@@ -38,10 +38,10 @@ const LessonMenu = ({ lesson, controls }: Props) => {
   const dispatch = useAppDispatch();
   const findSection = () => {
     const sectionGroup = sectionGroups.find(
-      (sectionGroup) => sectionGroup.order == lesson.sectionGroupOrder
+      (sectionGroup) => sectionGroup.order == lesson.sectionGroupOrder,
     );
     const section = sectionGroup?.sections.find(
-      (section) => section.order == lesson.sectionOrder
+      (section) => section.order == lesson.sectionOrder,
     );
     return section;
   };
@@ -53,7 +53,7 @@ const LessonMenu = ({ lesson, controls }: Props) => {
         sectionGroupOrder: lesson.sectionGroupOrder,
         sectionOrder: lesson.sectionOrder,
         lessonId: lesson.order,
-      })
+      }),
     );
   }
   function handleEditLesson() {
@@ -62,7 +62,7 @@ const LessonMenu = ({ lesson, controls }: Props) => {
   function handleEditQuiz() {
     setIsEditQuizOpen(true);
   }
-  function onSaveLesson(data: CreateLesson) {
+  async function onSaveLesson(data: CreateLesson) {
     const section = findSection();
 
     if (!section) return toast.error("Section not found");
@@ -77,11 +77,11 @@ const LessonMenu = ({ lesson, controls }: Props) => {
         title: data.title,
         codeStyle: data.codeStyle,
         videoSource: data.videoSource,
-      })
+      }),
     );
     return toast.message("Lesson updated");
   }
-  function onSaveQuiz(data: CreateQuiz) {
+  async function onSaveQuiz(data: CreateQuiz) {
     const section = findSection();
 
     if (!section) return toast.error("Section not found");
@@ -97,7 +97,7 @@ const LessonMenu = ({ lesson, controls }: Props) => {
         },
         lessonOrder: lesson.order,
         title: data.title,
-      })
+      }),
     );
     return toast.message("Quiz updated");
   }

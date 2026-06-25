@@ -22,22 +22,24 @@ import SectionGroup from "./SectionGroup";
 const SectionGroups = () => {
   const dispatch = useAppDispatch();
   const sectionGroups = useAppSelector(
-    (state) => state.CreateCourse.sectionGroups
+    (state) => state.CreateCourse.sectionGroups,
   );
   const sensors = useSensors(
     useSensor(PointerSensor),
     useSensor(TouchSensor),
-    useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates })
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    }),
   );
   const handleDragEnd = (event: DragEndEvent) => {
     const { over, active } = event;
 
     if (over?.id !== active?.id) {
       const oldIndex = sectionGroups.findIndex(
-        (sectionGroup) => sectionGroup.order === active.id
+        (sectionGroup) => sectionGroup.order === active.id,
       );
       const newIndex = sectionGroups.findIndex(
-        (sectionGroup) => sectionGroup.order === over?.id
+        (sectionGroup) => sectionGroup.order === over?.id,
       );
       dispatch(shiftSectionGroup({ newIndex, oldIndex }));
     }
@@ -49,7 +51,7 @@ const SectionGroups = () => {
       onDragEnd={handleDragEnd}
     >
       <div
-        className="flex flex-col gap-2 overflow-y-auto h-[24rem] p-2"
+        className="grow flex flex-col gap-2 overflow-y-auto h-[25npm rem] p-2"
         id="scrollbar"
       >
         <SortableContext

@@ -4,7 +4,7 @@ import { FaSort } from "react-icons/fa";
 import { motion, useAnimation } from "framer-motion";
 import { fadeInOutWithShiftVariants } from "@/features/animations/fade-in-out-with-shift";
 import { Collapsible, CollapsibleContent } from "../ui/collapsible";
-import { memo, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import SectionGroupMenu from "./SectionGroupMenu";
 import Sections from "./Sections";
 import { UseFieldArrayRemove, UseFieldArrayUpdate } from "react-hook-form";
@@ -37,7 +37,7 @@ const SectionGroup = ({ sectionGroup, update, index, remove }: Props) => {
   }, []);
   function updateSections(
     index: number,
-    sections: EditSectionGroups["sectionGroups"][number]["sections"]
+    sections: EditSectionGroups["sectionGroups"][number]["sections"],
   ) {
     update(index, {
       ...sectionGroup,
@@ -119,7 +119,7 @@ const SectionGroup = ({ sectionGroup, update, index, remove }: Props) => {
               key={sectionGroup.order}
               sections={sectionGroup.sections}
               updateSections={(
-                sections: EditSectionGroups["sectionGroups"][number]["sections"]
+                sections: EditSectionGroups["sectionGroups"][number]["sections"],
               ) => updateSections(index, sections)}
             />
           )}

@@ -16,7 +16,6 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import CategorySelect from "@/features/categories/components/create-course-form/CategorySelect";
 import DropZone from "@/features/lessons/components/create-course-form/lessonTypeOptions/DropZone";
-import { useEffect } from "react";
 import { Loader } from "@/components/common";
 
 type Props = {
@@ -102,7 +101,7 @@ const GeneralInfoTab = ({ course }: Props) => {
             onLoad={async (file) => {
               const buffer = Buffer.from(await file.arrayBuffer());
               const base64 = `data:${file.type};base64,${buffer.toString(
-                "base64"
+                "base64",
               )}`;
 
               setValue("poster", base64, {

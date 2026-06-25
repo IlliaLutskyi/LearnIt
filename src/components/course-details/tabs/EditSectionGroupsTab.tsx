@@ -34,10 +34,7 @@ import Change from "../Change";
 
 const SectionGroupPropertiesForm = lazy(
   () =>
-    import("@/features/sections/components/create-course-form/PropertiesForm")
-);
-const ConformationForm = lazy(
-  () => import("@/components/common/ConfirmationForm")
+    import("@/features/sections/components/create-course-form/PropertiesForm"),
 );
 
 type Props = {
@@ -82,7 +79,7 @@ const EditSectionGroupsTab = ({ course }: Props) => {
         data,
         {
           withCredentials: true,
-        }
+        },
       );
       return res.data;
     },
@@ -98,7 +95,9 @@ const EditSectionGroupsTab = ({ course }: Props) => {
   const sensors = useSensors(
     useSensor(PointerSensor),
     useSensor(TouchSensor),
-    useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates })
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    }),
   );
 
   const handleDragEnd = (event: DragEndEvent) => {
@@ -107,11 +106,11 @@ const EditSectionGroupsTab = ({ course }: Props) => {
     if (!sectionGroups) return;
     if (over?.id !== active?.id) {
       const oldIndex = sectionGroups.findIndex(
-        (sectionGroup) => sectionGroup.order === active.id
+        (sectionGroup) => sectionGroup.order === active.id,
       );
 
       const newIndex = sectionGroups.findIndex(
-        (sectionGroup) => sectionGroup.order === over?.id
+        (sectionGroup) => sectionGroup.order === over?.id,
       );
 
       if (oldIndex === -1 || newIndex === -1) return;
@@ -188,7 +187,7 @@ const EditSectionGroupsTab = ({ course }: Props) => {
               >
                 <SortableContext
                   items={sectionGroups.map(
-                    (sectionGroup) => sectionGroup.order
+                    (sectionGroup) => sectionGroup.order,
                   )}
                   strategy={verticalListSortingStrategy}
                 >

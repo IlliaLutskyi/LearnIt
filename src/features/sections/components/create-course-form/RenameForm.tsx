@@ -5,7 +5,6 @@ import { useForm } from "react-hook-form";
 import { Input } from "@/components/common";
 import { AnimatePresence } from "framer-motion";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
-import { toast } from "sonner";
 import {
   SectionProperties,
   sectionPropertiesSchema,

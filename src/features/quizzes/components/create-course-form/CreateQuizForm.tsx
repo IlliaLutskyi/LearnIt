@@ -1,9 +1,8 @@
 "use client";
 import { useEffect } from "react";
 import Answers from "./Answers";
-import { FormLesson, Lesson } from "@/types/create-course";
+import { FormLesson } from "@/types/create-course";
 import { Input } from "@/components/common";
-import { DbLesson } from "@/types";
 import { useFieldArray, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CreateQuiz, CreateQuizSchema } from "../../schemas/create-quiz";
@@ -13,7 +12,7 @@ type Props = {
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   lesson?: FormLesson;
-  onSave?: (data: CreateQuiz) => Promise<void>;
+  onSave?: (data: CreateQuiz) => Promise<unknown>;
 };
 const CreateQuizForm = ({ isOpen, setIsOpen, lesson, onSave }: Props) => {
   const {
@@ -42,7 +41,7 @@ const CreateQuizForm = ({ isOpen, setIsOpen, lesson, onSave }: Props) => {
       setValue("answers", lesson.quiz.answers);
       setValue(
         "explanation",
-        lesson.quiz.explanation ? lesson.quiz.explanation : ""
+        lesson.quiz.explanation ? lesson.quiz.explanation : "",
       );
     }
   }, [setValue, isOpen, lesson]);

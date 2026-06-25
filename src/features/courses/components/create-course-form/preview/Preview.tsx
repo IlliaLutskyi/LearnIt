@@ -97,7 +97,7 @@ const Preview = ({ isOpen, setIsOpen, onSave }: Props) => {
                         <iframe
                           src={convertLessonUrl(
                             lesson.content!,
-                            lesson.videoSource!
+                            lesson.videoSource!,
                           )}
                           key={lesson.order}
                           allowFullScreen
@@ -112,7 +112,6 @@ const Preview = ({ isOpen, setIsOpen, onSave }: Props) => {
                       return (
                         <img
                           src={lesson.content ? lesson.content : ""}
-                          loading="lazy"
                           alt={lesson.title}
                           width={600}
                           className="rounded-sm"

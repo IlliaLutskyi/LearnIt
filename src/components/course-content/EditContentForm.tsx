@@ -1,13 +1,6 @@
 "use client";
 import { DbSection } from "@/types";
-import {
-  lazy,
-  memo,
-  SetStateAction,
-  Suspense,
-  useEffect,
-  useState,
-} from "react";
+import { lazy, memo, SetStateAction, Suspense, useState } from "react";
 import {
   closestCenter,
   DndContext,
@@ -44,17 +37,15 @@ import Change from "../course-details/Change";
 
 const CreateLessonForm = lazy(
   () =>
-    import("@/features/lessons/components/create-course-form/CreateLessonForm")
+    import("@/features/lessons/components/create-course-form/CreateLessonForm"),
 );
 const CreateQuizForm = lazy(
   () =>
-    import("@/features/quizzes/components/create-course-form/CreateQuizForm")
+    import("@/features/quizzes/components/create-course-form/CreateQuizForm"),
 );
 const GenerateLessonForm = lazy(
   () =>
-    import(
-      "@/features/lessons/components/create-course-form/GenerateLessonForm"
-    )
+    import("@/features/lessons/components/create-course-form/GenerateLessonForm"),
 );
 
 type Props = {
@@ -84,6 +75,7 @@ const EditContentForm = ({ section, isOpen, setIsOpen, onSave }: Props) => {
       ? {
           title: section.title,
           lessons: section?.lessons?.map((lesson) => ({
+            id: lesson.id,
             title: lesson.title,
             contentType: lesson.contentType,
             order: lesson.order,
@@ -114,7 +106,9 @@ const EditContentForm = ({ section, isOpen, setIsOpen, onSave }: Props) => {
   const sensors = useSensors(
     useSensor(PointerSensor),
     useSensor(TouchSensor),
-    useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates })
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    }),
   );
 
   function handleDragEnd(e: DragEndEvent) {
@@ -122,7 +116,7 @@ const EditContentForm = ({ section, isOpen, setIsOpen, onSave }: Props) => {
     if (!lessons) return;
     if (over?.id !== active?.id) {
       const oldIndex = lessons.findIndex(
-        (lesson) => lesson.order === active.id
+        (lesson) => lesson.order === active.id,
       );
       const newIndex = lessons.findIndex((lesson) => lesson.order === over?.id);
       return setValue("lessons", arrayMove(lessons, oldIndex, newIndex));
@@ -182,7 +176,7 @@ const EditContentForm = ({ section, isOpen, setIsOpen, onSave }: Props) => {
     });
   }
   async function onGenerateLesson(
-    data: GenerateLesson & { lesson: AiResponse }
+    data: GenerateLesson & { lesson: AiResponse },
   ) {
     append({
       title: data.title,
@@ -194,8 +188,17 @@ const EditContentForm = ({ section, isOpen, setIsOpen, onSave }: Props) => {
   }
   async function onYes(data: EditSection) {
     if (!isDirty) return;
-
-    await onSave?.(data);
+    const lessons = data.lessons.map((lesson) => {
+      const existing = section!.lessons!.find((l) => l.title === lesson.title);
+      if (existing) {
+        return {
+          ...lesson,
+          id: existing.id,
+        };
+      }
+      return lesson;
+    });
+    await onSave?.({ ...data, lessons });
   }
 
   return (
@@ -272,7 +275,7 @@ const EditContentForm = ({ section, isOpen, setIsOpen, onSave }: Props) => {
                                 lesson={lesson}
                                 removeLesson={() => removeLesson(index)}
                                 updateLesson={(
-                                  data: EditSection["lessons"][number]
+                                  data: EditSection["lessons"][number],
                                 ) => updateLesson(index, data)}
                               />
                             );

@@ -35,7 +35,7 @@ const Lesson = ({ lesson, removeLesson, updateLesson }: Props) => {
     }
 
     inView();
-  }, []);
+  }, [controls]);
 
   if (lesson.action === "delete") return null;
 

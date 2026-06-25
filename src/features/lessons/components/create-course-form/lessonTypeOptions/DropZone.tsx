@@ -3,7 +3,7 @@ import { toast } from "sonner";
 type Props = {
   onLoad?: (file: File) => void;
   previewComponent?: (
-    inputRef: React.RefObject<HTMLInputElement | null>
+    inputRef: React.RefObject<HTMLInputElement | null>,
   ) => React.ReactNode;
   message?: string;
   error?: string;
@@ -53,6 +53,10 @@ const DropZone = ({
 
       setUploadStatus("complete");
     };
+    reader.onerror = () => {
+      toast.error("Error uploading file");
+      setUploadStatus("idle");
+    };
 
     reader.readAsArrayBuffer(file);
   }
@@ -81,8 +85,10 @@ const DropZone = ({
                 : "text-accent border-accent hover:border-secondary-accent hover:text-secondary-accent"
             } duration-400`}
           >
-            {uploadStatus == "complete" && "Upload completed, you can save now"}
-            {uploadStatus == "idle" && message}
+            {uploadStatus == "complete" && (
+              <span>Upload completed, you can save now</span>
+            )}
+            {uploadStatus == "idle" && <span>{message}</span>}
           </button>
 
           <p className="text-xs text-error">{error}</p>

@@ -1,10 +1,9 @@
 import prisma from "@/lib/db";
 import { CreateQuiz, CreateQuizSchema } from "../../schemas/create-quiz";
-import z from "zod";
 
 export async function updateQuiz(
   req: Request,
-  params: Promise<{ id: string }>
+  params: Promise<{ id: string }>,
 ) {
   try {
     const data: CreateQuiz = await req.json();
@@ -16,7 +15,7 @@ export async function updateQuiz(
         {
           message: error.message,
         },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -44,20 +43,20 @@ export async function updateQuiz(
         {
           message: "Quiz not found",
         },
-        { status: 404 }
+        { status: 404 },
       );
     }
 
     return Response.json(
       { message: "Quiz updated successfully" },
-      { status: 200 }
+      { status: 200 },
     );
   } catch (err) {
     return Response.json(
       {
         message: err instanceof Error ? err.message : "Unable to update quiz",
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
