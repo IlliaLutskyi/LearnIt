@@ -40,8 +40,8 @@ const CourseCard = ({ course }: Props) => {
           {course.createdAt && new Date(course.createdAt).toLocaleDateString()}
         </span>
 
-        <Link href={`/course/${course.slug}`}>
-          <button className="bg-background text-foreground ring-1 ring-accent py-2 px-4 rounded-sm hover:scale-95 hover:bg-accent hover:text-accent-foreground duration-500">
+        <Link href={`/course/${course.slug}`} prefetch={true}>
+          <button className="bg-background text-foreground ring-1 ring-accent py-2 px-4 rounded-sm hover:scale-95 hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground duration-500">
             View Details
           </button>
         </Link>
